@@ -32,7 +32,7 @@ namespace Microsoft.Rest.Azure.Authentication
             ActiveDirectoryClientSettings clientSettings)
         {
             return await LoginWithPromptAsync(CommonTenantId, clientSettings, ActiveDirectoryServiceSettings.Azure,
-               UserIdentifier.AnyUser, TokenCache.DefaultShared).ConfigureAwait(false);
+               UserIdentifier.AnyUser, TokenCache.DefaultShared);
         }
 
         /// <summary>
@@ -47,7 +47,7 @@ namespace Microsoft.Rest.Azure.Authentication
             ActiveDirectoryClientSettings clientSettings, string username, TokenCache cache)
         {
             return await LoginWithPromptAsync(CommonTenantId, clientSettings, ActiveDirectoryServiceSettings.Azure,
-               new UserIdentifier(username, UserIdentifierType.RequiredDisplayableId), cache).ConfigureAwait(false);
+               new UserIdentifier(username, UserIdentifierType.RequiredDisplayableId), cache);
         }
 
         /// <summary>
@@ -61,7 +61,7 @@ namespace Microsoft.Rest.Azure.Authentication
             ActiveDirectoryClientSettings clientSettings, string username)
         {
             return await LoginWithPromptAsync(CommonTenantId, clientSettings, ActiveDirectoryServiceSettings.Azure,
-               new UserIdentifier(username, UserIdentifierType.RequiredDisplayableId), TokenCache.DefaultShared).ConfigureAwait(false);
+               new UserIdentifier(username, UserIdentifierType.RequiredDisplayableId), TokenCache.DefaultShared);
         }
 
         /// <summary>
@@ -75,7 +75,7 @@ namespace Microsoft.Rest.Azure.Authentication
             ActiveDirectoryClientSettings clientSettings, TokenCache cache)
         {
             return await LoginWithPromptAsync(CommonTenantId, clientSettings, ActiveDirectoryServiceSettings.Azure,
-               UserIdentifier.AnyUser, cache).ConfigureAwait(false);
+               UserIdentifier.AnyUser, cache);
         }
 
         /// <summary>
@@ -89,7 +89,7 @@ namespace Microsoft.Rest.Azure.Authentication
             ActiveDirectoryClientSettings clientSettings)
         {
             return await LoginWithPromptAsync(domain, clientSettings, ActiveDirectoryServiceSettings.Azure,
-               UserIdentifier.AnyUser, TokenCache.DefaultShared).ConfigureAwait(false);
+               UserIdentifier.AnyUser, TokenCache.DefaultShared);
         }
 
         /// <summary>
@@ -105,7 +105,7 @@ namespace Microsoft.Rest.Azure.Authentication
             ActiveDirectoryClientSettings clientSettings, string username, TokenCache cache)
         {
             return await LoginWithPromptAsync(domain, clientSettings, ActiveDirectoryServiceSettings.Azure,
-               new UserIdentifier(username, UserIdentifierType.RequiredDisplayableId), cache).ConfigureAwait(false);
+               new UserIdentifier(username, UserIdentifierType.RequiredDisplayableId), cache);
         }
 
         /// <summary>
@@ -120,7 +120,7 @@ namespace Microsoft.Rest.Azure.Authentication
             ActiveDirectoryClientSettings clientSettings, string username)
         {
             return await LoginWithPromptAsync(domain, clientSettings, ActiveDirectoryServiceSettings.Azure,
-               new UserIdentifier(username, UserIdentifierType.RequiredDisplayableId), TokenCache.DefaultShared).ConfigureAwait(false);
+               new UserIdentifier(username, UserIdentifierType.RequiredDisplayableId), TokenCache.DefaultShared);
         }
 
         /// <summary>
@@ -135,7 +135,7 @@ namespace Microsoft.Rest.Azure.Authentication
             ActiveDirectoryClientSettings clientSettings, TokenCache cache)
         {
             return await LoginWithPromptAsync(domain, clientSettings, ActiveDirectoryServiceSettings.Azure,
-               UserIdentifier.AnyUser, cache).ConfigureAwait(false);
+               UserIdentifier.AnyUser, cache);
         }
 
         /// <summary>
@@ -151,7 +151,7 @@ namespace Microsoft.Rest.Azure.Authentication
             ActiveDirectoryServiceSettings serviceSettings)
         {
             return await LoginWithPromptAsync(domain, clientSettings, serviceSettings,
-               UserIdentifier.AnyUser, TokenCache.DefaultShared).ConfigureAwait(false);
+               UserIdentifier.AnyUser, TokenCache.DefaultShared);
         }
 
         /// <summary>
@@ -168,7 +168,7 @@ namespace Microsoft.Rest.Azure.Authentication
             ActiveDirectoryServiceSettings serviceSettings, TokenCache cache)
         {
             return await LoginWithPromptAsync(domain, clientSettings, serviceSettings,
-               UserIdentifier.AnyUser, cache).ConfigureAwait(false);
+               UserIdentifier.AnyUser, cache);
         }
 
         /// <summary>
@@ -185,7 +185,7 @@ namespace Microsoft.Rest.Azure.Authentication
             ActiveDirectoryServiceSettings serviceSettings, string username)
         {
             return await LoginWithPromptAsync(domain, clientSettings, serviceSettings,
-               new UserIdentifier(username, UserIdentifierType.RequiredDisplayableId), TokenCache.DefaultShared).ConfigureAwait(false);
+               new UserIdentifier(username, UserIdentifierType.RequiredDisplayableId), TokenCache.DefaultShared);
         }
 
         /// <summary>
@@ -203,7 +203,7 @@ namespace Microsoft.Rest.Azure.Authentication
             ActiveDirectoryServiceSettings serviceSettings, string username, TokenCache cache)
         {
             return await LoginWithPromptAsync(domain, clientSettings, serviceSettings,
-               new UserIdentifier(username, UserIdentifierType.RequiredDisplayableId), cache).ConfigureAwait(false);
+               new UserIdentifier(username, UserIdentifierType.RequiredDisplayableId), cache);
         }
 
         /// <summary>
@@ -244,7 +244,7 @@ namespace Microsoft.Rest.Azure.Authentication
         public static async Task<ServiceClientCredentials> LoginWithPromptAsync(string domain, ActiveDirectoryClientSettings clientSettings,
             ActiveDirectoryServiceSettings serviceSettings, Func<TaskScheduler> taskScheduler)
         {
-            return await LoginWithPromptAsync(domain, clientSettings, serviceSettings, UserIdentifier.AnyUser, TokenCache.DefaultShared, taskScheduler).ConfigureAwait(false);
+            return await LoginWithPromptAsync(domain, clientSettings, serviceSettings, UserIdentifier.AnyUser, TokenCache.DefaultShared, taskScheduler);
         }
 
         /// <summary>
@@ -305,7 +305,7 @@ namespace Microsoft.Rest.Azure.Authentication
         /// <returns>A ServiceClientCredentials object that can be used to authenticate http requests using the given credentials.</returns>
         public static async Task<ServiceClientCredentials> LoginSilentAsync(string clientId, string domain, string username, string password)
         {
-            return await LoginSilentAsync(clientId, domain, username, password, ActiveDirectoryServiceSettings.Azure, TokenCache.DefaultShared).ConfigureAwait(false);
+            return await LoginSilentAsync(clientId, domain, username, password, ActiveDirectoryServiceSettings.Azure, TokenCache.DefaultShared);
         }
 
         /// <summary>
@@ -321,7 +321,7 @@ namespace Microsoft.Rest.Azure.Authentication
         public static async Task<ServiceClientCredentials> LoginSilentAsync(string clientId, string domain, string username,
             string password, TokenCache cache)
         {
-            return await LoginSilentAsync(clientId, domain, username, password, ActiveDirectoryServiceSettings.Azure, cache).ConfigureAwait(false);
+            return await LoginSilentAsync(clientId, domain, username, password, ActiveDirectoryServiceSettings.Azure, cache);
         }
 
         /// <summary>
@@ -336,7 +336,7 @@ namespace Microsoft.Rest.Azure.Authentication
         public static async Task<ServiceClientCredentials> LoginSilentAsync(string clientId, string domain, string username,
             string password, ActiveDirectoryServiceSettings serviceSettings)
         {
-            return await LoginSilentAsync(clientId, domain, username, password, serviceSettings, TokenCache.DefaultShared).ConfigureAwait(false);
+            return await LoginSilentAsync(clientId, domain, username, password, serviceSettings, TokenCache.DefaultShared);
         }
         
         /// <summary>
