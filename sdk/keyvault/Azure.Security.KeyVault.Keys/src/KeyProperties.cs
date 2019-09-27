@@ -11,7 +11,7 @@ using Azure.Core;
 namespace Azure.Security.KeyVault.Keys
 {
     /// <summary>
-    /// <see cref="KeyProperties"/> is the resource containing all the properties of the <see cref="KeyVaultKey"/> except <see cref="JsonWebKey"/> properties.
+    /// <see cref="KeyProperties"/> is the resource containing all the properties of the <see cref="Key"/> except <see cref="JsonWebKey"/> properties.
     /// </summary>
     public class KeyProperties : IJsonDeserializable
     {
@@ -67,7 +67,7 @@ namespace Azure.Security.KeyVault.Keys
         /// <summary>
         /// Vault base URL.
         /// </summary>
-        public Uri VaultEndpoint { get; internal set; }
+        public Uri VaultUri { get; internal set; }
 
         /// <summary>
         /// Version of the key.
@@ -78,7 +78,7 @@ namespace Azure.Security.KeyVault.Keys
         /// Set to true if the key's lifetime is managed by key vault. If this
         /// is a key backing a KV certificate, then managed will be true.
         /// </summary>
-        public bool Managed { get; internal set; }
+        public bool Managed { get; private set; }
 
         /// <summary>
         /// A dictionary of tags with specific metadata about the key.
@@ -98,17 +98,17 @@ namespace Azure.Security.KeyVault.Keys
         /// <summary>
         /// Identifies the expiration time (in UTC) on or after which the key must not be used.
         /// </summary>
-        public DateTimeOffset? ExpiresOn { get => _attributes.ExpiresOn; set => _attributes.ExpiresOn = value; }
+        public DateTimeOffset? Expires { get => _attributes.Expires; set => _attributes.Expires = value; }
 
         /// <summary>
         /// Creation time in UTC.
         /// </summary>
-        public DateTimeOffset? CreatedOn { get => _attributes.CreatedOn; internal set => _attributes.CreatedOn = value; }
+        public DateTimeOffset? Created => _attributes.Created;
 
         /// <summary>
         /// Last updated time in UTC.
         /// </summary>
-        public DateTimeOffset? UpdatedOn { get => _attributes.UpdatedOn; internal set => _attributes.UpdatedOn = value; }
+        public DateTimeOffset? Updated => _attributes.Updated;
 
         /// <summary>
         /// Reflects the deletion recovery level currently in effect for
@@ -119,10 +119,10 @@ namespace Azure.Security.KeyVault.Keys
         /// 'Recoverable+Purgeable', 'Recoverable',
         /// 'Recoverable+ProtectedSubscription'
         /// </summary>
-        public string RecoveryLevel { get => _attributes.RecoveryLevel; internal set => _attributes.RecoveryLevel = value; }
+        public string RecoveryLevel => _attributes.RecoveryLevel;
 
         /// <summary>
-        /// Parses the key identifier into the <see cref="VaultEndpoint"/>, <see cref="Name"/>, and <see cref="Version"/> of the key.
+        /// Parses the key identifier into the vaultUri, name, and version of the key.
         /// </summary>
         /// <param name="idToParse">The key vault object identifier.</param>
         internal void ParseId(Uri idToParse)
@@ -135,7 +135,7 @@ namespace Azure.Security.KeyVault.Keys
                 throw new ArgumentException(string.Format(CultureInfo.InvariantCulture, "Invalid ObjectIdentifier: {0}. segment [1] should be 'keys/', found '{1}'", idToParse, idToParse.Segments[1]));
 
             Id = idToParse;
-            VaultEndpoint = new Uri($"{idToParse.Scheme}://{idToParse.Authority}");
+            VaultUri = new Uri($"{idToParse.Scheme}://{idToParse.Authority}");
             Name = idToParse.Segments[2].Trim('/');
             Version = (idToParse.Segments.Length == 4) ? idToParse.Segments[3].TrimEnd('/') : null;
         }

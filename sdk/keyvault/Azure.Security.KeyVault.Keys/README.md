@@ -71,10 +71,10 @@ Once you've populated the **AZURE_CLIENT_ID**, **AZURE_CLIENT_SECRET** and **AZU
 ```C# CreateKeyClient
 // Create a new key client using the default credential from Azure.Identity using environment variables previously set,
 // including AZURE_CLIENT_ID, AZURE_CLIENT_SECRET, and AZURE_TENANT_ID.
-var client = new KeyClient(vaultEndpoint: new Uri(keyVaultUrl), credential: new DefaultAzureCredential());
+var client = new KeyClient(vaultUri: new Uri(keyVaultUrl), credential: new DefaultAzureCredential());
 
 // Create a new key using the key client
-KeyVaultKey key = client.CreateKey("key-name", KeyType.Rsa);
+Key key = client.CreateKey("key-name", KeyType.Rsa);
 ```
 
 #### Create CryptographyClient
@@ -118,50 +118,50 @@ Create a Key to be stored in the Azure Key Vault. If a key with the same name al
 ```C# CreateKey
 // Create a key. Note that you can specify the type of key
 // i.e. Elliptic curve, Hardware Elliptic Curve, RSA
-KeyVaultKey key = client.CreateKey("key-name", KeyType.Rsa);
+Key key = client.CreateKey("key-name", KeyType.Rsa);
 
 Console.WriteLine(key.Name);
-Console.WriteLine(key.Key.KeyType);
+Console.WriteLine(key.KeyMaterial.KeyType);
 
 // Create a software RSA key
-var rsaCreateKey = new CreateRsaKeyOptions("rsa-key-name", hardwareProtected: false);
-KeyVaultKey rsaKey = client.CreateRsaKey(rsaCreateKey);
+var rsaCreateKey = new RsaKeyCreateOptions("rsa-key-name", hsm: false);
+Key rsaKey = client.CreateRsaKey(rsaCreateKey);
 
 Console.WriteLine(rsaKey.Name);
-Console.WriteLine(rsaKey.Key.KeyType);
+Console.WriteLine(rsaKey.KeyMaterial.KeyType);
 
 // Create a hardware Elliptic Curve key
-var echsmkey = new CreateEcKeyOptions("ec-key-name", hardwareProtected: true);
-KeyVaultKey ecKey = client.CreateEcKey(echsmkey);
+var echsmkey = new EcKeyCreateOptions("ec-key-name", hsm: true);
+Key ecKey = client.CreateEcKey(echsmkey);
 
 Console.WriteLine(ecKey.Name);
-Console.WriteLine(ecKey.Key.KeyType);
+Console.WriteLine(ecKey.KeyMaterial.KeyType);
 ```
 
 ### Retrieve a Key
 `GetKey` retrieves a key previously stored in the Key Vault.
 
 ```C# RetrieveKey
-KeyVaultKey key = client.GetKey("key-name");
+Key key = client.GetKey("key-name");
 
 Console.WriteLine(key.Name);
-Console.WriteLine(key.Key.KeyType);
+Console.WriteLine(key.KeyMaterial.KeyType);
 ```
 
 ### Update an existing Key
 `UpdateKey` updates a key previously stored in the Key Vault.
 
 ```C# UpdateKey
-KeyVaultKey key = client.CreateKey("key-name", KeyType.Rsa);
+Key key = client.CreateKey("key-name", KeyType.Rsa);
 
 // You can specify additional application-specific metadata in the form of tags.
 key.Properties.Tags["foo"] = "updated tag";
 
-KeyVaultKey updatedKey = client.UpdateKeyProperties(key.Properties, key.Key.KeyOps);
+Key updatedKey = client.UpdateKeyProperties(key.Properties, key.KeyMaterial.KeyOps);
 
 Console.WriteLine(updatedKey.Name);
 Console.WriteLine(updatedKey.Properties.Version);
-Console.WriteLine(updatedKey.Properties.UpdatedOn);
+Console.WriteLine(updatedKey.Properties.Updated);
 ```
 
 ### Delete a Key
@@ -178,11 +178,11 @@ Console.WriteLine(key.DeletedDate);
 This example lists all the keys in the specified Key Vault.
 
 ```C# ListKeys
-Pageable<KeyProperties> allKeys = client.GetPropertiesOfKeys();
+Pageable<KeyProperties> allKeys = client.GetKeys();
 
-foreach (KeyProperties keyProperties in allKeys)
+foreach (KeyProperties key in allKeys)
 {
-    Console.WriteLine(keyProperties.Name);
+    Console.WriteLine(key.Name);
 }
 ```
 
@@ -204,24 +204,24 @@ Async APIs are identical to their synchronous counterparts. Note that all method
 
 ```C# CreateKeyAsync
 // Create a key of any type
-KeyVaultKey key = await client.CreateKeyAsync("key-name", KeyType.Rsa);
+Key key = await client.CreateKeyAsync("key-name", KeyType.Rsa);
 
 Console.WriteLine(key.Name);
-Console.WriteLine(key.Key.KeyType);
+Console.WriteLine(key.KeyMaterial.KeyType);
 
 // Create a software RSA key
-var rsaCreateKey = new CreateRsaKeyOptions("rsa-key-name", hardwareProtected: false);
-KeyVaultKey rsaKey = await client.CreateRsaKeyAsync(rsaCreateKey);
+var rsaCreateKey = new RsaKeyCreateOptions("rsa-key-name", hsm: false);
+Key rsaKey = await client.CreateRsaKeyAsync(rsaCreateKey);
 
 Console.WriteLine(rsaKey.Name);
-Console.WriteLine(rsaKey.Key.KeyType);
+Console.WriteLine(rsaKey.KeyMaterial.KeyType);
 
 // Create a hardware Elliptic Curve key
-var echsmkey = new CreateEcKeyOptions("ec-key-name", hardwareProtected: true);
-KeyVaultKey ecKey = await client.CreateEcKeyAsync(echsmkey);
+var echsmkey = new EcKeyCreateOptions("ec-key-name", hsm: true);
+Key ecKey = await client.CreateEcKeyAsync(echsmkey);
 
 Console.WriteLine(ecKey.Name);
-Console.WriteLine(ecKey.Key.KeyType);
+Console.WriteLine(ecKey.KeyMaterial.KeyType);
 ```
 
 ## Troubleshooting
@@ -234,7 +234,7 @@ For example, if you try to retrieve a Key that doesn't exist in your Key Vault, 
 ```C# NotFound
 try
 {
-    KeyVaultKey key = await client.GetKeyAsync("some_key");
+    Key key = await client.GetKeyAsync("some_key");
 }
 catch (RequestFailedException ex)
 {
