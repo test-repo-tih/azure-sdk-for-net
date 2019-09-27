@@ -32,7 +32,7 @@ namespace Azure.Security.KeyVault.Keys.Tests
         {
             recording ??= Recording;
 
-            return InstrumentClient(new SecretClient(VaultEndpoint, recording.GetCredential(new DefaultAzureCredential()), recording.InstrumentClientOptions(new SecretClientOptions())));
+            return InstrumentClient(new SecretClient(VaultUri, recording.GetCredential(new DefaultAzureCredential()), recording.InstrumentClientOptions(new SecretClientOptions())));
         }
 
         [Test]
@@ -40,9 +40,9 @@ namespace Azure.Security.KeyVault.Keys.Tests
         {
             var uriBuilder = new RequestUriBuilder();
 
-            uriBuilder.Reset(VaultEndpoint);
+            uriBuilder.Reset(VaultUri);
 
-            uriBuilder.AppendPath($"/keys/", escape: false);
+            uriBuilder.AppendPath($"/keys/");
 
             uriBuilder.AppendPath(Recording.GenerateId());
 
@@ -54,9 +54,9 @@ namespace Azure.Security.KeyVault.Keys.Tests
         {
             var uriBuilder = new RequestUriBuilder();
 
-            uriBuilder.Reset(VaultEndpoint);
+            uriBuilder.Reset(VaultUri);
 
-            uriBuilder.AppendPath($"/secrets/", escape: false);
+            uriBuilder.AppendPath($"/secrets/");
 
             uriBuilder.AppendPath(Recording.GenerateId());
 
@@ -68,7 +68,7 @@ namespace Azure.Security.KeyVault.Keys.Tests
         {
             string keyName = Recording.GenerateId();
 
-            KeyVaultKey key = await Client.CreateKeyAsync(keyName, KeyType.Rsa);
+            Key key = await Client.CreateKeyAsync(keyName, KeyType.Rsa);
 
             RegisterForCleanup(keyName);
 
@@ -100,7 +100,7 @@ namespace Azure.Security.KeyVault.Keys.Tests
 
             Recording.Random.NextBytes(key);
 
-            KeyVaultSecret secret = new KeyVaultSecret(Recording.GenerateId(), Base64Url.Encode(key))
+            Secret secret = new Secret(Recording.GenerateId(), Base64Url.Encode(key))
             {
                 Properties =
                 {
@@ -132,7 +132,7 @@ namespace Azure.Security.KeyVault.Keys.Tests
         {
             string keyName = Recording.GenerateId();
 
-            KeyVaultKey key = await Client.CreateKeyAsync(keyName, KeyType.Rsa);
+            Key key = await Client.CreateKeyAsync(keyName, KeyType.Rsa);
 
             RegisterForCleanup(keyName);
 

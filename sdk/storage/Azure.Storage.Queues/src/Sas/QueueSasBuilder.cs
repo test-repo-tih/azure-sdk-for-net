@@ -35,14 +35,14 @@ namespace Azure.Storage.Sas
         /// start time for this call is assumed to be the time when the
         /// storage service receives the request.
         /// </summary>
-        public DateTimeOffset StartsOn { get; set; }
+        public DateTimeOffset StartTime { get; set; }
 
         /// <summary>
         /// The time at which the shared access signature becomes invalid.
         /// This field must be omitted if it has been specified in an
         /// associated stored access policy.
         /// </summary>
-        public DateTimeOffset ExpiresOn { get; set; }
+        public DateTimeOffset ExpiryTime { get; set; }
 
         /// <summary>
         /// The permissions associated with the shared access signature. The
@@ -62,7 +62,7 @@ namespace Azure.Storage.Sas
         /// When specifying a range of IP addresses, note that the range is
         /// inclusive.
         /// </summary>
-        public SasIPRange IPRange { get; set; }
+        public IPRange IPRange { get; set; }
 
         /// <summary>
         /// An optional unique value up to 64 characters in length that
@@ -97,8 +97,8 @@ namespace Azure.Storage.Sas
                 Version = SasQueryParameters.DefaultSasVersion;
             }
 
-            var startTime = SasQueryParameters.FormatTimesForSasSigning(StartsOn);
-            var expiryTime = SasQueryParameters.FormatTimesForSasSigning(ExpiresOn);
+            var startTime = SasQueryParameters.FormatTimesForSasSigning(StartTime);
+            var expiryTime = SasQueryParameters.FormatTimesForSasSigning(ExpiryTime);
 
             // String to sign: http://msdn.microsoft.com/en-us/library/azure/dn140255.aspx
             var stringToSign = string.Join("\n",
@@ -108,16 +108,16 @@ namespace Azure.Storage.Sas
                 GetCanonicalName(sharedKeyCredential.AccountName, QueueName ?? string.Empty),
                 Identifier,
                 IPRange.ToString(),
-                Protocol.ToProtocolString(),
+                Protocol.ToString(),
                 Version);
             var signature = sharedKeyCredential.ComputeHMACSHA256(stringToSign);
             var p = new SasQueryParameters(
                 version: Version,
-                services: default,
-                resourceTypes: default,
+                services: null,
+                resourceTypes: null,
                 protocol: Protocol,
-                startsOn: StartsOn,
-                expiresOn: ExpiresOn,
+                startTime: StartTime,
+                expiryTime: ExpiryTime,
                 ipRange: IPRange,
                 identifier: Identifier,
                 resource: null,
@@ -165,13 +165,13 @@ namespace Azure.Storage.Sas
         /// <returns>Hash code for the QueueSasBuilder.</returns>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override int GetHashCode() =>
-            ExpiresOn.GetHashCode() ^
+            ExpiryTime.GetHashCode() ^
             Identifier.GetHashCode() ^
             IPRange.GetHashCode() ^
             Permissions.GetHashCode() ^
             Protocol.GetHashCode() ^
             QueueName.GetHashCode() ^
-            StartsOn.GetHashCode() ^
+            StartTime.GetHashCode() ^
             Version.GetHashCode();
 
         /// <summary>
@@ -199,13 +199,13 @@ namespace Azure.Storage.Sas
         /// <param name="other">The instance to compare to.</param>
         /// <returns>True if they're equal, false otherwise.</returns>
         public bool Equals(QueueSasBuilder other) =>
-            ExpiresOn == other.ExpiresOn &&
+            ExpiryTime == other.ExpiryTime &&
             Identifier == other.Identifier &&
             IPRange == other.IPRange &&
             Permissions == other.Permissions &&
             Protocol == other.Protocol &&
             QueueName == other.QueueName &&
-            StartsOn == other.StartsOn &&
+            StartTime == other.StartTime &&
             Version == other.Version;
     }
 }

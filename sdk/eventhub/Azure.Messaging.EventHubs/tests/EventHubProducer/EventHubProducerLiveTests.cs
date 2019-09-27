@@ -242,7 +242,10 @@ namespace Azure.Messaging.EventHubs.Tests
                 await using (EventHubProducer producer = client.CreateProducer())
                 {
                     var singleEvent = new EventData(Array.Empty<byte>());
+                    EventData[] eventSet = new[] { new EventData(new byte[0]) };
+
                     Assert.That(async () => await producer.SendAsync(singleEvent), Throws.Nothing);
+                    Assert.That(async () => await producer.SendAsync(eventSet), Throws.Nothing);
                 }
             }
         }
@@ -443,7 +446,7 @@ namespace Azure.Messaging.EventHubs.Tests
                 await using (EventHubProducer producer = client.CreateProducer())
                 {
                     using EventDataBatch batch = await producer.CreateBatchAsync();
-                    batch.TryAdd(new EventData(Array.Empty<byte>()));
+                    batch.TryAdd(new EventData(new byte[0]));
 
                     Assert.That(batch.Count, Is.EqualTo(1), "The batch should contain a single event.");
                     Assert.That(async () => await producer.SendAsync(batch), Throws.Nothing);
@@ -593,7 +596,7 @@ namespace Azure.Messaging.EventHubs.Tests
                         await producer.CloseAsync();
                     }
 
-                    Assert.That(async () => await producer.SendAsync(events), Throws.TypeOf<EventHubsClientClosedException>().Or.TypeOf<ObjectDisposedException>());
+                    Assert.That(async () => await producer.SendAsync(events), Throws.TypeOf<ObjectDisposedException>());
                 }
             }
         }
