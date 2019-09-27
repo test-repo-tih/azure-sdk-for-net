@@ -45,8 +45,6 @@ namespace Microsoft.Azure.Management.Kusto.Models
         /// Microsoft.Storage/storageAccounts.</param>
         /// <param name="tags">Resource tags.</param>
         /// <param name="zones">The availability zones of the cluster.</param>
-        /// <param name="identity">The identity of the cluster, if
-        /// configured.</param>
         /// <param name="state">The state of the resource. Possible values
         /// include: 'Creating', 'Unavailable', 'Running', 'Deleting',
         /// 'Deleted', 'Stopping', 'Stopped', 'Starting', 'Updating'</param>
@@ -66,14 +64,11 @@ namespace Microsoft.Azure.Management.Kusto.Models
         /// if the streaming ingest is enabled.</param>
         /// <param name="virtualNetworkConfiguration">Virtual network
         /// definition.</param>
-        /// <param name="keyVaultProperties">KeyVault properties for the
-        /// cluster encryption.</param>
-        public Cluster(string location, AzureSku sku, string id = default(string), string name = default(string), string type = default(string), IDictionary<string, string> tags = default(IDictionary<string, string>), IList<string> zones = default(IList<string>), Identity identity = default(Identity), string state = default(string), string provisioningState = default(string), string uri = default(string), string dataIngestionUri = default(string), IList<TrustedExternalTenant> trustedExternalTenants = default(IList<TrustedExternalTenant>), OptimizedAutoscale optimizedAutoscale = default(OptimizedAutoscale), bool? enableDiskEncryption = default(bool?), bool? enableStreamingIngest = default(bool?), VirtualNetworkConfiguration virtualNetworkConfiguration = default(VirtualNetworkConfiguration), KeyVaultProperties keyVaultProperties = default(KeyVaultProperties))
+        public Cluster(string location, AzureSku sku, string id = default(string), string name = default(string), string type = default(string), IDictionary<string, string> tags = default(IDictionary<string, string>), IList<string> zones = default(IList<string>), string state = default(string), string provisioningState = default(string), string uri = default(string), string dataIngestionUri = default(string), IList<TrustedExternalTenant> trustedExternalTenants = default(IList<TrustedExternalTenant>), OptimizedAutoscale optimizedAutoscale = default(OptimizedAutoscale), bool? enableDiskEncryption = default(bool?), bool? enableStreamingIngest = default(bool?), VirtualNetworkConfiguration virtualNetworkConfiguration = default(VirtualNetworkConfiguration))
             : base(location, id, name, type, tags)
         {
             Sku = sku;
             Zones = zones;
-            Identity = identity;
             State = state;
             ProvisioningState = provisioningState;
             Uri = uri;
@@ -83,7 +78,6 @@ namespace Microsoft.Azure.Management.Kusto.Models
             EnableDiskEncryption = enableDiskEncryption;
             EnableStreamingIngest = enableStreamingIngest;
             VirtualNetworkConfiguration = virtualNetworkConfiguration;
-            KeyVaultProperties = keyVaultProperties;
             CustomInit();
         }
 
@@ -103,12 +97,6 @@ namespace Microsoft.Azure.Management.Kusto.Models
         /// </summary>
         [JsonProperty(PropertyName = "zones")]
         public IList<string> Zones { get; set; }
-
-        /// <summary>
-        /// Gets or sets the identity of the cluster, if configured.
-        /// </summary>
-        [JsonProperty(PropertyName = "identity")]
-        public Identity Identity { get; set; }
 
         /// <summary>
         /// Gets the state of the resource. Possible values include:
@@ -171,12 +159,6 @@ namespace Microsoft.Azure.Management.Kusto.Models
         public VirtualNetworkConfiguration VirtualNetworkConfiguration { get; set; }
 
         /// <summary>
-        /// Gets or sets keyVault properties for the cluster encryption.
-        /// </summary>
-        [JsonProperty(PropertyName = "properties.keyVaultProperties")]
-        public KeyVaultProperties KeyVaultProperties { get; set; }
-
-        /// <summary>
         /// Validate the object.
         /// </summary>
         /// <exception cref="ValidationException">
@@ -193,10 +175,6 @@ namespace Microsoft.Azure.Management.Kusto.Models
             {
                 Sku.Validate();
             }
-            if (Identity != null)
-            {
-                Identity.Validate();
-            }
             if (OptimizedAutoscale != null)
             {
                 OptimizedAutoscale.Validate();
@@ -204,10 +182,6 @@ namespace Microsoft.Azure.Management.Kusto.Models
             if (VirtualNetworkConfiguration != null)
             {
                 VirtualNetworkConfiguration.Validate();
-            }
-            if (KeyVaultProperties != null)
-            {
-                KeyVaultProperties.Validate();
             }
         }
     }

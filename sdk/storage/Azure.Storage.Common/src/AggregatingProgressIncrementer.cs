@@ -6,7 +6,7 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Azure.Storage
+namespace Azure.Storage.Common
 {
     /// <summary>
     /// An accumulator for request and response data transfers.

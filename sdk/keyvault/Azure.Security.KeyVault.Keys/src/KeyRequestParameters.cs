@@ -31,7 +31,7 @@ namespace Azure.Security.KeyVault.Keys
         public IList<KeyOperation> KeyOperations { get; set; }
         public bool? Enabled { get => _attributes.Enabled; set => _attributes.Enabled = value; }
         public DateTimeOffset? NotBefore { get => _attributes.NotBefore; set => _attributes.NotBefore = value; }
-        public DateTimeOffset? Expires { get => _attributes.ExpiresOn; set => _attributes.ExpiresOn = value; }
+        public DateTimeOffset? Expires { get => _attributes.Expires; set => _attributes.Expires = value; }
         public IDictionary<string, string> Tags { get; set; }
         public KeyCurveName? Curve { get; set; }
 
@@ -41,15 +41,15 @@ namespace Azure.Security.KeyVault.Keys
             {
                 Enabled = key.Enabled.Value;
             }
-            if (key.ExpiresOn.HasValue)
+            if (key.Expires.HasValue)
             {
-                Expires = key.ExpiresOn.Value;
+                Expires = key.Expires.Value;
             }
             if (key.NotBefore.HasValue)
             {
                 NotBefore = key.NotBefore.Value;
             }
-            if (key.Tags != null && key.Tags.Count > 0)
+            if (key.Tags != null)
             {
                 Tags = new Dictionary<string, string>(key.Tags);
             }
@@ -59,7 +59,7 @@ namespace Azure.Security.KeyVault.Keys
             }
         }
 
-        internal KeyRequestParameters(KeyType type, CreateKeyOptions options = default)
+        internal KeyRequestParameters(KeyType type, KeyCreateOptions options = default)
         {
             KeyType = type;
             if (options != null)
@@ -68,35 +68,35 @@ namespace Azure.Security.KeyVault.Keys
                 {
                     Enabled = options.Enabled.Value;
                 }
-                if (options.ExpiresOn.HasValue)
+                if (options.Expires.HasValue)
                 {
-                    Expires = options.ExpiresOn.Value;
+                    Expires = options.Expires.Value;
                 }
                 if (options.NotBefore.HasValue)
                 {
                     NotBefore = options.NotBefore.Value;
                 }
-                if (options.KeyOperations != null && options.KeyOperations.Count > 0)
+                if (options.KeyOperations != null)
                 {
                     KeyOperations = new List<KeyOperation>(options.KeyOperations);
                 }
-                if (options.Tags != null && options.Tags.Count > 0)
+                if (options.Tags != null)
                 {
                     Tags = new Dictionary<string, string>(options.Tags);
                 }
             }
         }
 
-        internal KeyRequestParameters(CreateEcKeyOptions ecKey)
+        internal KeyRequestParameters(EcKeyCreateOptions ecKey)
             : this(ecKey.KeyType, ecKey)
         {
-            if (ecKey.CurveName.HasValue)
+            if (ecKey.Curve.HasValue)
             {
-                Curve = ecKey.CurveName.Value;
+                Curve = ecKey.Curve.Value;
             }
         }
 
-        internal KeyRequestParameters(CreateRsaKeyOptions rsaKey)
+        internal KeyRequestParameters(RsaKeyCreateOptions rsaKey)
             : this(rsaKey.KeyType, rsaKey)
         {
             if (rsaKey.KeySize.HasValue)
@@ -127,7 +127,7 @@ namespace Azure.Security.KeyVault.Keys
 
                 json.WriteEndObject();
             }
-            if (KeyOperations != null && KeyOperations.Count > 0)
+            if (KeyOperations != null)
             {
                 json.WriteStartArray(s_keyOpsPropertyNameBytes);
                 foreach (KeyOperation operation in KeyOperations)
