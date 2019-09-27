@@ -7,9 +7,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Azure.Core.Testing;
-using Azure.Storage.Test;
+using Azure.Storage.Common;
+using Azure.Storage.Common.Test;
 using Azure.Storage.Queues.Models;
 using Azure.Storage.Queues.Tests;
+using Azure.Storage.Test;
 using NUnit.Framework;
 
 namespace Azure.Storage.Queues.Test
@@ -117,7 +119,7 @@ namespace Azure.Storage.Queues.Test
             QueueClient queue = (await service.CreateQueueAsync(queueName)).Value; // Ensure at least one queue
             try
             {
-                AsyncPageable<QueueItem> queues = service.GetQueuesAsync(prefix: prefix);
+                AsyncPageable<QueueItem> queues = service.GetQueuesAsync(new GetQueuesOptions { Prefix = prefix });
                 IList<QueueItem> items = await queues.ToListAsync();
 
                 Assert.AreNotEqual(0, items.Count());
@@ -138,7 +140,7 @@ namespace Azure.Storage.Queues.Test
             {
                 IDictionary<string, string> metadata = BuildMetadata();
                 await queue.SetMetadataAsync(metadata);
-                QueueItem first = await service.GetQueuesAsync(QueueTraits.Metadata).FirstAsync();
+                QueueItem first = await service.GetQueuesAsync(new GetQueuesOptions { IncludeMetadata = true }).FirstAsync();
                 Assert.IsNotNull(first.Metadata);
             }
         }

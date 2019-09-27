@@ -85,11 +85,6 @@ namespace Microsoft.Azure.Management.Kusto
         IDatabasesOperations Databases { get; }
 
         /// <summary>
-        /// Gets the IAttachedDatabaseConfigurationsOperations.
-        /// </summary>
-        IAttachedDatabaseConfigurationsOperations AttachedDatabaseConfigurations { get; }
-
-        /// <summary>
         /// Gets the IDataConnectionsOperations.
         /// </summary>
         IDataConnectionsOperations DataConnections { get; }
