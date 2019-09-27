@@ -24,8 +24,7 @@
 
 Param(
     [string] $SpecsRepoFork = "Azure",
-    [string] $SpecsRepoBranch = "master",
-    [string] $Tag = ""
+    [string] $SpecsRepoBranch = "master"
 )
 
 "$PSScriptRoot\..\..\Install-BuildTools.ps1"
@@ -33,7 +32,7 @@ Param(
 $generateFolder = "$PSScriptRoot\Generated"
 
 # TODO: Change AutoRestVersion back to "latest" when the hanging issue is fixed.
-Start-AutoRestCodeGeneration -ResourceProvider "search/data-plane/Microsoft.Azure.Search.Data" -AutoRestVersion "2.0.4302" -SpecsRepoFork $SpecsRepoFork -SpecsRepoBranch $SpecsRepoBranch -ConfigFileTag $Tag
+Start-AutoRestCodeGeneration -ResourceProvider "search/data-plane/Microsoft.Azure.Search.Data" -AutoRestVersion "2.0.4302" -SpecsRepoFork $SpecsRepoFork -SpecsRepoBranch $SpecsRepoBranch
 
 Write-Output "Deleting extra files and cleaning up..."
 

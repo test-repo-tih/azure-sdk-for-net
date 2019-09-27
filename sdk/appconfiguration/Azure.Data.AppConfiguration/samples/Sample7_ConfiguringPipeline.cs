@@ -48,17 +48,17 @@ namespace Azure.Data.AppConfiguration.Samples
             client.Delete("some_key");
         }
 
-        private class AddHeaderPolicy : HttpPipelineSynchronousPolicy
+        private class AddHeaderPolicy : SynchronousHttpPipelinePolicy
         {
-            public override void OnSendingRequest(HttpMessage message)
+            public override void OnSendingRequest(HttpPipelineMessage message)
             {
                 message.Request.Headers.Add("User-Agent", "ConfiguraingPipelineSample");
             }
         }
 
-        private class CustomLogPolicy : HttpPipelineSynchronousPolicy
+        private class CustomLogPolicy : SynchronousHttpPipelinePolicy
         {
-            public override void OnSendingRequest(HttpMessage message)
+            public override void OnSendingRequest(HttpPipelineMessage message)
             {
                 Console.WriteLine(message.ToString());
             }

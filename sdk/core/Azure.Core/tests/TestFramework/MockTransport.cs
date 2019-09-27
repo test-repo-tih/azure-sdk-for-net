@@ -38,7 +38,7 @@ namespace Azure.Core.Testing
         public override Request CreateRequest()
             => new MockRequest();
 
-        public override void Process(HttpMessage message)
+        public override void Process(HttpPipelineMessage message)
         {
             if (ExpectSyncPipeline == false)
             {
@@ -48,7 +48,7 @@ namespace Azure.Core.Testing
             ProcessCore(message).GetAwaiter().GetResult();
         }
 
-        public override async ValueTask ProcessAsync(HttpMessage message)
+        public override async ValueTask ProcessAsync(HttpPipelineMessage message)
         {
             if (ExpectSyncPipeline == true)
             {
@@ -58,7 +58,7 @@ namespace Azure.Core.Testing
             await ProcessCore(message);
         }
 
-        private async Task ProcessCore(HttpMessage message)
+        private async Task ProcessCore(HttpPipelineMessage message)
         {
             if (!(message.Request is MockRequest request))
                 throw new InvalidOperationException("the request is not compatible with the transport");
