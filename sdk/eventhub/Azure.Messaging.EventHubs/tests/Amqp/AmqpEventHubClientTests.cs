@@ -231,7 +231,7 @@ namespace Azure.Messaging.EventHubs.Tests
             using var cancellationSource = new CancellationTokenSource();
 
             mockCredential
-                .Setup(credential => credential.GetTokenAsync(It.IsAny<TokenRequestContext>(), It.Is<CancellationToken>(value => value == cancellationSource.Token)))
+                .Setup(credential => credential.GetTokenAsync(It.IsAny<TokenRequest>(), It.Is<CancellationToken>(value => value == cancellationSource.Token)))
                 .Returns(Task.FromResult(new AccessToken(tokenValue, DateTimeOffset.MaxValue)))
                 .Verifiable();
 
@@ -272,7 +272,7 @@ namespace Azure.Messaging.EventHubs.Tests
             using var cancellationSource = new CancellationTokenSource();
 
             mockCredential
-                .Setup(credential => credential.GetTokenAsync(It.IsAny<TokenRequestContext>(), It.Is<CancellationToken>(value => value == cancellationSource.Token)))
+                .Setup(credential => credential.GetTokenAsync(It.IsAny<TokenRequest>(), It.Is<CancellationToken>(value => value == cancellationSource.Token)))
                 .Returns(Task.FromResult(new AccessToken(tokenValue, DateTimeOffset.MaxValue)));
 
             mockConverter
@@ -353,7 +353,7 @@ namespace Azure.Messaging.EventHubs.Tests
             using var cancellationSource = new CancellationTokenSource();
 
             mockCredential
-                .Setup(credential => credential.GetTokenAsync(It.IsAny<TokenRequestContext>(), It.Is<CancellationToken>(value => value == cancellationSource.Token)))
+                .Setup(credential => credential.GetTokenAsync(It.IsAny<TokenRequest>(), It.Is<CancellationToken>(value => value == cancellationSource.Token)))
                 .Returns(Task.FromResult(new AccessToken(tokenValue, DateTimeOffset.MaxValue)))
                 .Verifiable();
 
@@ -395,7 +395,7 @@ namespace Azure.Messaging.EventHubs.Tests
             using var cancellationSource = new CancellationTokenSource();
 
             mockCredential
-                .Setup(credential => credential.GetTokenAsync(It.IsAny<TokenRequestContext>(), It.Is<CancellationToken>(value => value == cancellationSource.Token)))
+                .Setup(credential => credential.GetTokenAsync(It.IsAny<TokenRequest>(), It.Is<CancellationToken>(value => value == cancellationSource.Token)))
                 .Returns(Task.FromResult(new AccessToken(tokenValue, DateTimeOffset.MaxValue)));
 
             mockConverter
@@ -427,23 +427,6 @@ namespace Azure.Messaging.EventHubs.Tests
             await client.CloseAsync(cancellationSource.Token);
 
             Assert.That(() => client.CreateConsumer("group", "0", EventPosition.Earliest, new EventHubConsumerOptions(), mockRetryPolicy), Throws.InstanceOf<EventHubsClientClosedException>());
-        }
-
-        /// <summary>
-        ///   Verifies functionality of the <see cref="AmqpEventHubClient.CreateProducer" />
-        ///   method.
-        /// </summary>
-        ///
-        [Test]
-        public async Task CreateProducerValidatesClosed()
-        {
-            using var cancellationSource = new CancellationTokenSource();
-
-            var mockRetryPolicy = Mock.Of<EventHubRetryPolicy>();
-            var client = new AmqpEventHubClient("my.eventhub.com", "somePath", Mock.Of<TokenCredential>(), new EventHubClientOptions(), mockRetryPolicy);
-            await client.CloseAsync(cancellationSource.Token);
-
-            Assert.That(() => client.CreateProducer(new EventHubProducerOptions(), mockRetryPolicy), Throws.InstanceOf<EventHubsClientClosedException>());
         }
 
         /// <summary>

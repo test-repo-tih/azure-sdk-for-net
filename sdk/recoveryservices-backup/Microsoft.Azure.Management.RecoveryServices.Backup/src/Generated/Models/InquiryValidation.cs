@@ -32,13 +32,10 @@ namespace Microsoft.Azure.Management.RecoveryServices.Backup.Models
         /// <param name="status">Status for the Inquiry Validation.</param>
         /// <param name="errorDetail">Error Detail in case the status is
         /// non-success.</param>
-        /// <param name="additionalDetail">Error Additional Detail in case the
-        /// status is non-success.</param>
-        public InquiryValidation(string status = default(string), ErrorDetail errorDetail = default(ErrorDetail), string additionalDetail = default(string))
+        public InquiryValidation(string status = default(string), ErrorDetail errorDetail = default(ErrorDetail))
         {
             Status = status;
             ErrorDetail = errorDetail;
-            AdditionalDetail = additionalDetail;
             CustomInit();
         }
 
@@ -58,12 +55,6 @@ namespace Microsoft.Azure.Management.RecoveryServices.Backup.Models
         /// </summary>
         [JsonProperty(PropertyName = "errorDetail")]
         public ErrorDetail ErrorDetail { get; set; }
-
-        /// <summary>
-        /// Gets error Additional Detail in case the status is non-success.
-        /// </summary>
-        [JsonProperty(PropertyName = "additionalDetail")]
-        public string AdditionalDetail { get; private set; }
 
     }
 }
