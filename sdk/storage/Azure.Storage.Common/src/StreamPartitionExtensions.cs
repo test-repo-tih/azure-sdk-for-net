@@ -14,7 +14,7 @@ using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Azure.Storage
+namespace Azure.Storage.Common
 {
     /// <summary>
     /// Given a source of StreamPartitions, optionally collate them.

@@ -33,22 +33,16 @@ namespace Azure.Security.KeyVault.Keys.Samples
 
             // First we'll create both a RSA key and an EC which will be used to sign and verify
             string rsaKeyName = $"CloudRsaKey-{Guid.NewGuid()}";
-            var rsaKey = new CreateRsaKeyOptions(rsaKeyName, hardwareProtected: false)
-            {
-                KeySize = 2048,
-            };
+            var rsaKey = new RsaKeyCreateOptions(rsaKeyName, hsm: false, keySize: 2048);
 
             string ecKeyName = $"CloudEcKey-{Guid.NewGuid()}";
-            var ecKey = new CreateEcKeyOptions(ecKeyName, hardwareProtected: false)
-            {
-                CurveName = KeyCurveName.P256K,
-            };
+            var ecKey = new EcKeyCreateOptions(ecKeyName, hsm: false, curveName: KeyCurveName.P256K);
 
-            KeyVaultKey cloudRsaKey = keyClient.CreateRsaKey(rsaKey);
-            Debug.WriteLine($"Key is returned with name {cloudRsaKey.Name} and type {cloudRsaKey.KeyType}");
+            Key cloudRsaKey = keyClient.CreateRsaKey(rsaKey);
+            Debug.WriteLine($"Key is returned with name {cloudRsaKey.Name} and type {cloudRsaKey.KeyMaterial.KeyType}");
 
-            KeyVaultKey cloudEcKey = keyClient.CreateEcKey(ecKey);
-            Debug.WriteLine($"Key is returned with name {cloudEcKey.Name} and type {cloudEcKey.KeyType}");
+            Key cloudEcKey = keyClient.CreateEcKey(ecKey);
+            Debug.WriteLine($"Key is returned with name {cloudEcKey.Name} and type {cloudEcKey.KeyMaterial.KeyType}");
 
             // Let's create the CryptographyClient which can perform cryptographic operations with the keys we just created.
             // Again we are using the default Azure credential as above.
