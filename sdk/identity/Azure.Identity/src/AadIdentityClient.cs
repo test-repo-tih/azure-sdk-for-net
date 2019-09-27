@@ -282,18 +282,14 @@ namespace Azure.Identity
 
             DateTimeOffset expiresOn = DateTimeOffset.MaxValue;
 
-            foreach (JsonProperty prop in json.EnumerateObject())
+            if (json.TryGetProperty("access_token", out JsonElement accessTokenProp))
             {
-                switch (prop.Name)
-                {
-                    case "access_token":
-                        accessToken = prop.Value.GetString();
-                        break;
+                accessToken = accessTokenProp.GetString();
+            }
 
-                    case "expires_in":
-                        expiresOn = DateTime.UtcNow + TimeSpan.FromSeconds(prop.Value.GetInt64());
-                        break;
-                }
+            if (json.TryGetProperty("expires_in", out JsonElement expiresInProp))
+            {
+                expiresOn = DateTime.UtcNow + TimeSpan.FromSeconds(expiresInProp.GetInt64());
             }
 
             return new AccessToken(accessToken, expiresOn);

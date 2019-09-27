@@ -4,7 +4,7 @@
 using System;
 using System.ComponentModel;
 
-namespace Azure.Storage
+namespace Azure.Storage.Common
 {
     /// <summary>
     /// <see cref="StorageTransferOptions"/> is used to provide options for parallel transfers.
@@ -17,9 +17,9 @@ namespace Azure.Storage
         public int? MaximumTransferLength { get; set; }
 
         /// <summary>
-        /// The maximum number of workers that may be used in a parallel transfer.
+        /// The maximum number of threads that may be used in a parallel transfer.
         /// </summary>
-        public int? MaximumConcurrency { get; set; }
+        public int? MaximumThreadCount { get; set; }
 
         /// <summary>
         /// Check if two ParallelTransferOptions instances are equal.
@@ -39,7 +39,7 @@ namespace Azure.Storage
         [EditorBrowsable(EditorBrowsableState.Never)]
         public override int GetHashCode()
             => MaximumTransferLength.GetHashCode()
-            ^ MaximumConcurrency.GetHashCode()
+            ^ MaximumThreadCount.GetHashCode()
             ;
 
         /// <summary>
@@ -68,7 +68,7 @@ namespace Azure.Storage
         [EditorBrowsable(EditorBrowsableState.Never)]
         public bool Equals(StorageTransferOptions obj)
             => MaximumTransferLength == obj.MaximumTransferLength
-            && MaximumConcurrency == obj.MaximumConcurrency
+            && MaximumThreadCount == obj.MaximumThreadCount
             ;
     }
 }
