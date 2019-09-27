@@ -108,7 +108,7 @@ namespace Azure.Storage.Sas
                 GetCanonicalName(sharedKeyCredential.AccountName, QueueName ?? string.Empty),
                 Identifier,
                 IPRange.ToString(),
-                Protocol.ToProtocolString(),
+                Protocol.ToString(),
                 Version);
             var signature = sharedKeyCredential.ComputeHMACSHA256(stringToSign);
             var p = new SasQueryParameters(

@@ -113,7 +113,7 @@ namespace Azure.Storage.Queues.Test
                 "/queue/" + constants.Sas.Account + "/" + queueName,
                 constants.Sas.Identifier,
                 constants.Sas.IPRange.ToString(),
-                SasProtocol.Https.ToProtocolString(),
+                SasProtocol.Https.ToString(),
                 includeVersion ? constants.Sas.Version : SasQueryParameters.DefaultSasVersion);
 
             return constants.Sas.SharedKeyCredential.ComputeHMACSHA256(stringToSign);
