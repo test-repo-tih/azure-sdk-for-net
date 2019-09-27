@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 
 namespace Azure.Core.Pipeline
 {
-    internal class TelemetryPolicy : HttpPipelineSynchronousPolicy
+    internal class TelemetryPolicy : SynchronousHttpPipelinePolicy
     {
         private readonly string _header;
 
@@ -22,7 +22,7 @@ namespace Azure.Core.Pipeline
             }
         }
 
-        public override void OnSendingRequest(HttpMessage message)
+        public override void OnSendingRequest(HttpPipelineMessage message)
         {
             message.Request.Headers.Add(HttpHeader.Names.UserAgent, _header);
         }
