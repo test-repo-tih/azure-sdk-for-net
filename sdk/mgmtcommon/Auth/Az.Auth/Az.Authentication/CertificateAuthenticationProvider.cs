@@ -84,12 +84,12 @@ namespace Microsoft.Rest.Azure.Authentication
             if (_isCertRollOverEnabled == true)
             {
 #if !net452
-                authResult = await context.AcquireTokenAsync(audience, certificate, sendX5c: _isCertRollOverEnabled).ConfigureAwait(false);
+                authResult = await context.AcquireTokenAsync(audience, certificate, sendX5c: _isCertRollOverEnabled);
 #endif
             }
             else
             {
-                authResult = await context.AcquireTokenAsync(audience, certificate).ConfigureAwait(false);
+                authResult = await context.AcquireTokenAsync(audience, certificate);
             }
 
             return authResult;

@@ -23,7 +23,7 @@ namespace Azure.Core
                 request.Headers.Add(HttpHeader.Names.IfNoneMatch, value);
             }
 
-            if (options is RequestConditions dateOptions)
+            if (options is ModifiedSinceConditions dateOptions)
             {
                 if (dateOptions.IfModifiedSince.HasValue)
                 {

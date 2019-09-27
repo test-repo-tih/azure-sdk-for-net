@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Azure.Core;
 using Azure.Core.Pipeline;
 using Azure.Storage.Blobs.Models;
+using Azure.Storage.Common;
 using Metadata = System.Collections.Generic.IDictionary<string, string>;
 
 #pragma warning disable SA1402  // File may only contain a single type
@@ -744,8 +745,8 @@ namespace Azure.Storage.Blobs.Specialized
 
             var pageRange = new HttpRange(
                 range.Offset + startOffset,
-                range.Length.HasValue ?
-                    range.Length.Value - startOffset :
+                range.Count.HasValue ?
+                    range.Count.Value - startOffset :
                     (long?)null);
 
             Pipeline.LogTrace($"Download {Uri} with range: {pageRange}");
@@ -883,7 +884,7 @@ namespace Azure.Storage.Blobs.Specialized
             CancellationToken cancellationToken) =>
             Download(
                 destination,
-                accessConditions: default, // Pass anything else so we don't recurse on this overload
+                blobAccessConditions: default, // Pass anything else so we don't recurse on this overload
                 cancellationToken: cancellationToken);
 #pragma warning restore AZC0002 // Client method should have cancellationToken as the last optional parameter
 
@@ -913,7 +914,7 @@ namespace Azure.Storage.Blobs.Specialized
             CancellationToken cancellationToken) =>
             Download(
                 destination,
-                accessConditions: default, // Pass anything else so we don't recurse on this overload
+                blobAccessConditions: default, // Pass anything else so we don't recurse on this overload
                 cancellationToken: cancellationToken);
 #pragma warning restore AZC0002 // Client method should have cancellationToken as the last optional parameter
 
@@ -943,7 +944,7 @@ namespace Azure.Storage.Blobs.Specialized
             CancellationToken cancellationToken) =>
             DownloadAsync(
                 destination,
-                accessConditions: default, // Pass anything else so we don't recurse on this overload
+                blobAccessConditions: default, // Pass anything else so we don't recurse on this overload
                 cancellationToken: cancellationToken);
 #pragma warning restore AZC0002 // Client method should have cancellationToken as the last optional parameter
 
@@ -973,7 +974,7 @@ namespace Azure.Storage.Blobs.Specialized
             CancellationToken cancellationToken) =>
             DownloadAsync(
                 destination,
-                accessConditions: default, // Pass anything else so we don't recurse on this overload
+                blobAccessConditions: default, // Pass anything else so we don't recurse on this overload
                 cancellationToken: cancellationToken);
 #pragma warning restore AZC0002 // Client method should have cancellationToken as the last optional parameter
 
@@ -985,7 +986,7 @@ namespace Azure.Storage.Blobs.Specialized
         /// <param name="destination">
         /// A <see cref="Stream"/> to write the downloaded content to.
         /// </param>
-        /// <param name="accessConditions">
+        /// <param name="blobAccessConditions">
         /// Optional <see cref="BlobAccessConditions"/> to add conditions on
         /// the creation of this new block blob.
         /// </param>
@@ -1007,7 +1008,7 @@ namespace Azure.Storage.Blobs.Specialized
         /// </remarks>
         public virtual Response<BlobProperties> Download(
             Stream destination,
-            BlobAccessConditions? accessConditions = default,
+            BlobAccessConditions? blobAccessConditions = default,
             ///// <param name="progressHandler">
             ///// Optional <see cref="IProgress{StorageProgress}"/> to provide
             ///// progress updates about data transfers.
@@ -1017,7 +1018,7 @@ namespace Azure.Storage.Blobs.Specialized
             CancellationToken cancellationToken = default) =>
             StagedDownloadAsync(
                 destination,
-                accessConditions,
+                blobAccessConditions,
                 //progressHandler,
                 transferOptions: transferOptions,
                 async: false,
@@ -1032,7 +1033,7 @@ namespace Azure.Storage.Blobs.Specialized
         /// <param name="destination">
         /// A <see cref="FileInfo"/> representing a file to write the downloaded content to.
         /// </param>
-        /// <param name="accessConditions">
+        /// <param name="blobAccessConditions">
         /// Optional <see cref="BlobAccessConditions"/> to add conditions on
         /// the creation of this new block blob.
         /// </param>
@@ -1054,7 +1055,7 @@ namespace Azure.Storage.Blobs.Specialized
         /// </remarks>
         public virtual Response<BlobProperties> Download(
             FileInfo destination,
-            BlobAccessConditions? accessConditions = default,
+            BlobAccessConditions? blobAccessConditions = default,
             ///// <param name="progressHandler">
             ///// Optional <see cref="IProgress{StorageProgress}"/> to provide
             ///// progress updates about data transfers.
@@ -1064,7 +1065,7 @@ namespace Azure.Storage.Blobs.Specialized
             CancellationToken cancellationToken = default) =>
             StagedDownloadAsync(
                 destination,
-                accessConditions,
+                blobAccessConditions,
                 //progressHandler,
                 transferOptions: transferOptions,
                 async: false,
@@ -1079,7 +1080,7 @@ namespace Azure.Storage.Blobs.Specialized
         /// <param name="destination">
         /// A <see cref="Stream"/> to write the downloaded content to.
         /// </param>
-        /// <param name="accessConditions">
+        /// <param name="blobAccessConditions">
         /// Optional <see cref="BlobAccessConditions"/> to add conditions on
         /// the creation of this new block blob.
         /// </param>
@@ -1101,7 +1102,7 @@ namespace Azure.Storage.Blobs.Specialized
         /// </remarks>
         public virtual Task<Response<BlobProperties>> DownloadAsync(
             Stream destination,
-            BlobAccessConditions? accessConditions = default,
+            BlobAccessConditions? blobAccessConditions = default,
             ///// <param name="progressHandler">
             ///// Optional <see cref="IProgress{StorageProgress}"/> to provide
             ///// progress updates about data transfers.
@@ -1111,7 +1112,7 @@ namespace Azure.Storage.Blobs.Specialized
             CancellationToken cancellationToken = default) =>
             StagedDownloadAsync(
                 destination,
-                accessConditions,
+                blobAccessConditions,
                 //progressHandler,
                 transferOptions: transferOptions,
                 async: true,
@@ -1125,7 +1126,7 @@ namespace Azure.Storage.Blobs.Specialized
         /// <param name="destination">
         /// A <see cref="FileInfo"/> representing a file to write the downloaded content to.
         /// </param>
-        /// <param name="accessConditions">
+        /// <param name="blobAccessConditions">
         /// Optional <see cref="BlobAccessConditions"/> to add conditions on
         /// the creation of this new block blob.
         /// </param>
@@ -1147,7 +1148,7 @@ namespace Azure.Storage.Blobs.Specialized
         /// </remarks>
         public virtual Task<Response<BlobProperties>> DownloadAsync(
             FileInfo destination,
-            BlobAccessConditions? accessConditions = default,
+            BlobAccessConditions? blobAccessConditions = default,
             ///// <param name="progressHandler">
             ///// Optional <see cref="IProgress{StorageProgress}"/> to provide
             ///// progress updates about data transfers.
@@ -1157,7 +1158,7 @@ namespace Azure.Storage.Blobs.Specialized
             CancellationToken cancellationToken = default) =>
             StagedDownloadAsync(
                 destination,
-                accessConditions,
+                blobAccessConditions,
                 //progressHandler,
                 transferOptions: transferOptions,
                 async: true,
@@ -1289,7 +1290,7 @@ namespace Azure.Storage.Blobs.Specialized
         /// <param name="destination">
         /// A <see cref="FileInfo"/> representing a file to write the downloaded content to.
         /// </param>
-        /// <param name="accessConditions">
+        /// <param name="blobAccessConditions">
         /// Optional <see cref="BlobAccessConditions"/> to add conditions on
         /// the creation of this new block blob.
         /// </param>
@@ -1318,7 +1319,7 @@ namespace Azure.Storage.Blobs.Specialized
         /// </remarks>
         internal Task<Response<BlobProperties>> StagedDownloadAsync(
             FileInfo destination,
-            BlobAccessConditions? accessConditions = default,
+            BlobAccessConditions? blobAccessConditions = default,
             ///// <param name="progressHandler">
             ///// Optional <see cref="IProgress{StorageProgress}"/> to provide
             ///// progress updates about data transfers.
@@ -1333,7 +1334,7 @@ namespace Azure.Storage.Blobs.Specialized
 
             return StagedDownloadAsync(
                 stream,
-                accessConditions,
+                blobAccessConditions,
                 //progressHandler,
                 singleBlockThreshold,
                 transferOptions,

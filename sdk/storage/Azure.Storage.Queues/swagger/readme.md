@@ -288,15 +288,6 @@ directive:
     $.name = "permissions";
 ```
 
-### Set Start/Expiry nullable in AccessPolicy 
-``` yaml
-directive:
-- from: swagger-document
-  where: $.definitions.AccessPolicy
-  transform: >
-     delete $.required;
-```
-
 ### Url
 ``` yaml
 directive:
@@ -343,24 +334,4 @@ directive:
     $.CorsRule["x-ms-client-name"] = "QueueCorsRule";
     $.CorsRule.xml = { "name": "CorsRule"};
     $.QueueServiceProperties.properties.Cors.xml.name = "CorsRule";
-```
-
-### Access Policy properties renaming
-``` yaml
-directive:
-- from: swagger-document
-  where: $.definitions.AccessPolicy
-  transform: >
-    $["x-ms-client-name"] = "QueueAccessPolicy";
-    $.xml = {"name": "AccessPolicy"};
-    $.properties.StartsOn = $.properties.Start;
-    $.properties.StartsOn.xml = { "name": "Start"};
-    delete $.properties.Start;
-    $.properties.ExpiresOn = $.properties.Expiry;
-    $.properties.ExpiresOn.xml = { "name": "Expiry"};
-    delete $.properties.Expiry;
-    $.properties.Permissions = $.properties.Permission;
-    $.properties.Permissions.xml = { "name": "Permission"};
-    delete $.properties.Permission;
-    $.required = ["StartsOn", "ExpiresOn", "Permissions"];
 ```

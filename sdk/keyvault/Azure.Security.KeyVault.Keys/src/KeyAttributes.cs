@@ -19,19 +19,43 @@ namespace Azure.Security.KeyVault.Keys
         private static readonly JsonEncodedText s_notBeforePropertyNameBytes = JsonEncodedText.Encode(NotBeforePropertyName);
         private static readonly JsonEncodedText s_expiresPropertyNameBytes = JsonEncodedText.Encode(ExpiresPropertyName);
 
+        /// <summary>
+        /// Specifies whether the key is enabled and useable for cryptographic operations.
+        /// </summary>
         public bool? Enabled { get; set; }
 
+        /// <summary>
+        /// Identifies the time (in UTC) before which the key must not be used for cryptographic operations.
+        /// </summary>
         public DateTimeOffset? NotBefore { get; set; }
 
-        public DateTimeOffset? ExpiresOn { get; set; }
+        /// <summary>
+        /// Identifies the expiration time (in UTC) on or after which the key must not be used.
+        /// </summary>
+        public DateTimeOffset? Expires { get; set; }
 
-        public DateTimeOffset? CreatedOn { get; internal set; }
+        /// <summary>
+        /// Gets creation time in UTC.
+        /// </summary>
+        public DateTimeOffset? Created { get; private set; }
 
-        public DateTimeOffset? UpdatedOn { get; internal set; }
+        /// <summary>
+        /// Gets last updated time in UTC.
+        /// </summary>
+        public DateTimeOffset? Updated { get; private set; }
 
-        public string RecoveryLevel { get; internal set; }
+        /// <summary>
+        /// Gets reflects the deletion recovery level currently in effect for
+        /// secrets in the current vault. If it contains 'Purgeable', the
+        /// secret can be permanently deleted by a privileged user; otherwise,
+        /// only the system can purge the secret, at the end of the retention
+        /// interval. Possible values include: 'Purgeable',
+        /// 'Recoverable+Purgeable', 'Recoverable',
+        /// 'Recoverable+ProtectedSubscription'
+        /// </summary>
+        public string RecoveryLevel { get; private set; }
 
-        internal bool ShouldSerialize => Enabled.HasValue && NotBefore.HasValue && ExpiresOn.HasValue;
+        internal bool ShouldSerialize => Enabled.HasValue && NotBefore.HasValue && Expires.HasValue;
 
         internal void ReadProperties(JsonElement json)
         {
@@ -46,13 +70,13 @@ namespace Azure.Security.KeyVault.Keys
                         NotBefore = DateTimeOffset.FromUnixTimeSeconds(prop.Value.GetInt64());
                         break;
                     case ExpiresPropertyName:
-                        ExpiresOn = DateTimeOffset.FromUnixTimeSeconds(prop.Value.GetInt64());
+                        Expires = DateTimeOffset.FromUnixTimeSeconds(prop.Value.GetInt64());
                         break;
                     case CreatedPropertyName:
-                        CreatedOn = DateTimeOffset.FromUnixTimeSeconds(prop.Value.GetInt64());
+                        Created = DateTimeOffset.FromUnixTimeSeconds(prop.Value.GetInt64());
                         break;
                     case UpdatedPropertyName:
-                        UpdatedOn = DateTimeOffset.FromUnixTimeSeconds(prop.Value.GetInt64());
+                        Updated = DateTimeOffset.FromUnixTimeSeconds(prop.Value.GetInt64());
                         break;
                     case RecoveryLevelPropertyName:
                         RecoveryLevel = prop.Value.GetString();
@@ -73,9 +97,9 @@ namespace Azure.Security.KeyVault.Keys
                 json.WriteNumber(s_notBeforePropertyNameBytes, NotBefore.Value.ToUnixTimeSeconds());
             }
 
-            if (ExpiresOn.HasValue)
+            if (Expires.HasValue)
             {
-                json.WriteNumber(s_expiresPropertyNameBytes, ExpiresOn.Value.ToUnixTimeSeconds());
+                json.WriteNumber(s_expiresPropertyNameBytes, Expires.Value.ToUnixTimeSeconds());
             }
 
             // Created is read-only don't serialize
