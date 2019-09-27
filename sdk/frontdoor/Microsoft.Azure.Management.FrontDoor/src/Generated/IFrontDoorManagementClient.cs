@@ -76,26 +76,6 @@ namespace Microsoft.Azure.Management.FrontDoor
         IFrontDoorsOperations FrontDoors { get; }
 
         /// <summary>
-        /// Gets the IRoutingRulesOperations.
-        /// </summary>
-        IRoutingRulesOperations RoutingRules { get; }
-
-        /// <summary>
-        /// Gets the IHealthProbeSettingsOperations.
-        /// </summary>
-        IHealthProbeSettingsOperations HealthProbeSettings { get; }
-
-        /// <summary>
-        /// Gets the ILoadBalancingSettingsOperations.
-        /// </summary>
-        ILoadBalancingSettingsOperations LoadBalancingSettings { get; }
-
-        /// <summary>
-        /// Gets the IBackendPoolsOperations.
-        /// </summary>
-        IBackendPoolsOperations BackendPools { get; }
-
-        /// <summary>
         /// Gets the IFrontendEndpointsOperations.
         /// </summary>
         IFrontendEndpointsOperations FrontendEndpoints { get; }
