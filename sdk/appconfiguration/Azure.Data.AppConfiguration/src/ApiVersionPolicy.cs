@@ -8,7 +8,7 @@ using Azure.Core.Pipeline;
 
 namespace Azure.Data.AppConfiguration
 {
-    internal class ApiVersionPolicy : HttpPipelineSynchronousPolicy
+    internal class ApiVersionPolicy : SynchronousHttpPipelinePolicy
     {
         private readonly string _versionString;
 
@@ -17,7 +17,7 @@ namespace Azure.Data.AppConfiguration
             _versionString = versionString;
         }
 
-        public override void OnSendingRequest(HttpMessage message)
+        public override void OnSendingRequest(HttpPipelineMessage message)
         {
             message.Request.Uri.AppendQuery("api-version", _versionString);
         }

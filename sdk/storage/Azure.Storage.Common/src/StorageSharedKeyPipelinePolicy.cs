@@ -9,12 +9,12 @@ using System.Text;
 using Azure.Core;
 using Azure.Core.Pipeline;
 
-namespace Azure.Storage
+namespace Azure.Storage.Common
 {
     /// <summary>
     /// HttpPipelinePolicy to sign requests using an Azure Storage shared key.
     /// </summary>
-    internal sealed class StorageSharedKeyPipelinePolicy : HttpPipelineSynchronousPolicy
+    public sealed class StorageSharedKeyPipelinePolicy : SynchronousHttpPipelinePolicy
     {
         /// <summary>
         /// Whether to always add the x-ms-date header.
@@ -37,7 +37,7 @@ namespace Azure.Storage
         /// Sign the request using the shared key credentials.
         /// </summary>
         /// <param name="message">The message with the request to sign.</param>
-        public override void OnSendingRequest(HttpMessage message)
+        public override void OnSendingRequest(HttpPipelineMessage message)
         {
             base.OnSendingRequest(message);
 
@@ -55,7 +55,7 @@ namespace Azure.Storage
             message.Request.Headers.SetValue(Constants.HeaderNames.Authorization, key);
         }
 
-        private string BuildStringToSign(HttpMessage message)
+        private string BuildStringToSign(HttpPipelineMessage message)
         {
             // https://docs.microsoft.com/en-us/rest/api/storageservices/authorize-with-shared-key
 
@@ -88,7 +88,7 @@ namespace Azure.Storage
             return stringToSign;
         }
 
-        private static string BuildCanonicalizedHeaders(HttpMessage message)
+        private static string BuildCanonicalizedHeaders(HttpPipelineMessage message)
         {
             // Grab all the "x-ms-*" headers, trim whitespace, lowercase, sort,
             // and combine them with their values (separated by a colon).
