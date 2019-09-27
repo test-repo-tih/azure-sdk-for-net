@@ -18,6 +18,5 @@ namespace Microsoft.Azure.Management.Storage.Models
     {
         public const string None = "None";
         public const string AADDS = "AADDS";
-        public const string AD = "AD";
     }
 }

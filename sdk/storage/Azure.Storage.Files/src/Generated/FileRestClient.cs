@@ -114,9 +114,9 @@ namespace Azure.Storage.Files
                 // Set the endpoint
                 _request.Method = Azure.Core.RequestMethod.Put;
                 _request.Uri.Reset(resourceUri);
-                _request.Uri.AppendQuery("restype", "service", escapeValue: false);
-                _request.Uri.AppendQuery("comp", "properties", escapeValue: false);
-                if (timeout != null) { _request.Uri.AppendQuery("timeout", timeout.Value.ToString(System.Globalization.CultureInfo.InvariantCulture)); }
+                _request.Uri.AppendQuery("restype", "service");
+                _request.Uri.AppendQuery("comp", "properties");
+                if (timeout != null) { _request.Uri.AppendQuery("timeout", System.Uri.EscapeDataString(timeout.Value.ToString(System.Globalization.CultureInfo.InvariantCulture))); }
 
                 // Add request headers
                 _request.Headers.SetValue("x-ms-version", "2019-02-02");
@@ -241,9 +241,9 @@ namespace Azure.Storage.Files
                 // Set the endpoint
                 _request.Method = Azure.Core.RequestMethod.Get;
                 _request.Uri.Reset(resourceUri);
-                _request.Uri.AppendQuery("restype", "service", escapeValue: false);
-                _request.Uri.AppendQuery("comp", "properties", escapeValue: false);
-                if (timeout != null) { _request.Uri.AppendQuery("timeout", timeout.Value.ToString(System.Globalization.CultureInfo.InvariantCulture)); }
+                _request.Uri.AppendQuery("restype", "service");
+                _request.Uri.AppendQuery("comp", "properties");
+                if (timeout != null) { _request.Uri.AppendQuery("timeout", System.Uri.EscapeDataString(timeout.Value.ToString(System.Globalization.CultureInfo.InvariantCulture))); }
 
                 // Add request headers
                 _request.Headers.SetValue("x-ms-version", "2019-02-02");
@@ -386,12 +386,12 @@ namespace Azure.Storage.Files
                 // Set the endpoint
                 _request.Method = Azure.Core.RequestMethod.Get;
                 _request.Uri.Reset(resourceUri);
-                _request.Uri.AppendQuery("comp", "list", escapeValue: false);
-                if (prefix != null) { _request.Uri.AppendQuery("prefix", prefix); }
-                if (marker != null) { _request.Uri.AppendQuery("marker", marker); }
-                if (maxresults != null) { _request.Uri.AppendQuery("maxresults", maxresults.Value.ToString(System.Globalization.CultureInfo.InvariantCulture)); }
-                if (include != null) { _request.Uri.AppendQuery("include", string.Join(",", System.Linq.Enumerable.Select(include, item => Azure.Storage.Files.FileRestClient.Serialization.ToString(item)))); }
-                if (timeout != null) { _request.Uri.AppendQuery("timeout", timeout.Value.ToString(System.Globalization.CultureInfo.InvariantCulture)); }
+                _request.Uri.AppendQuery("comp", "list");
+                if (prefix != null) { _request.Uri.AppendQuery("prefix", System.Uri.EscapeDataString(prefix)); }
+                if (marker != null) { _request.Uri.AppendQuery("marker", System.Uri.EscapeDataString(marker)); }
+                if (maxresults != null) { _request.Uri.AppendQuery("maxresults", System.Uri.EscapeDataString(maxresults.Value.ToString(System.Globalization.CultureInfo.InvariantCulture))); }
+                if (include != null) { _request.Uri.AppendQuery("include", System.Uri.EscapeDataString(string.Join(",", System.Linq.Enumerable.Select(include, item => Azure.Storage.Files.FileRestClient.Serialization.ToString(item))))); }
+                if (timeout != null) { _request.Uri.AppendQuery("timeout", System.Uri.EscapeDataString(timeout.Value.ToString(System.Globalization.CultureInfo.InvariantCulture))); }
 
                 // Add request headers
                 _request.Headers.SetValue("x-ms-version", "2019-02-02");
@@ -532,8 +532,8 @@ namespace Azure.Storage.Files
                 // Set the endpoint
                 _request.Method = Azure.Core.RequestMethod.Put;
                 _request.Uri.Reset(resourceUri);
-                _request.Uri.AppendQuery("restype", "share", escapeValue: false);
-                if (timeout != null) { _request.Uri.AppendQuery("timeout", timeout.Value.ToString(System.Globalization.CultureInfo.InvariantCulture)); }
+                _request.Uri.AppendQuery("restype", "share");
+                if (timeout != null) { _request.Uri.AppendQuery("timeout", System.Uri.EscapeDataString(timeout.Value.ToString(System.Globalization.CultureInfo.InvariantCulture))); }
 
                 // Add request headers
                 _request.Headers.SetValue("x-ms-version", "2019-02-02");
@@ -678,9 +678,9 @@ namespace Azure.Storage.Files
                 // Set the endpoint
                 _request.Method = Azure.Core.RequestMethod.Get;
                 _request.Uri.Reset(resourceUri);
-                _request.Uri.AppendQuery("restype", "share", escapeValue: false);
-                if (sharesnapshot != null) { _request.Uri.AppendQuery("sharesnapshot", sharesnapshot); }
-                if (timeout != null) { _request.Uri.AppendQuery("timeout", timeout.Value.ToString(System.Globalization.CultureInfo.InvariantCulture)); }
+                _request.Uri.AppendQuery("restype", "share");
+                if (sharesnapshot != null) { _request.Uri.AppendQuery("sharesnapshot", System.Uri.EscapeDataString(sharesnapshot)); }
+                if (timeout != null) { _request.Uri.AppendQuery("timeout", System.Uri.EscapeDataString(timeout.Value.ToString(System.Globalization.CultureInfo.InvariantCulture))); }
 
                 // Add request headers
                 _request.Headers.SetValue("x-ms-version", "2019-02-02");
@@ -835,9 +835,9 @@ namespace Azure.Storage.Files
                 // Set the endpoint
                 _request.Method = Azure.Core.RequestMethod.Delete;
                 _request.Uri.Reset(resourceUri);
-                _request.Uri.AppendQuery("restype", "share", escapeValue: false);
-                if (sharesnapshot != null) { _request.Uri.AppendQuery("sharesnapshot", sharesnapshot); }
-                if (timeout != null) { _request.Uri.AppendQuery("timeout", timeout.Value.ToString(System.Globalization.CultureInfo.InvariantCulture)); }
+                _request.Uri.AppendQuery("restype", "share");
+                if (sharesnapshot != null) { _request.Uri.AppendQuery("sharesnapshot", System.Uri.EscapeDataString(sharesnapshot)); }
+                if (timeout != null) { _request.Uri.AppendQuery("timeout", System.Uri.EscapeDataString(timeout.Value.ToString(System.Globalization.CultureInfo.InvariantCulture))); }
 
                 // Add request headers
                 _request.Headers.SetValue("x-ms-version", "2019-02-02");
@@ -961,9 +961,9 @@ namespace Azure.Storage.Files
                 // Set the endpoint
                 _request.Method = Azure.Core.RequestMethod.Put;
                 _request.Uri.Reset(resourceUri);
-                _request.Uri.AppendQuery("restype", "share", escapeValue: false);
-                _request.Uri.AppendQuery("comp", "snapshot", escapeValue: false);
-                if (timeout != null) { _request.Uri.AppendQuery("timeout", timeout.Value.ToString(System.Globalization.CultureInfo.InvariantCulture)); }
+                _request.Uri.AppendQuery("restype", "share");
+                _request.Uri.AppendQuery("comp", "snapshot");
+                if (timeout != null) { _request.Uri.AppendQuery("timeout", System.Uri.EscapeDataString(timeout.Value.ToString(System.Globalization.CultureInfo.InvariantCulture))); }
 
                 // Add request headers
                 _request.Headers.SetValue("x-ms-version", "2019-02-02");
@@ -1115,9 +1115,9 @@ namespace Azure.Storage.Files
                 // Set the endpoint
                 _request.Method = Azure.Core.RequestMethod.Put;
                 _request.Uri.Reset(resourceUri);
-                _request.Uri.AppendQuery("restype", "share", escapeValue: false);
-                _request.Uri.AppendQuery("comp", "filepermission", escapeValue: false);
-                if (timeout != null) { _request.Uri.AppendQuery("timeout", timeout.Value.ToString(System.Globalization.CultureInfo.InvariantCulture)); }
+                _request.Uri.AppendQuery("restype", "share");
+                _request.Uri.AppendQuery("comp", "filepermission");
+                if (timeout != null) { _request.Uri.AppendQuery("timeout", System.Uri.EscapeDataString(timeout.Value.ToString(System.Globalization.CultureInfo.InvariantCulture))); }
 
                 // Add request headers
                 _request.Headers.SetValue("x-ms-version", "2019-02-02");
@@ -1261,9 +1261,9 @@ namespace Azure.Storage.Files
                 // Set the endpoint
                 _request.Method = Azure.Core.RequestMethod.Get;
                 _request.Uri.Reset(resourceUri);
-                _request.Uri.AppendQuery("restype", "share", escapeValue: false);
-                _request.Uri.AppendQuery("comp", "filepermission", escapeValue: false);
-                if (timeout != null) { _request.Uri.AppendQuery("timeout", timeout.Value.ToString(System.Globalization.CultureInfo.InvariantCulture)); }
+                _request.Uri.AppendQuery("restype", "share");
+                _request.Uri.AppendQuery("comp", "filepermission");
+                if (timeout != null) { _request.Uri.AppendQuery("timeout", System.Uri.EscapeDataString(timeout.Value.ToString(System.Globalization.CultureInfo.InvariantCulture))); }
 
                 // Add request headers
                 _request.Headers.SetValue("x-ms-file-permission-key", filePermissionKey);
@@ -1395,9 +1395,9 @@ namespace Azure.Storage.Files
                 // Set the endpoint
                 _request.Method = Azure.Core.RequestMethod.Put;
                 _request.Uri.Reset(resourceUri);
-                _request.Uri.AppendQuery("restype", "share", escapeValue: false);
-                _request.Uri.AppendQuery("comp", "properties", escapeValue: false);
-                if (timeout != null) { _request.Uri.AppendQuery("timeout", timeout.Value.ToString(System.Globalization.CultureInfo.InvariantCulture)); }
+                _request.Uri.AppendQuery("restype", "share");
+                _request.Uri.AppendQuery("comp", "properties");
+                if (timeout != null) { _request.Uri.AppendQuery("timeout", System.Uri.EscapeDataString(timeout.Value.ToString(System.Globalization.CultureInfo.InvariantCulture))); }
 
                 // Add request headers
                 _request.Headers.SetValue("x-ms-version", "2019-02-02");
@@ -1536,9 +1536,9 @@ namespace Azure.Storage.Files
                 // Set the endpoint
                 _request.Method = Azure.Core.RequestMethod.Put;
                 _request.Uri.Reset(resourceUri);
-                _request.Uri.AppendQuery("restype", "share", escapeValue: false);
-                _request.Uri.AppendQuery("comp", "metadata", escapeValue: false);
-                if (timeout != null) { _request.Uri.AppendQuery("timeout", timeout.Value.ToString(System.Globalization.CultureInfo.InvariantCulture)); }
+                _request.Uri.AppendQuery("restype", "share");
+                _request.Uri.AppendQuery("comp", "metadata");
+                if (timeout != null) { _request.Uri.AppendQuery("timeout", System.Uri.EscapeDataString(timeout.Value.ToString(System.Globalization.CultureInfo.InvariantCulture))); }
 
                 // Add request headers
                 _request.Headers.SetValue("x-ms-version", "2019-02-02");
@@ -1677,9 +1677,9 @@ namespace Azure.Storage.Files
                 // Set the endpoint
                 _request.Method = Azure.Core.RequestMethod.Get;
                 _request.Uri.Reset(resourceUri);
-                _request.Uri.AppendQuery("restype", "share", escapeValue: false);
-                _request.Uri.AppendQuery("comp", "acl", escapeValue: false);
-                if (timeout != null) { _request.Uri.AppendQuery("timeout", timeout.Value.ToString(System.Globalization.CultureInfo.InvariantCulture)); }
+                _request.Uri.AppendQuery("restype", "share");
+                _request.Uri.AppendQuery("comp", "acl");
+                if (timeout != null) { _request.Uri.AppendQuery("timeout", System.Uri.EscapeDataString(timeout.Value.ToString(System.Globalization.CultureInfo.InvariantCulture))); }
 
                 // Add request headers
                 _request.Headers.SetValue("x-ms-version", "2019-02-02");
@@ -1811,9 +1811,9 @@ namespace Azure.Storage.Files
                 // Set the endpoint
                 _request.Method = Azure.Core.RequestMethod.Put;
                 _request.Uri.Reset(resourceUri);
-                _request.Uri.AppendQuery("restype", "share", escapeValue: false);
-                _request.Uri.AppendQuery("comp", "acl", escapeValue: false);
-                if (timeout != null) { _request.Uri.AppendQuery("timeout", timeout.Value.ToString(System.Globalization.CultureInfo.InvariantCulture)); }
+                _request.Uri.AppendQuery("restype", "share");
+                _request.Uri.AppendQuery("comp", "acl");
+                if (timeout != null) { _request.Uri.AppendQuery("timeout", System.Uri.EscapeDataString(timeout.Value.ToString(System.Globalization.CultureInfo.InvariantCulture))); }
 
                 // Add request headers
                 _request.Headers.SetValue("x-ms-version", "2019-02-02");
@@ -1960,9 +1960,9 @@ namespace Azure.Storage.Files
                 // Set the endpoint
                 _request.Method = Azure.Core.RequestMethod.Get;
                 _request.Uri.Reset(resourceUri);
-                _request.Uri.AppendQuery("restype", "share", escapeValue: false);
-                _request.Uri.AppendQuery("comp", "stats", escapeValue: false);
-                if (timeout != null) { _request.Uri.AppendQuery("timeout", timeout.Value.ToString(System.Globalization.CultureInfo.InvariantCulture)); }
+                _request.Uri.AppendQuery("restype", "share");
+                _request.Uri.AppendQuery("comp", "stats");
+                if (timeout != null) { _request.Uri.AppendQuery("timeout", System.Uri.EscapeDataString(timeout.Value.ToString(System.Globalization.CultureInfo.InvariantCulture))); }
 
                 // Add request headers
                 _request.Headers.SetValue("x-ms-version", "2019-02-02");
@@ -2135,8 +2135,8 @@ namespace Azure.Storage.Files
                 // Set the endpoint
                 _request.Method = Azure.Core.RequestMethod.Put;
                 _request.Uri.Reset(resourceUri);
-                _request.Uri.AppendQuery("restype", "directory", escapeValue: false);
-                if (timeout != null) { _request.Uri.AppendQuery("timeout", timeout.Value.ToString(System.Globalization.CultureInfo.InvariantCulture)); }
+                _request.Uri.AppendQuery("restype", "directory");
+                if (timeout != null) { _request.Uri.AppendQuery("timeout", System.Uri.EscapeDataString(timeout.Value.ToString(System.Globalization.CultureInfo.InvariantCulture))); }
 
                 // Add request headers
                 _request.Headers.SetValue("x-ms-version", "2019-02-02");
@@ -2313,9 +2313,9 @@ namespace Azure.Storage.Files
                 // Set the endpoint
                 _request.Method = Azure.Core.RequestMethod.Get;
                 _request.Uri.Reset(resourceUri);
-                _request.Uri.AppendQuery("restype", "directory", escapeValue: false);
-                if (sharesnapshot != null) { _request.Uri.AppendQuery("sharesnapshot", sharesnapshot); }
-                if (timeout != null) { _request.Uri.AppendQuery("timeout", timeout.Value.ToString(System.Globalization.CultureInfo.InvariantCulture)); }
+                _request.Uri.AppendQuery("restype", "directory");
+                if (sharesnapshot != null) { _request.Uri.AppendQuery("sharesnapshot", System.Uri.EscapeDataString(sharesnapshot)); }
+                if (timeout != null) { _request.Uri.AppendQuery("timeout", System.Uri.EscapeDataString(timeout.Value.ToString(System.Globalization.CultureInfo.InvariantCulture))); }
 
                 // Add request headers
                 _request.Headers.SetValue("x-ms-version", "2019-02-02");
@@ -2488,8 +2488,8 @@ namespace Azure.Storage.Files
                 // Set the endpoint
                 _request.Method = Azure.Core.RequestMethod.Delete;
                 _request.Uri.Reset(resourceUri);
-                _request.Uri.AppendQuery("restype", "directory", escapeValue: false);
-                if (timeout != null) { _request.Uri.AppendQuery("timeout", timeout.Value.ToString(System.Globalization.CultureInfo.InvariantCulture)); }
+                _request.Uri.AppendQuery("restype", "directory");
+                if (timeout != null) { _request.Uri.AppendQuery("timeout", System.Uri.EscapeDataString(timeout.Value.ToString(System.Globalization.CultureInfo.InvariantCulture))); }
 
                 // Add request headers
                 _request.Headers.SetValue("x-ms-version", "2019-02-02");
@@ -2644,9 +2644,9 @@ namespace Azure.Storage.Files
                 // Set the endpoint
                 _request.Method = Azure.Core.RequestMethod.Put;
                 _request.Uri.Reset(resourceUri);
-                _request.Uri.AppendQuery("restype", "directory", escapeValue: false);
-                _request.Uri.AppendQuery("comp", "properties", escapeValue: false);
-                if (timeout != null) { _request.Uri.AppendQuery("timeout", timeout.Value.ToString(System.Globalization.CultureInfo.InvariantCulture)); }
+                _request.Uri.AppendQuery("restype", "directory");
+                _request.Uri.AppendQuery("comp", "properties");
+                if (timeout != null) { _request.Uri.AppendQuery("timeout", System.Uri.EscapeDataString(timeout.Value.ToString(System.Globalization.CultureInfo.InvariantCulture))); }
 
                 // Add request headers
                 _request.Headers.SetValue("x-ms-version", "2019-02-02");
@@ -2817,9 +2817,9 @@ namespace Azure.Storage.Files
                 // Set the endpoint
                 _request.Method = Azure.Core.RequestMethod.Put;
                 _request.Uri.Reset(resourceUri);
-                _request.Uri.AppendQuery("restype", "directory", escapeValue: false);
-                _request.Uri.AppendQuery("comp", "metadata", escapeValue: false);
-                if (timeout != null) { _request.Uri.AppendQuery("timeout", timeout.Value.ToString(System.Globalization.CultureInfo.InvariantCulture)); }
+                _request.Uri.AppendQuery("restype", "directory");
+                _request.Uri.AppendQuery("comp", "metadata");
+                if (timeout != null) { _request.Uri.AppendQuery("timeout", System.Uri.EscapeDataString(timeout.Value.ToString(System.Globalization.CultureInfo.InvariantCulture))); }
 
                 // Add request headers
                 _request.Headers.SetValue("x-ms-version", "2019-02-02");
@@ -2978,13 +2978,13 @@ namespace Azure.Storage.Files
                 // Set the endpoint
                 _request.Method = Azure.Core.RequestMethod.Get;
                 _request.Uri.Reset(resourceUri);
-                _request.Uri.AppendQuery("restype", "directory", escapeValue: false);
-                _request.Uri.AppendQuery("comp", "list", escapeValue: false);
-                if (prefix != null) { _request.Uri.AppendQuery("prefix", prefix); }
-                if (sharesnapshot != null) { _request.Uri.AppendQuery("sharesnapshot", sharesnapshot); }
-                if (marker != null) { _request.Uri.AppendQuery("marker", marker); }
-                if (maxresults != null) { _request.Uri.AppendQuery("maxresults", maxresults.Value.ToString(System.Globalization.CultureInfo.InvariantCulture)); }
-                if (timeout != null) { _request.Uri.AppendQuery("timeout", timeout.Value.ToString(System.Globalization.CultureInfo.InvariantCulture)); }
+                _request.Uri.AppendQuery("restype", "directory");
+                _request.Uri.AppendQuery("comp", "list");
+                if (prefix != null) { _request.Uri.AppendQuery("prefix", System.Uri.EscapeDataString(prefix)); }
+                if (sharesnapshot != null) { _request.Uri.AppendQuery("sharesnapshot", System.Uri.EscapeDataString(sharesnapshot)); }
+                if (marker != null) { _request.Uri.AppendQuery("marker", System.Uri.EscapeDataString(marker)); }
+                if (maxresults != null) { _request.Uri.AppendQuery("maxresults", System.Uri.EscapeDataString(maxresults.Value.ToString(System.Globalization.CultureInfo.InvariantCulture))); }
+                if (timeout != null) { _request.Uri.AppendQuery("timeout", System.Uri.EscapeDataString(timeout.Value.ToString(System.Globalization.CultureInfo.InvariantCulture))); }
 
                 // Add request headers
                 _request.Headers.SetValue("x-ms-version", "2019-02-02");
@@ -3127,11 +3127,11 @@ namespace Azure.Storage.Files
                 // Set the endpoint
                 _request.Method = Azure.Core.RequestMethod.Get;
                 _request.Uri.Reset(resourceUri);
-                _request.Uri.AppendQuery("comp", "listhandles", escapeValue: false);
-                if (marker != null) { _request.Uri.AppendQuery("marker", marker); }
-                if (maxresults != null) { _request.Uri.AppendQuery("maxresults", maxresults.Value.ToString(System.Globalization.CultureInfo.InvariantCulture)); }
-                if (timeout != null) { _request.Uri.AppendQuery("timeout", timeout.Value.ToString(System.Globalization.CultureInfo.InvariantCulture)); }
-                if (sharesnapshot != null) { _request.Uri.AppendQuery("sharesnapshot", sharesnapshot); }
+                _request.Uri.AppendQuery("comp", "listhandles");
+                if (marker != null) { _request.Uri.AppendQuery("marker", System.Uri.EscapeDataString(marker)); }
+                if (maxresults != null) { _request.Uri.AppendQuery("maxresults", System.Uri.EscapeDataString(maxresults.Value.ToString(System.Globalization.CultureInfo.InvariantCulture))); }
+                if (timeout != null) { _request.Uri.AppendQuery("timeout", System.Uri.EscapeDataString(timeout.Value.ToString(System.Globalization.CultureInfo.InvariantCulture))); }
+                if (sharesnapshot != null) { _request.Uri.AppendQuery("sharesnapshot", System.Uri.EscapeDataString(sharesnapshot)); }
 
                 // Add request headers
                 _request.Headers.SetValue("x-ms-version", "2019-02-02");
@@ -3283,10 +3283,10 @@ namespace Azure.Storage.Files
                 // Set the endpoint
                 _request.Method = Azure.Core.RequestMethod.Put;
                 _request.Uri.Reset(resourceUri);
-                _request.Uri.AppendQuery("comp", "forceclosehandles", escapeValue: false);
-                if (timeout != null) { _request.Uri.AppendQuery("timeout", timeout.Value.ToString(System.Globalization.CultureInfo.InvariantCulture)); }
-                if (marker != null) { _request.Uri.AppendQuery("marker", marker); }
-                if (sharesnapshot != null) { _request.Uri.AppendQuery("sharesnapshot", sharesnapshot); }
+                _request.Uri.AppendQuery("comp", "forceclosehandles");
+                if (timeout != null) { _request.Uri.AppendQuery("timeout", System.Uri.EscapeDataString(timeout.Value.ToString(System.Globalization.CultureInfo.InvariantCulture))); }
+                if (marker != null) { _request.Uri.AppendQuery("marker", System.Uri.EscapeDataString(marker)); }
+                if (sharesnapshot != null) { _request.Uri.AppendQuery("sharesnapshot", System.Uri.EscapeDataString(sharesnapshot)); }
 
                 // Add request headers
                 _request.Headers.SetValue("x-ms-handle-id", handleId);
@@ -3510,7 +3510,7 @@ namespace Azure.Storage.Files
                 // Set the endpoint
                 _request.Method = Azure.Core.RequestMethod.Put;
                 _request.Uri.Reset(resourceUri);
-                if (timeout != null) { _request.Uri.AppendQuery("timeout", timeout.Value.ToString(System.Globalization.CultureInfo.InvariantCulture)); }
+                if (timeout != null) { _request.Uri.AppendQuery("timeout", System.Uri.EscapeDataString(timeout.Value.ToString(System.Globalization.CultureInfo.InvariantCulture))); }
 
                 // Add request headers
                 _request.Headers.SetValue("x-ms-version", "2019-02-02");
@@ -3716,7 +3716,7 @@ namespace Azure.Storage.Files
                 // Set the endpoint
                 _request.Method = Azure.Core.RequestMethod.Get;
                 _request.Uri.Reset(resourceUri);
-                if (timeout != null) { _request.Uri.AppendQuery("timeout", timeout.Value.ToString(System.Globalization.CultureInfo.InvariantCulture)); }
+                if (timeout != null) { _request.Uri.AppendQuery("timeout", System.Uri.EscapeDataString(timeout.Value.ToString(System.Globalization.CultureInfo.InvariantCulture))); }
 
                 // Add request headers
                 _request.Headers.SetValue("x-ms-version", "2019-02-02");
@@ -4089,8 +4089,8 @@ namespace Azure.Storage.Files
                 // Set the endpoint
                 _request.Method = Azure.Core.RequestMethod.Head;
                 _request.Uri.Reset(resourceUri);
-                if (sharesnapshot != null) { _request.Uri.AppendQuery("sharesnapshot", sharesnapshot); }
-                if (timeout != null) { _request.Uri.AppendQuery("timeout", timeout.Value.ToString(System.Globalization.CultureInfo.InvariantCulture)); }
+                if (sharesnapshot != null) { _request.Uri.AppendQuery("sharesnapshot", System.Uri.EscapeDataString(sharesnapshot)); }
+                if (timeout != null) { _request.Uri.AppendQuery("timeout", System.Uri.EscapeDataString(timeout.Value.ToString(System.Globalization.CultureInfo.InvariantCulture))); }
 
                 // Add request headers
                 _request.Headers.SetValue("x-ms-version", "2019-02-02");
@@ -4325,7 +4325,7 @@ namespace Azure.Storage.Files
                 // Set the endpoint
                 _request.Method = Azure.Core.RequestMethod.Delete;
                 _request.Uri.Reset(resourceUri);
-                if (timeout != null) { _request.Uri.AppendQuery("timeout", timeout.Value.ToString(System.Globalization.CultureInfo.InvariantCulture)); }
+                if (timeout != null) { _request.Uri.AppendQuery("timeout", System.Uri.EscapeDataString(timeout.Value.ToString(System.Globalization.CultureInfo.InvariantCulture))); }
 
                 // Add request headers
                 _request.Headers.SetValue("x-ms-version", "2019-02-02");
@@ -4515,8 +4515,8 @@ namespace Azure.Storage.Files
                 // Set the endpoint
                 _request.Method = Azure.Core.RequestMethod.Put;
                 _request.Uri.Reset(resourceUri);
-                _request.Uri.AppendQuery("comp", "properties", escapeValue: false);
-                if (timeout != null) { _request.Uri.AppendQuery("timeout", timeout.Value.ToString(System.Globalization.CultureInfo.InvariantCulture)); }
+                _request.Uri.AppendQuery("comp", "properties");
+                if (timeout != null) { _request.Uri.AppendQuery("timeout", System.Uri.EscapeDataString(timeout.Value.ToString(System.Globalization.CultureInfo.InvariantCulture))); }
 
                 // Add request headers
                 _request.Headers.SetValue("x-ms-version", "2019-02-02");
@@ -4708,8 +4708,8 @@ namespace Azure.Storage.Files
                 // Set the endpoint
                 _request.Method = Azure.Core.RequestMethod.Put;
                 _request.Uri.Reset(resourceUri);
-                _request.Uri.AppendQuery("comp", "metadata", escapeValue: false);
-                if (timeout != null) { _request.Uri.AppendQuery("timeout", timeout.Value.ToString(System.Globalization.CultureInfo.InvariantCulture)); }
+                _request.Uri.AppendQuery("comp", "metadata");
+                if (timeout != null) { _request.Uri.AppendQuery("timeout", System.Uri.EscapeDataString(timeout.Value.ToString(System.Globalization.CultureInfo.InvariantCulture))); }
 
                 // Add request headers
                 _request.Headers.SetValue("x-ms-version", "2019-02-02");
@@ -4881,8 +4881,8 @@ namespace Azure.Storage.Files
                 // Set the endpoint
                 _request.Method = Azure.Core.RequestMethod.Put;
                 _request.Uri.Reset(resourceUri);
-                _request.Uri.AppendQuery("comp", "range", escapeValue: false);
-                if (timeout != null) { _request.Uri.AppendQuery("timeout", timeout.Value.ToString(System.Globalization.CultureInfo.InvariantCulture)); }
+                _request.Uri.AppendQuery("comp", "range");
+                if (timeout != null) { _request.Uri.AppendQuery("timeout", System.Uri.EscapeDataString(timeout.Value.ToString(System.Globalization.CultureInfo.InvariantCulture))); }
 
                 // Add request headers
                 _request.Headers.SetValue("x-ms-range", range);
@@ -5073,8 +5073,8 @@ namespace Azure.Storage.Files
                 // Set the endpoint
                 _request.Method = Azure.Core.RequestMethod.Put;
                 _request.Uri.Reset(resourceUri);
-                _request.Uri.AppendQuery("comp", "range", escapeValue: false);
-                if (timeout != null) { _request.Uri.AppendQuery("timeout", timeout.Value.ToString(System.Globalization.CultureInfo.InvariantCulture)); }
+                _request.Uri.AppendQuery("comp", "range");
+                if (timeout != null) { _request.Uri.AppendQuery("timeout", System.Uri.EscapeDataString(timeout.Value.ToString(System.Globalization.CultureInfo.InvariantCulture))); }
 
                 // Add request headers
                 _request.Headers.SetValue("x-ms-range", range);
@@ -5233,9 +5233,9 @@ namespace Azure.Storage.Files
                 // Set the endpoint
                 _request.Method = Azure.Core.RequestMethod.Get;
                 _request.Uri.Reset(resourceUri);
-                _request.Uri.AppendQuery("comp", "rangelist", escapeValue: false);
-                if (sharesnapshot != null) { _request.Uri.AppendQuery("sharesnapshot", sharesnapshot); }
-                if (timeout != null) { _request.Uri.AppendQuery("timeout", timeout.Value.ToString(System.Globalization.CultureInfo.InvariantCulture)); }
+                _request.Uri.AppendQuery("comp", "rangelist");
+                if (sharesnapshot != null) { _request.Uri.AppendQuery("sharesnapshot", System.Uri.EscapeDataString(sharesnapshot)); }
+                if (timeout != null) { _request.Uri.AppendQuery("timeout", System.Uri.EscapeDataString(timeout.Value.ToString(System.Globalization.CultureInfo.InvariantCulture))); }
 
                 // Add request headers
                 _request.Headers.SetValue("x-ms-version", "2019-02-02");
@@ -5393,7 +5393,7 @@ namespace Azure.Storage.Files
                 // Set the endpoint
                 _request.Method = Azure.Core.RequestMethod.Put;
                 _request.Uri.Reset(resourceUri);
-                if (timeout != null) { _request.Uri.AppendQuery("timeout", timeout.Value.ToString(System.Globalization.CultureInfo.InvariantCulture)); }
+                if (timeout != null) { _request.Uri.AppendQuery("timeout", System.Uri.EscapeDataString(timeout.Value.ToString(System.Globalization.CultureInfo.InvariantCulture))); }
 
                 // Add request headers
                 _request.Headers.SetValue("x-ms-version", "2019-02-02");
@@ -5550,9 +5550,9 @@ namespace Azure.Storage.Files
                 // Set the endpoint
                 _request.Method = Azure.Core.RequestMethod.Put;
                 _request.Uri.Reset(resourceUri);
-                _request.Uri.AppendQuery("comp", "copy", escapeValue: false);
-                _request.Uri.AppendQuery("copyid", copyId);
-                if (timeout != null) { _request.Uri.AppendQuery("timeout", timeout.Value.ToString(System.Globalization.CultureInfo.InvariantCulture)); }
+                _request.Uri.AppendQuery("comp", "copy");
+                _request.Uri.AppendQuery("copyid", System.Uri.EscapeDataString(copyId));
+                if (timeout != null) { _request.Uri.AppendQuery("timeout", System.Uri.EscapeDataString(timeout.Value.ToString(System.Globalization.CultureInfo.InvariantCulture))); }
 
                 // Add request headers
                 _request.Headers.SetValue("x-ms-copy-action", "abort");
@@ -5686,11 +5686,11 @@ namespace Azure.Storage.Files
                 // Set the endpoint
                 _request.Method = Azure.Core.RequestMethod.Get;
                 _request.Uri.Reset(resourceUri);
-                _request.Uri.AppendQuery("comp", "listhandles", escapeValue: false);
-                if (marker != null) { _request.Uri.AppendQuery("marker", marker); }
-                if (maxresults != null) { _request.Uri.AppendQuery("maxresults", maxresults.Value.ToString(System.Globalization.CultureInfo.InvariantCulture)); }
-                if (timeout != null) { _request.Uri.AppendQuery("timeout", timeout.Value.ToString(System.Globalization.CultureInfo.InvariantCulture)); }
-                if (sharesnapshot != null) { _request.Uri.AppendQuery("sharesnapshot", sharesnapshot); }
+                _request.Uri.AppendQuery("comp", "listhandles");
+                if (marker != null) { _request.Uri.AppendQuery("marker", System.Uri.EscapeDataString(marker)); }
+                if (maxresults != null) { _request.Uri.AppendQuery("maxresults", System.Uri.EscapeDataString(maxresults.Value.ToString(System.Globalization.CultureInfo.InvariantCulture))); }
+                if (timeout != null) { _request.Uri.AppendQuery("timeout", System.Uri.EscapeDataString(timeout.Value.ToString(System.Globalization.CultureInfo.InvariantCulture))); }
+                if (sharesnapshot != null) { _request.Uri.AppendQuery("sharesnapshot", System.Uri.EscapeDataString(sharesnapshot)); }
 
                 // Add request headers
                 _request.Headers.SetValue("x-ms-version", "2019-02-02");
@@ -5832,10 +5832,10 @@ namespace Azure.Storage.Files
                 // Set the endpoint
                 _request.Method = Azure.Core.RequestMethod.Put;
                 _request.Uri.Reset(resourceUri);
-                _request.Uri.AppendQuery("comp", "forceclosehandles", escapeValue: false);
-                if (timeout != null) { _request.Uri.AppendQuery("timeout", timeout.Value.ToString(System.Globalization.CultureInfo.InvariantCulture)); }
-                if (marker != null) { _request.Uri.AppendQuery("marker", marker); }
-                if (sharesnapshot != null) { _request.Uri.AppendQuery("sharesnapshot", sharesnapshot); }
+                _request.Uri.AppendQuery("comp", "forceclosehandles");
+                if (timeout != null) { _request.Uri.AppendQuery("timeout", System.Uri.EscapeDataString(timeout.Value.ToString(System.Globalization.CultureInfo.InvariantCulture))); }
+                if (marker != null) { _request.Uri.AppendQuery("marker", System.Uri.EscapeDataString(marker)); }
+                if (sharesnapshot != null) { _request.Uri.AppendQuery("sharesnapshot", System.Uri.EscapeDataString(sharesnapshot)); }
 
                 // Add request headers
                 _request.Headers.SetValue("x-ms-handle-id", handleId);
@@ -6318,399 +6318,408 @@ namespace Azure.Storage.Files.Models
     /// <summary>
     /// Error codes returned by the service
     /// </summary>
-    public readonly struct FileErrorCode : System.IEquatable<FileErrorCode>
+    public partial struct FileErrorCode : System.IEquatable<FileErrorCode>
     {
+        #pragma warning disable CA2211 // Non-constant fields should not be visible
+        /// <summary>
+        /// AccountAlreadyExists
+        /// </summary>
+        public static Azure.Storage.Files.Models.FileErrorCode AccountAlreadyExists { get; } = @"AccountAlreadyExists";
+
+        /// <summary>
+        /// AccountBeingCreated
+        /// </summary>
+        public static Azure.Storage.Files.Models.FileErrorCode AccountBeingCreated { get; } = @"AccountBeingCreated";
+
+        /// <summary>
+        /// AccountIsDisabled
+        /// </summary>
+        public static Azure.Storage.Files.Models.FileErrorCode AccountIsDisabled { get; } = @"AccountIsDisabled";
+
+        /// <summary>
+        /// AuthenticationFailed
+        /// </summary>
+        public static Azure.Storage.Files.Models.FileErrorCode AuthenticationFailed { get; } = @"AuthenticationFailed";
+
+        /// <summary>
+        /// AuthorizationFailure
+        /// </summary>
+        public static Azure.Storage.Files.Models.FileErrorCode AuthorizationFailure { get; } = @"AuthorizationFailure";
+
+        /// <summary>
+        /// ConditionHeadersNotSupported
+        /// </summary>
+        public static Azure.Storage.Files.Models.FileErrorCode ConditionHeadersNotSupported { get; } = @"ConditionHeadersNotSupported";
+
+        /// <summary>
+        /// ConditionNotMet
+        /// </summary>
+        public static Azure.Storage.Files.Models.FileErrorCode ConditionNotMet { get; } = @"ConditionNotMet";
+
+        /// <summary>
+        /// EmptyMetadataKey
+        /// </summary>
+        public static Azure.Storage.Files.Models.FileErrorCode EmptyMetadataKey { get; } = @"EmptyMetadataKey";
+
+        /// <summary>
+        /// InsufficientAccountPermissions
+        /// </summary>
+        public static Azure.Storage.Files.Models.FileErrorCode InsufficientAccountPermissions { get; } = @"InsufficientAccountPermissions";
+
+        /// <summary>
+        /// InternalError
+        /// </summary>
+        public static Azure.Storage.Files.Models.FileErrorCode InternalError { get; } = @"InternalError";
+
+        /// <summary>
+        /// InvalidAuthenticationInfo
+        /// </summary>
+        public static Azure.Storage.Files.Models.FileErrorCode InvalidAuthenticationInfo { get; } = @"InvalidAuthenticationInfo";
+
+        /// <summary>
+        /// InvalidHeaderValue
+        /// </summary>
+        public static Azure.Storage.Files.Models.FileErrorCode InvalidHeaderValue { get; } = @"InvalidHeaderValue";
+
+        /// <summary>
+        /// InvalidHttpVerb
+        /// </summary>
+        public static Azure.Storage.Files.Models.FileErrorCode InvalidHttpVerb { get; } = @"InvalidHttpVerb";
+
+        /// <summary>
+        /// InvalidInput
+        /// </summary>
+        public static Azure.Storage.Files.Models.FileErrorCode InvalidInput { get; } = @"InvalidInput";
+
+        /// <summary>
+        /// InvalidMd5
+        /// </summary>
+        public static Azure.Storage.Files.Models.FileErrorCode InvalidMd5 { get; } = @"InvalidMd5";
+
+        /// <summary>
+        /// InvalidMetadata
+        /// </summary>
+        public static Azure.Storage.Files.Models.FileErrorCode InvalidMetadata { get; } = @"InvalidMetadata";
+
+        /// <summary>
+        /// InvalidQueryParameterValue
+        /// </summary>
+        public static Azure.Storage.Files.Models.FileErrorCode InvalidQueryParameterValue { get; } = @"InvalidQueryParameterValue";
+
+        /// <summary>
+        /// InvalidRange
+        /// </summary>
+        public static Azure.Storage.Files.Models.FileErrorCode InvalidRange { get; } = @"InvalidRange";
+
+        /// <summary>
+        /// InvalidResourceName
+        /// </summary>
+        public static Azure.Storage.Files.Models.FileErrorCode InvalidResourceName { get; } = @"InvalidResourceName";
+
+        /// <summary>
+        /// InvalidUri
+        /// </summary>
+        public static Azure.Storage.Files.Models.FileErrorCode InvalidUri { get; } = @"InvalidUri";
+
+        /// <summary>
+        /// InvalidXmlDocument
+        /// </summary>
+        public static Azure.Storage.Files.Models.FileErrorCode InvalidXmlDocument { get; } = @"InvalidXmlDocument";
+
+        /// <summary>
+        /// InvalidXmlNodeValue
+        /// </summary>
+        public static Azure.Storage.Files.Models.FileErrorCode InvalidXmlNodeValue { get; } = @"InvalidXmlNodeValue";
+
+        /// <summary>
+        /// Md5Mismatch
+        /// </summary>
+        public static Azure.Storage.Files.Models.FileErrorCode Md5Mismatch { get; } = @"Md5Mismatch";
+
+        /// <summary>
+        /// MetadataTooLarge
+        /// </summary>
+        public static Azure.Storage.Files.Models.FileErrorCode MetadataTooLarge { get; } = @"MetadataTooLarge";
+
+        /// <summary>
+        /// MissingContentLengthHeader
+        /// </summary>
+        public static Azure.Storage.Files.Models.FileErrorCode MissingContentLengthHeader { get; } = @"MissingContentLengthHeader";
+
+        /// <summary>
+        /// MissingRequiredQueryParameter
+        /// </summary>
+        public static Azure.Storage.Files.Models.FileErrorCode MissingRequiredQueryParameter { get; } = @"MissingRequiredQueryParameter";
+
+        /// <summary>
+        /// MissingRequiredHeader
+        /// </summary>
+        public static Azure.Storage.Files.Models.FileErrorCode MissingRequiredHeader { get; } = @"MissingRequiredHeader";
+
+        /// <summary>
+        /// MissingRequiredXmlNode
+        /// </summary>
+        public static Azure.Storage.Files.Models.FileErrorCode MissingRequiredXmlNode { get; } = @"MissingRequiredXmlNode";
+
+        /// <summary>
+        /// MultipleConditionHeadersNotSupported
+        /// </summary>
+        public static Azure.Storage.Files.Models.FileErrorCode MultipleConditionHeadersNotSupported { get; } = @"MultipleConditionHeadersNotSupported";
+
+        /// <summary>
+        /// OperationTimedOut
+        /// </summary>
+        public static Azure.Storage.Files.Models.FileErrorCode OperationTimedOut { get; } = @"OperationTimedOut";
+
+        /// <summary>
+        /// OutOfRangeInput
+        /// </summary>
+        public static Azure.Storage.Files.Models.FileErrorCode OutOfRangeInput { get; } = @"OutOfRangeInput";
+
+        /// <summary>
+        /// OutOfRangeQueryParameterValue
+        /// </summary>
+        public static Azure.Storage.Files.Models.FileErrorCode OutOfRangeQueryParameterValue { get; } = @"OutOfRangeQueryParameterValue";
+
+        /// <summary>
+        /// RequestBodyTooLarge
+        /// </summary>
+        public static Azure.Storage.Files.Models.FileErrorCode RequestBodyTooLarge { get; } = @"RequestBodyTooLarge";
+
+        /// <summary>
+        /// ResourceTypeMismatch
+        /// </summary>
+        public static Azure.Storage.Files.Models.FileErrorCode ResourceTypeMismatch { get; } = @"ResourceTypeMismatch";
+
+        /// <summary>
+        /// RequestUrlFailedToParse
+        /// </summary>
+        public static Azure.Storage.Files.Models.FileErrorCode RequestUrlFailedToParse { get; } = @"RequestUrlFailedToParse";
+
+        /// <summary>
+        /// ResourceAlreadyExists
+        /// </summary>
+        public static Azure.Storage.Files.Models.FileErrorCode ResourceAlreadyExists { get; } = @"ResourceAlreadyExists";
+
+        /// <summary>
+        /// ResourceNotFound
+        /// </summary>
+        public static Azure.Storage.Files.Models.FileErrorCode ResourceNotFound { get; } = @"ResourceNotFound";
+
+        /// <summary>
+        /// ServerBusy
+        /// </summary>
+        public static Azure.Storage.Files.Models.FileErrorCode ServerBusy { get; } = @"ServerBusy";
+
+        /// <summary>
+        /// UnsupportedHeader
+        /// </summary>
+        public static Azure.Storage.Files.Models.FileErrorCode UnsupportedHeader { get; } = @"UnsupportedHeader";
+
+        /// <summary>
+        /// UnsupportedXmlNode
+        /// </summary>
+        public static Azure.Storage.Files.Models.FileErrorCode UnsupportedXmlNode { get; } = @"UnsupportedXmlNode";
+
+        /// <summary>
+        /// UnsupportedQueryParameter
+        /// </summary>
+        public static Azure.Storage.Files.Models.FileErrorCode UnsupportedQueryParameter { get; } = @"UnsupportedQueryParameter";
+
+        /// <summary>
+        /// UnsupportedHttpVerb
+        /// </summary>
+        public static Azure.Storage.Files.Models.FileErrorCode UnsupportedHttpVerb { get; } = @"UnsupportedHttpVerb";
+
+        /// <summary>
+        /// CannotDeleteFileOrDirectory
+        /// </summary>
+        public static Azure.Storage.Files.Models.FileErrorCode CannotDeleteFileOrDirectory { get; } = @"CannotDeleteFileOrDirectory";
+
+        /// <summary>
+        /// ClientCacheFlushDelay
+        /// </summary>
+        public static Azure.Storage.Files.Models.FileErrorCode ClientCacheFlushDelay { get; } = @"ClientCacheFlushDelay";
+
+        /// <summary>
+        /// DeletePending
+        /// </summary>
+        public static Azure.Storage.Files.Models.FileErrorCode DeletePending { get; } = @"DeletePending";
+
+        /// <summary>
+        /// DirectoryNotEmpty
+        /// </summary>
+        public static Azure.Storage.Files.Models.FileErrorCode DirectoryNotEmpty { get; } = @"DirectoryNotEmpty";
+
+        /// <summary>
+        /// FileLockConflict
+        /// </summary>
+        public static Azure.Storage.Files.Models.FileErrorCode FileLockConflict { get; } = @"FileLockConflict";
+
+        /// <summary>
+        /// InvalidFileOrDirectoryPathName
+        /// </summary>
+        public static Azure.Storage.Files.Models.FileErrorCode InvalidFileOrDirectoryPathName { get; } = @"InvalidFileOrDirectoryPathName";
+
+        /// <summary>
+        /// ParentNotFound
+        /// </summary>
+        public static Azure.Storage.Files.Models.FileErrorCode ParentNotFound { get; } = @"ParentNotFound";
+
+        /// <summary>
+        /// ReadOnlyAttribute
+        /// </summary>
+        public static Azure.Storage.Files.Models.FileErrorCode ReadOnlyAttribute { get; } = @"ReadOnlyAttribute";
+
+        /// <summary>
+        /// ShareAlreadyExists
+        /// </summary>
+        public static Azure.Storage.Files.Models.FileErrorCode ShareAlreadyExists { get; } = @"ShareAlreadyExists";
+
+        /// <summary>
+        /// ShareBeingDeleted
+        /// </summary>
+        public static Azure.Storage.Files.Models.FileErrorCode ShareBeingDeleted { get; } = @"ShareBeingDeleted";
+
+        /// <summary>
+        /// ShareDisabled
+        /// </summary>
+        public static Azure.Storage.Files.Models.FileErrorCode ShareDisabled { get; } = @"ShareDisabled";
+
+        /// <summary>
+        /// ShareNotFound
+        /// </summary>
+        public static Azure.Storage.Files.Models.FileErrorCode ShareNotFound { get; } = @"ShareNotFound";
+
+        /// <summary>
+        /// SharingViolation
+        /// </summary>
+        public static Azure.Storage.Files.Models.FileErrorCode SharingViolation { get; } = @"SharingViolation";
+
+        /// <summary>
+        /// ShareSnapshotInProgress
+        /// </summary>
+        public static Azure.Storage.Files.Models.FileErrorCode ShareSnapshotInProgress { get; } = @"ShareSnapshotInProgress";
+
+        /// <summary>
+        /// ShareSnapshotCountExceeded
+        /// </summary>
+        public static Azure.Storage.Files.Models.FileErrorCode ShareSnapshotCountExceeded { get; } = @"ShareSnapshotCountExceeded";
+
+        /// <summary>
+        /// ShareSnapshotOperationNotSupported
+        /// </summary>
+        public static Azure.Storage.Files.Models.FileErrorCode ShareSnapshotOperationNotSupported { get; } = @"ShareSnapshotOperationNotSupported";
+
+        /// <summary>
+        /// ShareHasSnapshots
+        /// </summary>
+        public static Azure.Storage.Files.Models.FileErrorCode ShareHasSnapshots { get; } = @"ShareHasSnapshots";
+
+        /// <summary>
+        /// ContainerQuotaDowngradeNotAllowed
+        /// </summary>
+        public static Azure.Storage.Files.Models.FileErrorCode ContainerQuotaDowngradeNotAllowed { get; } = @"ContainerQuotaDowngradeNotAllowed";
+
+        /// <summary>
+        /// AuthorizationSourceIPMismatch
+        /// </summary>
+        public static Azure.Storage.Files.Models.FileErrorCode AuthorizationSourceIPMismatch { get; } = @"AuthorizationSourceIPMismatch";
+
+        /// <summary>
+        /// AuthorizationProtocolMismatch
+        /// </summary>
+        public static Azure.Storage.Files.Models.FileErrorCode AuthorizationProtocolMismatch { get; } = @"AuthorizationProtocolMismatch";
+
+        /// <summary>
+        /// AuthorizationPermissionMismatch
+        /// </summary>
+        public static Azure.Storage.Files.Models.FileErrorCode AuthorizationPermissionMismatch { get; } = @"AuthorizationPermissionMismatch";
+
+        /// <summary>
+        /// AuthorizationServiceMismatch
+        /// </summary>
+        public static Azure.Storage.Files.Models.FileErrorCode AuthorizationServiceMismatch { get; } = @"AuthorizationServiceMismatch";
+
+        /// <summary>
+        /// AuthorizationResourceTypeMismatch
+        /// </summary>
+        public static Azure.Storage.Files.Models.FileErrorCode AuthorizationResourceTypeMismatch { get; } = @"AuthorizationResourceTypeMismatch";
+
+        /// <summary>
+        /// FeatureVersionMismatch
+        /// </summary>
+        public static Azure.Storage.Files.Models.FileErrorCode FeatureVersionMismatch { get; } = @"FeatureVersionMismatch";
+        #pragma warning restore CA2211 // Non-constant fields should not be visible
+
         /// <summary>
         /// The FileErrorCode value.
         /// </summary>
         private readonly string _value;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="FileErrorCode"/> structure.
+        /// Creates a new FileErrorCode instance.
         /// </summary>
-        /// <param name="value">The string value of the instance.</param>
-        public FileErrorCode(string value) { _value = value ?? throw new System.ArgumentNullException(nameof(value)); }
+        /// <param name="value">The FileErrorCode value.</param>
+        private FileErrorCode(string value) { _value = value; }
 
         /// <summary>
-        /// AccountAlreadyExists
-        /// </summary>
-        public static readonly Azure.Storage.Files.Models.FileErrorCode AccountAlreadyExists = new FileErrorCode(@"AccountAlreadyExists");
-
-        /// <summary>
-        /// AccountBeingCreated
-        /// </summary>
-        public static readonly Azure.Storage.Files.Models.FileErrorCode AccountBeingCreated = new FileErrorCode(@"AccountBeingCreated");
-
-        /// <summary>
-        /// AccountIsDisabled
-        /// </summary>
-        public static readonly Azure.Storage.Files.Models.FileErrorCode AccountIsDisabled = new FileErrorCode(@"AccountIsDisabled");
-
-        /// <summary>
-        /// AuthenticationFailed
-        /// </summary>
-        public static readonly Azure.Storage.Files.Models.FileErrorCode AuthenticationFailed = new FileErrorCode(@"AuthenticationFailed");
-
-        /// <summary>
-        /// AuthorizationFailure
-        /// </summary>
-        public static readonly Azure.Storage.Files.Models.FileErrorCode AuthorizationFailure = new FileErrorCode(@"AuthorizationFailure");
-
-        /// <summary>
-        /// ConditionHeadersNotSupported
-        /// </summary>
-        public static readonly Azure.Storage.Files.Models.FileErrorCode ConditionHeadersNotSupported = new FileErrorCode(@"ConditionHeadersNotSupported");
-
-        /// <summary>
-        /// ConditionNotMet
-        /// </summary>
-        public static readonly Azure.Storage.Files.Models.FileErrorCode ConditionNotMet = new FileErrorCode(@"ConditionNotMet");
-
-        /// <summary>
-        /// EmptyMetadataKey
-        /// </summary>
-        public static readonly Azure.Storage.Files.Models.FileErrorCode EmptyMetadataKey = new FileErrorCode(@"EmptyMetadataKey");
-
-        /// <summary>
-        /// InsufficientAccountPermissions
-        /// </summary>
-        public static readonly Azure.Storage.Files.Models.FileErrorCode InsufficientAccountPermissions = new FileErrorCode(@"InsufficientAccountPermissions");
-
-        /// <summary>
-        /// InternalError
-        /// </summary>
-        public static readonly Azure.Storage.Files.Models.FileErrorCode InternalError = new FileErrorCode(@"InternalError");
-
-        /// <summary>
-        /// InvalidAuthenticationInfo
-        /// </summary>
-        public static readonly Azure.Storage.Files.Models.FileErrorCode InvalidAuthenticationInfo = new FileErrorCode(@"InvalidAuthenticationInfo");
-
-        /// <summary>
-        /// InvalidHeaderValue
-        /// </summary>
-        public static readonly Azure.Storage.Files.Models.FileErrorCode InvalidHeaderValue = new FileErrorCode(@"InvalidHeaderValue");
-
-        /// <summary>
-        /// InvalidHttpVerb
-        /// </summary>
-        public static readonly Azure.Storage.Files.Models.FileErrorCode InvalidHttpVerb = new FileErrorCode(@"InvalidHttpVerb");
-
-        /// <summary>
-        /// InvalidInput
-        /// </summary>
-        public static readonly Azure.Storage.Files.Models.FileErrorCode InvalidInput = new FileErrorCode(@"InvalidInput");
-
-        /// <summary>
-        /// InvalidMd5
-        /// </summary>
-        public static readonly Azure.Storage.Files.Models.FileErrorCode InvalidMd5 = new FileErrorCode(@"InvalidMd5");
-
-        /// <summary>
-        /// InvalidMetadata
-        /// </summary>
-        public static readonly Azure.Storage.Files.Models.FileErrorCode InvalidMetadata = new FileErrorCode(@"InvalidMetadata");
-
-        /// <summary>
-        /// InvalidQueryParameterValue
-        /// </summary>
-        public static readonly Azure.Storage.Files.Models.FileErrorCode InvalidQueryParameterValue = new FileErrorCode(@"InvalidQueryParameterValue");
-
-        /// <summary>
-        /// InvalidRange
-        /// </summary>
-        public static readonly Azure.Storage.Files.Models.FileErrorCode InvalidRange = new FileErrorCode(@"InvalidRange");
-
-        /// <summary>
-        /// InvalidResourceName
-        /// </summary>
-        public static readonly Azure.Storage.Files.Models.FileErrorCode InvalidResourceName = new FileErrorCode(@"InvalidResourceName");
-
-        /// <summary>
-        /// InvalidUri
-        /// </summary>
-        public static readonly Azure.Storage.Files.Models.FileErrorCode InvalidUri = new FileErrorCode(@"InvalidUri");
-
-        /// <summary>
-        /// InvalidXmlDocument
-        /// </summary>
-        public static readonly Azure.Storage.Files.Models.FileErrorCode InvalidXmlDocument = new FileErrorCode(@"InvalidXmlDocument");
-
-        /// <summary>
-        /// InvalidXmlNodeValue
-        /// </summary>
-        public static readonly Azure.Storage.Files.Models.FileErrorCode InvalidXmlNodeValue = new FileErrorCode(@"InvalidXmlNodeValue");
-
-        /// <summary>
-        /// Md5Mismatch
-        /// </summary>
-        public static readonly Azure.Storage.Files.Models.FileErrorCode Md5Mismatch = new FileErrorCode(@"Md5Mismatch");
-
-        /// <summary>
-        /// MetadataTooLarge
-        /// </summary>
-        public static readonly Azure.Storage.Files.Models.FileErrorCode MetadataTooLarge = new FileErrorCode(@"MetadataTooLarge");
-
-        /// <summary>
-        /// MissingContentLengthHeader
-        /// </summary>
-        public static readonly Azure.Storage.Files.Models.FileErrorCode MissingContentLengthHeader = new FileErrorCode(@"MissingContentLengthHeader");
-
-        /// <summary>
-        /// MissingRequiredQueryParameter
-        /// </summary>
-        public static readonly Azure.Storage.Files.Models.FileErrorCode MissingRequiredQueryParameter = new FileErrorCode(@"MissingRequiredQueryParameter");
-
-        /// <summary>
-        /// MissingRequiredHeader
-        /// </summary>
-        public static readonly Azure.Storage.Files.Models.FileErrorCode MissingRequiredHeader = new FileErrorCode(@"MissingRequiredHeader");
-
-        /// <summary>
-        /// MissingRequiredXmlNode
-        /// </summary>
-        public static readonly Azure.Storage.Files.Models.FileErrorCode MissingRequiredXmlNode = new FileErrorCode(@"MissingRequiredXmlNode");
-
-        /// <summary>
-        /// MultipleConditionHeadersNotSupported
-        /// </summary>
-        public static readonly Azure.Storage.Files.Models.FileErrorCode MultipleConditionHeadersNotSupported = new FileErrorCode(@"MultipleConditionHeadersNotSupported");
-
-        /// <summary>
-        /// OperationTimedOut
-        /// </summary>
-        public static readonly Azure.Storage.Files.Models.FileErrorCode OperationTimedOut = new FileErrorCode(@"OperationTimedOut");
-
-        /// <summary>
-        /// OutOfRangeInput
-        /// </summary>
-        public static readonly Azure.Storage.Files.Models.FileErrorCode OutOfRangeInput = new FileErrorCode(@"OutOfRangeInput");
-
-        /// <summary>
-        /// OutOfRangeQueryParameterValue
-        /// </summary>
-        public static readonly Azure.Storage.Files.Models.FileErrorCode OutOfRangeQueryParameterValue = new FileErrorCode(@"OutOfRangeQueryParameterValue");
-
-        /// <summary>
-        /// RequestBodyTooLarge
-        /// </summary>
-        public static readonly Azure.Storage.Files.Models.FileErrorCode RequestBodyTooLarge = new FileErrorCode(@"RequestBodyTooLarge");
-
-        /// <summary>
-        /// ResourceTypeMismatch
-        /// </summary>
-        public static readonly Azure.Storage.Files.Models.FileErrorCode ResourceTypeMismatch = new FileErrorCode(@"ResourceTypeMismatch");
-
-        /// <summary>
-        /// RequestUrlFailedToParse
-        /// </summary>
-        public static readonly Azure.Storage.Files.Models.FileErrorCode RequestUrlFailedToParse = new FileErrorCode(@"RequestUrlFailedToParse");
-
-        /// <summary>
-        /// ResourceAlreadyExists
-        /// </summary>
-        public static readonly Azure.Storage.Files.Models.FileErrorCode ResourceAlreadyExists = new FileErrorCode(@"ResourceAlreadyExists");
-
-        /// <summary>
-        /// ResourceNotFound
-        /// </summary>
-        public static readonly Azure.Storage.Files.Models.FileErrorCode ResourceNotFound = new FileErrorCode(@"ResourceNotFound");
-
-        /// <summary>
-        /// ServerBusy
-        /// </summary>
-        public static readonly Azure.Storage.Files.Models.FileErrorCode ServerBusy = new FileErrorCode(@"ServerBusy");
-
-        /// <summary>
-        /// UnsupportedHeader
-        /// </summary>
-        public static readonly Azure.Storage.Files.Models.FileErrorCode UnsupportedHeader = new FileErrorCode(@"UnsupportedHeader");
-
-        /// <summary>
-        /// UnsupportedXmlNode
-        /// </summary>
-        public static readonly Azure.Storage.Files.Models.FileErrorCode UnsupportedXmlNode = new FileErrorCode(@"UnsupportedXmlNode");
-
-        /// <summary>
-        /// UnsupportedQueryParameter
-        /// </summary>
-        public static readonly Azure.Storage.Files.Models.FileErrorCode UnsupportedQueryParameter = new FileErrorCode(@"UnsupportedQueryParameter");
-
-        /// <summary>
-        /// UnsupportedHttpVerb
-        /// </summary>
-        public static readonly Azure.Storage.Files.Models.FileErrorCode UnsupportedHttpVerb = new FileErrorCode(@"UnsupportedHttpVerb");
-
-        /// <summary>
-        /// CannotDeleteFileOrDirectory
-        /// </summary>
-        public static readonly Azure.Storage.Files.Models.FileErrorCode CannotDeleteFileOrDirectory = new FileErrorCode(@"CannotDeleteFileOrDirectory");
-
-        /// <summary>
-        /// ClientCacheFlushDelay
-        /// </summary>
-        public static readonly Azure.Storage.Files.Models.FileErrorCode ClientCacheFlushDelay = new FileErrorCode(@"ClientCacheFlushDelay");
-
-        /// <summary>
-        /// DeletePending
-        /// </summary>
-        public static readonly Azure.Storage.Files.Models.FileErrorCode DeletePending = new FileErrorCode(@"DeletePending");
-
-        /// <summary>
-        /// DirectoryNotEmpty
-        /// </summary>
-        public static readonly Azure.Storage.Files.Models.FileErrorCode DirectoryNotEmpty = new FileErrorCode(@"DirectoryNotEmpty");
-
-        /// <summary>
-        /// FileLockConflict
-        /// </summary>
-        public static readonly Azure.Storage.Files.Models.FileErrorCode FileLockConflict = new FileErrorCode(@"FileLockConflict");
-
-        /// <summary>
-        /// InvalidFileOrDirectoryPathName
-        /// </summary>
-        public static readonly Azure.Storage.Files.Models.FileErrorCode InvalidFileOrDirectoryPathName = new FileErrorCode(@"InvalidFileOrDirectoryPathName");
-
-        /// <summary>
-        /// ParentNotFound
-        /// </summary>
-        public static readonly Azure.Storage.Files.Models.FileErrorCode ParentNotFound = new FileErrorCode(@"ParentNotFound");
-
-        /// <summary>
-        /// ReadOnlyAttribute
-        /// </summary>
-        public static readonly Azure.Storage.Files.Models.FileErrorCode ReadOnlyAttribute = new FileErrorCode(@"ReadOnlyAttribute");
-
-        /// <summary>
-        /// ShareAlreadyExists
-        /// </summary>
-        public static readonly Azure.Storage.Files.Models.FileErrorCode ShareAlreadyExists = new FileErrorCode(@"ShareAlreadyExists");
-
-        /// <summary>
-        /// ShareBeingDeleted
-        /// </summary>
-        public static readonly Azure.Storage.Files.Models.FileErrorCode ShareBeingDeleted = new FileErrorCode(@"ShareBeingDeleted");
-
-        /// <summary>
-        /// ShareDisabled
-        /// </summary>
-        public static readonly Azure.Storage.Files.Models.FileErrorCode ShareDisabled = new FileErrorCode(@"ShareDisabled");
-
-        /// <summary>
-        /// ShareNotFound
-        /// </summary>
-        public static readonly Azure.Storage.Files.Models.FileErrorCode ShareNotFound = new FileErrorCode(@"ShareNotFound");
-
-        /// <summary>
-        /// SharingViolation
-        /// </summary>
-        public static readonly Azure.Storage.Files.Models.FileErrorCode SharingViolation = new FileErrorCode(@"SharingViolation");
-
-        /// <summary>
-        /// ShareSnapshotInProgress
-        /// </summary>
-        public static readonly Azure.Storage.Files.Models.FileErrorCode ShareSnapshotInProgress = new FileErrorCode(@"ShareSnapshotInProgress");
-
-        /// <summary>
-        /// ShareSnapshotCountExceeded
-        /// </summary>
-        public static readonly Azure.Storage.Files.Models.FileErrorCode ShareSnapshotCountExceeded = new FileErrorCode(@"ShareSnapshotCountExceeded");
-
-        /// <summary>
-        /// ShareSnapshotOperationNotSupported
-        /// </summary>
-        public static readonly Azure.Storage.Files.Models.FileErrorCode ShareSnapshotOperationNotSupported = new FileErrorCode(@"ShareSnapshotOperationNotSupported");
-
-        /// <summary>
-        /// ShareHasSnapshots
-        /// </summary>
-        public static readonly Azure.Storage.Files.Models.FileErrorCode ShareHasSnapshots = new FileErrorCode(@"ShareHasSnapshots");
-
-        /// <summary>
-        /// ContainerQuotaDowngradeNotAllowed
-        /// </summary>
-        public static readonly Azure.Storage.Files.Models.FileErrorCode ContainerQuotaDowngradeNotAllowed = new FileErrorCode(@"ContainerQuotaDowngradeNotAllowed");
-
-        /// <summary>
-        /// AuthorizationSourceIPMismatch
-        /// </summary>
-        public static readonly Azure.Storage.Files.Models.FileErrorCode AuthorizationSourceIPMismatch = new FileErrorCode(@"AuthorizationSourceIPMismatch");
-
-        /// <summary>
-        /// AuthorizationProtocolMismatch
-        /// </summary>
-        public static readonly Azure.Storage.Files.Models.FileErrorCode AuthorizationProtocolMismatch = new FileErrorCode(@"AuthorizationProtocolMismatch");
-
-        /// <summary>
-        /// AuthorizationPermissionMismatch
-        /// </summary>
-        public static readonly Azure.Storage.Files.Models.FileErrorCode AuthorizationPermissionMismatch = new FileErrorCode(@"AuthorizationPermissionMismatch");
-
-        /// <summary>
-        /// AuthorizationServiceMismatch
-        /// </summary>
-        public static readonly Azure.Storage.Files.Models.FileErrorCode AuthorizationServiceMismatch = new FileErrorCode(@"AuthorizationServiceMismatch");
-
-        /// <summary>
-        /// AuthorizationResourceTypeMismatch
-        /// </summary>
-        public static readonly Azure.Storage.Files.Models.FileErrorCode AuthorizationResourceTypeMismatch = new FileErrorCode(@"AuthorizationResourceTypeMismatch");
-
-        /// <summary>
-        /// FeatureVersionMismatch
-        /// </summary>
-        public static readonly Azure.Storage.Files.Models.FileErrorCode FeatureVersionMismatch = new FileErrorCode(@"FeatureVersionMismatch");
-
-        /// <summary>
-        /// Determines if two <see cref="FileErrorCode"/> values are the same.
-        /// </summary>
-        /// <param name="left">The first <see cref="FileErrorCode"/> to compare.</param>
-        /// <param name="right">The second <see cref="FileErrorCode"/> to compare.</param>
-        /// <returns>True if <paramref name="left"/> and <paramref name="right"/> are the same; otherwise, false.</returns>
-        public static bool operator ==(Azure.Storage.Files.Models.FileErrorCode left, Azure.Storage.Files.Models.FileErrorCode right) => left.Equals(right);
-
-        /// <summary>
-        /// Determines if two <see cref="FileErrorCode"/> values are different.
-        /// </summary>
-        /// <param name="left">The first <see cref="FileErrorCode"/> to compare.</param>
-        /// <param name="right">The second <see cref="FileErrorCode"/> to compare.</param>
-        /// <returns>True if <paramref name="left"/> and <paramref name="right"/> are different; otherwise, false.</returns>
-        public static bool operator !=(Azure.Storage.Files.Models.FileErrorCode left, Azure.Storage.Files.Models.FileErrorCode right) => !left.Equals(right);
-
-        /// <summary>
-        /// Converts a string to a <see cref="FileErrorCode"/>.
-        /// </summary>
-        /// <param name="value">The string value to convert.</param>
-        /// <returns>The FileErrorCode value.</returns>
-        public static implicit operator FileErrorCode(string value) => new Azure.Storage.Files.Models.FileErrorCode(value);
-
-        /// <summary>
-        /// Check if two <see cref="FileErrorCode"/> instances are equal.
-        /// </summary>
-        /// <param name="obj">The instance to compare to.</param>
-        /// <returns>True if they're equal, false otherwise.</returns>
-        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public override bool Equals(object obj) => obj is Azure.Storage.Files.Models.FileErrorCode other && Equals(other);
-
-        /// <summary>
-        /// Check if two <see cref="FileErrorCode"/> instances are equal.
+        /// Check if two FileErrorCode instances are equal.
         /// </summary>
         /// <param name="other">The instance to compare to.</param>
         /// <returns>True if they're equal, false otherwise.</returns>
-        public bool Equals(Azure.Storage.Files.Models.FileErrorCode other) => string.Equals(_value, other._value, System.StringComparison.Ordinal);
+        public bool Equals(Azure.Storage.Files.Models.FileErrorCode other) => _value.Equals(other._value, System.StringComparison.InvariantCulture);
 
         /// <summary>
-        /// Get a hash code for the <see cref="FileErrorCode"/>.
+        /// Check if two FileErrorCode instances are equal.
+        /// </summary>
+        /// <param name="o">The instance to compare to.</param>
+        /// <returns>True if they're equal, false otherwise.</returns>
+        public override bool Equals(object o) => o is Azure.Storage.Files.Models.FileErrorCode other && Equals(other);
+
+        /// <summary>
+        /// Get a hash code for the FileErrorCode.
         /// </summary>
         /// <returns>Hash code for the FileErrorCode.</returns>
-        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-        public override int GetHashCode() => _value?.GetHashCode() ?? 0;
+        public override int GetHashCode() => _value.GetHashCode();
 
         /// <summary>
-        /// Convert the <see cref="FileErrorCode"/> to a string.
+        /// Convert the FileErrorCode to a string.
         /// </summary>
         /// <returns>String representation of the FileErrorCode.</returns>
         public override string ToString() => _value;
+
+        #pragma warning disable CA2225 // Operator overloads have named alternates
+        /// <summary>
+        /// Convert a string a FileErrorCode.
+        /// </summary>
+        /// <param name="value">The string to convert.</param>
+        /// <returns>The FileErrorCode value.</returns>
+        public static implicit operator FileErrorCode(string value) => new Azure.Storage.Files.Models.FileErrorCode(value);
+        #pragma warning restore CA2225 // Operator overloads have named alternates
+
+        /// <summary>
+        /// Convert an FileErrorCode to a string.
+        /// </summary>
+        /// <param name="value">The FileErrorCode value.</param>
+        /// <returns>String representation of the FileErrorCode value.</returns>
+        public static implicit operator string(Azure.Storage.Files.Models.FileErrorCode value) => value._value;
+
+        /// <summary>
+        /// Check if two FileErrorCode instances are equal.
+        /// </summary>
+        /// <param name="left">The first instance to compare.</param>
+        /// <param name="right">The second instance to compare.</param>
+        /// <returns>True if they're equal, false otherwise.</returns>
+        public static bool operator ==(Azure.Storage.Files.Models.FileErrorCode left, Azure.Storage.Files.Models.FileErrorCode right) => left.Equals(right);
+
+        /// <summary>
+        /// Check if two FileErrorCode instances are not equal.
+        /// </summary>
+        /// <param name="left">The first instance to compare.</param>
+        /// <param name="right">The second instance to compare.</param>
+        /// <returns>True if they're not equal, false otherwise.</returns>
+        public static bool operator !=(Azure.Storage.Files.Models.FileErrorCode left, Azure.Storage.Files.Models.FileErrorCode right) => !left.Equals(right);
     }
 }
 #endregion enum strings FileErrorCode

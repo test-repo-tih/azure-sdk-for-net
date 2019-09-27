@@ -5,7 +5,7 @@ using System;
 using Azure.Core;
 using Azure.Core.Pipeline;
 
-namespace Azure.Storage
+namespace Azure.Storage.Common
 {
     internal class StorageResponseClassifier : ResponseClassifier
     {
