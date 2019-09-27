@@ -84,8 +84,7 @@ namespace Azure.Identity.Tests.Mock
 
             var expectedClientId = Guid.NewGuid().ToString();
 
-            var certificatePath = Path.Combine(TestContext.CurrentContext.TestDirectory, "Data", "cert.pfx");
-            var mockCert = new X509Certificate2(certificatePath, "password");
+            var mockCert = new X509Certificate2("./Data/cert.pfx", "password");
 
             AadIdentityClient client = InstrumentClient(new AadIdentityClient(options: options));
 

@@ -42,7 +42,7 @@ namespace Azure.Security.KeyVault.Keys.Tests
         [Test]
         public void RestoreKeyArgumentValidation()
         {
-            Assert.ThrowsAsync<ArgumentNullException>(() => Client.RestoreKeyBackupAsync(null));
+            Assert.ThrowsAsync<ArgumentNullException>(() => Client.RestoreKeyAsync(null));
         }
 
         [Test]
@@ -90,18 +90,18 @@ namespace Azure.Security.KeyVault.Keys.Tests
         [Test]
         public void ImportKeyArgumentValidation()
         {
-            var jwk = new JsonWebKey();
+            var keyMaterial = new JsonWebKey();
             Assert.ThrowsAsync<ArgumentNullException>(() => Client.ImportKeyAsync(null));
-            Assert.ThrowsAsync<ArgumentException>(() => Client.ImportKeyAsync(string.Empty, jwk));
-            Assert.ThrowsAsync<ArgumentNullException>(() => Client.ImportKeyAsync(null, jwk));
+            Assert.ThrowsAsync<ArgumentException>(() => Client.ImportKeyAsync(string.Empty, keyMaterial));
+            Assert.ThrowsAsync<ArgumentNullException>(() => Client.ImportKeyAsync(null, keyMaterial));
             Assert.ThrowsAsync<ArgumentNullException>(() => Client.ImportKeyAsync(null, null));
         }
 
         [Test]
         public void GetKeyVersionsArgumentValidation()
         {
-            Assert.Throws<ArgumentNullException>(() => Client.GetPropertiesOfKeyVersionsAsync(null));
-            Assert.Throws<ArgumentException>(() => Client.GetPropertiesOfKeyVersionsAsync(string.Empty));
+            Assert.Throws<ArgumentNullException>(() => Client.GetKeyVersionsAsync(null));
+            Assert.Throws<ArgumentException>(() => Client.GetKeyVersionsAsync(string.Empty));
         }
     }
 }

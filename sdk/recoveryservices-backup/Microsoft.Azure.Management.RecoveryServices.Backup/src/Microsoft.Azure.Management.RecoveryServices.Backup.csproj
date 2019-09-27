@@ -16,6 +16,13 @@ New features:
 - New Operation Type in Job: Undelete
 - CreateOrUpdateProtectionPolicy API added a field to make the policy state consistent : MakePolicyConsistent
 - Enable/Disable softDeletefeature on newly created vault
+		<Version>3.1.2-preview</Version>
+		<AssemblyName>Microsoft.Azure.Management.RecoveryServices.Backup</AssemblyName>
+		<PackageTags>Recoveryservices;Backup;</PackageTags>
+		<PackageReleaseNotes>
+			<![CDATA[
+New features:
+- Adding Soft delete properties to protectedItem.
        ]]>
 		</PackageReleaseNotes>
 	</PropertyGroup>

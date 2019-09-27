@@ -6,7 +6,6 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics.Tracing;
 using System.Linq;
-using Azure.Core.Shared;
 
 namespace Azure.Core.Testing
 {
@@ -21,8 +20,6 @@ namespace Azure.Core.Testing
         {
             if (!_disposed)
             {
-                // Make sure we can format the event
-                EventSourceEventFormatting.Format(eventData);
                 _events.Enqueue(eventData);
             }
         }
