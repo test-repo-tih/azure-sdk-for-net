@@ -39,15 +39,12 @@ namespace Microsoft.Azure.Management.RecoveryServices.Backup.Models
         /// 'Unlocked'</param>
         /// <param name="enhancedSecurityState">Enabled or Disabled. Possible
         /// values include: 'Invalid', 'Enabled', 'Disabled'</param>
-        /// <param name="softDeleteFeatureState">Soft Delete feature state.
-        /// Possible values include: 'Invalid', 'Enabled', 'Disabled'</param>
-        public BackupResourceVaultConfig(string storageModelType = default(string), string storageType = default(string), string storageTypeState = default(string), string enhancedSecurityState = default(string), string softDeleteFeatureState = default(string))
+        public BackupResourceVaultConfig(string storageModelType = default(string), string storageType = default(string), string storageTypeState = default(string), string enhancedSecurityState = default(string))
         {
             StorageModelType = storageModelType;
             StorageType = storageType;
             StorageTypeState = storageTypeState;
             EnhancedSecurityState = enhancedSecurityState;
-            SoftDeleteFeatureState = softDeleteFeatureState;
             CustomInit();
         }
 
@@ -84,13 +81,6 @@ namespace Microsoft.Azure.Management.RecoveryServices.Backup.Models
         /// </summary>
         [JsonProperty(PropertyName = "enhancedSecurityState")]
         public string EnhancedSecurityState { get; set; }
-
-        /// <summary>
-        /// Gets or sets soft Delete feature state. Possible values include:
-        /// 'Invalid', 'Enabled', 'Disabled'
-        /// </summary>
-        [JsonProperty(PropertyName = "softDeleteFeatureState")]
-        public string SoftDeleteFeatureState { get; set; }
 
     }
 }

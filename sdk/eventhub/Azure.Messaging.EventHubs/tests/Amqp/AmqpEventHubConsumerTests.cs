@@ -246,58 +246,6 @@ namespace Azure.Messaging.EventHubs.Tests
         }
 
         /// <summary>
-        /// <summary>
-        ///   Verifies functionality of the <see cref="AmqpEventHubConsumer.ReceiveAsync" />
-        ///   method.
-        /// </summary>
-        ///
-        [Test]
-        [TestCaseSource(nameof(RetryOptionTestCases))]
-        public void ReceiveAsyncRespectsTheRetryPolicy(RetryOptions retryOptions)
-        {
-            var eventHub = "eventHubName";
-            var consumerGroup = "$DEFAULT";
-            var partition = "3";
-            var eventPosition = EventPosition.FromOffset(123);
-            var options = new EventHubConsumerOptions { Identifier = "OMG!" };
-            var tokenValue = "123ABC";
-            var retryPolicy = new BasicRetryPolicy(retryOptions);
-            var retriableException = new EventHubsException(true, "Test");
-            var mockConverter = new Mock<AmqpMessageConverter>();
-            var mockCredential = new Mock<TokenCredential>();
-            var mockScope = new Mock<AmqpConnectionScope>();
-
-            using var cancellationSource = new CancellationTokenSource();
-
-            mockCredential
-                .Setup(credential => credential.GetTokenAsync(It.IsAny<TokenRequestContext>(), It.Is<CancellationToken>(value => value == cancellationSource.Token)))
-                .Returns(Task.FromResult(new AccessToken(tokenValue, DateTimeOffset.MaxValue)));
-
-             mockScope
-                .Setup(scope => scope.OpenConsumerLinkAsync(
-                    It.IsAny<string>(),
-                    It.IsAny<string>(),
-                    It.IsAny<EventPosition>(),
-                    It.IsAny<EventHubConsumerOptions>(),
-                    It.IsAny<TimeSpan>(),
-                    It.IsAny<CancellationToken>()))
-                .Throws(retriableException);
-
-            var consumer = new AmqpEventHubConsumer(eventHub, consumerGroup, partition, eventPosition, options, mockScope.Object, Mock.Of<AmqpMessageConverter>(), retryPolicy, null);
-            Assert.That(async () => await consumer.ReceiveAsync(100, null, cancellationSource.Token), Throws.InstanceOf(retriableException.GetType()));
-
-            mockScope
-                .Verify(scope => scope.OpenConsumerLinkAsync(
-                    It.Is<string>(value => value == consumerGroup),
-                    It.Is<string>(value => value == partition),
-                    It.Is<EventPosition>(value => value == eventPosition),
-                    It.Is<EventHubConsumerOptions>(value => value == options),
-                    It.IsAny<TimeSpan>(),
-                    It.IsAny<CancellationToken>()),
-                Times.Exactly(1 + retryOptions.MaximumRetries));
-        }
-
-        /// <summary>
         ///   Verifies functionality of the <see cref="AmqpEventHubConsumer.ReceiveAsync" />
         ///   method.
         /// </summary>
@@ -325,7 +273,58 @@ namespace Azure.Messaging.EventHubs.Tests
         }
 
         /// <summary>
-        ///   Gets the active retry policy for the given consumer, using the
+        ///   Verifies functionality of the <see cref="AmqpEventHubConsumer.ReceiveAsync" />
+        ///   method.
+        /// </summary>
+        ///
+        [Test]
+        [TestCaseSource(nameof(RetryOptionTestCases))]
+        public void ReceiveAsyncRespectsTheRetryPolicy(RetryOptions retryOptions)
+        {
+            var eventHub = "eventHubName";
+            var consumerGroup = "$DEFAULT";
+            var partition = "3";
+            var eventPosition = EventPosition.FromOffset(123);
+            var options = new EventHubConsumerOptions { Identifier = "OMG!" };
+            var tokenValue = "123ABC";
+            var retryPolicy = new BasicRetryPolicy(retryOptions);
+            var retriableException = new EventHubsException(true, "Test");
+            var mockConverter = new Mock<AmqpMessageConverter>();
+            var mockCredential = new Mock<TokenCredential>();
+            var mockScope = new Mock<AmqpConnectionScope>();
+
+            using var cancellationSource = new CancellationTokenSource();
+
+            mockCredential
+                .Setup(credential => credential.GetTokenAsync(It.IsAny<TokenRequest>(), It.Is<CancellationToken>(value => value == cancellationSource.Token)))
+                .Returns(Task.FromResult(new AccessToken(tokenValue, DateTimeOffset.MaxValue)));
+
+             mockScope
+                .Setup(scope => scope.OpenConsumerLinkAsync(
+                    It.IsAny<string>(),
+                    It.IsAny<string>(),
+                    It.IsAny<EventPosition>(),
+                    It.IsAny<EventHubConsumerOptions>(),
+                    It.IsAny<TimeSpan>(),
+                    It.IsAny<CancellationToken>()))
+                .Throws(retriableException);
+
+            var consumer = new AmqpEventHubConsumer(eventHub, consumerGroup, partition, eventPosition, options, mockScope.Object, Mock.Of<AmqpMessageConverter>(), retryPolicy, null);
+            Assert.That(async () => await consumer.ReceiveAsync(100, null, cancellationSource.Token), Throws.InstanceOf(retriableException.GetType()));
+
+            mockScope
+                .Verify(scope => scope.OpenConsumerLinkAsync(
+                    It.Is<string>(value => value == consumerGroup),
+                    It.Is<string>(value => value == partition),
+                    It.Is<EventPosition>(value => value == eventPosition),
+                    It.Is<EventHubConsumerOptions>(value => value == options),
+                    It.IsAny<TimeSpan>(),
+                    It.IsAny<CancellationToken>()),
+                Times.Exactly(1 + retryOptions.MaximumRetries));
+        }
+
+        /// <summary>
+        ///   Gets the active retry policy for the given client, using the
         ///   private field.
         /// </summary>
         ///
@@ -336,7 +335,7 @@ namespace Azure.Messaging.EventHubs.Tests
                     .GetValue(target);
 
         /// <summary>
-        ///   Gets the active operation timeout for the given consumer, using the
+        ///   Gets the active operation timeout for the given client, using the
         ///   private field.
         /// </summary>
         ///

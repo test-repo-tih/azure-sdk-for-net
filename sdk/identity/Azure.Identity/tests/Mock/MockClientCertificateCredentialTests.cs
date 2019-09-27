@@ -3,7 +3,6 @@
 
 using NUnit.Framework;
 using System;
-using System.IO;
 using System.Security.Cryptography.X509Certificates;
 
 namespace Azure.Identity.Tests.Mock
@@ -13,8 +12,7 @@ namespace Azure.Identity.Tests.Mock
         [Test]
         public void VerifyCtorErrorHandling()
         {
-            var certificatePath = Path.Combine(TestContext.CurrentContext.TestDirectory, "Data", "cert.pfx");
-            var clientCertificate = new X509Certificate2(certificatePath, "password");
+            var clientCertificate = new X509Certificate2(@"./Data/cert.pfx", "password");
 
             var tenantId = Guid.NewGuid().ToString();
 

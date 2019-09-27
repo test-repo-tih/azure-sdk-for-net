@@ -12,7 +12,7 @@ namespace Azure.Storage.Blobs.Models
     /// <summary>
     /// Lease
     /// </summary>
-    public partial class BlobLease
+    public partial class Lease
     {
         /// <summary>
         /// Gets the approximate time remaining in the lease period, in
@@ -35,9 +35,9 @@ namespace Azure.Storage.Blobs
         /// </summary>
         /// <param name="response">The original response.</param>
         /// <returns>The Lease response.</returns>
-        internal static Response<BlobLease> ToLease(this Response<BrokenLease> response)
+        internal static Response<Lease> ToLease(this Response<BrokenLease> response)
             => Response.FromValue(
-                new BlobLease
+                new Lease
                 {
                     ETag = response.Value.ETag,
                     LastModified = response.Value.LastModified,
