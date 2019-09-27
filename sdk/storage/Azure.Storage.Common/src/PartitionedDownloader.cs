@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Azure.Storage.Common;
 
 namespace Azure.Storage
 {
@@ -126,7 +127,7 @@ namespace Azure.Storage
                     transferOptions ??= new StorageTransferOptions();
 
                     var maximumThreadCount =
-                        transferOptions.Value.MaximumConcurrency ?? Constants.Blob.Block.DefaultConcurrentTransfersCount;
+                        parallelTransferOptions.Value.MaximumThreadCount ?? Constants.Blob.Block.DefaultConcurrentTransfersCount;
                     var maximumPartitionLength =
                         Math.Min(
                             Constants.Blob.Block.MaxDownloadBytes,

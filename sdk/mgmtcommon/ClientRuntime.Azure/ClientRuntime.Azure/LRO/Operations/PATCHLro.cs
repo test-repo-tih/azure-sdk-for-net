@@ -123,7 +123,7 @@ namespace Microsoft.Rest.ClientRuntime.Azure.LRO
                 if ((!string.IsNullOrEmpty(CurrentPollingState.AzureAsyncOperationHeaderLink) || CurrentPollingState.Resource == null))
                 {
                     CurrentPollingState.PollingUrlToUse = GetValidAbsoluteUri(CurrentPollingState.InitialResponse.Request.RequestUri.AbsoluteUri, throwForInvalidUri: true);
-                    await CurrentPollingState.UpdateResourceFromPollingUri(CustomHeaders, CancelToken).ConfigureAwait(false);
+                    await CurrentPollingState.UpdateResourceFromPollingUri(CustomHeaders, CancelToken);
                 }
             }
 #if DEBUG
