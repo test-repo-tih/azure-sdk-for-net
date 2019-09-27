@@ -33,36 +33,32 @@ namespace Azure.Security.KeyVault
 
         void IJsonDeserializable.ReadProperties(JsonElement json)
         {
-            foreach (JsonProperty prop in json.EnumerateObject())
+            if (json.TryGetProperty("value", out JsonElement value))
             {
-                switch (prop.Name)
+                if (value.ValueKind != JsonValueKind.Null)
                 {
-                    case "value":
-                        JsonElement value = prop.Value;
-                        if (value.ValueKind != JsonValueKind.Null)
-                        {
-                            _items = new T[value.GetArrayLength()];
+                    _items = new T[value.GetArrayLength()];
 
-                            int i = 0;
+                    int i = 0;
 
-                            foreach (JsonElement elem in value.EnumerateArray())
-                            {
-                                _items[i] = _itemFactory();
+                    foreach (JsonElement elem in value.EnumerateArray())
+                    {
+                        _items[i] = _itemFactory();
 
-                                _items[i].ReadProperties(elem);
+                        _items[i].ReadProperties(elem);
 
-                                i++;
-                            }
-                        }
-                        break;
+                        i++;
+                    }
+                }
+            }
 
-                    case "nextLink":
-                        var nextLinkUrl = prop.Value.GetString();
-                        if (!string.IsNullOrEmpty(nextLinkUrl))
-                        {
-                            NextLink = new Uri(nextLinkUrl);
-                        }
-                        break;
+            if (json.TryGetProperty("nextLink", out JsonElement nextLink))
+            {
+                var nextLinkUrl = nextLink.GetString();
+
+                if (!string.IsNullOrEmpty(nextLinkUrl))
+                {
+                    NextLink = new Uri(nextLinkUrl);
                 }
             }
         }
