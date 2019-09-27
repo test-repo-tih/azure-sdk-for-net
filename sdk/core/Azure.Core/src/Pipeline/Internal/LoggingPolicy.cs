@@ -26,10 +26,12 @@ namespace Azure.Core.Pipeline
             _logFullQueries = allowedQueryParameters.Contains(LogAllValue);
         }
 
+        private const long DelayWarningThreshold = 3000; // 3000ms
+
         private const string LogAllValue = "*";
         private const string RedactedPlaceholder = "REDACTED";
-        private const double RequestTooLongTime = 3.0; // sec
 
+        private static readonly long s_frequency = Stopwatch.Frequency;
         private static readonly AzureCoreEventSource s_eventSource = AzureCoreEventSource.Singleton;
 
         private readonly bool _logContent;
@@ -38,15 +40,15 @@ namespace Azure.Core.Pipeline
         private readonly HashSet<string> _allowedHeaderNames;
         private readonly string[] _allowedQueryParameters;
 
-        private readonly bool _logAllHeaders;
-        private readonly bool _logFullQueries;
+        private bool _logAllHeaders;
+        private bool _logFullQueries;
 
-        public override async ValueTask ProcessAsync(HttpMessage message, ReadOnlyMemory<HttpPipelinePolicy> pipeline)
+        public override async ValueTask ProcessAsync(HttpPipelineMessage message, ReadOnlyMemory<HttpPipelinePolicy> pipeline)
         {
             await ProcessAsync(message, pipeline, true).ConfigureAwait(false);
         }
 
-        private async ValueTask ProcessAsync(HttpMessage message, ReadOnlyMemory<HttpPipelinePolicy> pipeline, bool async)
+        private async ValueTask ProcessAsync(HttpPipelineMessage message, ReadOnlyMemory<HttpPipelinePolicy> pipeline, bool async)
         {
             if (!s_eventSource.IsEnabled())
             {
@@ -98,15 +100,13 @@ namespace Azure.Core.Pipeline
                                        response.ContentStream?.CanSeek == false &&
                                        logWrapper.IsEnabled(isError);
 
-            double elapsed = (after - before) / (double)Stopwatch.Frequency;
-
             if (isError)
             {
-                s_eventSource.ErrorResponse(response.ClientRequestId, response.Status, response.ReasonPhrase, FormatHeaders(response.Headers), elapsed);
+                s_eventSource.ErrorResponse(response.ClientRequestId, response.Status, FormatHeaders(response.Headers));
             }
             else
             {
-                s_eventSource.Response(response.ClientRequestId, response.Status, response.ReasonPhrase, FormatHeaders(response.Headers), elapsed);
+                s_eventSource.Response(response.ClientRequestId, response.Status, FormatHeaders(response.Headers));
             }
 
             if (wrapResponseContent)
@@ -118,9 +118,10 @@ namespace Azure.Core.Pipeline
                 await logWrapper.LogAsync(response.ClientRequestId, isError, response.ContentStream, responseTextEncoding, async).ConfigureAwait(false).EnsureCompleted(async);
             }
 
-            if (elapsed > RequestTooLongTime)
+            var elapsedMilliseconds = (after - before) * 1000 / s_frequency;
+            if (elapsedMilliseconds > DelayWarningThreshold)
             {
-                s_eventSource.ResponseDelay(response.ClientRequestId, elapsed);
+                s_eventSource.ResponseDelay(response.ClientRequestId, elapsedMilliseconds);
             }
         }
 
@@ -129,7 +130,7 @@ namespace Azure.Core.Pipeline
             return _logFullQueries ? requestUri.ToString() : requestUri.ToString(_allowedQueryParameters, RedactedPlaceholder);
         }
 
-        public override void Process(HttpMessage message, ReadOnlyMemory<HttpPipelinePolicy> pipeline)
+        public override void Process(HttpPipelineMessage message, ReadOnlyMemory<HttpPipelinePolicy> pipeline)
         {
             ProcessAsync(message, pipeline, false).EnsureCompleted();
         }
@@ -279,7 +280,7 @@ namespace Azure.Core.Pipeline
 
             }
 
-            public async ValueTask LogAsync(string requestId, RequestContent? content, Encoding? textEncoding, bool async)
+            public async ValueTask LogAsync(string requestId, HttpPipelineRequestContent? content, Encoding? textEncoding, bool async)
             {
                 EventType eventType = EventType.Request;
 
@@ -330,7 +331,7 @@ namespace Azure.Core.Pipeline
                        (errorResponse == EventType.ErrorResponse && _eventSource.IsEnabled(EventLevel.Warning, EventKeywords.All)));
             }
 
-            private async ValueTask<byte[]> FormatAsync(RequestContent requestContent, bool async)
+            private async ValueTask<byte[]> FormatAsync(HttpPipelineRequestContent requestContent, bool async)
             {
                 using var memoryStream = new MaxLengthStream(_maxLength);
 

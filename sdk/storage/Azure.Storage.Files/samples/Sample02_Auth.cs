@@ -102,16 +102,16 @@ namespace Azure.Storage.Files.Samples
             AccountSasBuilder sas = new AccountSasBuilder
             {
                 // Allow access to files
-                Services = AccountSasServices.Files,
+                Services = new AccountSasServices() { Files = true }.ToString(),
 
                 // Allow access to the service level APIs
-                ResourceTypes = AccountSasResourceTypes.Service,
+                ResourceTypes = new AccountSasResourceTypes() { Service = true }.ToString(),
 
                 // Allow read access
                 Permissions = new AccountSasPermissions() { Read = true }.ToString(),
 
                 // Access expires in 1 hour!
-                ExpiresOn = DateTimeOffset.UtcNow.AddHours(1)
+                ExpiryTime = DateTimeOffset.UtcNow.AddHours(1)
             };
 
             // Create a SharedKeyCredential that we can use to sign the SAS token
