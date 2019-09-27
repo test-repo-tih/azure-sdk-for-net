@@ -79,26 +79,6 @@ namespace Microsoft.Azure.Management.FrontDoor
         public virtual IFrontDoorsOperations FrontDoors { get; private set; }
 
         /// <summary>
-        /// Gets the IRoutingRulesOperations.
-        /// </summary>
-        public virtual IRoutingRulesOperations RoutingRules { get; private set; }
-
-        /// <summary>
-        /// Gets the IHealthProbeSettingsOperations.
-        /// </summary>
-        public virtual IHealthProbeSettingsOperations HealthProbeSettings { get; private set; }
-
-        /// <summary>
-        /// Gets the ILoadBalancingSettingsOperations.
-        /// </summary>
-        public virtual ILoadBalancingSettingsOperations LoadBalancingSettings { get; private set; }
-
-        /// <summary>
-        /// Gets the IBackendPoolsOperations.
-        /// </summary>
-        public virtual IBackendPoolsOperations BackendPools { get; private set; }
-
-        /// <summary>
         /// Gets the IFrontendEndpointsOperations.
         /// </summary>
         public virtual IFrontendEndpointsOperations FrontendEndpoints { get; private set; }
@@ -360,10 +340,6 @@ namespace Microsoft.Azure.Management.FrontDoor
         private void Initialize()
         {
             FrontDoors = new FrontDoorsOperations(this);
-            RoutingRules = new RoutingRulesOperations(this);
-            HealthProbeSettings = new HealthProbeSettingsOperations(this);
-            LoadBalancingSettings = new LoadBalancingSettingsOperations(this);
-            BackendPools = new BackendPoolsOperations(this);
             FrontendEndpoints = new FrontendEndpointsOperations(this);
             Endpoints = new EndpointsOperations(this);
             Policies = new PoliciesOperations(this);
