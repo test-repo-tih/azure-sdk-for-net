@@ -33,15 +33,16 @@ namespace Azure.Storage.Blobs.Specialized
     public class AppendBlobClient : BlobBaseClient
     {
         /// <summary>
-        /// Gets the maximum number of bytes that can be sent in a call
-        /// to AppendBlock.
+        /// <see cref="AppendBlobMaxAppendBlockBytes"/> indicates the maximum
+        /// number of bytes that can be sent in a call to AppendBlock.
         /// </summary>
-        public virtual int AppendBlobMaxAppendBlockBytes => Constants.Blob.Append.MaxAppendBlockBytes;
+        public const int AppendBlobMaxAppendBlockBytes = Constants.Blob.Append.MaxAppendBlockBytes;
 
         /// <summary>
-        /// Gets the maximum number of blocks allowed in an append blob.
+        /// <see cref="AppendBlobMaxBlocks"/> indicates the maximum number of
+        /// blocks allowed in an append blob.
         /// </summary>
-        public virtual int AppendBlobMaxBlocks => Constants.Blob.Append.MaxBlocks;
+        public const int AppendBlobMaxBlocks = Constants.Blob.Append.MaxBlocks;
 
         #region ctors
         /// <summary>

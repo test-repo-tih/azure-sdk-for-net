@@ -66,12 +66,12 @@ namespace Azure.Storage.Queues
         /// QueueMaxMessagesPeek indicates the maximum number of messages
         /// you can retrieve with each call to Peek.
         /// </summary>
-        public virtual int MaxMessagesPeek => Constants.Queue.MaxMessagesDequeue;
+        public const int MaxMessagesPeek = Constants.Queue.MaxMessagesDequeue;
 
         /// <summary>
-        /// Gets the maximum number of bytes allowed for a message's UTF-8 text.
+        /// QueueMessageMaxBytes indicates the maximum number of bytes allowed for a message's UTF-8 text.
         /// </summary>
-        public virtual int MessageMaxBytes => Constants.Queue.QueueMessageMaxBytes;
+        public const int MessageMaxBytes = Constants.Queue.QueueMessageMaxBytes;
 
         /// <summary>
         /// The Storage account name corresponding to the queue client.
