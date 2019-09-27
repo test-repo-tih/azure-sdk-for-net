@@ -93,7 +93,7 @@ namespace Azure.Messaging.EventHubs.Tests
 
             var exemptions = new HashSet<Type>(new[]
             {
-                typeof(EventHubsClientClosedException)
+                typeof(EventHubsObjectClosedException)
             });
 
             IOrderedEnumerable<string> allDerrivedTypes = typeof(EventHubsException)

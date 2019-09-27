@@ -241,8 +241,6 @@ namespace Azure.Messaging.EventHubs.Amqp
                 return;
             }
 
-            _closed = true;
-
             var clientId = GetHashCode().ToString();
             var clientType = GetType();
 
@@ -253,17 +251,16 @@ namespace Azure.Messaging.EventHubs.Amqp
 
                 if (SendLink?.TryGetOpenedObject(out var _) == true)
                 {
-                    cancellationToken.ThrowIfCancellationRequested<TaskCanceledException>();
                     await SendLink.CloseAsync().ConfigureAwait(false);
                 }
 
-                SendLink?.Dispose();
+                SendLink.Dispose();
+
+                _closed = true;
             }
             catch (Exception ex)
             {
-                _closed = false;
                 EventHubsEventSource.Log.ClientCloseError(clientType, EventHubName, clientId, ex.Message);
-
                 throw;
             }
             finally
@@ -337,15 +334,17 @@ namespace Azure.Messaging.EventHubs.Amqp
                     }
                     catch (Exception ex)
                     {
+                        EventHubsEventSource.Log.EventPublishError(EventHubName, logPartition, messageHash, ex.Message);
+
                         // Determine if there should be a retry for the next attempt; if so enforce the delay but do not quit the loop.
                         // Otherwise, bubble the exception.
 
                         ++failedAttemptCount;
                         retryDelay = _retryPolicy.CalculateRetryDelay(ex, failedAttemptCount);
 
-                        if ((retryDelay.HasValue) && (!ConnectionScope.IsDisposed) && (!cancellationToken.IsCancellationRequested))
+                        if ((retryDelay.HasValue) && (!ConnectionScope.IsDisposed))
                         {
-                            EventHubsEventSource.Log.EventPublishError(EventHubName, logPartition, messageHash, ex.Message);
+                            cancellationToken.ThrowIfCancellationRequested<TaskCanceledException>();
 
                             await Task.Delay(retryDelay.Value, cancellationToken).ConfigureAwait(false);
                             stopWatch.Reset();
@@ -361,11 +360,6 @@ namespace Azure.Messaging.EventHubs.Amqp
                 // then cancellation has been requested.
 
                 throw new TaskCanceledException();
-            }
-            catch (Exception ex)
-            {
-                EventHubsEventSource.Log.EventPublishError(EventHubName, logPartition, messageHash, ex.Message);
-                throw;
             }
             finally
             {
@@ -401,14 +395,6 @@ namespace Azure.Messaging.EventHubs.Amqp
 
             if (!MaximumMessageSize.HasValue)
             {
-                // This delay is necessary to prevent the link from causing issues for subsequent
-                // operations after creating a batch.  Without it, operations using the link consistently
-                // timeout.  The length of the delay does not appear significant, just the act of introducing
-                // an asynchronous delay.
-                //
-                // For consistency the value used by the legacy Event Hubs client has been brought forward and
-                // used here.
-
                 await Task.Delay(15, cancellationToken).ConfigureAwait(false);
                 MaximumMessageSize = (long)link.Settings.MaxMessageSize;
             }
