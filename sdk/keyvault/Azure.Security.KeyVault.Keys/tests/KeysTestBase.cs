@@ -16,7 +16,7 @@ namespace Azure.Security.KeyVault.Keys.Tests
 
         public KeyClient Client { get; set; }
 
-        public Uri VaultEndpoint { get; set; }
+        public Uri VaultUri { get; set; }
 
         private readonly Queue<(string Name, bool Delete)> _keysToCleanup = new Queue<(string, bool)>();
 
@@ -40,7 +40,7 @@ namespace Azure.Security.KeyVault.Keys.Tests
             base.StartTestRecording();
 
             Client = GetClient();
-            VaultEndpoint = new Uri(Recording.GetVariableFromEnvironment(AzureKeyVaultUrlEnvironmentVariable));
+            VaultUri = new Uri(Recording.GetVariableFromEnvironment(AzureKeyVaultUrlEnvironmentVariable));
         }
 
         [TearDown]
@@ -82,17 +82,17 @@ namespace Azure.Security.KeyVault.Keys.Tests
             _keysToCleanup.Enqueue((name, delete));
         }
 
-        protected void AssertKeyVaultKeysEqual(KeyVaultKey exp, KeyVaultKey act)
+        protected void AssertKeysEqual(Key exp, Key act)
         {
-            AssertKeysEqual(exp.Key, act.Key);
+            AssertKeyMaterialEqual(exp.KeyMaterial, act.KeyMaterial);
             AssertKeyPropertiesEqual(exp.Properties, act.Properties);
         }
 
-        private void AssertKeysEqual(JsonWebKey exp, JsonWebKey act)
+        private void AssertKeyMaterialEqual(JsonWebKey exp, JsonWebKey act)
         {
             Assert.AreEqual(exp.Id, act.Id);
             Assert.AreEqual(exp.KeyType, act.KeyType);
-            AreEqual(exp.KeyOps, act.KeyOps);
+            Assert.IsTrue(AreEqual(exp.KeyOps, act.KeyOps));
             Assert.AreEqual(exp.CurveName, act.CurveName);
             Assert.AreEqual(exp.K, act.K);
             Assert.AreEqual(exp.N, act.N);
@@ -112,17 +112,24 @@ namespace Azure.Security.KeyVault.Keys.Tests
         {
             Assert.AreEqual(exp.Managed, act.Managed);
             Assert.AreEqual(exp.RecoveryLevel, act.RecoveryLevel);
-            Assert.AreEqual(exp.ExpiresOn, act.ExpiresOn);
+            Assert.AreEqual(exp.Expires, act.Expires);
             Assert.AreEqual(exp.NotBefore, act.NotBefore);
             Assert.IsTrue(AreEqual(exp.Tags, act.Tags));
         }
 
-        private static void AreEqual(IReadOnlyCollection<KeyOperation> exp, IReadOnlyCollection<KeyOperation> act)
+        private static bool AreEqual(IList<KeyOperation> exp, IList<KeyOperation> act)
         {
-            if (exp is null && act is null)
-                return;
+            if (exp == null && act == null)
+                return true;
 
-            CollectionAssert.AreEqual(exp, act);
+            if (exp.Count != act.Count)
+                return false;
+
+            for (var i = 0; i < exp.Count; ++i)
+                if (exp[i] != act[i])
+                    return false;
+
+            return true;
         }
 
         private static bool AreEqual(IDictionary<string, string> exp, IDictionary<string, string> act)
