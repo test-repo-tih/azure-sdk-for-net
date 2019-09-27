@@ -202,7 +202,7 @@ namespace Microsoft.Azure.ServiceBus
 
             if (callClose)
             {
-                await this.ConnectionManager.CloseAsync().ConfigureAwait(false);
+                await this.ConnectionManager.CloseAsync();
             }
         }
 

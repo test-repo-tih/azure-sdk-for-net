@@ -35,15 +35,15 @@ namespace Azure.Security.KeyVault.Secrets.Samples
             // already exists in the key vault, then a new version of the secret is created.
             string secretName = $"StorageAccountPasswor{Guid.NewGuid()}";
 
-            var secret = new KeyVaultSecret(secretName, "f4G34fMh8v")
+            var secret = new Secret(secretName, "f4G34fMh8v")
             {
                 Properties =
                 {
-                    ExpiresOn = DateTimeOffset.Now.AddYears(1)
+                    Expires = DateTimeOffset.Now.AddYears(1)
                 }
             };
 
-            KeyVaultSecret storedSecret = await client.SetSecretAsync(secret);
+            Secret storedSecret = await client.SetSecretAsync(secret);
 
             // Backups are good to have if in case secrets get accidentally deleted by you.
             // For long term storage, it is ideal to write the backup to a file.
@@ -69,7 +69,7 @@ namespace Azure.Security.KeyVault.Secrets.Samples
             {
                 byte[] result = new byte[sourceStream.Length];
                 await sourceStream.ReadAsync(result, 0, (int)sourceStream.Length);
-                restoreSecret = await client.RestoreSecretBackupAsync(result);
+                restoreSecret = await client.RestoreSecretAsync(result);
             }
 
             AssertSecretsEqual(storedSecret.Properties, restoreSecret);

@@ -174,7 +174,7 @@ namespace Microsoft.Azure.EventHubs
                         var clientEntity = reference.Target as ClientEntity;
                         if (clientEntity != null)
                         {
-                            await clientEntity.CloseAsync().ConfigureAwait(false);
+                            await clientEntity.CloseAsync();
                         }
                     }
                 }
@@ -334,7 +334,7 @@ namespace Microsoft.Azure.EventHubs
                 throw Fx.Exception.Argument(nameof(eventDataBatch), Resources.EventDataListIsNullOrEmpty);
             }
 
-            await this.SendAsync(eventDataBatch.ToEnumerable(), eventDataBatch.PartitionKey).ConfigureAwait(false);
+            await this.SendAsync(eventDataBatch.ToEnumerable(), eventDataBatch.PartitionKey);
         }
 
         /// <summary>

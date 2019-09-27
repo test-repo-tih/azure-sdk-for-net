@@ -20,6 +20,5 @@ namespace Microsoft.Azure.Management.RecoveryServices.Backup.Models
         public const string OriginalLocation = "OriginalLocation";
         public const string AlternateLocation = "AlternateLocation";
         public const string RestoreDisks = "RestoreDisks";
-        public const string Offline = "Offline";
     }
 }
