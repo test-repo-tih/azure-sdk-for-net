@@ -22,7 +22,7 @@ namespace TrackOne
         /// <returns><see cref="SecurityToken"/></returns>
         public override async Task<SecurityToken> GetTokenAsync(string appliesTo, TimeSpan timeout)
         {
-            string accessToken = await s_azureServiceTokenProvider.GetAccessTokenAsync(ClientConstants.AadEventHubsAudience).ConfigureAwait(false);
+            string accessToken = await s_azureServiceTokenProvider.GetAccessTokenAsync(ClientConstants.AadEventHubsAudience);
             return new JsonSecurityToken(accessToken, appliesTo);
         }
     }

@@ -116,7 +116,7 @@ namespace Microsoft.Rest.ClientRuntime.Azure.LRO
                     if (!string.IsNullOrEmpty(CurrentPollingState.FinalGETUrlToUser))
                     {
                         CurrentPollingState.PollingUrlToUse = GetValidAbsoluteUri(CurrentPollingState.FinalGETUrlToUser, throwForInvalidUri: true);
-                        await CurrentPollingState.UpdateResourceFromPollingUri(CustomHeaders, CancelToken).ConfigureAwait(false);
+                        await CurrentPollingState.UpdateResourceFromPollingUri(CustomHeaders, CancelToken);
                     }
                 }
             }
