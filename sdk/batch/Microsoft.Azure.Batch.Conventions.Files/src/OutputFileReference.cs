@@ -79,9 +79,9 @@ namespace Microsoft.Azure.Batch.Conventions.Files
         public async Task DownloadToFileAsync(string path, FileMode mode, CancellationToken cancellationToken = default(CancellationToken))
         {
 #if FullNetFx
-            await CloudBlob.DownloadToFileAsync(path, mode, cancellationToken).ConfigureAwait(false);
+            await CloudBlob.DownloadToFileAsync(path, mode, cancellationToken);
 #else
-            await CloudBlob.DownloadToFileAsync(path, mode).ConfigureAwait(false);
+            await CloudBlob.DownloadToFileAsync(path, mode);
 #endif
 
         }
@@ -96,9 +96,9 @@ namespace Microsoft.Azure.Batch.Conventions.Files
         public async Task DownloadToStreamAsync(Stream target, CancellationToken cancellationToken = default(CancellationToken))
         {
 #if FullNetFx
-            await CloudBlob.DownloadToStreamAsync(target, cancellationToken).ConfigureAwait(false);
+            await CloudBlob.DownloadToStreamAsync(target, cancellationToken);
 #else
-            await CloudBlob.DownloadToStreamAsync(target).ConfigureAwait(false);
+            await CloudBlob.DownloadToStreamAsync(target);
 #endif
         }
 
@@ -113,9 +113,9 @@ namespace Microsoft.Azure.Batch.Conventions.Files
         public async Task<int> DownloadToByteArrayAsync(byte[] target, int index, CancellationToken cancellationToken = default(CancellationToken))
         {
 #if FullNetFx
-            return await CloudBlob.DownloadToByteArrayAsync(target, index, cancellationToken).ConfigureAwait(false);
+            return await CloudBlob.DownloadToByteArrayAsync(target, index, cancellationToken);
 #else
-            return await CloudBlob.DownloadToByteArrayAsync(target, index).ConfigureAwait(false);
+            return await CloudBlob.DownloadToByteArrayAsync(target, index);
 #endif
         }
 
@@ -128,9 +128,9 @@ namespace Microsoft.Azure.Batch.Conventions.Files
         public async Task DeleteAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
 #if FullNetFx
-            await CloudBlob.DeleteAsync(cancellationToken).ConfigureAwait(false);
+            await CloudBlob.DeleteAsync(cancellationToken);
 #else
-            await CloudBlob.DeleteAsync().ConfigureAwait(false);
+            await CloudBlob.DeleteAsync();
 #endif
         }
 
@@ -143,9 +143,9 @@ namespace Microsoft.Azure.Batch.Conventions.Files
         public async Task<Stream> OpenReadAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
 #if FullNetFx
-            return await CloudBlob.OpenReadAsync(cancellationToken).ConfigureAwait(false);
+            return await CloudBlob.OpenReadAsync(cancellationToken);
 #else
-            return await CloudBlob.OpenReadAsync(null, null, null).ConfigureAwait(false);
+            return await CloudBlob.OpenReadAsync(null, null, null);
 #endif
         }
     }
