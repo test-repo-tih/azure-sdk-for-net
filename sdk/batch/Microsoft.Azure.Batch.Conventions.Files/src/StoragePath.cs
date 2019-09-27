@@ -67,7 +67,7 @@ namespace Microsoft.Azure.Batch.Conventions.Files
             string sourcePath = Path.Combine(baseFolder.FullName, relativePath);
             string destinationPath = GetDestinationBlobPath(relativePath);
 
-            await SaveAsync(kind, sourcePath, destinationPath, cancellationToken).ConfigureAwait(false);
+            await SaveAsync(kind, sourcePath, destinationPath, cancellationToken);
         }
 
         // Uploads a file to blob storage.
@@ -88,7 +88,7 @@ namespace Microsoft.Azure.Batch.Conventions.Files
 
             var blobName = BlobName(kind, destinationRelativePath);
             var blob = _jobOutputContainer.GetBlockBlobReference(blobName);
-            await blob.UploadFromFileAsync(sourcePath, null, null, null, cancellationToken).ConfigureAwait(false);
+            await blob.UploadFromFileAsync(sourcePath, null, null, null, cancellationToken);
         }
 
         // Uploads text to blob storage.
@@ -112,7 +112,7 @@ namespace Microsoft.Azure.Batch.Conventions.Files
 
             var blobName = BlobName(kind, destinationRelativePath);
             var blob = _jobOutputContainer.GetBlockBlobReference(blobName);
-            await blob.UploadTextAsync(text, null, null, null, null, cancellationToken).ConfigureAwait(false);
+            await blob.UploadTextAsync(text, null, null, null, null, cancellationToken);
         }
 
         // Uploads a file and tracks appends to that file. The implementation creates an append blob to
@@ -133,7 +133,7 @@ namespace Microsoft.Azure.Batch.Conventions.Files
             }
 
             var destinationPath = GetDestinationBlobPath(relativePath);
-            return await SaveTrackedAsync(kind, relativePath, destinationPath, flushInterval).ConfigureAwait(false);
+            return await SaveTrackedAsync(kind, relativePath, destinationPath, flushInterval);
         }
 
         // Uploads a file and tracks appends to that file. The implementation creates an append blob to
@@ -151,7 +151,7 @@ namespace Microsoft.Azure.Batch.Conventions.Files
 
             var blobName = BlobName(kind, destinationRelativePath);
             var blob = _jobOutputContainer.GetAppendBlobReference(blobName);
-            await blob.EnsureExistsAsync().ConfigureAwait(false);
+            await blob.EnsureExistsAsync();
             return new TrackedFile(sourcePath, blob, flushInterval);
         }
 
@@ -176,7 +176,7 @@ namespace Microsoft.Azure.Batch.Conventions.Files
 
             Validate.IsNotNullOrEmpty(filePath, nameof(filePath));
 
-            var blob = await _jobOutputContainer.GetBlobReferenceFromServerAsync(BlobName(kind, filePath), null, null, null, cancellationToken).ConfigureAwait(false);
+            var blob = await _jobOutputContainer.GetBlobReferenceFromServerAsync(BlobName(kind, filePath), null, null, null, cancellationToken);
 
             return new OutputFileReference(blob);
         }

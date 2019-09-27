@@ -3,7 +3,7 @@
 
 using System;
 
-namespace Azure.Storage
+namespace Azure.Storage.Common
 {
     internal struct ReliabilityConfiguration
     {

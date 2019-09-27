@@ -44,10 +44,10 @@ namespace Microsoft.Azure.Management.MachineLearning.WebServices
         public async Task<AzureOperationResponse<WebService>> CreateOrUpdateWebServiceWithProperRequestIdAsync(WebService createOrUpdatePayload, string resourceGroupName, string webServiceName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
             AzureOperationResponse<WebService> _response = await this.BeginCreateOrUpdateWithHttpMessagesAsync(
-                resourceGroupName, webServiceName, createOrUpdatePayload, null, cancellationToken).ConfigureAwait(false);
+                resourceGroupName, webServiceName, createOrUpdatePayload, null, cancellationToken);
             try
             {
-                AzureOperationResponse<WebService> operationResult = await this.Client.GetPutOrPatchOperationResultAsync(_response, customHeaders, cancellationToken).ConfigureAwait(false);
+                AzureOperationResponse<WebService> operationResult = await this.Client.GetPutOrPatchOperationResultAsync(_response, customHeaders, cancellationToken);
                 operationResult.RequestId = _response.RequestId;
                 return operationResult;
             }
@@ -79,10 +79,10 @@ namespace Microsoft.Azure.Management.MachineLearning.WebServices
         public async Task<AzureOperationResponse<WebService>> PatchWebServiceWithProperRequestIdAsync(WebService patchPayload, string resourceGroupName, string webServiceName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
             AzureOperationResponse<WebService> _response = await BeginPatchWithHttpMessagesAsync(
-                resourceGroupName, webServiceName, patchPayload, customHeaders, cancellationToken).ConfigureAwait(false);
+                resourceGroupName, webServiceName, patchPayload, customHeaders, cancellationToken);
             try
             {
-                AzureOperationResponse<WebService> operationResult = await this.Client.GetPutOrPatchOperationResultAsync(_response, customHeaders, cancellationToken).ConfigureAwait(false);
+                AzureOperationResponse<WebService> operationResult = await this.Client.GetPutOrPatchOperationResultAsync(_response, customHeaders, cancellationToken);
                 operationResult.RequestId = _response.RequestId;
                 return operationResult;
             }
@@ -111,10 +111,10 @@ namespace Microsoft.Azure.Management.MachineLearning.WebServices
         public async Task<AzureOperationResponse> RemoveWebServiceWitProperRequestIdAsync(string resourceGroupName, string webServiceName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
             AzureOperationResponse _response = await BeginRemoveWithHttpMessagesAsync(
-                resourceGroupName, webServiceName, customHeaders, cancellationToken).ConfigureAwait(false);
+                resourceGroupName, webServiceName, customHeaders, cancellationToken);
             try
             {
-                AzureOperationResponse operationResult = await this.Client.GetPostOrDeleteOperationResultAsync(_response, customHeaders, cancellationToken).ConfigureAwait(false);
+                AzureOperationResponse operationResult = await this.Client.GetPostOrDeleteOperationResultAsync(_response, customHeaders, cancellationToken);
                 operationResult.RequestId = _response.RequestId;
                 return operationResult;
             }
@@ -146,10 +146,10 @@ namespace Microsoft.Azure.Management.MachineLearning.WebServices
         public async Task<AsyncOperationStatus> CreateRegionalPropertiesWithProperRequestIdAsync(string resourceGroupName, string webServiceName, string region, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
             var _response = await BeginCreateRegionalPropertiesWithHttpMessagesAsync(
-                resourceGroupName, webServiceName, region, customHeaders, cancellationToken).ConfigureAwait(false);
+                resourceGroupName, webServiceName, region, customHeaders, cancellationToken);
             try
             {
-                var operationResult = await this.Client.GetPostOrDeleteOperationResultAsync(_response, customHeaders, cancellationToken).ConfigureAwait(false);
+                var operationResult = await this.Client.GetPostOrDeleteOperationResultAsync(_response, customHeaders, cancellationToken);
                 operationResult.RequestId = _response.RequestId;
                 return operationResult.Body;
             }
