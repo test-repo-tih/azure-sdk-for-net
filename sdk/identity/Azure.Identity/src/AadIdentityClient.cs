@@ -178,13 +178,13 @@ namespace Azure.Identity
 
             request.Uri.AppendPath(tenantId);
 
-            request.Uri.AppendPath("/oauth2/v2.0/token", escape: false);
+            request.Uri.AppendPath("/oauth2/v2.0/token");
 
             var bodyStr = $"response_type=token&grant_type=client_credentials&client_id={Uri.EscapeDataString(clientId)}&client_secret={Uri.EscapeDataString(clientSecret)}&scope={Uri.EscapeDataString(string.Join(" ", scopes))}";
 
             ReadOnlyMemory<byte> content = Encoding.UTF8.GetBytes(bodyStr).AsMemory();
 
-            request.Content = RequestContent.Create(content);
+            request.Content = HttpPipelineRequestContent.Create(content);
 
             return request;
         }
@@ -201,7 +201,7 @@ namespace Azure.Identity
 
             request.Uri.AppendPath(tenantId);
 
-            request.Uri.AppendPath("/oauth2/v2.0/token", escape: false);
+            request.Uri.AppendPath("/oauth2/v2.0/token");
 
             string clientAssertion = CreateClientAssertionJWT(clientId, request.Uri.ToString(), clientCertficate);
 
@@ -209,7 +209,7 @@ namespace Azure.Identity
 
             ReadOnlyMemory<byte> content = Encoding.UTF8.GetBytes(bodyStr).AsMemory();
 
-            request.Content = RequestContent.Create(content);
+            request.Content = HttpPipelineRequestContent.Create(content);
 
             return request;
         }
@@ -282,18 +282,14 @@ namespace Azure.Identity
 
             DateTimeOffset expiresOn = DateTimeOffset.MaxValue;
 
-            foreach (JsonProperty prop in json.EnumerateObject())
+            if (json.TryGetProperty("access_token", out JsonElement accessTokenProp))
             {
-                switch (prop.Name)
-                {
-                    case "access_token":
-                        accessToken = prop.Value.GetString();
-                        break;
+                accessToken = accessTokenProp.GetString();
+            }
 
-                    case "expires_in":
-                        expiresOn = DateTime.UtcNow + TimeSpan.FromSeconds(prop.Value.GetInt64());
-                        break;
-                }
+            if (json.TryGetProperty("expires_in", out JsonElement expiresInProp))
+            {
+                expiresOn = DateTime.UtcNow + TimeSpan.FromSeconds(expiresInProp.GetInt64());
             }
 
             return new AccessToken(accessToken, expiresOn);

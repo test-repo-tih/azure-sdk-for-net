@@ -23,7 +23,7 @@ namespace Microsoft.Azure.EventHubs.ServiceFabricProcessor
         public async Task<bool> CheckpointStoreExistsAsync(CancellationToken cancellationToken)
         {
             ConditionalValue<IReliableDictionary<string, Dictionary<string, object>>> tryStore = await 
-                this.reliableStateManager.TryGetAsync<IReliableDictionary<string, Dictionary<string, object>>>(Constants.CheckpointDictionaryName).ConfigureAwait(false);
+                this.reliableStateManager.TryGetAsync<IReliableDictionary<string, Dictionary<string, object>>>(Constants.CheckpointDictionaryName);
             EventProcessorEventSource.Current.Message($"CheckpointStoreExistsAsync = {tryStore.HasValue}");
             return tryStore.HasValue;
         }
@@ -31,19 +31,19 @@ namespace Microsoft.Azure.EventHubs.ServiceFabricProcessor
         public async Task<bool> CreateCheckpointStoreIfNotExistsAsync(CancellationToken cancellationToken)
         {
             // Create or get access to the dictionary.
-            this.store = await reliableStateManager.GetOrAddAsync<IReliableDictionary<string, Dictionary<string, object>>>(Constants.CheckpointDictionaryName).ConfigureAwait(false);
+            this.store = await reliableStateManager.GetOrAddAsync<IReliableDictionary<string, Dictionary<string, object>>>(Constants.CheckpointDictionaryName);
             EventProcessorEventSource.Current.Message("CreateCheckpointStoreIfNotExistsAsync OK");
             return true;
         }
 
         public async Task<Checkpoint> CreateCheckpointIfNotExistsAsync(string partitionId, CancellationToken cancellationToken)
         {
-            Checkpoint existingCheckpoint = await GetWithRetry(partitionId, cancellationToken).ConfigureAwait(false);
+            Checkpoint existingCheckpoint = await GetWithRetry(partitionId, cancellationToken);
 
             if (existingCheckpoint == null)
             {
                 existingCheckpoint = new Checkpoint(1);
-                await PutWithRetry(partitionId, existingCheckpoint, cancellationToken).ConfigureAwait(false);
+                await PutWithRetry(partitionId, existingCheckpoint, cancellationToken);
             }
             EventProcessorEventSource.Current.Message("CreateCheckpointIfNotExists OK");
 
@@ -52,12 +52,12 @@ namespace Microsoft.Azure.EventHubs.ServiceFabricProcessor
 
         public async Task<Checkpoint> GetCheckpointAsync(string partitionId, CancellationToken cancellationToken)
         {
-            return await GetWithRetry(partitionId, cancellationToken).ConfigureAwait(false);
+            return await GetWithRetry(partitionId, cancellationToken);
         }
 
         public async Task UpdateCheckpointAsync(string partitionId, Checkpoint checkpoint, CancellationToken cancellationToken)
         {
-            await PutWithRetry(partitionId, checkpoint, cancellationToken).ConfigureAwait(false);
+            await PutWithRetry(partitionId, checkpoint, cancellationToken);
         }
 
         // Throws on error or if cancelled.
@@ -78,9 +78,9 @@ namespace Microsoft.Azure.EventHubs.ServiceFabricProcessor
                     using (ITransaction tx = this.reliableStateManager.CreateTransaction())
                     {
                         ConditionalValue<Dictionary<string, object>> rawCheckpoint = await
-                            this.store.TryGetValueAsync(tx, partitionId, Constants.ReliableDictionaryTimeout, cancellationToken).ConfigureAwait(false);
+                            this.store.TryGetValueAsync(tx, partitionId, Constants.ReliableDictionaryTimeout, cancellationToken);
 
-                        await tx.CommitAsync().ConfigureAwait(false);
+                        await tx.CommitAsync();
 
                         // Success! Save the result, if any, and break out of the retry loop.
                         if (rawCheckpoint.HasValue)
@@ -134,8 +134,8 @@ namespace Microsoft.Azure.EventHubs.ServiceFabricProcessor
                 {
                     using (ITransaction tx = this.reliableStateManager.CreateTransaction())
                     {
-                        await this.store.SetAsync(tx, partitionId, putThis, Constants.ReliableDictionaryTimeout, cancellationToken).ConfigureAwait(false);
-                        await tx.CommitAsync().ConfigureAwait(false);
+                        await this.store.SetAsync(tx, partitionId, putThis, Constants.ReliableDictionaryTimeout, cancellationToken);
+                        await tx.CommitAsync();
 
                         // Success! Break out of the retry loop.
                         break;
