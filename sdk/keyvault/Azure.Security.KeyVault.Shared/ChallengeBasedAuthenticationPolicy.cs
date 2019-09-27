@@ -2,6 +2,7 @@
 // Licensed under the MIT License.
 
 using Azure.Core;
+using Azure.Core.Http;
 using Azure.Core.Pipeline;
 using System;
 using System.Collections.Generic;
@@ -25,19 +26,19 @@ namespace Azure.Security.KeyVault
             _credential = credential;
         }
 
-        public override void Process(HttpMessage message, ReadOnlyMemory<HttpPipelinePolicy> pipeline)
+        public override void Process(HttpPipelineMessage message, ReadOnlyMemory<HttpPipelinePolicy> pipeline)
         {
             ProcessCoreAsync(message, pipeline, false).GetAwaiter().GetResult();
         }
 
-        public override ValueTask ProcessAsync(HttpMessage message, ReadOnlyMemory<HttpPipelinePolicy> pipeline)
+        public override ValueTask ProcessAsync(HttpPipelineMessage message, ReadOnlyMemory<HttpPipelinePolicy> pipeline)
         {
             return ProcessCoreAsync(message, pipeline, true);
         }
 
-        private async ValueTask ProcessCoreAsync(HttpMessage message, ReadOnlyMemory<HttpPipelinePolicy> pipeline, bool async)
+        private async ValueTask ProcessCoreAsync(HttpPipelineMessage message, ReadOnlyMemory<HttpPipelinePolicy> pipeline, bool async)
         {
-            RequestContent originalContent = message.Request.Content;
+            HttpPipelineRequestContent originalContent = message.Request.Content;
 
             // if this policy doesn't have _challenge cached try to get it from the static challenge cache
             _challenge ??= AuthenticationChallenge.GetChallenge(message);
@@ -93,13 +94,13 @@ namespace Azure.Security.KeyVault
             }
         }
 
-        private async Task AuthenticateRequestAsync(HttpMessage message, bool async)
+        private async Task AuthenticateRequestAsync(HttpPipelineMessage message, bool async)
         {
             if (DateTimeOffset.UtcNow >= _refreshOn)
             {
                 AccessToken token = async ?
-                        await _credential.GetTokenAsync(new TokenRequestContext(_challenge.Scopes), message.CancellationToken).ConfigureAwait(false) :
-                        _credential.GetToken(new TokenRequestContext(_challenge.Scopes), message.CancellationToken);
+                        await _credential.GetTokenAsync(new TokenRequest(_challenge.Scopes), message.CancellationToken).ConfigureAwait(false) :
+                        _credential.GetToken(new TokenRequest(_challenge.Scopes), message.CancellationToken);
 
                 _headerValue = "Bearer " + token.Token;
                 _refreshOn = token.ExpiresOn - TimeSpan.FromMinutes(2);
@@ -145,7 +146,7 @@ namespace Azure.Security.KeyVault
                 return Scopes[0].GetHashCode();
             }
 
-            public static AuthenticationChallenge GetChallenge(HttpMessage message)
+            public static AuthenticationChallenge GetChallenge(HttpPipelineMessage message)
             {
                 AuthenticationChallenge challenge = null;
 

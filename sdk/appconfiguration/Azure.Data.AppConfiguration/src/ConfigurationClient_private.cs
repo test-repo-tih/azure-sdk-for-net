@@ -9,6 +9,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Azure.Core;
+using Azure.Core.Http;
 
 namespace Azure.Data.AppConfiguration
 {
@@ -22,6 +23,9 @@ namespace Azure.Data.AppConfiguration
         private const string KeyQueryFilter = "key";
         private const string LabelQueryFilter = "label";
         private const string FieldsQueryFilter = "$select";
+        private const string IfMatchName = "If-Match";
+        private const string IfNoneMatch = "If-None-Match";
+        private const string ETag = "ETag";
 
         private static readonly char[] s_reservedCharacters = new char[] { ',', '\\' };
 
@@ -33,17 +37,12 @@ namespace Azure.Data.AppConfiguration
         private static async Task<Response<ConfigurationSetting>> CreateResponseAsync(Response response, CancellationToken cancellation)
         {
             ConfigurationSetting result = await ConfigurationServiceSerializer.DeserializeSettingAsync(response.ContentStream, cancellation).ConfigureAwait(false);
-            return Response.FromValue(result, response);
+            return Response.FromValue(response, result);
         }
 
         private static Response<ConfigurationSetting> CreateResponse(Response response)
         {
-            return Response.FromValue(ConfigurationServiceSerializer.DeserializeSetting(response.ContentStream), response);
-        }
-
-        private static Response<ConfigurationSetting> CreateResourceModifiedResponse(Response response)
-        {
-            return new NoBodyResponse<ConfigurationSetting>(response);
+            return Response.FromValue(response, ConfigurationServiceSerializer.DeserializeSetting(response.ContentStream));
         }
 
         private static void ParseConnectionString(string connectionString, out Uri uri, out string credential, out byte[] secret)
@@ -93,7 +92,7 @@ namespace Azure.Data.AppConfiguration
         private void BuildUriForKvRoute(RequestUriBuilder builder, string key, string label)
         {
             builder.Reset(_baseUri);
-            builder.AppendPath(KvRoute, escape: false);
+            builder.AppendPath(KvRoute);
             builder.AppendPath(key);
 
             if (label != null)
@@ -105,7 +104,7 @@ namespace Azure.Data.AppConfiguration
         private void BuildUriForLocksRoute(RequestUriBuilder builder, string key, string label)
         {
             builder.Reset(_baseUri);
-            builder.AppendPath(LocksRoute, escape: false);
+            builder.AppendPath(LocksRoute);
             builder.AppendPath(key);
 
             if (label != null)
@@ -153,7 +152,18 @@ namespace Azure.Data.AppConfiguration
 
             if (selector.Labels.Count > 0)
             {
-                var labelsCopy = selector.Labels.Select(label => string.IsNullOrEmpty(label) ? "\0" : EscapeReservedCharacters(label));
+                var labelsCopy = new List<string>();
+                foreach (var label in selector.Labels)
+                {
+                    if (string.IsNullOrEmpty(label))
+                    {
+                        labelsCopy.Add("\0");
+                    }
+                    else
+                    {
+                        labelsCopy.Add(EscapeReservedCharacters(label));
+                    }
+                }
                 var labels = string.Join(",", labelsCopy);
                 builder.AppendQuery(LabelQueryFilter, labels);
             }
@@ -166,21 +176,21 @@ namespace Azure.Data.AppConfiguration
 
             if (!string.IsNullOrEmpty(pageLink))
             {
-                builder.AppendQuery("after", pageLink, escapeValue: false);
+                builder.AppendQuery("after", pageLink);
             }
         }
 
         private void BuildUriForGetBatch(RequestUriBuilder builder, SettingSelector selector, string pageLink)
         {
             builder.Reset(_baseUri);
-            builder.AppendPath(KvRoute, escape: false);
+            builder.AppendPath(KvRoute);
             BuildBatchQuery(builder, selector, pageLink);
         }
 
         private void BuildUriForRevisions(RequestUriBuilder builder, SettingSelector selector, string pageLink)
         {
             builder.Reset(_baseUri);
-            builder.AppendPath(RevisionsRoute, escape: false);
+            builder.AppendPath(RevisionsRoute);
             BuildBatchQuery(builder, selector, pageLink);
         }
 
@@ -190,7 +200,6 @@ namespace Azure.Data.AppConfiguration
             ConfigurationServiceSerializer.Serialize(setting, writer);
             return writer.WrittenMemory;
         }
-
         #region nobody wants to see these
         /// <summary>
         /// Check if two ConfigurationSetting instances are equal.

@@ -5,34 +5,33 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using Azure.Core.Diagnostics;
 
 namespace Azure.Core.Pipeline
 {
     public static class HttpPipelineBuilder
     {
-        public static HttpPipeline Build(ClientOptions options, params HttpPipelinePolicy[] perRetryPolicies)
+        public static HttpPipeline Build(ClientOptions options, params HttpPipelinePolicy[] perRetryClientPolicies)
         {
-            return Build(options, Array.Empty<HttpPipelinePolicy>(), perRetryPolicies, new ResponseClassifier());
+            return Build(options, Array.Empty<HttpPipelinePolicy>(), perRetryClientPolicies, new ResponseClassifier());
         }
 
-        public static HttpPipeline Build(ClientOptions options, HttpPipelinePolicy[] perCallPolicies, HttpPipelinePolicy[] perRetryPolicies, ResponseClassifier responseClassifier)
+        public static HttpPipeline Build(ClientOptions options, HttpPipelinePolicy[] perCallClientPolicies, HttpPipelinePolicy[] perRetryClientPolicies, ResponseClassifier responseClassifier)
         {
-            if (perCallPolicies == null)
+            if (perCallClientPolicies == null)
             {
-                throw new ArgumentNullException(nameof(perCallPolicies));
+                throw new ArgumentNullException(nameof(perCallClientPolicies));
             }
 
-            if (perRetryPolicies == null)
+            if (perRetryClientPolicies == null)
             {
-                throw new ArgumentNullException(nameof(perRetryPolicies));
+                throw new ArgumentNullException(nameof(perRetryClientPolicies));
             }
 
             var policies = new List<HttpPipelinePolicy>();
 
             bool isDistributedTracingEnabled = options.Diagnostics.IsDistributedTracingEnabled;
 
-            policies.AddRange(perCallPolicies);
+            policies.AddRange(perCallClientPolicies);
 
             policies.AddRange(options.PerCallPolicies);
 
@@ -47,14 +46,14 @@ namespace Azure.Core.Pipeline
             RetryOptions retryOptions = options.Retry;
             policies.Add(new RetryPolicy(retryOptions.Mode, retryOptions.Delay, retryOptions.MaxDelay, retryOptions.MaxRetries));
 
-            policies.AddRange(perRetryPolicies);
+            policies.AddRange(perRetryClientPolicies);
 
             policies.AddRange(options.PerRetryPolicies);
 
             if (diagnostics.IsLoggingEnabled)
             {
-                policies.Add(new LoggingPolicy(diagnostics.IsLoggingContentEnabled, diagnostics.LoggedContentSizeLimit,
-                    diagnostics.LoggedHeaderNames.ToArray(), diagnostics.LoggedQueryParameters.ToArray()));
+                policies.Add(new LoggingPolicy(diagnostics.IsLoggingContentEnabled, diagnostics.LoggingContentSizeLimit,
+                    diagnostics.LoggingAllowedHeaderNames.ToArray(), diagnostics.LoggingAllowedQueryParameters.ToArray()));
             }
 
             policies.Add(BufferResponsePolicy.Shared);
@@ -65,7 +64,8 @@ namespace Azure.Core.Pipeline
 
             return new HttpPipeline(options.Transport,
                 policies.ToArray(),
-                responseClassifier);
+                responseClassifier,
+                new ClientDiagnostics(isDistributedTracingEnabled));
         }
 
         // internal for testing

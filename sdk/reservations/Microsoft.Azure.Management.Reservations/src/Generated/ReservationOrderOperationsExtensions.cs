@@ -155,12 +155,9 @@ namespace Microsoft.Azure.Management.Reservations
             /// <param name='reservationOrderId'>
             /// Order Id of the reservation
             /// </param>
-            /// <param name='expand'>
-            /// May be used to expand the planInformation.
-            /// </param>
-            public static ReservationOrderResponse Get(this IReservationOrderOperations operations, string reservationOrderId, string expand = default(string))
+            public static ReservationOrderResponse Get(this IReservationOrderOperations operations, string reservationOrderId)
             {
-                return operations.GetAsync(reservationOrderId, expand).GetAwaiter().GetResult();
+                return operations.GetAsync(reservationOrderId).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -175,15 +172,12 @@ namespace Microsoft.Azure.Management.Reservations
             /// <param name='reservationOrderId'>
             /// Order Id of the reservation
             /// </param>
-            /// <param name='expand'>
-            /// May be used to expand the planInformation.
-            /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<ReservationOrderResponse> GetAsync(this IReservationOrderOperations operations, string reservationOrderId, string expand = default(string), CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<ReservationOrderResponse> GetAsync(this IReservationOrderOperations operations, string reservationOrderId, CancellationToken cancellationToken = default(CancellationToken))
             {
-                using (var _result = await operations.GetWithHttpMessagesAsync(reservationOrderId, expand, null, cancellationToken).ConfigureAwait(false))
+                using (var _result = await operations.GetWithHttpMessagesAsync(reservationOrderId, null, cancellationToken).ConfigureAwait(false))
                 {
                     return _result.Body;
                 }

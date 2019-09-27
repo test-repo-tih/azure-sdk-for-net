@@ -10,81 +10,62 @@ namespace Azure.Identity
 {
     /// <summary>
     /// Provides a default <see cref="ChainedTokenCredential"/> configuration for applications that will be deployed to Azure.  The following credential
-    /// types if enabled will be tried, in order:
+    /// types will be tried, in order:
     /// - <see cref="EnvironmentCredential"/>
     /// - <see cref="ManagedIdentityCredential"/>
     /// - <see cref="SharedTokenCacheCredential"/>
-    /// - <see cref="InteractiveBrowserCredential"/>
     /// Consult the documentation of these credential types for more information on how they attempt authentication.
     /// </summary>
     public class DefaultAzureCredential : ChainedTokenCredential
     {
-        private static readonly ReadOnlyMemory<TokenCredential> s_defaultCredentialChain = GetDefaultAzureCredentialChain(new DefaultAzureCredentialOptions());
+        // TODO: Currently this is piggybacking off the Azure CLI client ID, but needs to be switched once the Developer Sign On application is available
+        private const string DeveloperSignOnClientId = "04b07795-8ddb-461a-bbee-02f9e1bf7b46";
+        private static readonly string s_azureUsername = Environment.GetEnvironmentVariable("AZURE_USERNAME");
+        private static readonly string s_azurePassword = Environment.GetEnvironmentVariable("AZURE_PASSWORD");
+        private static readonly TokenCredential[] s_defaultCredentialChain = GetDefaultAzureCredentialChain();
 
         /// <summary>
         /// Creates an instance of the DefaultAzureCredential class.
         /// </summary>
         public DefaultAzureCredential()
-            : this(null)
+            : base(s_defaultCredentialChain)
         {
 
         }
 
-        /// <summary>
-        /// Creates an instance of the DefaultAzureCredential class.
-        /// </summary>
-        /// <param name="options"></param>
-        public DefaultAzureCredential(DefaultAzureCredentialOptions options)
-            : base(GetDefaultAzureCredentialChain(options))
+        private static TokenCredential[] GetDefaultAzureCredentialChain()
         {
-
-        }
-
-        private static ReadOnlyMemory<TokenCredential> GetDefaultAzureCredentialChain(DefaultAzureCredentialOptions options)
-        {
-            if (options is null)
+            // if only the username is specified via the enviornment (not password as well) and we're running on windows add the SharedTokenCacheCredential to the
+            // default credential to enable SSO
+            if (!string.IsNullOrEmpty(s_azureUsername) && string.IsNullOrEmpty(s_azurePassword) && (Environment.OSVersion.Platform == PlatformID.Win32NT))
             {
-                return s_defaultCredentialChain;
+                return new TokenCredential[] {
+                    new EnvironmentCredential(),
+                    new ManagedIdentityCredential(),
+                    new SharedTokenCacheCredential(DeveloperSignOnClientId, s_azureUsername),
+                    new CredentialNotFoundGuard()
+                };
             }
-
-            int i = 0;
-            TokenCredential[] chain = new TokenCredential[5];
-
-            if (options.IncludeEnvironmentCredential)
+            else
             {
-                chain[i++] = new EnvironmentCredential(options);
+                return new TokenCredential[] {
+                    new EnvironmentCredential(),
+                    new ManagedIdentityCredential(),
+                    new CredentialNotFoundGuard()
+                };
             }
-
-            if (options.IncludeManagedIdentityCredential)
-            {
-                chain[i++] = new ManagedIdentityCredential(options.ManagedIdentityClientId, options);
-            }
-
-            if (options.IncludeSharedTokenCacheCredential)
-            {
-                chain[i++] = new SharedTokenCacheCredential(null, options.PreferredAccountUsername);
-            }
-
-            if (options.IncludeInteractiveBrowserCredential)
-            {
-                chain[i++] = new InteractiveBrowserCredential(null, null, options);
-            }
-
-            chain[i++] = new CredentialNotFoundGuard();
-
-            return new ReadOnlyMemory<TokenCredential>(chain, 0, i);
         }
 
         private class CredentialNotFoundGuard : TokenCredential
         {
             private const string CredentialNotFoundMessage = @"Failed to find a credential to use for authentication.  If running in an environment where a managed identity is not available ensure the environment variables AZURE_TENANT_ID, AZURE_CLIENT_ID, and AZURE_CLIENT_SECRET are set.";
 
-            public override AccessToken GetToken(TokenRequestContext requestContext, CancellationToken cancellationToken)
+            public override AccessToken GetToken(TokenRequest request, CancellationToken cancellationToken)
             {
                 throw new AuthenticationFailedException(CredentialNotFoundMessage);
             }
 
-            public override Task<AccessToken> GetTokenAsync(TokenRequestContext requestContext, CancellationToken cancellationToken)
+            public override Task<AccessToken> GetTokenAsync(TokenRequest request, CancellationToken cancellationToken)
             {
                 throw new AuthenticationFailedException(CredentialNotFoundMessage);
             }

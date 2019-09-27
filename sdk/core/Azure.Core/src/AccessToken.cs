@@ -2,6 +2,10 @@
 // Licensed under the MIT License.
 
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Azure.Core
 {
@@ -17,7 +21,7 @@ namespace Azure.Core
 
         public DateTimeOffset ExpiresOn { get; private set; }
 
-        public override bool Equals(object? obj)
+        public override bool Equals(object obj)
         {
             if (obj is AccessToken accessToken)
             {

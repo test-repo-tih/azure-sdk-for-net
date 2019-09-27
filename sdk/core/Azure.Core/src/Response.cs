@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
-using Azure.Core;
+using Azure.Core.Http;
 
 namespace Azure
 {
@@ -25,13 +25,13 @@ namespace Azure
 
         protected internal abstract bool TryGetHeader(string name, [NotNullWhen(true)] out string? value);
 
-        protected internal abstract bool TryGetHeaderValues(string name, [NotNullWhen(true)] out IEnumerable<string>? values);
+        protected internal abstract bool TryGetHeaderValues(string name, out IEnumerable<string> values);
 
         protected internal abstract bool ContainsHeader(string name);
 
         protected internal abstract IEnumerable<HttpHeader> EnumerateHeaders();
 
-        public static Response<T> FromValue<T>(T value, Response response)
+        public static Response<T> FromValue<T>(Response response, T value)
         {
             return new ValueResponse<T>(response, value);
         }

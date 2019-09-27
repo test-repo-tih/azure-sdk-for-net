@@ -8,6 +8,7 @@
     <PackageTags>Microsoft Azure Client Pipeline AspNetCore Extensions</PackageTags>
     <PackageReleaseNotes>
       - Updated Azure.Identity dependency version
+      Minor bug fixes and code improvements.
     </PackageReleaseNotes>
 
     <!-- Make sure that we don't pull in additional dependencies during build or package -->
@@ -35,6 +36,11 @@
   </ItemGroup>
 
   <ItemGroup Condition="'$(UseProjectReferenceToAzureIdentity)'!='true'">
+  <ItemGroup Condition="'$(UseProjectReferenceToAzureCore)'=='true'">
+    <ProjectReference Include="..\..\..\identity\Azure.Identity\src\Azure.Identity.csproj" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(UseProjectReferenceToAzureCore)'!='true'">
     <PackageReference Include="Azure.Identity" />
   </ItemGroup>
 

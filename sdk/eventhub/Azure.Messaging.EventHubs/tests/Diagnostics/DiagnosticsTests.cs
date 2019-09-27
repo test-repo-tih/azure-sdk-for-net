@@ -32,8 +32,6 @@ namespace Azure.Messaging.EventHubs.Tests
     [NonParallelizable]
     public class DiagnosticsTests
     {
-        private const string DiagnosticSourceName = "Azure.Messaging.EventHubs";
-
         /// <summary>
         ///   Verifies diagnostics functionality of the <see cref="EventHubProducer" />
         ///   class.
@@ -42,7 +40,7 @@ namespace Azure.Messaging.EventHubs.Tests
         [Test]
         public async Task EventHubProducerCreatesDiagnosticScopeOnSend()
         {
-            using var testListener = new ClientDiagnosticListener(DiagnosticSourceName);
+            using var testListener = new ClientDiagnosticListener();
 
             var eventHubName = "SomeName";
             var endpoint = new Uri("amqp://endpoint");
@@ -78,7 +76,7 @@ namespace Azure.Messaging.EventHubs.Tests
         [Test]
         public async Task EventHubProducerCreatesDiagnosticScopeOnBatchSend()
         {
-            using var testListener = new ClientDiagnosticListener(DiagnosticSourceName);
+            using var testListener = new ClientDiagnosticListener();
 
             var eventHubName = "SomeName";
             var endpoint = new Uri("amqp://endpoint");
@@ -232,7 +230,7 @@ namespace Azure.Messaging.EventHubs.Tests
         [Test]
         public async Task CheckpointManagerCreatesScope()
         {
-            using ClientDiagnosticListener listener = new ClientDiagnosticListener(DiagnosticSourceName);
+            using ClientDiagnosticListener listener = new ClientDiagnosticListener();
             var manager = new PartitionContext("namespace", "name", "group", "partition", "owner", new InMemoryPartitionManager());
 
             await manager.UpdateCheckpointAsync(0, 0);
@@ -249,13 +247,12 @@ namespace Azure.Messaging.EventHubs.Tests
         [Test]
         public async Task PartitionPumpCreatesScopeForEventProcessing()
         {
-            using ClientDiagnosticListener listener = new ClientDiagnosticListener(DiagnosticSourceName);
+            using ClientDiagnosticListener listener = new ClientDiagnosticListener();
             var processorCalledSource = new TaskCompletionSource<object>(TaskCreationOptions.RunContinuationsAsynchronously);
             var consumerMock = new Mock<EventHubConsumer>();
             bool returnedItems = false;
             consumerMock.Setup(c => c.ReceiveAsync(It.IsAny<int>(), It.IsAny<TimeSpan?>(), It.IsAny<CancellationToken>()))
-                .Returns(() =>
-                {
+                .Returns(()=> {
                     if (returnedItems)
                     {
                         throw new InvalidOperationException("Something bad happened");
@@ -291,7 +288,7 @@ namespace Azure.Messaging.EventHubs.Tests
                 .Returns(Task.CompletedTask)
                 .Callback(() => processorCalledSource.SetResult(null));
 
-            var manager = new PartitionPump(clientMock.Object, "cg", new PartitionContext("ns", "eh", "cg", "pid", "oid", new InMemoryPartitionManager()), processorMock.Object, new EventProcessorOptions());
+            var manager = new PartitionPump(clientMock.Object, "cg", new PartitionContext("ns", "eh", "cg", "pid", "oid", new InMemoryPartitionManager()),  processorMock.Object, new EventProcessorOptions());
 
             await manager.StartAsync();
             await processorCalledSource.Task;

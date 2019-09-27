@@ -132,13 +132,6 @@ ConfigurationSetting setting = client.Get("Key");
 Assert.AreEqual("Value", setting.Value);
 ```
 
-### Setting up console logging
-
-```C# Snippet:ConsoleLogging
-// Setup a listener to monitor logged events.
-using AzureEventSourceListener listener = AzureEventSourceListener.CreateConsoleLogger(EventLevel.LogAlways);
-```
-
 ### Reporting Errors ```RequestFailedException```
 Coming soon ...
 

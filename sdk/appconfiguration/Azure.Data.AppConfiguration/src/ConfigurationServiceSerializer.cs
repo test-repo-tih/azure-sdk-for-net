@@ -8,6 +8,7 @@ using System.IO;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
+using Azure.Core.Http;
 
 namespace Azure.Data.AppConfiguration
 {
@@ -27,10 +28,6 @@ namespace Azure.Data.AppConfiguration
                     json.WriteString(tag.Key, tag.Value);
                 }
                 json.WriteEndObject();
-            }
-            if (setting.ETag != default)
-            {
-                json.WriteString("etag", setting.ETag.ToString());
             }
             json.WriteEndObject();
             json.Flush();
@@ -61,15 +58,15 @@ namespace Azure.Data.AppConfiguration
                     setting.LastModified = DateTimeOffset.Parse(lastModified.GetString(), CultureInfo.InvariantCulture);
                 }
             }
-            if (root.TryGetProperty("locked", out JsonElement readOnlyValue))
+            if (root.TryGetProperty("locked", out JsonElement lockedValue))
             {
-                if (readOnlyValue.ValueKind == JsonValueKind.Null)
+                if (lockedValue.ValueKind == JsonValueKind.Null)
                 {
-                    setting.ReadOnly = null;
+                    setting.Locked = null;
                 }
                 else
                 {
-                    setting.ReadOnly = readOnlyValue.GetBoolean();
+                    setting.Locked = lockedValue.GetBoolean();
                 }
             }
             if (root.TryGetProperty("tags", out JsonElement tagsValue))

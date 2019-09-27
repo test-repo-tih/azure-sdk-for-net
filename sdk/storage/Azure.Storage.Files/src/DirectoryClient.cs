@@ -7,6 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Azure.Core;
 using Azure.Core.Pipeline;
+using Azure.Storage.Common;
 using Azure.Storage.Files.Models;
 using Metadata = System.Collections.Generic.IDictionary<string, string>;
 
@@ -38,18 +39,6 @@ namespace Azure.Storage.Files
         /// every request.
         /// </summary>
         internal virtual HttpPipeline Pipeline => _pipeline;
-
-        /// <summary>
-        /// The <see cref="ClientDiagnostics"/> instance used to create diagnostic scopes
-        /// every request.
-        /// </summary>
-        private readonly ClientDiagnostics _clientDiagnostics;
-
-        /// <summary>
-        /// The <see cref="ClientDiagnostics"/> instance used to create diagnostic scopes
-        /// every request.
-        /// </summary>
-        internal virtual ClientDiagnostics ClientDiagnostics => _clientDiagnostics;
 
         /// <summary>
         /// The Storage account name corresponding to the directory client.
@@ -99,23 +88,6 @@ namespace Azure.Storage.Files
             {
                 SetNameFieldsIfNull();
                 return _name;
-            }
-        }
-
-        /// <summary>
-        /// The path of the directory.
-        /// </summary>
-        private string _path;
-
-        /// <summary>
-        /// Gets the path of the directory.
-        /// </summary>
-        public virtual string Path
-        {
-            get
-            {
-                SetNameFieldsIfNull();
-                return _path;
             }
         }
 
@@ -172,7 +144,6 @@ namespace Azure.Storage.Files
         /// </param>
         public DirectoryClient(string connectionString, string shareName, string directoryPath, FileClientOptions options)
         {
-            options ??= new FileClientOptions();
             var conn = StorageConnectionString.Parse(connectionString);
             var builder =
                 new FileUriBuilder(conn.FileEndpoint)
@@ -181,8 +152,7 @@ namespace Azure.Storage.Files
                     DirectoryOrFilePath = directoryPath
                 };
             _uri = builder.ToUri();
-            _pipeline = options.Build(conn.Credentials);
-            _clientDiagnostics = new ClientDiagnostics(options);
+            _pipeline = (options ?? new FileClientOptions()).Build(conn.Credentials);
         }
 
         /// <summary>
@@ -245,10 +215,8 @@ namespace Azure.Storage.Files
         /// </param>
         internal DirectoryClient(Uri directoryUri, HttpPipelinePolicy authentication, FileClientOptions options)
         {
-            options ??= new FileClientOptions();
             _uri = directoryUri;
-            _pipeline = options.Build(authentication);
-            _clientDiagnostics = new ClientDiagnostics(options);
+            _pipeline = (options ?? new FileClientOptions()).Build(authentication);
         }
 
         /// <summary>
@@ -263,12 +231,10 @@ namespace Azure.Storage.Files
         /// <param name="pipeline">
         /// The transport pipeline used to send every request.
         /// </param>
-        /// <param name="clientDiagnostics"></param>
-        internal DirectoryClient(Uri directoryUri, HttpPipeline pipeline, ClientDiagnostics clientDiagnostics)
+        internal DirectoryClient(Uri directoryUri, HttpPipeline pipeline)
         {
             _uri = directoryUri;
             _pipeline = pipeline;
-            _clientDiagnostics = clientDiagnostics;
         }
         #endregion ctors
 
@@ -281,7 +247,7 @@ namespace Azure.Storage.Files
         /// <param name="fileName">The name of the file.</param>
         /// <returns>A new <see cref="FileClient"/> instance.</returns>
         public virtual FileClient GetFileClient(string fileName)
-            => new FileClient(Uri.AppendToPath(fileName), Pipeline, ClientDiagnostics);
+            => new FileClient(Uri.AppendToPath(fileName), Pipeline);
 
         /// <summary>
         /// Creates a new <see cref="DirectoryClient"/> object by appending
@@ -292,20 +258,19 @@ namespace Azure.Storage.Files
         /// <param name="subdirectoryName">The name of the subdirectory.</param>
         /// <returns>A new <see cref="DirectoryClient"/> instance.</returns>
         public virtual DirectoryClient GetSubdirectoryClient(string subdirectoryName)
-            => new DirectoryClient(Uri.AppendToPath(subdirectoryName), Pipeline, ClientDiagnostics);
+            => new DirectoryClient(Uri.AppendToPath(subdirectoryName), Pipeline);
 
         /// <summary>
         /// Sets the various name fields if they are currently null.
         /// </summary>
         private void SetNameFieldsIfNull()
         {
-            if (_name == null || _shareName == null || _accountName == null || _path == null)
+            if (_name == null || _shareName == null || _accountName == null)
             {
                 var builder = new FileUriBuilder(Uri);
                 _name = builder.LastDirectoryOrFileName;
                 _shareName = builder.ShareName;
                 _accountName = builder.AccountName;
-                _path = builder.DirectoryOrFilePath;
             }
         }
 
@@ -443,7 +408,6 @@ namespace Azure.Storage.Files
                     }
 
                     Response<RawStorageDirectoryInfo> response = await FileRestClient.Directory.CreateAsync(
-                        ClientDiagnostics,
                         Pipeline,
                         Uri,
                         metadata: metadata,
@@ -457,7 +421,7 @@ namespace Azure.Storage.Files
                         cancellationToken: cancellationToken)
                         .ConfigureAwait(false);
 
-                    return Response.FromValue(new StorageDirectoryInfo(response.Value), response.GetRawResponse());
+                    return Response.FromValue(response.GetRawResponse(), new StorageDirectoryInfo(response.Value));
                 }
                 catch (Exception ex)
                 {
@@ -548,7 +512,6 @@ namespace Azure.Storage.Files
                 try
                 {
                     return await FileRestClient.Directory.DeleteAsync(
-                        ClientDiagnostics,
                         Pipeline,
                         Uri,
                         async: async,
@@ -681,7 +644,6 @@ namespace Azure.Storage.Files
                 try
                 {
                     Response<RawStorageDirectoryProperties> response = await FileRestClient.Directory.GetPropertiesAsync(
-                        ClientDiagnostics,
                         Pipeline,
                         Uri,
                         sharesnapshot: shareSnapshot,
@@ -690,7 +652,7 @@ namespace Azure.Storage.Files
                         cancellationToken: cancellationToken)
                         .ConfigureAwait(false);
 
-                    return Response.FromValue(new StorageDirectoryProperties(response.Value), response.GetRawResponse());
+                    return Response.FromValue(response.GetRawResponse(), new StorageDirectoryProperties(response.Value));
                 }
                 catch (Exception ex)
                 {
@@ -826,7 +788,6 @@ namespace Azure.Storage.Files
                     }
 
                     Response<RawStorageDirectoryInfo> response = await FileRestClient.Directory.SetPropertiesAsync(
-                        ClientDiagnostics,
                         Pipeline,
                         Uri,
                         fileAttributes: smbProps.FileAttributes?.ToString() ?? Constants.File.Preserve,
@@ -839,7 +800,7 @@ namespace Azure.Storage.Files
                         cancellationToken: cancellationToken)
                         .ConfigureAwait(false);
 
-                    return Response.FromValue(new StorageDirectoryInfo(response.Value), response.GetRawResponse());
+                    return Response.FromValue(response.GetRawResponse(), new StorageDirectoryInfo(response.Value));
                 }
                 catch (Exception ex)
                 {
@@ -950,7 +911,6 @@ namespace Azure.Storage.Files
                 try
                 {
                     Response<RawStorageDirectoryInfo> response = await FileRestClient.Directory.SetMetadataAsync(
-                        ClientDiagnostics,
                         Pipeline,
                         Uri,
                         metadata: metadata,
@@ -959,7 +919,7 @@ namespace Azure.Storage.Files
                         cancellationToken: cancellationToken)
                         .ConfigureAwait(false);
 
-                    return Response.FromValue(new StorageDirectoryInfo(response.Value), response.GetRawResponse());
+                    return Response.FromValue(response.GetRawResponse(), new StorageDirectoryInfo(response.Value));
                 }
                 catch (Exception ex)
                 {
@@ -983,12 +943,8 @@ namespace Azure.Storage.Files
         ///
         /// For more information, see <see href="https://docs.microsoft.com/en-us/rest/api/storageservices/list-directories-and-files"/>.
         /// </summary>
-        /// <param name="prefix">
-        /// Optional string that filters the results to return only
-        /// files and directories whose name begins with the specified prefix.
-        /// </param>
-        /// <param name="shareSnapshot">
-        /// Optional share snapshot to query.
+        /// <param name="options">
+        /// Specifies options for listing, filtering, and shaping the items.
         /// </param>
         /// <param name="cancellationToken">
         /// Optional <see cref="CancellationToken"/> to propagate
@@ -1003,10 +959,9 @@ namespace Azure.Storage.Files
         /// a failure occurs.
         /// </remarks>
         public virtual Pageable<StorageFileItem> GetFilesAndDirectories(
-            string prefix = default,
-            string shareSnapshot = default,
+            GetFilesAndDirectoriesOptions? options = default,
             CancellationToken cancellationToken = default) =>
-            new GetFilesAndDirectoriesAsyncCollection(this, prefix, shareSnapshot).ToSyncCollection(cancellationToken);
+            new GetFilesAndDirectoriesAsyncCollection(this, options).ToSyncCollection(cancellationToken);
 
         /// <summary>
         /// The <see cref="GetFilesAndDirectoriesAsync"/> operation returns an
@@ -1016,12 +971,8 @@ namespace Azure.Storage.Files
         ///
         /// For more information, see <see href="https://docs.microsoft.com/en-us/rest/api/storageservices/list-directories-and-files"/>.
         /// </summary>
-        /// <param name="prefix">
-        /// Optional string that filters the results to return only
-        /// files and directories whose name begins with the specified prefix.
-        /// </param>
-        /// <param name="shareSnapshot">
-        /// Optional share snapshot to query.
+        /// <param name="options">
+        /// Specifies options for listing, filtering, and shaping the items.
         /// </param>
         /// <param name="cancellationToken">
         /// Optional <see cref="CancellationToken"/> to propagate
@@ -1036,10 +987,9 @@ namespace Azure.Storage.Files
         /// a failure occurs.
         /// </remarks>
         public virtual AsyncPageable<StorageFileItem> GetFilesAndDirectoriesAsync(
-            string prefix = default,
-            string shareSnapshot = default,
+            GetFilesAndDirectoriesOptions? options = default,
             CancellationToken cancellationToken = default) =>
-            new GetFilesAndDirectoriesAsyncCollection(this, prefix, shareSnapshot).ToAsyncCollection(cancellationToken);
+            new GetFilesAndDirectoriesAsyncCollection(this, options).ToAsyncCollection(cancellationToken);
 
         /// <summary>
         /// The <see cref="GetFilesAndDirectoriesInternal"/> operation returns a
@@ -1057,12 +1007,8 @@ namespace Azure.Storage.Files
         /// be used as the value for the <paramref name="marker"/> parameter
         /// in a subsequent call to request the next segment of list items.
         /// </param>
-        /// <param name="prefix">
-        /// Optional string that filters the results to return only
-        /// files and directories whose name begins with the specified prefix.
-        /// </param>
-        /// <param name="shareSnapshot">
-        /// Optional share snapshot to query.
+        /// <param name="options">
+        /// Specifies options for listing, filtering, and shaping the items.
         /// </param>
         /// <param name="pageSizeHint">
         /// Gets or sets a value indicating the size of the page that should be
@@ -1085,8 +1031,7 @@ namespace Azure.Storage.Files
         /// </remarks>
         internal async Task<Response<FilesAndDirectoriesSegment>> GetFilesAndDirectoriesInternal(
             string marker,
-            string prefix,
-            string shareSnapshot,
+            GetFilesAndDirectoriesOptions? options,
             int? pageSizeHint,
             bool async,
             CancellationToken cancellationToken)
@@ -1098,18 +1043,16 @@ namespace Azure.Storage.Files
                     message:
                     $"{nameof(Uri)}: {Uri}\n" +
                     $"{nameof(marker)}: {marker}\n" +
-                    $"{nameof(prefix)}: {prefix}\n" +
-                    $"{nameof(shareSnapshot)}: {shareSnapshot}");
+                    $"{nameof(options)}: {options}");
                 try
                 {
                     return await FileRestClient.Directory.ListFilesAndDirectoriesSegmentAsync(
-                        ClientDiagnostics,
                         Pipeline,
                         Uri,
                         marker: marker,
-                        prefix: prefix,
+                        prefix: options?.Prefix,
                         maxresults: pageSizeHint,
-                        sharesnapshot: shareSnapshot,
+                        sharesnapshot: options?.ShareSnapshot,
                         async: async,
                         operationName: Constants.File.Directory.ListFilesAndDirectoriesSegmentOperationName,
                         cancellationToken: cancellationToken)
@@ -1152,7 +1095,7 @@ namespace Azure.Storage.Files
         /// A <see cref="StorageRequestFailedException"/> will be thrown if
         /// a failure occurs.
         /// </remarks>
-        public virtual Pageable<StorageFileHandle> GetHandles(
+        public virtual Pageable<StorageHandle> GetHandles(
             bool? recursive = default,
             CancellationToken cancellationToken = default) =>
             new GetDirectoryHandlesAsyncCollection(this, recursive).ToSyncCollection(cancellationToken);
@@ -1180,7 +1123,7 @@ namespace Azure.Storage.Files
         /// A <see cref="StorageRequestFailedException"/> will be thrown if
         /// a failure occurs.
         /// </remarks>
-        public virtual AsyncPageable<StorageFileHandle> GetHandlesAsync(
+        public virtual AsyncPageable<StorageHandle> GetHandlesAsync(
             bool? recursive = default,
             CancellationToken cancellationToken = default) =>
             new GetDirectoryHandlesAsyncCollection(this, recursive).ToAsyncCollection(cancellationToken);
@@ -1242,7 +1185,6 @@ namespace Azure.Storage.Files
                 try
                 {
                     return await FileRestClient.Directory.ListHandlesAsync(
-                        ClientDiagnostics,
                         Pipeline,
                         Uri,
                         marker: marker,
@@ -1440,7 +1382,6 @@ namespace Azure.Storage.Files
                 try
                 {
                     return await FileRestClient.Directory.ForceCloseHandlesAsync(
-                        ClientDiagnostics,
                         Pipeline,
                         Uri,
                         marker: marker,
@@ -1507,7 +1448,7 @@ namespace Azure.Storage.Files
                 smbProperties,
                 filePermission,
                 cancellationToken);
-            return Response.FromValue(subdir, response.GetRawResponse());
+            return Response.FromValue(response.GetRawResponse(), subdir);
         }
 
         /// <summary>
@@ -1553,7 +1494,7 @@ namespace Azure.Storage.Files
                     filePermission,
                     cancellationToken)
                 .ConfigureAwait(false);
-            return Response.FromValue(subdir, response.GetRawResponse());
+            return Response.FromValue(response.GetRawResponse(), subdir);
         }
         #endregion CreateSubdirectory
 
@@ -1662,7 +1603,7 @@ namespace Azure.Storage.Files
                 smbProperties,
                 filePermission,
                 cancellationToken);
-            return Response.FromValue(file, response.GetRawResponse());
+            return Response.FromValue(response.GetRawResponse(), file);
         }
 
         /// <summary>
@@ -1719,7 +1660,7 @@ namespace Azure.Storage.Files
                 smbProperties,
                 filePermission,
                 cancellationToken).ConfigureAwait(false);
-            return Response.FromValue(file, response.GetRawResponse());
+            return Response.FromValue(response.GetRawResponse(), file);
         }
         #endregion CreateFile
 

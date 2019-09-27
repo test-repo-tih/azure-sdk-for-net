@@ -11,6 +11,10 @@
     <PackageTags>Reservations;</PackageTags>
 		<PackageReleaseNotes>
 			Release Billing Plan for Reservations.
+		<Version>1.11.0-preview</Version>
+    <PackageTags>Reservations;</PackageTags>
+		<PackageReleaseNotes>
+			Enhancing Patch API for RI renewal.
 		</PackageReleaseNotes>
 	</PropertyGroup>
 	<PropertyGroup>

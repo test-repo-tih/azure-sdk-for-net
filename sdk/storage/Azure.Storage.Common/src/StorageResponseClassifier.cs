@@ -2,10 +2,9 @@
 // Licensed under the MIT License.
 
 using System;
-using Azure.Core;
 using Azure.Core.Pipeline;
 
-namespace Azure.Storage
+namespace Azure.Storage.Common
 {
     internal class StorageResponseClassifier : ResponseClassifier
     {
@@ -21,7 +20,7 @@ namespace Azure.Storage
         /// </summary>
         /// <param name="message">The message containing both Response and Request</param>
         /// <returns></returns>
-        public override bool IsRetriableResponse(HttpMessage message)
+        public override bool IsRetriableResponse(HttpPipelineMessage message)
         {
             if (message.Request.Uri.Host == SecondaryStorageUri.Host && message.Response.Status == Constants.HttpStatusCode.NotFound)
             {

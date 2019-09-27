@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
+using Azure.Core.Http;
 using Azure.Storage;
 using Azure.Storage.Files;
 using Azure.Storage.Files.Models;

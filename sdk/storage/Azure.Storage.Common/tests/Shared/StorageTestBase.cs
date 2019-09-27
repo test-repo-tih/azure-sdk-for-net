@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using Azure.Core;
 using Azure.Core.Testing;
 using Azure.Identity;
+using Azure.Storage.Common;
+using Azure.Storage.Common.Test;
 using Azure.Storage.Sas;
 using NUnit.Framework;
 using TestConstants = Azure.Storage.Test.Constants;
@@ -153,9 +155,7 @@ namespace Azure.Storage.Test.Shared
             => new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
                 {
                     { "foo", "bar" },
-                    { "meta", "data" },
-                    { "Capital", "letter" },
-                    { "UPPER", "case" }
+                    { "meta", "data" }
                 };
 
         public IPAddress GetIPAddress()
@@ -184,7 +184,7 @@ namespace Azure.Storage.Test.Shared
                 appId,
                 secret,
                 Recording.InstrumentClientOptions(
-                    new AzureCredentialOptions() { AuthorityHost = authorityHost }));
+                    new IdentityClientOptions() { AuthorityHost = authorityHost }));
 
         public void AssertMetadataEquality(IDictionary<string, string> expected, IDictionary<string, string> actual)
         {

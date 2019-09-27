@@ -2,7 +2,6 @@
 // Licensed under the MIT License.
 
 using System;
-using Azure.Core;
 using Azure.Core.Pipeline;
 
 namespace Azure.Data.AppConfiguration
@@ -46,20 +45,24 @@ namespace Azure.Data.AppConfiguration
         /// </param>
         public ConfigurationClientOptions(ServiceVersion version = LatestVersion)
         {
-            Version = version;
-            this.ConfigureLogging();
+            this.Version = version;
         }
 
         internal string GetVersionString()
         {
-            switch (Version)
+            string version = string.Empty;
+
+            switch (this.Version)
             {
                 case ServiceVersion.V1_0:
-                    return "1.0";
+                    version = "1.0";
+                    break;
 
                 default:
-                    throw new ArgumentException(Version.ToString());
+                    throw new ArgumentException(this.Version.ToString());
             }
+
+            return version;
         }
     }
 }

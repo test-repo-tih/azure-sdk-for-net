@@ -256,9 +256,12 @@ namespace Peering.Tests
                 }
                 try
                 {
-                    var prefix = "10.10.10.2";
+                    var prefix = new PeeringServicePrefix
+                    {
+                        Prefix = "10.10.10.2",
+                    };
 
-                    var peeringServicePrefix = this.client.Prefixes.CreateOrUpdate(rgname, name, prefixName, prefix);
+                    var peeringServicePrefix = this.client.PeeringServicePrefixes.CreateOrUpdate(rgname, name, prefixName, prefix);
                     Assert.NotNull(peeringServicePrefix);
                     Assert.Equal(prefixName, peeringServicePrefix.Name);
 
@@ -336,6 +339,7 @@ namespace Peering.Tests
                 {
                     Assert.True(this.DeletePeering(context, name, rgname));
                     Assert.True(this.DeletePeerAsn(context, $"AS{asn}"));
+                    Assert.True(this.DeleteResourceGroup(context, rgname));
                 }
             }
         }
@@ -440,8 +444,8 @@ namespace Peering.Tests
             PeeringServicePrefix service = null;
             try
             {
-                this.client.Prefixes.Delete(resourceGroupName, peeringServiceName, prefixName);
-                service = this.client.Prefixes.Get(resourceGroupName, peeringServiceName, prefixName);
+                this.client.PeeringServicePrefixes.Delete(resourceGroupName, peeringServiceName, prefixName);
+                service = this.client.PeeringServicePrefixes.Get(resourceGroupName, peeringServiceName, prefixName);
                 if (service == null)
                 {
                     return true;

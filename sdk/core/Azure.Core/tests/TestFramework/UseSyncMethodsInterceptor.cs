@@ -103,12 +103,10 @@ namespace Azure.Core.Testing
             }
         }
 
-        private static MethodInfo GetMethod(IInvocation invocation, string nonAsyncMethodName, Type[] types) =>
-            IsInternal(invocation.Method)
-                ? invocation.TargetType.GetMethod(nonAsyncMethodName, BindingFlags.NonPublic | BindingFlags.Instance, null, types, null)
-                : invocation.TargetType.GetMethod(nonAsyncMethodName, BindingFlags.Public | BindingFlags.Instance, null, types, null);
-
-        private static bool IsInternal(MethodBase method) => method.IsAssembly || method.IsFamilyAndAssembly && !method.IsFamilyOrAssembly;
+        private static MethodInfo GetMethod(IInvocation invocation, string nonAsyncMethodName, Type[] types)
+        {
+            return invocation.TargetType.GetMethod(nonAsyncMethodName, BindingFlags.Public | BindingFlags.Instance, null, types, null);
+        }
 
         private class SyncPageableWrapper<T> : AsyncPageable<T>
         {
@@ -123,7 +121,7 @@ namespace Azure.Core.Testing
             public override async IAsyncEnumerable<Page<T>> AsPages(string continuationToken = default, int? pageSizeHint = default)
 #pragma warning restore 1998
             {
-                foreach (Page<T> page in _enumerable.AsPages())
+                foreach (Page<T> page in _enumerable.ByPage())
                 {
                     yield return page;
                 }

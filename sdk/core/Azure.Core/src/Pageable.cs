@@ -49,7 +49,7 @@ namespace Azure
         /// <returns>
         /// An async sequence of <see cref="Page{T}"/>s.
         /// </returns>
-        public abstract IEnumerable<Page<T>> AsPages(
+        public abstract IEnumerable<Page<T>> ByPage(
             string? continuationToken = default,
             int? pageSizeHint = default);
 
@@ -72,7 +72,7 @@ namespace Azure
         /// </summary>
         public virtual IEnumerator<T> GetEnumerator()
         {
-            foreach (Page<T> page in AsPages())
+            foreach (Page<T> page in ByPage())
             {
                 foreach (T value in page.Values)
                 {
@@ -87,7 +87,7 @@ namespace Azure
         /// <param name="obj">The instance to compare to.</param>
         /// <returns>True if they're equal, false otherwise.</returns>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override bool Equals(object? obj) => base.Equals(obj);
+        public override bool Equals(object obj) => base.Equals(obj);
 
         /// <summary>
         /// Get a hash code for the <see cref="Pageable{T}"/>.

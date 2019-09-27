@@ -11,6 +11,7 @@ namespace Azure.Core
 {
     internal static class PageResponseEnumerator
     {
+
         public static FuncPageable<T> CreateEnumerable<T>(Func<string?, Page<T>> pageFunc) where T : notnull
         {
             return new FuncPageable<T>((continuationToken, pageSizeHint) => pageFunc(continuationToken));
@@ -60,7 +61,7 @@ namespace Azure.Core
                 _pageFunc = pageFunc;
             }
 
-            public override IEnumerable<Page<T>> AsPages(string? continuationToken = default, int? pageSizeHint = default)
+            public override IEnumerable<Page<T>> ByPage(string? continuationToken = default, int? pageSizeHint = default)
             {
                 do
                 {

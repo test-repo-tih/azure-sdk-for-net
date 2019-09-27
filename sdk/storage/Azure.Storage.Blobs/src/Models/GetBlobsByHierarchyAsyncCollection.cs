@@ -11,23 +11,17 @@ namespace Azure.Storage.Blobs.Models
     internal class GetBlobsByHierarchyAsyncCollection : StorageCollectionEnumerator<BlobHierarchyItem>
     {
         private readonly BlobContainerClient _client;
-        private readonly BlobTraits _traits;
-        private readonly BlobStates _states;
+        private readonly GetBlobsOptions? _options;
         private readonly string _delimiter;
-        private readonly string _prefix;
 
         public GetBlobsByHierarchyAsyncCollection(
             BlobContainerClient client,
             string delimiter,
-            BlobTraits traits,
-            BlobStates states,
-            string prefix)
+            GetBlobsOptions? options)
         {
             _client = client;
             _delimiter = delimiter;
-            _traits = traits;
-            _states = states;
-            _prefix = prefix;
+            _options = options;
         }
 
         public override async ValueTask<Page<BlobHierarchyItem>> GetNextPageAsync(
@@ -39,9 +33,7 @@ namespace Azure.Storage.Blobs.Models
             Task<Response<BlobsHierarchySegment>> task = _client.GetBlobsByHierarchyInternal(
                 continuationToken,
                 _delimiter,
-                _traits,
-                _states,
-                _prefix,
+                _options,
                 pageSizeHint,
                 isAsync,
                 cancellationToken);
@@ -52,7 +44,7 @@ namespace Azure.Storage.Blobs.Models
             var items = new List<BlobHierarchyItem>();
             items.AddRange(response.Value.BlobPrefixes.Select(p => new BlobHierarchyItem(p.Name, null)));
             items.AddRange(response.Value.BlobItems.Select(b => new BlobHierarchyItem(null, b)));
-            return Page<BlobHierarchyItem>.FromValues(
+            return new Page<BlobHierarchyItem>(
                 items.ToArray(),
                 response.Value.NextMarker,
                 response.GetRawResponse());

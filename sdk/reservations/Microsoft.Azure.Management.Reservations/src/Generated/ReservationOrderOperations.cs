@@ -441,9 +441,6 @@ namespace Microsoft.Azure.Management.Reservations
         /// <param name='reservationOrderId'>
         /// Order Id of the reservation
         /// </param>
-        /// <param name='expand'>
-        /// May be used to expand the planInformation.
-        /// </param>
         /// <param name='customHeaders'>
         /// Headers that will be added to request.
         /// </param>
@@ -465,7 +462,7 @@ namespace Microsoft.Azure.Management.Reservations
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<AzureOperationResponse<ReservationOrderResponse>> GetWithHttpMessagesAsync(string reservationOrderId, string expand = default(string), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<AzureOperationResponse<ReservationOrderResponse>> GetWithHttpMessagesAsync(string reservationOrderId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
             if (reservationOrderId == null)
             {
@@ -483,7 +480,6 @@ namespace Microsoft.Azure.Management.Reservations
                 _invocationId = ServiceClientTracing.NextInvocationId.ToString();
                 Dictionary<string, object> tracingParameters = new Dictionary<string, object>();
                 tracingParameters.Add("reservationOrderId", reservationOrderId);
-                tracingParameters.Add("expand", expand);
                 tracingParameters.Add("cancellationToken", cancellationToken);
                 ServiceClientTracing.Enter(_invocationId, this, "Get", tracingParameters);
             }
@@ -495,10 +491,6 @@ namespace Microsoft.Azure.Management.Reservations
             if (Client.ApiVersion != null)
             {
                 _queryParameters.Add(string.Format("api-version={0}", System.Uri.EscapeDataString(Client.ApiVersion)));
-            }
-            if (expand != null)
-            {
-                _queryParameters.Add(string.Format("$expand={0}", System.Uri.EscapeDataString(expand)));
             }
             if (_queryParameters.Count > 0)
             {

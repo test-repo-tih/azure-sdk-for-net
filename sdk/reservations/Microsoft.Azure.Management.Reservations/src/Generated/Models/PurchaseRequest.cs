@@ -38,22 +38,19 @@ namespace Microsoft.Azure.Management.Reservations.Models
         /// 'RedHat', 'SqlDataWarehouse', 'VMwareCloudSimple',
         /// 'RedHatOsa'</param>
         /// <param name="term">Possible values include: 'P1Y', 'P3Y'</param>
-        /// <param name="billingPlan">Possible values include: 'Upfront',
-        /// 'Monthly'</param>
         /// <param name="displayName">Friendly name of the Reservation</param>
         /// <param name="appliedScopeType">Possible values include: 'Single',
         /// 'Shared'</param>
         /// <param name="reservedResourceProperties">Properties specific to
         /// each reserved resource type. Not required if not
         /// applicable.</param>
-        public PurchaseRequest(SkuName sku = default(SkuName), string location = default(string), string reservedResourceType = default(string), string billingScopeId = default(string), string term = default(string), string billingPlan = default(string), int? quantity = default(int?), string displayName = default(string), string appliedScopeType = default(string), IList<string> appliedScopes = default(IList<string>), bool? renew = default(bool?), PurchaseRequestPropertiesReservedResourceProperties reservedResourceProperties = default(PurchaseRequestPropertiesReservedResourceProperties))
+        public PurchaseRequest(SkuName sku = default(SkuName), string location = default(string), string reservedResourceType = default(string), string billingScopeId = default(string), string term = default(string), int? quantity = default(int?), string displayName = default(string), string appliedScopeType = default(string), IList<string> appliedScopes = default(IList<string>), bool? renew = default(bool?), PurchaseRequestPropertiesReservedResourceProperties reservedResourceProperties = default(PurchaseRequestPropertiesReservedResourceProperties))
         {
             Sku = sku;
             Location = location;
             ReservedResourceType = reservedResourceType;
             BillingScopeId = billingScopeId;
             Term = term;
-            BillingPlan = billingPlan;
             Quantity = quantity;
             DisplayName = displayName;
             AppliedScopeType = appliedScopeType;
@@ -97,12 +94,6 @@ namespace Microsoft.Azure.Management.Reservations.Models
         /// </summary>
         [JsonProperty(PropertyName = "properties.term")]
         public string Term { get; set; }
-
-        /// <summary>
-        /// Gets or sets possible values include: 'Upfront', 'Monthly'
-        /// </summary>
-        [JsonProperty(PropertyName = "properties.billingPlan")]
-        public string BillingPlan { get; set; }
 
         /// <summary>
         /// </summary>

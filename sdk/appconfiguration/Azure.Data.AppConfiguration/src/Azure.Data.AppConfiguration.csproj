@@ -41,6 +41,9 @@
     <Compile Include="$(AzureCoreSharedSources)NoBodyResponse{T}.cs" />
     <Compile Include="$(AzureCoreSharedSources)PageResponseEnumerator.cs" />
     <Compile Include="$(AzureCoreSharedSources)ResponseExceptionExtensions.cs" />
+    <Compile Include="$(AzureCoreSharedSources)ArrayBufferWriter.cs" />
+    <Compile Include="$(AzureCoreSharedSources)HashCodeBuilder.cs" />
+    <Compile Include="$(AzureCoreSharedSources)PageResponseEnumerator.cs" />
   </ItemGroup>
 
 </Project>

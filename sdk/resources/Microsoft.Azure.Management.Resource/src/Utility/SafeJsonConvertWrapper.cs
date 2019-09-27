@@ -14,72 +14,62 @@ namespace Microsoft.Azure.Management.ResourceManager
     using Newtonsoft.Json;
     using Newtonsoft.Json.Linq;
 
-    public static class SafeJsonConvertWrapper
+    public static class SafeJsonConvert
     {
-        public static string SerializeDeployment(Deployment deployment, JsonSerializerSettings settings)
+        public static string SerializeObject(object obj, JsonSerializerSettings settings)
         {
-            if (deployment.Properties != null)
+            if (obj != null && obj is Deployment)
             {
-                if (deployment.Properties.Template is string templateContent)
-                {
-                    try
-                    {
-                        deployment.Properties.Template = JObject.Parse(templateContent);
-                    }
-                    catch (JsonException ex)
-                    {
-                        throw new SerializationException("Unable to serialize template.", ex);
-                    }
-                }
+                Deployment deployment = (Deployment)obj;
 
-                if (deployment.Properties.Parameters is string parametersContent)
+                if (deployment.Properties != null)
                 {
-                    try
+                    if (deployment.Properties.Template is string)
                     {
-                        JObject templateParameters = JObject.Parse(parametersContent);
-                        deployment.Properties.Parameters = templateParameters["parameters"] ?? templateParameters;
+                        try
+                        {
+                            deployment.Properties.Template = JObject.Parse((string)deployment.Properties.Template);
+                        }
+                        catch (JsonException ex)
+                        {
+                            throw new SerializationException("Unable to serialize template.", ex);
+                        }
                     }
-                    catch (JsonException ex)
+                    if (deployment.Properties.Parameters is string)
                     {
-                        throw new SerializationException("Unable to serialize template parameters.", ex);
+                        try
+                        {
+                            var templateParameters = JObject.Parse((string)deployment.Properties.Parameters);
+
+                            deployment.Properties.Parameters = templateParameters["parameters"] != null
+                                ? templateParameters["parameters"]
+                                : templateParameters;                           
+                        }
+                        catch (JsonException ex)
+                        {
+                            throw new SerializationException("Unable to serialize template parameters.", ex);
+                        }
                     }
                 }
             }
 
-            return Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(deployment, settings);
+            return Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(obj, settings);
         }
 
-        public static string SerializeDeploymentWhatIf(DeploymentWhatIf deploymentWhatIf, JsonSerializerSettings settings)
+        public static string SerializeObject(object obj, params JsonConverter[] converters)
         {
-            if (deploymentWhatIf.Properties != null)
-            {
-                if (deploymentWhatIf.Properties.Template is string templateContent)
-                {
-                    try
-                    {
-                        deploymentWhatIf.Properties.Template = JObject.Parse(templateContent);
-                    }
-                    catch (JsonException ex)
-                    {
-                        throw new SerializationException("Unable to serialize template.", ex);
-                    }
-                }
-
-                if (deploymentWhatIf.Properties.Parameters is string parametersContent)
-                {
-                    try
-                    {
-                        JObject templateParameters = JObject.Parse(parametersContent);
-                        deploymentWhatIf.Properties.Parameters = templateParameters["parameters"] ?? templateParameters;
-                    }
-                    catch (JsonException ex)
-                    {
-                        throw new SerializationException("Unable to serialize template parameters.", ex);
-                    }
-                }
-            }
-
-            return Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(deploymentWhatIf, settings);
+            return Microsoft.Rest.Serialization.SafeJsonConvert.SerializeObject(obj, converters);
         }
+
+        public static T DeserializeObject<T>(string json, params JsonConverter[] converters)
+        {
+            return Microsoft.Rest.Serialization.SafeJsonConvert.DeserializeObject<T>(json, converters);
+        }
+
+        public static T DeserializeObject<T>(string json, JsonSerializerSettings settings)
+        {
+            return Microsoft.Rest.Serialization.SafeJsonConvert.DeserializeObject<T>(json, settings);
+        }
+
     }
 }

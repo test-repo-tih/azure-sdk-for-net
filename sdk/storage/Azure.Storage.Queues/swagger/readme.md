@@ -187,6 +187,14 @@ directive:
     $["x-ms-enum"].name = "GeoReplicationStatus";
 ```
 
+### Logging disable warning
+``` yaml
+directive:
+- from: swagger-document
+  where: $.definitions.Logging
+  transform: $["x-az-disable-warnings"] = "CA1724"
+```
+
 ### StorageError
 ``` yaml
 directive:
@@ -287,15 +295,6 @@ directive:
     $.name = "permissions";
 ```
 
-### Set Start/Expiry nullable in AccessPolicy 
-``` yaml
-directive:
-- from: swagger-document
-  where: $.definitions.AccessPolicy
-  transform: >
-     delete $.required;
-```
-
 ### Url
 ``` yaml
 directive:
@@ -321,42 +320,4 @@ directive:
 - from: swagger-document
   where: $.parameters.ApiVersionParameter
   transform: $.enum = [ "2018-11-09" ];
-```
-
-### Prepend Queue prefix to service property types
-``` yaml
-directive:
-- from: swagger-document
-  where: $.definitions
-  transform: >
-    $.Logging["x-ms-client-name"] = "QueueAnalyticsLogging";
-    $.Logging.xml = { "name": "Logging"};
-    $.QueueServiceProperties.properties.Logging.xml = { "name": "Logging"};
-    $.Metrics["x-ms-client-name"] = "QueueMetrics";
-    $.Metrics.xml = { "name": "Metrics" };
-    $.QueueServiceProperties.properties.HourMetrics.xml = { "name": "HourMetrics"};
-    $.QueueServiceProperties.properties.MinuteMetrics.xml = { "name": "MinuteMetrics"};
-    $.CorsRule["x-ms-client-name"] = "QueueCorsRule";
-    $.CorsRule.xml = { "name": "CorsRule"};
-    $.QueueServiceProperties.properties.Cors.xml.name = "CorsRule";
-```
-
-### Access Policy properties renaming
-``` yaml
-directive:
-- from: swagger-document
-  where: $.definitions.AccessPolicy
-  transform: >
-    $["x-ms-client-name"] = "QueueAccessPolicy";
-    $.xml = {"name": "AccessPolicy"};
-    $.properties.StartsOn = $.properties.Start;
-    $.properties.StartsOn.xml = { "name": "Start"};
-    delete $.properties.Start;
-    $.properties.ExpiresOn = $.properties.Expiry;
-    $.properties.ExpiresOn.xml = { "name": "Expiry"};
-    delete $.properties.Expiry;
-    $.properties.Permissions = $.properties.Permission;
-    $.properties.Permissions.xml = { "name": "Permission"};
-    delete $.properties.Permission;
-    $.required = ["StartsOn", "ExpiresOn", "Permissions"];
 ```

@@ -266,7 +266,7 @@ namespace Azure.Core.Testing
         {
             encoding = null;
             return TryGetContentType(requestHeaders, out string contentType) &&
-                   TestFrameworkContentTypeUtilities.TryGetTextEncoding(contentType, out encoding);
+                   ContentTypeUtilities.TryGetTextEncoding(contentType, out encoding);
         }
 
         public void Sanitize(RecordedTestSanitizer sanitizer)
