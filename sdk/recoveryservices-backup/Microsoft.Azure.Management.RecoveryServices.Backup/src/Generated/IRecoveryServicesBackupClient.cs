@@ -65,86 +65,6 @@ namespace Microsoft.Azure.Management.RecoveryServices.Backup
 
 
         /// <summary>
-        /// Gets the IBackupResourceVaultConfigsOperations.
-        /// </summary>
-        IBackupResourceVaultConfigsOperations BackupResourceVaultConfigs { get; }
-
-        /// <summary>
-        /// Gets the IProtectedItemsOperations.
-        /// </summary>
-        IProtectedItemsOperations ProtectedItems { get; }
-
-        /// <summary>
-        /// Gets the IProtectedItemOperationResultsOperations.
-        /// </summary>
-        IProtectedItemOperationResultsOperations ProtectedItemOperationResults { get; }
-
-        /// <summary>
-        /// Gets the IRecoveryPointsOperations.
-        /// </summary>
-        IRecoveryPointsOperations RecoveryPoints { get; }
-
-        /// <summary>
-        /// Gets the IRestoresOperations.
-        /// </summary>
-        IRestoresOperations Restores { get; }
-
-        /// <summary>
-        /// Gets the IBackupPoliciesOperations.
-        /// </summary>
-        IBackupPoliciesOperations BackupPolicies { get; }
-
-        /// <summary>
-        /// Gets the IProtectionPoliciesOperations.
-        /// </summary>
-        IProtectionPoliciesOperations ProtectionPolicies { get; }
-
-        /// <summary>
-        /// Gets the IProtectionPolicyOperationResultsOperations.
-        /// </summary>
-        IProtectionPolicyOperationResultsOperations ProtectionPolicyOperationResults { get; }
-
-        /// <summary>
-        /// Gets the IBackupJobsOperations.
-        /// </summary>
-        IBackupJobsOperations BackupJobs { get; }
-
-        /// <summary>
-        /// Gets the IJobDetailsOperations.
-        /// </summary>
-        IJobDetailsOperations JobDetails { get; }
-
-        /// <summary>
-        /// Gets the IJobCancellationsOperations.
-        /// </summary>
-        IJobCancellationsOperations JobCancellations { get; }
-
-        /// <summary>
-        /// Gets the IJobOperationResultsOperations.
-        /// </summary>
-        IJobOperationResultsOperations JobOperationResults { get; }
-
-        /// <summary>
-        /// Gets the IExportJobsOperationResultsOperations.
-        /// </summary>
-        IExportJobsOperationResultsOperations ExportJobsOperationResults { get; }
-
-        /// <summary>
-        /// Gets the IJobsOperations.
-        /// </summary>
-        IJobsOperations Jobs { get; }
-
-        /// <summary>
-        /// Gets the IBackupProtectedItemsOperations.
-        /// </summary>
-        IBackupProtectedItemsOperations BackupProtectedItems { get; }
-
-        /// <summary>
-        /// Gets the IOperationOperations.
-        /// </summary>
-        IOperationOperations Operation { get; }
-
-        /// <summary>
         /// Gets the IProtectionIntentOperations.
         /// </summary>
         IProtectionIntentOperations ProtectionIntent { get; }
@@ -160,6 +80,36 @@ namespace Microsoft.Azure.Management.RecoveryServices.Backup
         IFeatureSupportOperations FeatureSupport { get; }
 
         /// <summary>
+        /// Gets the IBackupJobsOperations.
+        /// </summary>
+        IBackupJobsOperations BackupJobs { get; }
+
+        /// <summary>
+        /// Gets the IJobDetailsOperations.
+        /// </summary>
+        IJobDetailsOperations JobDetails { get; }
+
+        /// <summary>
+        /// Gets the IExportJobsOperationResultsOperations.
+        /// </summary>
+        IExportJobsOperationResultsOperations ExportJobsOperationResults { get; }
+
+        /// <summary>
+        /// Gets the IJobsOperations.
+        /// </summary>
+        IJobsOperations Jobs { get; }
+
+        /// <summary>
+        /// Gets the IBackupPoliciesOperations.
+        /// </summary>
+        IBackupPoliciesOperations BackupPolicies { get; }
+
+        /// <summary>
+        /// Gets the IBackupProtectedItemsOperations.
+        /// </summary>
+        IBackupProtectedItemsOperations BackupProtectedItems { get; }
+
+        /// <summary>
         /// Gets the IBackupProtectionIntentOperations.
         /// </summary>
         IBackupProtectionIntentOperations BackupProtectionIntent { get; }
@@ -168,6 +118,16 @@ namespace Microsoft.Azure.Management.RecoveryServices.Backup
         /// Gets the IBackupUsageSummariesOperations.
         /// </summary>
         IBackupUsageSummariesOperations BackupUsageSummaries { get; }
+
+        /// <summary>
+        /// Gets the IOperationOperations.
+        /// </summary>
+        IOperationOperations Operation { get; }
+
+        /// <summary>
+        /// Gets the IBackupResourceVaultConfigsOperations.
+        /// </summary>
+        IBackupResourceVaultConfigsOperations BackupResourceVaultConfigs { get; }
 
         /// <summary>
         /// Gets the IBackupEnginesOperations.
@@ -200,9 +160,19 @@ namespace Microsoft.Azure.Management.RecoveryServices.Backup
         IProtectionContainerOperationResultsOperations ProtectionContainerOperationResults { get; }
 
         /// <summary>
+        /// Gets the IProtectedItemsOperations.
+        /// </summary>
+        IProtectedItemsOperations ProtectedItems { get; }
+
+        /// <summary>
         /// Gets the IBackupsOperations.
         /// </summary>
         IBackupsOperations Backups { get; }
+
+        /// <summary>
+        /// Gets the IProtectedItemOperationResultsOperations.
+        /// </summary>
+        IProtectedItemOperationResultsOperations ProtectedItemOperationResults { get; }
 
         /// <summary>
         /// Gets the IProtectedItemOperationStatusesOperations.
@@ -210,9 +180,29 @@ namespace Microsoft.Azure.Management.RecoveryServices.Backup
         IProtectedItemOperationStatusesOperations ProtectedItemOperationStatuses { get; }
 
         /// <summary>
+        /// Gets the IRecoveryPointsOperations.
+        /// </summary>
+        IRecoveryPointsOperations RecoveryPoints { get; }
+
+        /// <summary>
         /// Gets the IItemLevelRecoveryConnectionsOperations.
         /// </summary>
         IItemLevelRecoveryConnectionsOperations ItemLevelRecoveryConnections { get; }
+
+        /// <summary>
+        /// Gets the IRestoresOperations.
+        /// </summary>
+        IRestoresOperations Restores { get; }
+
+        /// <summary>
+        /// Gets the IJobCancellationsOperations.
+        /// </summary>
+        IJobCancellationsOperations JobCancellations { get; }
+
+        /// <summary>
+        /// Gets the IJobOperationResultsOperations.
+        /// </summary>
+        IJobOperationResultsOperations JobOperationResults { get; }
 
         /// <summary>
         /// Gets the IBackupOperationResultsOperations.
@@ -223,6 +213,16 @@ namespace Microsoft.Azure.Management.RecoveryServices.Backup
         /// Gets the IBackupOperationStatusesOperations.
         /// </summary>
         IBackupOperationStatusesOperations BackupOperationStatuses { get; }
+
+        /// <summary>
+        /// Gets the IProtectionPoliciesOperations.
+        /// </summary>
+        IProtectionPoliciesOperations ProtectionPolicies { get; }
+
+        /// <summary>
+        /// Gets the IProtectionPolicyOperationResultsOperations.
+        /// </summary>
+        IProtectionPolicyOperationResultsOperations ProtectionPolicyOperationResults { get; }
 
         /// <summary>
         /// Gets the IProtectionPolicyOperationStatusesOperations.

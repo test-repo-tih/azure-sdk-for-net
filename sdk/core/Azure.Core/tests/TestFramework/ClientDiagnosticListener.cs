@@ -17,9 +17,9 @@ namespace Azure.Core.Tests
 
         public List<ProducedDiagnosticScope> Scopes { get; } = new List<ProducedDiagnosticScope>();
 
-        public ClientDiagnosticListener(string name)
+        public ClientDiagnosticListener()
         {
-            _diagnosticSourceName = name;
+            _diagnosticSourceName = "Azure.Clients";
             DiagnosticListener.AllListeners.Subscribe(this);
         }
 

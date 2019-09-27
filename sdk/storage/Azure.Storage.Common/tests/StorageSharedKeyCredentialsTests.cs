@@ -6,10 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Azure.Core.Testing;
 using Azure.Storage.Blobs;
-using Azure.Storage.Test;
 using NUnit.Framework;
 
-namespace Azure.Storage.Test
+namespace Azure.Storage.Common.Test
 {
     public class StorageSharedKeyCredentialsTests : CommonTestBase
     {

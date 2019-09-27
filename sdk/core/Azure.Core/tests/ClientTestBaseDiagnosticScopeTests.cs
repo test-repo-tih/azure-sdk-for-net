@@ -3,7 +3,6 @@
 
 using System;
 using System.Threading.Tasks;
-using Azure.Core.Diagnostics;
 using Azure.Core.Pipeline;
 using Azure.Core.Testing;
 using NUnit.Framework;
@@ -57,7 +56,7 @@ namespace Azure.Core.Tests
         {
             private void FireScope(string method)
             {
-                ClientDiagnostics clientDiagnostics = new ClientDiagnostics("Azure.Core.Tests", true);
+                ClientDiagnostics clientDiagnostics = new ClientDiagnostics(true);
                 string activityName = $"{typeof(InvalidDiagnosticScopeTestClient).FullName}.{method}";
                 DiagnosticScope scope = clientDiagnostics.CreateScope(activityName);
                 scope.Start();

@@ -8,6 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Azure.Core;
 using Azure.Core.Pipeline;
+using Azure.Storage.Common;
 using Azure.Storage.Files.Models;
 
 namespace Azure.Storage.Files
@@ -40,18 +41,6 @@ namespace Azure.Storage.Files
         /// send every request.
         /// </summary>
         internal virtual HttpPipeline Pipeline => _pipeline;
-
-        /// <summary>
-        /// The <see cref="ClientDiagnostics"/> instance used to create diagnostic scopes
-        /// every request.
-        /// </summary>
-        private readonly ClientDiagnostics _clientDiagnostics;
-
-        /// <summary>
-        /// The <see cref="ClientDiagnostics"/> instance used to create diagnostic scopes
-        /// every request.
-        /// </summary>
-        internal virtual ClientDiagnostics ClientDiagnostics => _clientDiagnostics;
 
         /// <summary>
         /// The Storage account name corresponding to the file service client.
@@ -116,11 +105,9 @@ namespace Azure.Storage.Files
         /// </param>
         public FileServiceClient(string connectionString, FileClientOptions options)
         {
-            options ??= new FileClientOptions();
             var conn = StorageConnectionString.Parse(connectionString);
             _uri = conn.FileEndpoint;
-            _pipeline = options.Build(conn.Credentials);
-            _clientDiagnostics = new ClientDiagnostics(options);
+            _pipeline = (options ?? new FileClientOptions()).Build(conn.Credentials);
         }
 
         /// <summary>
@@ -177,10 +164,8 @@ namespace Azure.Storage.Files
         /// </param>
         internal FileServiceClient(Uri serviceUri, HttpPipelinePolicy authentication, FileClientOptions options)
         {
-            options ??= new FileClientOptions();
             _uri = serviceUri;
-            _pipeline = options.Build(authentication);
-            _clientDiagnostics = new ClientDiagnostics(options);
+            _pipeline = (options ?? new FileClientOptions()).Build(authentication);
         }
 
         /// <summary>
@@ -193,12 +178,10 @@ namespace Azure.Storage.Files
         /// <param name="pipeline">
         /// The transport pipeline used to send every request.
         /// </param>
-        /// <param name="clientDiagnostics"></param>
-        internal FileServiceClient(Uri serviceUri, HttpPipeline pipeline, ClientDiagnostics clientDiagnostics)
+        internal FileServiceClient(Uri serviceUri, HttpPipeline pipeline)
         {
             _uri = serviceUri;
             _pipeline = pipeline;
-            _clientDiagnostics = clientDiagnostics;
         }
         #endregion ctors
 
@@ -214,7 +197,7 @@ namespace Azure.Storage.Files
         /// <returns>
         /// A <see cref="ShareClient"/> for the desired share.
         /// </returns>
-        public virtual ShareClient GetShareClient(string shareName) => new ShareClient(Uri.AppendToPath(shareName), Pipeline, ClientDiagnostics);
+        public virtual ShareClient GetShareClient(string shareName) => new ShareClient(Uri.AppendToPath(shareName), Pipeline);
 
         #region GetShares
         /// <summary>
@@ -336,7 +319,6 @@ namespace Azure.Storage.Files
                 try
                 {
                     return await FileRestClient.Service.ListSharesSegmentAsync(
-                        ClientDiagnostics,
                         Pipeline,
                         Uri,
                         marker: marker,
@@ -447,7 +429,6 @@ namespace Azure.Storage.Files
                 try
                 {
                     return await FileRestClient.Service.GetPropertiesAsync(
-                        ClientDiagnostics,
                         Pipeline,
                         Uri,
                         async: async,
@@ -569,7 +550,6 @@ namespace Azure.Storage.Files
                 try
                 {
                     return await FileRestClient.Service.SetPropertiesAsync(
-                        ClientDiagnostics,
                         Pipeline,
                         Uri,
                         properties: properties,

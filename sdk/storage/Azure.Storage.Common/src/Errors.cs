@@ -60,9 +60,6 @@ namespace Azure.Storage
         public static ArgumentException InvalidResourceType(char s)
             => new ArgumentException($"Invalid resource type: '{s}'");
 
-        public static ArgumentException VersionNotSupported(string paramName)
-           => new ArgumentException($"The version specified by {paramName} is not supported by this library.");
-
         public static ArgumentException AccountMismatch(string accountNameCredential, string accountNameValue)
             => new ArgumentException(string.Format(
                 CultureInfo.CurrentCulture,
@@ -72,9 +69,6 @@ namespace Azure.Storage
 
         public static ArgumentException ParsingConnectionStringFailed()
             => new ArgumentException("Connection string parsing error");
-
-        public static ArgumentException ParsingHttpRangeFailed()
-            => new ArgumentException("Could not parse the serialized range.");
 
         public static FormatException InvalidFormat(string err)
             => new FormatException(err);
@@ -92,8 +86,5 @@ namespace Azure.Storage
             => new StorageRequestFailedException(
                     response,
                     $"Response x-ms-client-request-id '{echo}' does not match the original expected request id, '{original}'.");
-
-        public static ArgumentException SeekOutsideBufferRange(long index, long inclusiveRangeStart, long exclusiveRangeEnd)
-            => new ArgumentException($"Tried to seek ouside buffer range. Gave index {index}, range is [{inclusiveRangeStart},{exclusiveRangeEnd}).");
     }
 }

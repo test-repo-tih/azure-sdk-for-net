@@ -32,35 +32,14 @@ namespace Azure.Core.Tests
         public void ValueThrowsIfUnspecified()
         {
             var response = new NoBodyResponse<TestPayload>(new MockResponse(304));
-            bool throws = false;
-            try
-            {
-                TestPayload value = response.Value;
-            }
-            catch
-            {
-                throws = true;
-            }
-
-            Assert.True(throws);
+            Assert.Throws<ResponseBodyNotFoundException>(() => { TestPayload value = response.Value; });
         }
 
         [Test]
         public void ValueThrowsFromCastIfUnspecified()
         {
             var response = new NoBodyResponse<TestPayload>(new MockResponse(304));
-
-            bool throws = false;
-            try
-            {
-                TestPayload value = response;
-            }
-            catch
-            {
-                throws = true;
-            }
-
-            Assert.True(throws);
+            Assert.Throws<ResponseBodyNotFoundException>(() => { TestPayload value = response; });
         }
 
         internal class TestPayload

@@ -11,8 +11,6 @@
 namespace Microsoft.Azure.Management.Reservations.Models
 {
     using Newtonsoft.Json;
-    using System.Collections;
-    using System.Collections.Generic;
     using System.Linq;
 
     public partial class CalculatePriceResponseProperties
@@ -44,7 +42,7 @@ namespace Microsoft.Azure.Management.Reservations.Models
         /// <param name="pricingCurrencyTotal">Amount that Microsoft uses for
         /// record. Used during refund for calculating refund limit. Tax is not
         /// included.</param>
-        public CalculatePriceResponseProperties(CalculatePriceResponsePropertiesBillingCurrencyTotal billingCurrencyTotal = default(CalculatePriceResponsePropertiesBillingCurrencyTotal), bool? isBillingPartnerManaged = default(bool?), string reservationOrderId = default(string), string skuTitle = default(string), string skuDescription = default(string), CalculatePriceResponsePropertiesPricingCurrencyTotal pricingCurrencyTotal = default(CalculatePriceResponsePropertiesPricingCurrencyTotal), IList<PaymentDetail> paymentSchedule = default(IList<PaymentDetail>))
+        public CalculatePriceResponseProperties(CalculatePriceResponsePropertiesBillingCurrencyTotal billingCurrencyTotal = default(CalculatePriceResponsePropertiesBillingCurrencyTotal), bool? isBillingPartnerManaged = default(bool?), string reservationOrderId = default(string), string skuTitle = default(string), string skuDescription = default(string), CalculatePriceResponsePropertiesPricingCurrencyTotal pricingCurrencyTotal = default(CalculatePriceResponsePropertiesPricingCurrencyTotal))
         {
             BillingCurrencyTotal = billingCurrencyTotal;
             IsBillingPartnerManaged = isBillingPartnerManaged;
@@ -52,7 +50,6 @@ namespace Microsoft.Azure.Management.Reservations.Models
             SkuTitle = skuTitle;
             SkuDescription = skuDescription;
             PricingCurrencyTotal = pricingCurrencyTotal;
-            PaymentSchedule = paymentSchedule;
             CustomInit();
         }
 
@@ -100,11 +97,6 @@ namespace Microsoft.Azure.Management.Reservations.Models
         /// </summary>
         [JsonProperty(PropertyName = "pricingCurrencyTotal")]
         public CalculatePriceResponsePropertiesPricingCurrencyTotal PricingCurrencyTotal { get; set; }
-
-        /// <summary>
-        /// </summary>
-        [JsonProperty(PropertyName = "paymentSchedule")]
-        public IList<PaymentDetail> PaymentSchedule { get; set; }
 
     }
 }

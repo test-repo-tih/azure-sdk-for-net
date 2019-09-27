@@ -41,11 +41,11 @@ namespace Azure.Security.KeyVault.Certificates.Samples
             {
                 certOp.UpdateStatus();
 
-                Thread.Sleep(TimeSpan.FromSeconds(1));
+                Thread.Sleep(certOp.PollingInterval);
             }
 
             // Let's get the created certificate along with it's policy from the Key Vault.
-            CertificateWithPolicy certificate = client.GetCertificate(certName);
+            CertificateWithPolicy certificate = client.GetCertificateWithPolicy(certName);
 
             Debug.WriteLine($"Certificate was returned with name {certificate.Name} which expires {certificate.Properties.Expires}");
 
@@ -67,7 +67,7 @@ namespace Azure.Security.KeyVault.Certificates.Samples
             {
                 newCertOp.UpdateStatus();
 
-                Thread.Sleep(TimeSpan.FromSeconds(1));
+                Thread.Sleep(newCertOp.PollingInterval);
             }
 
             // The certificate is no longer needed, need to delete it from the Key Vault.

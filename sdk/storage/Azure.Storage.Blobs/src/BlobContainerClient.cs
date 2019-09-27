@@ -11,6 +11,7 @@ using Azure.Core;
 using Azure.Core.Pipeline;
 using Azure.Storage.Blobs.Models;
 using Azure.Storage.Blobs.Specialized;
+using Azure.Storage.Common;
 using Metadata = System.Collections.Generic.IDictionary<string, string>;
 
 namespace Azure.Storage.Blobs
@@ -24,17 +25,12 @@ namespace Azure.Storage.Blobs
         /// <summary>
         /// The Azure Storage name used to identify a storage account's root container.
         /// </summary>
-        public static readonly string RootBlobContainerName = Constants.Blob.Container.RootName;
+        public const string RootBlobContainerName = Constants.Blob.Container.RootName;
 
         /// <summary>
         /// The Azure Storage name used to identify a storage account's logs container.
         /// </summary>
-        public static readonly string LogsBlobContainerName = Constants.Blob.Container.LogsName;
-
-        /// <summary>
-        /// The Azure Storage name used to identify a storage account's web content container.
-        /// </summary>
-        public static readonly string WebBlobContainerName = Constants.Blob.Container.WebName;
+        public const string LogsBlobContainerName = Constants.Blob.Container.LogsName;
 
 #pragma warning disable IDE0032 // Use auto property
         /// <summary>
@@ -59,18 +55,6 @@ namespace Azure.Storage.Blobs
         /// every request.
         /// </summary>
         internal virtual HttpPipeline Pipeline => _pipeline;
-
-        /// <summary>
-        /// The <see cref="ClientDiagnostics"/> instance used to create diagnostic scopes
-        /// every request.
-        /// </summary>
-        private readonly ClientDiagnostics _clientDiagnostics;
-
-        /// <summary>
-        /// The <see cref="ClientDiagnostics"/> instance used to create diagnostic scopes
-        /// every request.
-        /// </summary>
-        internal virtual ClientDiagnostics ClientDiagnostics => _clientDiagnostics;
 
         /// <summary>
         /// The Storage account name corresponding to the container client.
@@ -160,15 +144,14 @@ namespace Azure.Storage.Blobs
             _uri = builder.ToUri();
             options ??= new BlobClientOptions();
             _pipeline = options.Build(conn.Credentials);
-            _clientDiagnostics = new ClientDiagnostics(options);
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="BlobContainerClient"/>
         /// class.
         /// </summary>
-        /// <param name="blobContainerUri">
-        /// A <see cref="Uri"/> referencing the blob container that includes the
+        /// <param name="containerUri">
+        /// A <see cref="Uri"/> referencing the container that includes the
         /// name of the account and the name of the container.
         /// </param>
         /// <param name="options">
@@ -176,8 +159,8 @@ namespace Azure.Storage.Blobs
         /// policies for authentication, retries, etc., that are applied to
         /// every request.
         /// </param>
-        public BlobContainerClient(Uri blobContainerUri, BlobClientOptions options = default)
-            : this(blobContainerUri, (HttpPipelinePolicy)null,  options)
+        public BlobContainerClient(Uri containerUri, BlobClientOptions options = default)
+            : this(containerUri, (HttpPipelinePolicy)null,  options)
         {
         }
 
@@ -244,7 +227,6 @@ namespace Azure.Storage.Blobs
             _uri = blobContainerUri;
             options ??= new BlobClientOptions();
             _pipeline = options.Build(authentication);
-            _clientDiagnostics = new ClientDiagnostics(options);
         }
 
         /// <summary>
@@ -258,12 +240,10 @@ namespace Azure.Storage.Blobs
         /// <param name="pipeline">
         /// The transport pipeline used to send every request.
         /// </param>
-        /// <param name="clientDiagnostics"></param>
-        internal BlobContainerClient(Uri containerUri, HttpPipeline pipeline, ClientDiagnostics clientDiagnostics)
+        internal BlobContainerClient(Uri containerUri, HttpPipeline pipeline)
         {
             _uri = containerUri;
             _pipeline = pipeline;
-            _clientDiagnostics = clientDiagnostics;
         }
         #endregion ctor
 
@@ -596,7 +576,6 @@ namespace Azure.Storage.Blobs
                 try
                 {
                     return await BlobRestClient.Container.CreateAsync(
-                        ClientDiagnostics,
                         Pipeline,
                         Uri,
                         metadata: metadata,
@@ -844,7 +823,6 @@ namespace Azure.Storage.Blobs
                     }
 
                     return await BlobRestClient.Container.DeleteAsync(
-                        ClientDiagnostics,
                         Pipeline,
                         Uri,
                         leaseId: accessConditions?.LeaseAccessConditions?.LeaseId,
@@ -979,7 +957,6 @@ namespace Azure.Storage.Blobs
                     // GetProperties returns a flattened set of properties
                     Response<FlattenedContainerItem> response =
                         await BlobRestClient.Container.GetPropertiesAsync(
-                            ClientDiagnostics,
                             Pipeline,
                             Uri,
                             leaseId: leaseAccessConditions?.LeaseId,
@@ -1145,7 +1122,6 @@ namespace Azure.Storage.Blobs
                     }
 
                     return await BlobRestClient.Container.SetMetadataAsync(
-                        ClientDiagnostics,
                         Pipeline,
                         Uri,
                         metadata: metadata,
@@ -1275,7 +1251,6 @@ namespace Azure.Storage.Blobs
                 try
                 {
                     return await BlobRestClient.Container.GetAccessPolicyAsync(
-                        ClientDiagnostics,
                         Pipeline,
                         Uri,
                         leaseId: leaseAccessConditions?.LeaseId,
@@ -1470,7 +1445,6 @@ namespace Azure.Storage.Blobs
                     }
 
                     return await BlobRestClient.Container.SetAccessPolicyAsync(
-                        ClientDiagnostics,
                         Pipeline,
                         Uri,
                         permissions: permissions,
@@ -1505,15 +1479,9 @@ namespace Azure.Storage.Blobs
         ///
         /// For more information, see <see href="https://docs.microsoft.com/rest/api/storageservices/list-blobs"/>.
         /// </summary>
-        /// <param name="traits">
-        /// Specifies trait options for shaping the blobs.
-        /// </param>
-        /// <param name="states">
-        /// Specifies state options for filtering the blobs.
-        /// </param>
-        /// <param name="prefix">
-        /// Specifies a string that filters the results to return only blobs
-        /// whose name begins with the specified <paramref name="prefix"/>.
+        /// <param name="options">
+        /// Specifies options for listing, filtering, and shaping the
+        /// blobs.
         /// </param>
         /// <param name="cancellationToken">
         /// Optional <see cref="CancellationToken"/> to propagate
@@ -1528,11 +1496,9 @@ namespace Azure.Storage.Blobs
         /// a failure occurs.
         /// </remarks>
         public virtual Pageable<BlobItem> GetBlobs(
-            BlobTraits traits = BlobTraits.None,
-            BlobStates states = BlobStates.None,
-            string prefix = default,
+            GetBlobsOptions? options = default,
             CancellationToken cancellationToken = default) =>
-            new GetBlobsAsyncCollection(this, traits, states, prefix).ToSyncCollection(cancellationToken);
+            new GetBlobsAsyncCollection(this, options).ToSyncCollection(cancellationToken);
 
         /// <summary>
         /// The <see cref="GetBlobsAsync"/> operation returns an async
@@ -1542,15 +1508,9 @@ namespace Azure.Storage.Blobs
         ///
         /// For more information, see <see href="https://docs.microsoft.com/rest/api/storageservices/list-blobs"/>.
         /// </summary>
-        /// <param name="traits">
-        /// Specifies trait options for shaping the blobs.
-        /// </param>
-        /// <param name="states">
-        /// Specifies state options for filtering the blobs.
-        /// </param>
-        /// <param name="prefix">
-        /// Specifies a string that filters the results to return only blobs
-        /// whose name begins with the specified <paramref name="prefix"/>.
+        /// <param name="options">
+        /// Specifies options for listing, filtering, and shaping the
+        /// blobs.
         /// </param>
         /// <param name="cancellationToken">
         /// Optional <see cref="CancellationToken"/> to propagate
@@ -1565,11 +1525,9 @@ namespace Azure.Storage.Blobs
         /// a failure occurs.
         /// </remarks>
         public virtual AsyncPageable<BlobItem> GetBlobsAsync(
-            BlobTraits traits = BlobTraits.None,
-            BlobStates states = BlobStates.None,
-            string prefix = default,
+            GetBlobsOptions? options = default,
             CancellationToken cancellationToken = default) =>
-            new GetBlobsAsyncCollection(this, traits, states, prefix).ToAsyncCollection(cancellationToken);
+            new GetBlobsAsyncCollection(this, options).ToAsyncCollection(cancellationToken);
 
         /// <summary>
         /// The <see cref="GetBlobsInternal"/> operation returns a
@@ -1592,15 +1550,9 @@ namespace Azure.Storage.Blobs
         /// be used as the value for the <paramref name="marker"/> parameter
         /// in a subsequent call to request the next segment of list items.
         /// </param>
-        /// <param name="traits">
-        /// Specifies trait options for shaping the blobs.
-        /// </param>
-        /// <param name="states">
-        /// Specifies state options for filtering the blobs.
-        /// </param>
-        /// <param name="prefix">
-        /// Specifies a string that filters the results to return only blobs
-        /// whose name begins with the specified <paramref name="prefix"/>.
+        /// <param name="options">
+        /// Specifies options for listing, filtering, and shaping the
+        /// blobs.
         /// </param>
         /// <param name="pageSizeHint">
         /// Gets or sets a value indicating the size of the page that should be
@@ -1623,9 +1575,7 @@ namespace Azure.Storage.Blobs
         /// </remarks>
         internal async Task<Response<BlobsFlatSegment>> GetBlobsInternal(
             string marker,
-            BlobTraits traits,
-            BlobStates states,
-            string prefix,
+            GetBlobsOptions? options,
             int? pageSizeHint,
             bool async,
             CancellationToken cancellationToken)
@@ -1637,19 +1587,16 @@ namespace Azure.Storage.Blobs
                     message:
                     $"{nameof(Uri)}: {Uri}\n" +
                     $"{nameof(marker)}: {marker}\n" +
-                    $"{nameof(traits)}: {traits}\n" +
-                    $"{nameof(states)}: {states}");
-
+                    $"{nameof(options)}: {options}");
                 try
                 {
                     return await BlobRestClient.Container.ListBlobsFlatSegmentAsync(
-                        ClientDiagnostics,
                         Pipeline,
                         Uri,
                         marker: marker,
-                        prefix: prefix,
+                        prefix: options?.Prefix,
                         maxresults: pageSizeHint,
-                        include: BlobExtensions.AsIncludeItems(traits, states),
+                        include: options?.AsIncludeItems(),
                         async: async,
                         cancellationToken: cancellationToken)
                         .ConfigureAwait(false);
@@ -1678,12 +1625,6 @@ namespace Azure.Storage.Blobs
         ///
         /// For more information, see <see href="https://docs.microsoft.com/rest/api/storageservices/list-blobs"/>.
         /// </summary>
-        /// <param name="traits">
-        /// Specifies trait options for shaping the blobs.
-        /// </param>
-        /// <param name="states">
-        /// Specifies state options for filtering the blobs.
-        /// </param>
         /// <param name="delimiter">
         /// A <paramref name="delimiter"/> that can be used to traverse a
         /// virtual hierarchy of blobs as though it were a file system.  The
@@ -1696,14 +1637,14 @@ namespace Azure.Storage.Blobs
         /// value of <paramref name="delimiter"/>. You can use the value of
         /// prefix to make a subsequent call to list the blobs that begin with
         /// this prefix, by specifying the value of the prefix for the
-        /// <paramref name="prefix"/>.
+        /// <see cref="GetBlobsOptions.Prefix"/>.
         ///
         /// Note that each BlobPrefix element returned counts toward the
         /// maximum result, just as each Blob element does.
         /// </param>
-        /// <param name="prefix">
-        /// Specifies a string that filters the results to return only blobs
-        /// whose name begins with the specified <paramref name="prefix"/>.
+        /// <param name="options">
+        /// Specifies options for listing, filtering, and shaping the
+        /// blobs.
         /// </param>
         /// <param name="cancellationToken">
         /// Optional <see cref="CancellationToken"/> to propagate
@@ -1718,12 +1659,10 @@ namespace Azure.Storage.Blobs
         /// a failure occurs.
         /// </remarks>
         public virtual Pageable<BlobHierarchyItem> GetBlobsByHierarchy(
-            BlobTraits traits = BlobTraits.None,
-            BlobStates states = BlobStates.None,
             string delimiter = default,
-            string prefix = default,
+            GetBlobsOptions? options = default,
             CancellationToken cancellationToken = default) =>
-            new GetBlobsByHierarchyAsyncCollection(this, delimiter, traits, states, prefix).ToSyncCollection(cancellationToken);
+            new GetBlobsByHierarchyAsyncCollection(this, delimiter, options).ToSyncCollection(cancellationToken);
 
         /// <summary>
         /// The <see cref="GetBlobsByHierarchyAsync"/> operation returns
@@ -1735,12 +1674,6 @@ namespace Azure.Storage.Blobs
         ///
         /// For more information, see <see href="https://docs.microsoft.com/rest/api/storageservices/list-blobs"/>.
         /// </summary>
-        /// <param name="traits">
-        /// Specifies trait options for shaping the blobs.
-        /// </param>
-        /// <param name="states">
-        /// Specifies state options for filtering the blobs.
-        /// </param>
         /// <param name="delimiter">
         /// A <paramref name="delimiter"/> that can be used to traverse a
         /// virtual hierarchy of blobs as though it were a file system.  The
@@ -1753,14 +1686,14 @@ namespace Azure.Storage.Blobs
         /// value of <paramref name="delimiter"/>. You can use the value of
         /// prefix to make a subsequent call to list the blobs that begin with
         /// this prefix, by specifying the value of the prefix for the
-        /// <paramref name="prefix"/>.
+        /// <see cref="GetBlobsOptions.Prefix"/>.
         ///
         /// Note that each BlobPrefix element returned counts toward the
         /// maximum result, just as each Blob element does.
         /// </param>
-        /// <param name="prefix">
-        /// Specifies a string that filters the results to return only blobs
-        /// whose name begins with the specified <paramref name="prefix"/>.
+        /// <param name="options">
+        /// Specifies options for listing, filtering, and shaping the
+        /// blobs.
         /// </param>
         /// <param name="cancellationToken">
         /// Optional <see cref="CancellationToken"/> to propagate
@@ -1775,12 +1708,10 @@ namespace Azure.Storage.Blobs
         /// a failure occurs.
         /// </remarks>
         public virtual AsyncPageable<BlobHierarchyItem> GetBlobsByHierarchyAsync(
-            BlobTraits traits = BlobTraits.None,
-            BlobStates states = BlobStates.None,
             string delimiter = default,
-            string prefix = default,
+            GetBlobsOptions? options = default,
             CancellationToken cancellationToken = default) =>
-            new GetBlobsByHierarchyAsyncCollection(this, delimiter, traits, states, prefix).ToAsyncCollection(cancellationToken);
+            new GetBlobsByHierarchyAsyncCollection(this, delimiter, options).ToAsyncCollection(cancellationToken);
 
         /// <summary>
         /// The <see cref="GetBlobsByHierarchyInternal"/> operation returns
@@ -1817,20 +1748,14 @@ namespace Azure.Storage.Blobs
         /// value of <paramref name="delimiter"/>. You can use the value of
         /// prefix to make a subsequent call to list the blobs that begin with
         /// this prefix, by specifying the value of the prefix for the
-        /// <paramref name="prefix"/>.
+        /// <see cref="GetBlobsOptions.Prefix"/>.
         ///
         /// Note that each BlobPrefix element returned counts toward the
         /// maximum result, just as each Blob element does.
         /// </param>
-        /// <param name="traits">
-        /// Specifies trait options for shaping the blobs.
-        /// </param>
-        /// <param name="states">
-        /// Specifies state options for filtering the blobs.
-        /// </param>
-        /// <param name="prefix">
-        /// Specifies a string that filters the results to return only blobs
-        /// whose name begins with the specified <paramref name="prefix"/>.
+        /// <param name="options">
+        /// Specifies options for listing, filtering, and shaping the
+        /// blobs.
         /// </param>
         /// <param name="pageSizeHint">
         /// Gets or sets a value indicating the size of the page that should be
@@ -1854,9 +1779,7 @@ namespace Azure.Storage.Blobs
         internal async Task<Response<BlobsHierarchySegment>> GetBlobsByHierarchyInternal(
             string marker,
             string delimiter,
-            BlobTraits traits,
-            BlobStates states,
-            string prefix,
+            GetBlobsOptions? options,
             int? pageSizeHint,
             bool async,
             CancellationToken cancellationToken)
@@ -1869,18 +1792,16 @@ namespace Azure.Storage.Blobs
                     $"{nameof(Uri)}: {Uri}\n" +
                     $"{nameof(marker)}: {marker}\n" +
                     $"{nameof(delimiter)}: {delimiter}\n" +
-                    $"{nameof(traits)}: {traits}\n" +
-                    $"{nameof(states)}: {states}");
+                    $"{nameof(options)}: {options}");
                 try
                 {
                     return await BlobRestClient.Container.ListBlobsHierarchySegmentAsync(
-                        ClientDiagnostics,
                         Pipeline,
                         Uri,
                         marker: marker,
-                        prefix: prefix,
+                        prefix: options?.Prefix,
                         maxresults: pageSizeHint,
-                        include: BlobExtensions.AsIncludeItems(traits, states),
+                        include: options?.AsIncludeItems(),
                         delimiter: delimiter,
                         async: async,
                         cancellationToken: cancellationToken)

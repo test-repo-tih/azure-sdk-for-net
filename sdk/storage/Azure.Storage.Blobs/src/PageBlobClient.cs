@@ -6,8 +6,10 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using Azure.Core;
+using Azure.Core.Http;
 using Azure.Core.Pipeline;
 using Azure.Storage.Blobs.Models;
+using Azure.Storage.Common;
 using Metadata = System.Collections.Generic.IDictionary<string, string>;
 
 #pragma warning disable SA1402  // File may only contain a single type
@@ -31,15 +33,17 @@ namespace Azure.Storage.Blobs.Specialized
     public class PageBlobClient : BlobBaseClient
     {
         /// <summary>
-        /// Gets the number of bytes in a page (512).
+        /// <see cref="PageBlobPageBytes"/> indicates the number of bytes in a
+        /// page (512).
         /// </summary>
-		public virtual int PageBlobPageBytes => 512;
+		public const int PageBlobPageBytes = 512;
 
         /// <summary>
-        /// Gets the maximum number of bytes that can be sent in a call
-        /// to the <see cref="UploadPagesAsync"/> operation.
+        /// <see cref="PageBlobMaxUploadPagesBytes"/> indicates the maximum
+        /// number of bytes that can be sent in a call to the
+        /// <see cref="UploadPagesAsync"/> operation.
         /// </summary>
-        public virtual int PageBlobMaxUploadPagesBytes => 4 * Constants.MB; // 4MB
+        public const int PageBlobMaxUploadPagesBytes = 4 * Constants.MB; // 4MB
 
         #region ctors
         /// <summary>
@@ -304,7 +308,7 @@ namespace Azure.Storage.Blobs.Specialized
         public virtual Response<BlobContentInfo> Create(
             long size,
             long? sequenceNumber = default,
-            BlobHttpHeaders httpHeaders = default,
+            BlobHttpHeaders? httpHeaders = default,
             Metadata metadata = default,
             PageBlobAccessConditions? accessConditions = default,
             CancellationToken cancellationToken = default) =>
@@ -362,7 +366,7 @@ namespace Azure.Storage.Blobs.Specialized
         public virtual async Task<Response<BlobContentInfo>> CreateAsync(
             long size,
             long? sequenceNumber = default,
-            BlobHttpHeaders httpHeaders = default,
+            BlobHttpHeaders? httpHeaders = default,
             Metadata metadata = default,
             PageBlobAccessConditions? accessConditions = default,
             CancellationToken cancellationToken = default) =>
@@ -416,7 +420,7 @@ namespace Azure.Storage.Blobs.Specialized
         public virtual Response<BlobContentInfo> CreateIfNotExists(
             long size,
             long? sequenceNumber = default,
-            BlobHttpHeaders httpHeaders = default,
+            BlobHttpHeaders? httpHeaders = default,
             Metadata metadata = default,
             CancellationToken cancellationToken = default) =>
             CreateIfNotExistsInternal(
@@ -468,7 +472,7 @@ namespace Azure.Storage.Blobs.Specialized
         public virtual async Task<Response<BlobContentInfo>> CreateIfNotExistsAsync(
             long size,
             long? sequenceNumber = default,
-            BlobHttpHeaders httpHeaders = default,
+            BlobHttpHeaders? httpHeaders = default,
             Metadata metadata = default,
             CancellationToken cancellationToken = default) =>
             await CreateIfNotExistsInternal(
@@ -524,7 +528,7 @@ namespace Azure.Storage.Blobs.Specialized
         private async Task<Response<BlobContentInfo>> CreateIfNotExistsInternal(
             long size,
             long? sequenceNumber,
-            BlobHttpHeaders httpHeaders,
+            BlobHttpHeaders? httpHeaders,
             Metadata metadata,
             bool async,
             CancellationToken cancellationToken)
@@ -606,7 +610,7 @@ namespace Azure.Storage.Blobs.Specialized
         private async Task<Response<BlobContentInfo>> CreateInternal(
             long size,
             long? sequenceNumber,
-            BlobHttpHeaders httpHeaders,
+            BlobHttpHeaders? httpHeaders,
             Metadata metadata,
             PageBlobAccessConditions? accessConditions,
             bool async,
@@ -627,7 +631,6 @@ namespace Azure.Storage.Blobs.Specialized
                     BlobErrors.VerifyHttpsCustomerProvidedKey(Uri, CustomerProvidedKey);
 
                     return await BlobRestClient.PageBlob.CreateAsync(
-                        ClientDiagnostics,
                         Pipeline,
                         Uri,
                         contentLength: default,
@@ -870,7 +873,6 @@ namespace Azure.Storage.Blobs.Specialized
                             {
                                 Pipeline.LogTrace($"Upload attempt {++uploadAttempt}");
                                 return BlobRestClient.PageBlob.UploadPagesAsync(
-                                    ClientDiagnostics,
                                     Pipeline,
                                     Uri,
                                     body: content,
@@ -1046,7 +1048,6 @@ namespace Azure.Storage.Blobs.Specialized
                     BlobErrors.VerifyHttpsCustomerProvidedKey(Uri, CustomerProvidedKey);
 
                     return await BlobRestClient.PageBlob.ClearPagesAsync(
-                        ClientDiagnostics,
                         Pipeline,
                         Uri,
                         contentLength: default,
@@ -1220,8 +1221,7 @@ namespace Azure.Storage.Blobs.Specialized
                     $"{nameof(accessConditions)}: {accessConditions}");
                 try
                 {
-                    Response<PageRangesInfoInternal> response =  await BlobRestClient.PageBlob.GetPageRangesAsync(
-                        ClientDiagnostics,
+                    return await BlobRestClient.PageBlob.GetPageRangesAsync(
                         Pipeline,
                         Uri,
                         snapshot: snapshot,
@@ -1235,7 +1235,6 @@ namespace Azure.Storage.Blobs.Specialized
                         operationName: Constants.Blob.Page.GetPageRangesOperationName,
                         cancellationToken: cancellationToken)
                         .ConfigureAwait(false);
-                    return Response.FromValue(new PageRangesInfo(response.Value), response.GetRawResponse());
                 }
                 catch (Exception ex)
                 {
@@ -1423,8 +1422,7 @@ namespace Azure.Storage.Blobs.Specialized
                     $"{nameof(accessConditions)}: {accessConditions}");
                 try
                 {
-                    Response<PageRangesInfoInternal> response = await BlobRestClient.PageBlob.GetPageRangesDiffAsync(
-                        ClientDiagnostics,
+                    return await BlobRestClient.PageBlob.GetPageRangesDiffAsync(
                         Pipeline,
                         Uri,
                         snapshot: snapshot,
@@ -1439,7 +1437,6 @@ namespace Azure.Storage.Blobs.Specialized
                         operationName: Constants.Blob.Page.GetPageRangesDiffOperationName,
                         cancellationToken: cancellationToken)
                         .ConfigureAwait(false);
-                    return Response.FromValue(new PageRangesInfo(response.Value), response.GetRawResponse());
                 }
                 catch (Exception ex)
                 {
@@ -1589,7 +1586,6 @@ namespace Azure.Storage.Blobs.Specialized
                     BlobErrors.VerifyHttpsCustomerProvidedKey(Uri, CustomerProvidedKey);
 
                     return await BlobRestClient.PageBlob.ResizeAsync(
-                        ClientDiagnostics,
                         Pipeline,
                         Uri,
                         blobContentLength: size,
@@ -1800,7 +1796,6 @@ namespace Azure.Storage.Blobs.Specialized
                 try
                 {
                     return await BlobRestClient.PageBlob.UpdateSequenceNumberAsync(
-                        ClientDiagnostics,
                         Pipeline,
                         Uri,
                         sequenceNumberAction: action,
@@ -2220,7 +2215,6 @@ namespace Azure.Storage.Blobs.Specialized
                     PageBlobClient pageBlobUri = new PageBlobClient(sourceUri, Pipeline).WithSnapshot(snapshot);
 
                     return await BlobRestClient.PageBlob.CopyIncrementalAsync(
-                        ClientDiagnostics,
                         Pipeline,
                         Uri,
                         copySource: pageBlobUri.Uri,
@@ -2478,7 +2472,6 @@ namespace Azure.Storage.Blobs.Specialized
                     BlobErrors.VerifyHttpsCustomerProvidedKey(Uri, CustomerProvidedKey);
 
                     return await BlobRestClient.PageBlob.UploadPagesFromUriAsync(
-                        ClientDiagnostics,
                         Pipeline,
                         Uri,
                         sourceUri: sourceUri,

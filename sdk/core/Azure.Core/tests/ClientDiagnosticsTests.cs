@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using Azure.Core.Diagnostics;
 using Azure.Core.Pipeline;
 using NUnit.Framework;
 
@@ -18,7 +17,7 @@ namespace Azure.Core.Tests
         {
 
             using var testListener = new TestDiagnosticListener("Azure.Clients");
-            ClientDiagnostics clientDiagnostics = new ClientDiagnostics("Azure.Clients", true);
+            ClientDiagnostics clientDiagnostics = new ClientDiagnostics(true);
 
             DiagnosticScope scope = clientDiagnostics.CreateScope("ActivityName");
 
@@ -28,13 +27,13 @@ namespace Azure.Core.Tests
 
             scope.Start();
 
-            (string Key, object Value, DiagnosticListener) startEvent = testListener.Events.Dequeue();
+            KeyValuePair<string, object> startEvent = testListener.Events.Dequeue();
 
             Activity activity = Activity.Current;
 
             scope.Dispose();
 
-            (string Key, object Value, DiagnosticListener) stopEvent = testListener.Events.Dequeue();
+            KeyValuePair<string, object> stopEvent = testListener.Events.Dequeue();
 
             Assert.Null(Activity.Current);
             Assert.AreEqual("ActivityName.Start", startEvent.Key);
@@ -50,7 +49,7 @@ namespace Azure.Core.Tests
         public void AddLinkCallsPassesLinksAsPartOfStartPayload()
         {
             using var testListener = new TestDiagnosticListener("Azure.Clients");
-            ClientDiagnostics clientDiagnostics = new ClientDiagnostics("Azure.Clients", true);
+            ClientDiagnostics clientDiagnostics = new ClientDiagnostics(true);
 
             DiagnosticScope scope = clientDiagnostics.CreateScope("ActivityName");
 
@@ -58,13 +57,13 @@ namespace Azure.Core.Tests
             scope.AddLink("id2");
             scope.Start();
 
-            (string Key, object Value, DiagnosticListener) startEvent = testListener.Events.Dequeue();
+            KeyValuePair<string, object> startEvent = testListener.Events.Dequeue();
 
             Activity activity = Activity.Current;
 
             scope.Dispose();
 
-            (string Key, object Value, DiagnosticListener) stopEvent = testListener.Events.Dequeue();
+            KeyValuePair<string, object> stopEvent = testListener.Events.Dequeue();
 
             Assert.Null(Activity.Current);
             Assert.AreEqual("ActivityName.Start", startEvent.Key);
@@ -91,7 +90,7 @@ namespace Azure.Core.Tests
         public void FailedStopsActivityAndWritesExceptionEvent()
         {
             using var testListener = new TestDiagnosticListener("Azure.Clients");
-            ClientDiagnostics clientDiagnostics = new ClientDiagnostics("Azure.Clients", true);
+            ClientDiagnostics clientDiagnostics = new ClientDiagnostics(true);
 
             DiagnosticScope scope = clientDiagnostics.CreateScope("ActivityName");
 
@@ -100,7 +99,7 @@ namespace Azure.Core.Tests
 
             scope.Start();
 
-            (string Key, object Value, DiagnosticListener) startEvent = testListener.Events.Dequeue();
+            KeyValuePair<string, object> startEvent = testListener.Events.Dequeue();
 
             Activity activity = Activity.Current;
 
@@ -108,8 +107,8 @@ namespace Azure.Core.Tests
             scope.Failed(exception);
             scope.Dispose();
 
-            (string Key, object Value, DiagnosticListener) exceptionEvent = testListener.Events.Dequeue();
-            (string Key, object Value, DiagnosticListener) stopEvent = testListener.Events.Dequeue();
+            KeyValuePair<string, object> exceptionEvent = testListener.Events.Dequeue();
+            KeyValuePair<string, object> stopEvent = testListener.Events.Dequeue();
 
             Assert.Null(Activity.Current);
             Assert.AreEqual("ActivityName.Start", startEvent.Key);
@@ -125,7 +124,7 @@ namespace Azure.Core.Tests
         [Test]
         public void NoopsWhenDisabled()
         {
-            ClientDiagnostics clientDiagnostics = new ClientDiagnostics("Azure.Clients", false);
+            ClientDiagnostics clientDiagnostics = new ClientDiagnostics(false);
             DiagnosticScope scope = clientDiagnostics.CreateScope("");
 
             scope.AddAttribute("Attribute1", "Value1");

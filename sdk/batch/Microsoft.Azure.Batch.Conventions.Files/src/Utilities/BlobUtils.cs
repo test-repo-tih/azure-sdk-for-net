@@ -28,7 +28,7 @@ namespace Microsoft.Azure.Batch.Conventions.Files.Utilities
         {
             try
             {
-                await blob.CreateOrReplaceAsync(AccessCondition.GenerateIfNotExistsCondition(), null, null).ConfigureAwait(false);
+                await blob.CreateOrReplaceAsync(AccessCondition.GenerateIfNotExistsCondition(), null, null);
             }
             catch (StorageException ex) when (ex.StorageErrorCodeIs("BlobAlreadyExists"))
             {

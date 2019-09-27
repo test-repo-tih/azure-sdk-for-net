@@ -166,7 +166,7 @@ namespace Azure.Messaging.EventHubs.Amqp
 
             return new EventHubProperties(
                 (string)responseData[AmqpManagement.ResponseMap.Name],
-                new DateTimeOffset((DateTime)responseData[AmqpManagement.ResponseMap.CreatedAt], TimeSpan.Zero),
+                (DateTime)responseData[AmqpManagement.ResponseMap.CreatedAt],
                 (string[])responseData[AmqpManagement.ResponseMap.PartitionIdentifiers]);
         }
 
@@ -234,7 +234,7 @@ namespace Azure.Messaging.EventHubs.Amqp
                 (long)responseData[AmqpManagement.ResponseMap.PartitionBeginSequenceNumber],
                 (long)responseData[AmqpManagement.ResponseMap.PartitionLastEnqueuedSequenceNumber],
                 long.Parse((string)responseData[AmqpManagement.ResponseMap.PartitionLastEnqueuedOffset]),
-                new DateTimeOffset((DateTime)responseData[AmqpManagement.ResponseMap.PartitionLastEnqueuedTimeUtc], TimeSpan.Zero),
+                (DateTime)responseData[AmqpManagement.ResponseMap.PartitionLastEnqueuedTimeUtc],
                 (bool)responseData[AmqpManagement.ResponseMap.PartitionRuntimeInfoPartitionIsEmpty]);
         }
 
@@ -282,16 +282,16 @@ namespace Azure.Messaging.EventHubs.Amqp
                     using var messageStream = message.ToStream();
                     return new Data { Value = ReadStreamToArraySegment(messageStream) };
                 }));
-
-                batchEnvelope.MessageFormat = AmqpConstants.AmqpBatchedMessageFormat;
             }
 
             if (!string.IsNullOrEmpty(partitionKey))
             {
-                batchEnvelope.MessageAnnotations.Map[AmqpProperty.PartitionKey] = partitionKey;
+                batchEnvelope.MessageAnnotations.Map[AmqpAnnotation.PartitionKey] = partitionKey;
             }
 
             batchEnvelope.Batchable = true;
+            batchEnvelope.MessageFormat = AmqpConstants.AmqpBatchedMessageFormat;
+
             return batchEnvelope;
         }
 
@@ -325,7 +325,7 @@ namespace Azure.Messaging.EventHubs.Amqp
 
             if (!string.IsNullOrEmpty(partitionKey))
             {
-                message.MessageAnnotations.Map[AmqpProperty.PartitionKey] = partitionKey;
+                message.MessageAnnotations.Map[AmqpAnnotation.PartitionKey] = partitionKey;
             }
 
             return message;
@@ -354,6 +354,7 @@ namespace Azure.Messaging.EventHubs.Amqp
 
             if (source.Sections.HasFlag(SectionFlag.ApplicationProperties))
             {
+
                 foreach (KeyValuePair<MapKey, object> pair in source.ApplicationProperties.Map)
                 {
                     if (TryCreateEventPropertyForAmqpProperty(pair.Value, out object propertyValue))
@@ -405,13 +406,7 @@ namespace Azure.Messaging.EventHubs.Amqp
                 if ((annotations.TryGetValue(AmqpProperty.EnqueuedTime, out amqpValue))
                     && (TryCreateEventPropertyForAmqpProperty(amqpValue, out propertyValue)))
                 {
-                    systemProperties.EnqueuedTime = propertyValue switch
-                    {
-                        DateTime dateValue => new DateTimeOffset(dateValue, TimeSpan.Zero),
-                        long longValue => new DateTimeOffset(longValue, TimeSpan.Zero),
-                        _ => (DateTimeOffset)propertyValue
-                    };
-
+                    systemProperties.EnqueuedTime = (DateTimeOffset)propertyValue;
                     processed.Add(AmqpProperty.EnqueuedTime.ToString());
                 }
 
@@ -456,24 +451,19 @@ namespace Azure.Messaging.EventHubs.Amqp
 
             if (source.Sections.HasFlag(SectionFlag.DeliveryAnnotations))
             {
-                if ((source.DeliveryAnnotations.Map.TryGetValue(AmqpProperty.PartitionLastEnqueuedTimeUtc, out amqpValue))
+                if ((source.DeliveryAnnotations.Map.TryGetValue(AmqpManagement.ResponseMap.PartitionLastEnqueuedTimeUtc, out amqpValue))
                     && (TryCreateEventPropertyForAmqpProperty(amqpValue, out propertyValue)))
                 {
-                    systemProperties.LastEnqueuedTime = propertyValue switch
-                    {
-                        DateTime dateValue => new DateTimeOffset(dateValue, TimeSpan.Zero),
-                        long longValue => new DateTimeOffset(longValue, TimeSpan.Zero),
-                        _ => (DateTimeOffset)propertyValue
-                    };
+                    systemProperties.LastEnqueuedTime = (DateTimeOffset)propertyValue;
                 }
 
-                if ((source.DeliveryAnnotations.Map.TryGetValue(AmqpProperty.PartitionLastEnqueuedSequenceNumber, out amqpValue))
+                if ((source.DeliveryAnnotations.Map.TryGetValue(AmqpManagement.ResponseMap.PartitionLastEnqueuedSequenceNumber, out amqpValue))
                     && (TryCreateEventPropertyForAmqpProperty(amqpValue, out propertyValue)))
                 {
                     systemProperties.LastSequenceNumber = (long)propertyValue;
                 }
 
-                if ((source.DeliveryAnnotations.Map.TryGetValue(AmqpProperty.PartitionLastEnqueuedOffset, out amqpValue))
+                if ((source.DeliveryAnnotations.Map.TryGetValue(AmqpManagement.ResponseMap.PartitionLastEnqueuedOffset, out amqpValue))
                     && (TryCreateEventPropertyForAmqpProperty(amqpValue, out propertyValue))
                     && (long.TryParse((string)propertyValue, out var offset)))
                 {

@@ -6,7 +6,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Azure.Core;
 using Azure.Core.Cryptography;
-using Azure.Core.Diagnostics;
+using Azure.Core.Http;
 using Azure.Core.Pipeline;
 
 namespace Azure.Security.KeyVault.Keys.Cryptography
@@ -22,8 +22,6 @@ namespace Azure.Security.KeyVault.Keys.Cryptography
     {
         private readonly HttpPipeline  _pipeline;
         private readonly string _apiVersion;
-
-        private ClientDiagnostics _clientDiagnostics;
 
         /// <summary>
         /// Protected constructor for mocking
@@ -56,8 +54,6 @@ namespace Azure.Security.KeyVault.Keys.Cryptography
 
             _pipeline = HttpPipelineBuilder.Build(options,
                     new ChallengeBasedAuthenticationPolicy(credential));
-
-            _clientDiagnostics = new ClientDiagnostics(options);
         }
 
         /// <summary>
@@ -70,7 +66,7 @@ namespace Azure.Security.KeyVault.Keys.Cryptography
         {
             Argument.AssertNotNull(keyId, nameof(keyId));
 
-            using DiagnosticScope scope = _clientDiagnostics.CreateScope("Azure.Security.KeyVault.Keys.Cryptography.KeyResolver.Resolve");
+            using DiagnosticScope scope = _pipeline.Diagnostics.CreateScope("Azure.Security.KeyVault.Keys.Cryptography.KeyResolver.Resolve");
             scope.AddAttribute("key", keyId);
             scope.Start();
 
@@ -78,11 +74,11 @@ namespace Azure.Security.KeyVault.Keys.Cryptography
             {
                 Argument.AssertNotNull(keyId, nameof(keyId));
 
-                KeyVaultKey key = GetKey(keyId, cancellationToken);
+                Key key = GetKey(keyId, cancellationToken);
 
-                KeyVaultPipeline pipeline = new KeyVaultPipeline(keyId, _apiVersion, _pipeline, _clientDiagnostics);
+                KeyVaultPipeline pipeline = new KeyVaultPipeline(keyId, _apiVersion, _pipeline);
 
-                return (key != null) ? new CryptographyClient(key, pipeline) : new CryptographyClient(keyId, pipeline);
+                return (key != null) ? new CryptographyClient(key.KeyMaterial, pipeline) : new CryptographyClient(keyId, pipeline);
             }
             catch (Exception e)
             {
@@ -101,7 +97,7 @@ namespace Azure.Security.KeyVault.Keys.Cryptography
         {
             Argument.AssertNotNull(keyId, nameof(keyId));
 
-            using DiagnosticScope scope = _clientDiagnostics.CreateScope("Azure.Security.KeyVault.Keys.Cryptography.KeyResolver.Resolve");
+            using DiagnosticScope scope = _pipeline.Diagnostics.CreateScope("Azure.Security.KeyVault.Keys.Cryptography.KeyResolver.Resolve");
             scope.AddAttribute("key", keyId);
             scope.Start();
 
@@ -109,11 +105,11 @@ namespace Azure.Security.KeyVault.Keys.Cryptography
             {
                 Argument.AssertNotNull(keyId, nameof(keyId));
 
-                KeyVaultKey key = await GetKeyAsync(keyId, cancellationToken).ConfigureAwait(false);
+                Key key = await GetKeyAsync(keyId, cancellationToken).ConfigureAwait(false);
 
-                KeyVaultPipeline pipeline = new KeyVaultPipeline(keyId, _apiVersion, _pipeline, _clientDiagnostics);
+                KeyVaultPipeline pipeline = new KeyVaultPipeline(keyId, _apiVersion, _pipeline);
 
-                return (key != null) ? new CryptographyClient(key, pipeline) : new CryptographyClient(keyId, pipeline);
+                return (key != null) ? new CryptographyClient(key.KeyMaterial, pipeline) : new CryptographyClient(keyId, pipeline);
 
             }
             catch (Exception e)
@@ -135,22 +131,22 @@ namespace Azure.Security.KeyVault.Keys.Cryptography
             return await ((KeyResolver)this).ResolveAsync(new Uri(keyId), cancellationToken).ConfigureAwait(false);
         }
 
-        private KeyVaultKey GetKey(Uri keyId, CancellationToken cancellationToken)
+        private Key GetKey(Uri keyId, CancellationToken cancellationToken)
         {
             using Request request = CreateGetRequest(keyId);
 
             Response response = _pipeline.SendRequest(request, cancellationToken);
 
-            return KeyVaultIdentifier.Parse(keyId).Collection == KeyVaultIdentifier.SecretsCollection ? (KeyVaultKey)ParseResponse(response, new SecretKey()) : ParseResponse(response, new KeyVaultKey());
+            return KeyVaultIdentifier.Parse(keyId).Collection == KeyVaultIdentifier.SecretsCollection ? (Key)ParseResponse(response, new SecretKey()) : ParseResponse(response, new Key());
         }
 
-        private async Task<KeyVaultKey> GetKeyAsync(Uri keyId, CancellationToken cancellationToken)
+        private async Task<Key> GetKeyAsync(Uri keyId, CancellationToken cancellationToken)
         {
             using Request request = CreateGetRequest(keyId);
 
             Response response = await _pipeline.SendRequestAsync(request, cancellationToken).ConfigureAwait(false);
 
-            return KeyVaultIdentifier.Parse(keyId).Collection == KeyVaultIdentifier.SecretsCollection ? (KeyVaultKey)ParseResponse(response, new SecretKey()) : ParseResponse(response, new KeyVaultKey());
+            return KeyVaultIdentifier.Parse(keyId).Collection == KeyVaultIdentifier.SecretsCollection ? (Key)ParseResponse(response, new SecretKey()) : ParseResponse(response, new Key());
         }
 
         private Response<T> ParseResponse<T>(Response response, T result)

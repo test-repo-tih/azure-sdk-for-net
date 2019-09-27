@@ -3,7 +3,6 @@
 
 using Azure.Core.Pipeline;
 using System;
-using Azure.Core;
 
 namespace Azure.Security.KeyVault.Keys
 {
@@ -41,7 +40,7 @@ namespace Azure.Security.KeyVault.Keys
         public ServiceVersion Version { get; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="KeyClientOptions"/> class.
+        /// Initializes a new instance of the <see cref="KeyClientOptions"/>
         /// class.
         /// </summary>
         /// <param name="version">
@@ -51,8 +50,6 @@ namespace Azure.Security.KeyVault.Keys
         public KeyClientOptions(ServiceVersion version = ServiceVersion.V7_0)
         {
             Version = version;
-
-            this.ConfigureLogging();
         }
 
         internal string GetVersionString()

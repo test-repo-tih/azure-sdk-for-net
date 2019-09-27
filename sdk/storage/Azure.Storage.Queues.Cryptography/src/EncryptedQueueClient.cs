@@ -138,9 +138,8 @@ namespace Azure.Storage.Queues.Specialized
         /// <param name="pipeline">
         /// The transport pipeline used to send every request.
         /// </param>
-        /// <param name="clientDiagnostics"></param>
-        internal EncryptedQueueClient(Uri queueUri, HttpPipeline pipeline, ClientDiagnostics clientDiagnostics)
-            : base(queueUri, pipeline, clientDiagnostics)
+        internal EncryptedQueueClient(Uri queueUri, HttpPipeline pipeline)
+            : base(queueUri, pipeline)
         {
         }
         #endregion ctors
@@ -167,6 +166,6 @@ namespace Azure.Storage.Queues.Specialized
         public static EncryptedQueueClient GetEncryptedQueueClient(
             this QueueServiceClient client,
             string queueName)
-            => new EncryptedQueueClient(client.Uri.AppendToPath(queueName), client.Pipeline, client.ClientDiagnostics);
+            => new EncryptedQueueClient(client.Uri.AppendToPath(queueName), client.Pipeline);
     }
 }

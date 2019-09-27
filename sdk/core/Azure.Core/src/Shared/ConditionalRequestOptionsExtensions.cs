@@ -2,12 +2,13 @@
 // Licensed under the MIT License.
 
 using System.Globalization;
+using Azure;
 
-namespace Azure.Core
+namespace Azure.Core.Http
 {
     internal static class ConditionalRequestOptionsExtensions
     {
-        public static void ApplyHeaders(Request request, MatchConditions options)
+        public static void ApplyHeaders(Request request, ConditionalRequestOptions options)
         {
             if (options.IfMatch.HasValue)
             {
@@ -23,7 +24,7 @@ namespace Azure.Core
                 request.Headers.Add(HttpHeader.Names.IfNoneMatch, value);
             }
 
-            if (options is RequestConditions dateOptions)
+            if (options is DateConditionalRequestOptions dateOptions)
             {
                 if (dateOptions.IfModifiedSince.HasValue)
                 {

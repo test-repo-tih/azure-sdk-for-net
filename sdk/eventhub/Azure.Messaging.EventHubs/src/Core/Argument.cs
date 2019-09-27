@@ -4,7 +4,6 @@
 using System;
 using System.Globalization;
 using Azure.Messaging.EventHubs;
-using Azure.Messaging.EventHubs.Errors;
 
 namespace Azure.Core
 {
@@ -114,22 +113,6 @@ namespace Azure.Core
             if (wasDisposed)
             {
                 throw new ObjectDisposedException(targetName, string.Format(CultureInfo.CurrentCulture, Resources.DisposedInstanceCannotPerformOperation, targetName));
-            }
-        }
-
-        /// <summary>
-        ///   Ensures that an instance has not been closed, throwing an
-        ///   <see cref="EventHubsClientClosedException" /> if that invariant is not met.
-        /// </summary>
-        ///
-        /// <param name="wasClosed"><c>true</c> if the target instance has been closed; otherwise, <c>false</c>.</param>
-        /// <param name="targetName">The name of the target instance that is being verified.</param>
-        ///
-        public static void AssertNotClosed(bool wasClosed, string targetName)
-        {
-            if (wasClosed)
-            {
-                throw new EventHubsClientClosedException(targetName, string.Format(CultureInfo.CurrentCulture, Resources.DisposedInstanceCannotPerformOperation, targetName));
             }
         }
     }

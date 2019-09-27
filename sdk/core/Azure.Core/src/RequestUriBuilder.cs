@@ -6,9 +6,6 @@ using System.Text;
 
 namespace Azure.Core
 {
-    /// <summary>
-    /// Provides a custom constructor for uniform resource identifiers (URIs) and modifies URIs for the <see cref="System.Uri" /> class.
-    /// </summary>
     public class RequestUriBuilder
     {
         private const char QuerySeparator = '?';
@@ -27,9 +24,6 @@ namespace Azure.Core
 
         private string? _scheme;
 
-        /// <summary>
-        /// Gets or sets the scheme name of the URI.
-        /// </summary>
         public string? Scheme
         {
             get => _scheme;
@@ -40,9 +34,6 @@ namespace Azure.Core
             }
         }
 
-        /// <summary>
-        /// Gets or sets the Domain Name System (DNS) host name or IP address of a server.
-        /// </summary>
         public string? Host
         {
             get => _host;
@@ -53,9 +44,6 @@ namespace Azure.Core
             }
         }
 
-        /// <summary>
-        /// Gets or sets the port number of the URI.
-        /// </summary>
         public int Port
         {
             get => _port;
@@ -66,9 +54,6 @@ namespace Azure.Core
             }
         }
 
-        /// <summary>
-        /// Gets or sets any query information included in the URI.
-        /// </summary>
         public string Query
         {
             get => HasQuery ? _pathAndQuery.ToString(_queryIndex, _pathAndQuery.Length - _queryIndex) : string.Empty;
@@ -93,9 +78,6 @@ namespace Azure.Core
             }
         }
 
-        /// <summary>
-        /// Gets or sets the password associated with the user that accesses the URI and the query information.
-        /// </summary>
         public string Path
         {
             get => HasQuery ? _pathAndQuery.ToString(0, _queryIndex) : _pathAndQuery.ToString();
@@ -121,15 +103,8 @@ namespace Azure.Core
 
         private int PathLength => HasQuery ? _queryIndex : _pathAndQuery.Length;
 
-        /// <summary>
-        /// Gets the path to the resource referenced by the URI.
-        /// </summary>
         public string PathAndQuery => _pathAndQuery.ToString();
 
-        /// <summary>
-        /// Replaces values inside this instance with values provided in <paramref name="value"/> parameter.
-        /// </summary>
-        /// <param name="value">The <see cref="Uri"/> instance to get values from.</param>
         public void Reset(Uri value)
         {
             Scheme = value.Scheme;
@@ -140,12 +115,6 @@ namespace Azure.Core
             _uri = value;
         }
 
-        /// <summary>
-        /// Gets the <see cref="System.Uri"></see> instance constructed by the specified <see cref="RequestUriBuilder"/> instance.
-        /// </summary>
-        /// <returns>
-        /// A <see cref="System.Uri"></see> that contains the URI constructed by the <see cref="RequestUriBuilder"/>.
-        /// </returns>
         public Uri ToUri()
         {
             if (_uri == null)
@@ -156,22 +125,11 @@ namespace Azure.Core
             return _uri;
         }
 
-        /// <summary>
-        /// Appends a query parameter adding separator if required. Escapes the value.
-        /// </summary>
-        /// <param name="name">The name of parameter.</param>
-        /// <param name="value">The value of parameter.</param>
         public void AppendQuery(string name, string value)
         {
             AppendQuery(name, value, true);
         }
 
-        /// <summary>
-        /// Appends a query parameter adding separator if required.
-        /// </summary>
-        /// <param name="name">The name of parameter.</param>
-        /// <param name="value">The value of parameter.</param>
-        /// <param name="escapeValue">Whether value should be escaped.</param>
         public void AppendQuery(string name, string value, bool escapeValue)
         {
             ResetUri();
@@ -194,20 +152,11 @@ namespace Azure.Core
             _pathAndQuery.Append(value);
         }
 
-        /// <summary>
-        /// Appends escaped <paramref name="value"/> to <see cref="Path"/> without adding path separator.
-        /// </summary>
-        /// <param name="value">The value to append.</param>
         public void AppendPath(string value)
         {
             AppendPath(value, escape: true);
         }
 
-        /// <summary>
-        /// Appends optionally escaped <paramref name="value"/> to <see cref="Path"/> without adding path separator.
-        /// </summary>
-        /// <param name="value">The value to append.</param>
-        /// <param name="escape">Whether value should be escaped.</param>
         public void AppendPath(string value, bool escape)
         {
             if (string.IsNullOrEmpty(value))
@@ -246,10 +195,6 @@ namespace Azure.Core
             }
         }
 
-        /// <summary>
-        /// Returns a string representation of this <see cref="RequestUriBuilder"/> i.
-        /// </summary>
-        /// <returns></returns>
         public override string ToString()
         {
             return ToString(null, string.Empty);

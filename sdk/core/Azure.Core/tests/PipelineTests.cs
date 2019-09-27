@@ -23,7 +23,7 @@ namespace Azure.Core.Tests
                 new RetryPolicy(RetryMode.Exponential, TimeSpan.Zero, TimeSpan.Zero, 5)
             }, responseClassifier: new CustomResponseClassifier());
 
-            Request request = pipeline.CreateRequest();
+            Http.Request request = pipeline.CreateRequest();
             request.Method = RequestMethod.Get;
             request.Uri.Reset(new Uri("https://contoso.a.io"));
             Response response = await pipeline.SendRequestAsync(request, CancellationToken.None);
@@ -34,7 +34,7 @@ namespace Azure.Core.Tests
         [Test]
         public void TryGetPropertyReturnsFalseIfNotExist()
         {
-            HttpMessage message = new HttpMessage(new MockRequest(), new ResponseClassifier());
+            HttpPipelineMessage message = new HttpPipelineMessage(new MockRequest(), new ResponseClassifier());
 
             Assert.False(message.TryGetProperty("someName", out _));
         }
@@ -42,7 +42,7 @@ namespace Azure.Core.Tests
         [Test]
         public void TryGetPropertyReturnsValueIfSet()
         {
-            HttpMessage message = new HttpMessage(new MockRequest(), new ResponseClassifier());
+            HttpPipelineMessage message = new HttpPipelineMessage(new MockRequest(), new ResponseClassifier());
             message.SetProperty("someName", "value");
 
             Assert.True(message.TryGetProperty("someName", out object value));
@@ -52,7 +52,7 @@ namespace Azure.Core.Tests
         [Test]
         public void TryGetPropertyIsCaseSensitive()
         {
-            HttpMessage message = new HttpMessage(new MockRequest(), new ResponseClassifier());
+            HttpPipelineMessage message = new HttpPipelineMessage(new MockRequest(), new ResponseClassifier());
             message.SetProperty("someName", "value");
 
 
@@ -61,7 +61,7 @@ namespace Azure.Core.Tests
 
         private class CustomResponseClassifier : ResponseClassifier
         {
-            public override bool IsRetriableResponse(HttpMessage message)
+            public override bool IsRetriableResponse(HttpPipelineMessage message)
             {
                 return message.Response.Status == 500;
             }
@@ -71,7 +71,7 @@ namespace Azure.Core.Tests
                 return false;
             }
 
-            public override bool IsErrorResponse(HttpMessage message)
+            public override bool IsErrorResponse(HttpPipelineMessage message)
             {
                 return IsRetriableResponse(message);
             }

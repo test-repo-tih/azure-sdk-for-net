@@ -64,26 +64,6 @@ namespace Reservations.Tests.ScenarioTests
             };
         }
 
-        public PurchaseRequest CreateBillingPlanRequestBody()
-        {
-            return new PurchaseRequest
-            {
-                Sku = new SkuName { Name = "Standard_D1" },
-                Location = "westus",
-                ReservedResourceType = "VirtualMachines",
-                BillingScopeId = $"/subscriptions/{SubscriptionId}",
-                Term = "P1Y",
-                BillingPlan = "Monthly",
-                Quantity = 3,
-                DisplayName = "TestPurchaseBillingPlanReservation",
-                AppliedScopeType = "Single",
-                AppliedScopes = new List<string> { $"/subscriptions/{SubscriptionId}" },
-                ReservedResourceProperties =
-                    new PurchaseRequestPropertiesReservedResourceProperties { InstanceFlexibility = "On" },
-                Renew = false
-            };
-        }
-
         protected ReservationOrderResponse PurchaseReservationOrder()
         {
             HttpMockServer.RecordsDirectory = GetSessionsDirectoryPath();
@@ -91,7 +71,7 @@ namespace Reservations.Tests.ScenarioTests
             {
                 var reservationsClient = ReservationsTestUtilities.GetAzureReservationAPIClient(context, new RecordedDelegatingHandler { StatusCodeToReturn = HttpStatusCode.OK });
 
-                var calculateRequest = CreateBillingPlanRequestBody();
+                var calculateRequest = CreatePurchaseRequestBody();
                 var calculateResponse = reservationsClient.ReservationOrder.Calculate(calculateRequest);
 
                 var reservationOrderId = calculateResponse?.Properties?.ReservationOrderId;

@@ -14,10 +14,10 @@ namespace Microsoft.Rest
     /// <summary>
     /// Http retry handler.
     /// </summary>
-    public class RetryAfterDelegatingHandler : DelegatingHandler
+    public class RetryAfterDelegatingHandler : DelegatingHandler 
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="RetryAfterDelegatingHandler"/> class.
+        /// Initializes a new instance of the <see cref="RetryAfterDelegatingHandler"/> class. 
         /// Sets default retry policy base on Exponential Backoff.
         /// </summary>
         public RetryAfterDelegatingHandler()
@@ -29,7 +29,7 @@ namespace Microsoft.Rest
         /// </summary>
         /// <param name="innerHandler">Inner http handler.</param>
         public RetryAfterDelegatingHandler(DelegatingHandler innerHandler)
-            : this((HttpMessageHandler)innerHandler)
+            : this((HttpMessageHandler)innerHandler) 
         {
         }
 
@@ -38,7 +38,7 @@ namespace Microsoft.Rest
         /// </summary>
         /// <param name="innerHandler">Inner http handler.</param>
         public RetryAfterDelegatingHandler(HttpMessageHandler innerHandler)
-            : base(innerHandler)
+            : base(innerHandler) 
         {
         }
 
@@ -48,7 +48,7 @@ namespace Microsoft.Rest
         /// </summary>
         /// <param name="request">The HTTP request message to send to the server.</param>
         /// <param name="cancellationToken">A cancellation token to cancel operation.</param>
-        /// <returns>Returns System.Threading.Tasks.Task&lt;TResult&gt;. The
+        /// <returns>Returns System.Threading.Tasks.Task&lt;TResult&gt;. The 
         /// task object representing the asynchronous operation.</returns>
         protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request,
             CancellationToken cancellationToken)
@@ -70,10 +70,7 @@ namespace Microsoft.Rest
                             // used if retries continue to fail.
                             // NOTE: If the content is not read and this message is returned later, an IO Exception will end up
                             //       happening indicating that request has been aborted.
-                            if (response.Content != null)
-                            {
-                                await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-                            }
+                            await response.Content?.ReadAsStringAsync();
 
                             var oldResponse = previousResponseMessage;
                             previousResponseMessage = response;
@@ -87,7 +84,7 @@ namespace Microsoft.Rest
                             {
                                 response = previousResponseMessage;
                             }
-                        }
+                         }
 
                         try
                         {
@@ -96,7 +93,7 @@ namespace Microsoft.Rest
                             var retryAfter = int.Parse(retryValue, CultureInfo.InvariantCulture);
 
                             // wait for that duration
-                            await Task.Delay(TimeSpan.FromSeconds(retryAfter), cancellationToken).ConfigureAwait(false);
+                            await Task.Delay(TimeSpan.FromSeconds(retryAfter), cancellationToken);
 
                             // and try again
                             continue;

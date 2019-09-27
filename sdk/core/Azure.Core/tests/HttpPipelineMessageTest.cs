@@ -3,6 +3,7 @@
 
 using System;
 using System.IO;
+using Azure.Core.Http;
 using Azure.Core.Pipeline;
 using Azure.Core.Testing;
 using Moq;
@@ -16,7 +17,7 @@ namespace Azure.Core.Tests
         public void DisposeNoopsForNullResponse()
         {
             var requestMock = new Mock<Request>();
-            HttpMessage message = new HttpMessage(requestMock.Object, new ResponseClassifier());
+            HttpPipelineMessage message = new HttpPipelineMessage(requestMock.Object, new ResponseClassifier());
             message.Dispose();
             requestMock.Verify(r=>r.Dispose(), Times.Once);
         }
@@ -26,7 +27,7 @@ namespace Azure.Core.Tests
         {
             var requestMock = new Mock<Request>();
             var responseMock = new Mock<Response>();
-            HttpMessage message = new HttpMessage(requestMock.Object, new ResponseClassifier());
+            HttpPipelineMessage message = new HttpPipelineMessage(requestMock.Object, new ResponseClassifier());
             message.Response = responseMock.Object;
             message.Dispose();
             requestMock.Verify(r=>r.Dispose(), Times.Once);
@@ -40,7 +41,7 @@ namespace Azure.Core.Tests
             var response = new MockResponse(200);
             response.ContentStream = mockStream.Object;
 
-            HttpMessage message = new HttpMessage(new MockRequest(), new ResponseClassifier());
+            HttpPipelineMessage message = new HttpPipelineMessage(new MockRequest(), new ResponseClassifier());
             message.Response = response;
 
             Stream stream = message.ExtractResponseContent();
@@ -56,7 +57,7 @@ namespace Azure.Core.Tests
             var response = new MockResponse(200);
             response.ContentStream = null;
 
-            HttpMessage message = new HttpMessage(new MockRequest(), new ResponseClassifier());
+            HttpPipelineMessage message = new HttpPipelineMessage(new MockRequest(), new ResponseClassifier());
             message.Response = response;
 
             Stream stream = message.ExtractResponseContent();
@@ -71,7 +72,7 @@ namespace Azure.Core.Tests
             var response = new MockResponse(200);
             response.ContentStream = mockStream.Object;
 
-            HttpMessage message = new HttpMessage(new MockRequest(), new ResponseClassifier());
+            HttpPipelineMessage message = new HttpPipelineMessage(new MockRequest(), new ResponseClassifier());
             message.Response = response;
 
             Stream stream = message.ExtractResponseContent();
