@@ -8,7 +8,7 @@ using Azure.Core;
 using Azure.Core.Pipeline;
 using Azure.Core.Testing;
 
-namespace Azure.Storage.Test
+namespace Azure.Storage.Common.Test
 {
     public class TestExceptionPolicy : HttpPipelinePolicy
     {

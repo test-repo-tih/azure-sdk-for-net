@@ -32,13 +32,12 @@ namespace Azure.Security.KeyVault.Keys.Samples
             // Let's create a RSA key valid for 1 year. If the key
             // already exists in the Key Vault, then a new version of the key is created.
             string rsaKeyName = $"CloudRsaKey-{Guid.NewGuid()}";
-            var rsaKey = new CreateRsaKeyOptions(rsaKeyName, hardwareProtected: false)
+            var rsaKey = new RsaKeyCreateOptions(rsaKeyName, hsm: false, keySize: 2048)
             {
-                KeySize = 2048,
-                ExpiresOn = DateTimeOffset.Now.AddYears(1)
+                Expires = DateTimeOffset.Now.AddYears(1)
             };
 
-            KeyVaultKey storedKey = await client.CreateRsaKeyAsync(rsaKey);
+            Key storedKey = await client.CreateRsaKeyAsync(rsaKey);
 
             // Backups are good to have if in case keys get accidentally deleted by you.
             // For long term storage, it is ideal to write the backup to a file, disk, database, etc.
@@ -59,7 +58,7 @@ namespace Azure.Security.KeyVault.Keys.Samples
                 await client.PurgeDeletedKeyAsync(rsaKeyName);
 
                 // After sometime, the key is required again. We can use the backup value to restore it in the Key Vault.
-                KeyVaultKey restoredKey = await client.RestoreKeyBackupAsync(memoryStream.ToArray());
+                Key restoredKey = await client.RestoreKeyAsync(memoryStream.ToArray());
 
                 AssertKeysEqual(storedKey.Properties, restoredKey.Properties);
             }
