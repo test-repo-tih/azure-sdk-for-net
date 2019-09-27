@@ -282,8 +282,6 @@ namespace Azure.Messaging.EventHubs.Amqp
                     using var messageStream = message.ToStream();
                     return new Data { Value = ReadStreamToArraySegment(messageStream) };
                 }));
-
-                batchEnvelope.MessageFormat = AmqpConstants.AmqpBatchedMessageFormat;
             }
 
             if (!string.IsNullOrEmpty(partitionKey))
@@ -292,6 +290,8 @@ namespace Azure.Messaging.EventHubs.Amqp
             }
 
             batchEnvelope.Batchable = true;
+            batchEnvelope.MessageFormat = AmqpConstants.AmqpBatchedMessageFormat;
+
             return batchEnvelope;
         }
 

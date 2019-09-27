@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Azure.Storage
+namespace Azure.Storage.Common
 {
     internal class IdleCancellingStream : Stream
     {
