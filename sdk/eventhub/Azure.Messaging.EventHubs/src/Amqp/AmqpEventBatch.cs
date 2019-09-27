@@ -83,11 +83,11 @@ namespace Azure.Messaging.EventHubs.Amqp
         {
             Argument.AssertNotNull(messageConverter, nameof(messageConverter));
             Argument.AssertNotNull(options, nameof(options));
-            Argument.AssertNotNull(options.MaximumSizeInBytes, nameof(options.MaximumSizeInBytes));
+            Argument.AssertNotNull(options.MaximumizeInBytes, nameof(options.MaximumizeInBytes));
 
             MessageConverter = messageConverter;
             Options = options;
-            MaximumSizeInBytes = options.MaximumSizeInBytes.Value;
+            MaximumSizeInBytes = options.MaximumizeInBytes.Value;
 
             // Initialize the size by reserving space for the batch envelope.
 
@@ -130,7 +130,6 @@ namespace Azure.Messaging.EventHubs.Amqp
 
                 _sizeBytes = size;
                 BatchMessages.Add(eventMessage);
-
                 return true;
             }
             catch

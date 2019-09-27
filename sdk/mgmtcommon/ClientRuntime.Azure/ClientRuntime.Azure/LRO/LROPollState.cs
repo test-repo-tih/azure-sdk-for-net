@@ -60,7 +60,7 @@ namespace Microsoft.Rest.ClientRuntime.Azure.LRO
         internal async Task Poll(Dictionary<string, List<string>> customHeaders,
             CancellationToken cancellationToken)
         {   
-            await UpdateResourceFromPollingUri(customHeaders, cancellationToken).ConfigureAwait(false);
+            await UpdateResourceFromPollingUri(customHeaders, cancellationToken);
 
             #region Error response returned while polling on AsyncOperationHeader
             if (AsyncOperationResponseBody?.Error != null)
@@ -208,7 +208,7 @@ namespace Microsoft.Rest.ClientRuntime.Azure.LRO
 
             if(ignoreCheckingErrorStatus == false)
             {
-                await CheckErrorStatusAndThrowAsync(httpRequest, httpResponse).ConfigureAwait(false);
+                await CheckErrorStatusAndThrowAsync(httpRequest, httpResponse);
             }
 
             JObject body = null;

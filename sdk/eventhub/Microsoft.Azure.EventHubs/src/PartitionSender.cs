@@ -171,7 +171,7 @@ namespace Microsoft.Azure.EventHubs
                 throw Fx.Exception.InvalidOperation(Resources.PartitionSenderInvalidWithPartitionKeyOnBatch);
             }
 
-            await this.SendAsync(eventDataBatch.ToEnumerable()).ConfigureAwait(false);
+            await this.SendAsync(eventDataBatch.ToEnumerable());
         }
 
         /// <summary>
