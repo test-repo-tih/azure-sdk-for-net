@@ -453,24 +453,13 @@ namespace Azure.Identity
 
         private static AccessToken Deserialize(JsonElement json)
         {
-            string accessToken = null;
-            JsonElement? expiresOnProp = null;
-
-            foreach (JsonProperty prop in json.EnumerateObject())
+            if (!json.TryGetProperty("access_token", out JsonElement accessTokenProp))
             {
-                switch (prop.Name)
-                {
-                    case "access_token":
-                        accessToken = prop.Value.GetString();
-                        break;
-
-                    case "expires_on":
-                        expiresOnProp = prop.Value;
-                        break;
-                }
+                throw new AuthenticationFailedException(AuthenticationResponseInvalidFormatError);
             }
 
-            if (accessToken is null || !expiresOnProp.HasValue)
+            string accessToken = accessTokenProp.GetString();
+            if (!json.TryGetProperty("expires_on", out JsonElement expiresOnProp))
             {
                 throw new AuthenticationFailedException(AuthenticationResponseInvalidFormatError);
             }
@@ -479,7 +468,7 @@ namespace Azure.Identity
             // if s_msiType is AppService expires_on will be a string formatted datetimeoffset
             if (s_msiType == MsiType.AppService)
             {
-                if (!DateTimeOffset.TryParse(expiresOnProp.Value.GetString(), out expiresOn))
+                if (!DateTimeOffset.TryParse(expiresOnProp.GetString(), out expiresOn))
                 {
                     throw new AuthenticationFailedException(AuthenticationResponseInvalidFormatError);
                 }
@@ -489,8 +478,8 @@ namespace Azure.Identity
             {
                 // the seconds from epoch may be returned as a Json number or a Json string which is a number
                 // depending on the environment.  If neither of these are the case we throw an AuthException.
-                if (!(expiresOnProp.Value.ValueKind == JsonValueKind.Number && expiresOnProp.Value.TryGetInt64(out long expiresOnSec)) &&
-                    !(expiresOnProp.Value.ValueKind == JsonValueKind.String && long.TryParse(expiresOnProp.Value.GetString(), out expiresOnSec)))
+                if (!(expiresOnProp.ValueKind == JsonValueKind.Number && expiresOnProp.TryGetInt64(out long expiresOnSec)) &&
+                    !(expiresOnProp.ValueKind == JsonValueKind.String && long.TryParse(expiresOnProp.GetString(), out expiresOnSec)))
                 {
                     throw new AuthenticationFailedException(AuthenticationResponseInvalidFormatError);
                 }
