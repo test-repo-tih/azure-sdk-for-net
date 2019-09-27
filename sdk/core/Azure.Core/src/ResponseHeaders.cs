@@ -79,13 +79,7 @@ namespace Azure.Core
             return _response.TryGetHeader(name, out value);
         }
 
-        /// <summary>
-        /// Returns header values if headers is stored in the collection.
-        /// </summary>
-        /// <param name="name">The header name.</param>
-        /// <param name="values">The reference to populate with values.</param>
-        /// <returns><code>true</code> if the specified header is stored in the collection, otherwise. <code>false</code></returns>
-        public bool TryGetValues(string name, [NotNullWhen(true)] out IEnumerable<string>? values)
+        public bool TryGetValues(string name, out IEnumerable<string> values)
         {
             return _response.TryGetHeaderValues(name, out values);
         }

@@ -26,22 +26,22 @@ namespace Azure
         /// Gets the size of the <see cref="HttpRange"/>.  null means the range
         /// extends all the way to the end.
         /// </summary>
-        public long? Length { get; }
+        public long? Count { get; }
 
         /// <summary>
         /// Creates an instance of HttpRange.
         /// </summary>
-        /// <param name="offset">The starting offset of the <see cref="HttpRange"/>. Defaults to 0.</param>
-        /// <param name="length">The length of the range. null means to the end.</param>
-        public HttpRange(long offset = 0, long? length = default)
+        /// <param name="offset">null means offset is 0</param>
+        /// <param name="count">null means to the end</param>
+        public HttpRange(long? offset = default, long? count = default)
         {
-            if (offset < 0)
+            if (offset.HasValue && offset < 0)
                 throw new ArgumentOutOfRangeException(nameof(offset));
-            if (length.HasValue && length <= 0)
-                throw new ArgumentOutOfRangeException(nameof(length));
+            if (count.HasValue && count <= 0)
+                throw new ArgumentOutOfRangeException(nameof(count));
 
-            Offset = offset;
-            Length = length;
+            Offset = offset ?? 0;
+            Count = count;
         }
 
         /// <summary>
@@ -53,13 +53,19 @@ namespace Azure
         {
             // No additional validation by design. API can validate parameter by case, and use this method.
             var endRange = "";
-            if (Length.HasValue && Length != 0)
+            if (Count.HasValue && Count != 0)
             {
-                endRange = (Offset + Length.Value - 1).ToString(CultureInfo.InvariantCulture);
+                endRange = (Offset + Count.Value - 1).ToString(CultureInfo.InvariantCulture);
             }
 
             return FormattableString.Invariant($"{Unit}={Offset}-{endRange}");
         }
+
+        /// <summary>
+        /// Returns Range header for this range.
+        /// </summary>
+        /// <returns></returns>
+        public HttpHeader ToRangeHeader() => new HttpHeader(HttpHeader.Names.Range, ToString());
 
         /// <summary>
         /// Check if two <see cref="HttpRange"/> instances are equal.
@@ -82,7 +88,7 @@ namespace Azure
         /// </summary>
         /// <param name="other">The instance to compare to.</param>
         /// <returns>True if they're equal, false otherwise.</returns>
-        public bool Equals(HttpRange other) => Offset == other.Offset && Length == other.Length;
+        public bool Equals(HttpRange other) => Offset == other.Offset && Count == other.Count;
 
         /// <summary>
         /// Check if two <see cref="HttpRange"/> instances are equal.
@@ -97,6 +103,6 @@ namespace Azure
         /// </summary>
         /// <returns>Hash code for the <see cref="HttpRange"/>.</returns>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override int GetHashCode() => HashCodeBuilder.Combine(Offset, Length);
+        public override int GetHashCode() => HashCodeBuilder.Combine(Offset, Count);
     }
 }
