@@ -13,30 +13,24 @@ namespace Microsoft.Azure.Management.Reservations
 
   internal static partial class SdkInfo
   {
-      public static IEnumerable<Tuple<string, string, string>> ApiInfo_AzureReservationAPI
+      public static IEnumerable<Tuple<string, string, string>> ApiInfo_MicrosoftCapacity
       {
           get
           {
               return new Tuple<string, string, string>[]
               {
+                new Tuple<string, string, string>("Capacity", "AutoQuotaIncrease", "2019-07-19-preview"),
                 new Tuple<string, string, string>("Capacity", "GetAppliedReservationList", "2019-04-01"),
                 new Tuple<string, string, string>("Capacity", "GetCatalog", "2019-04-01"),
                 new Tuple<string, string, string>("Capacity", "Operation", "2019-04-01"),
+                new Tuple<string, string, string>("Capacity", "Quota", "2019-07-19-preview"),
+                new Tuple<string, string, string>("Capacity", "QuotaRequest", "2019-07-19-preview"),
+                new Tuple<string, string, string>("Capacity", "QuotaRequests", "2019-07-19-preview"),
+                new Tuple<string, string, string>("Capacity", "Quotas", "2019-07-19-preview"),
                 new Tuple<string, string, string>("Capacity", "Reservation", "2019-04-01"),
                 new Tuple<string, string, string>("Capacity", "ReservationOrder", "2019-04-01"),
               }.AsEnumerable();
           }
       }
-      // BEGIN: Code Generation Metadata Section
-      public static readonly String AutoRestVersion = "latest";
-      public static readonly String AutoRestBootStrapperVersion = "autorest@2.0.4283";
-      public static readonly String AutoRestCmdExecuted = "cmd.exe /c autorest.cmd https://github.com/Azure/azure-rest-api-specs/blob/master/specification/reservations/resource-manager/readme.md --csharp --version=latest --reflect-api-versions --csharp-sdks-folder=D:\\rd\\azure-sdk-for-net\\sdk";
-      public static readonly String GithubForkName = "Azure";
-      public static readonly String GithubBranchName = "master";
-      public static readonly String GithubCommidId = "543e24fb91a603ac8395d767824ad6deddd1d20a";
-      public static readonly String CodeGenerationErrors = "";
-      public static readonly String GithubRepoName = "azure-rest-api-specs";
-      // END: Code Generation Metadata Section
   }
 }
-
