@@ -163,17 +163,6 @@ namespace Azure.Core
         /// <param name="value">The value of parameter.</param>
         public void AppendQuery(string name, string value)
         {
-            AppendQuery(name, value, true);
-        }
-
-        /// <summary>
-        /// Appends a query parameter adding separator if required.
-        /// </summary>
-        /// <param name="name">The name of parameter.</param>
-        /// <param name="value">The value of parameter.</param>
-        /// <param name="escapeValue">Whether value should be escaped.</param>
-        public void AppendQuery(string name, string value, bool escapeValue)
-        {
             ResetUri();
             if (!HasQuery)
             {
@@ -187,10 +176,6 @@ namespace Azure.Core
 
             _pathAndQuery.Append(name);
             _pathAndQuery.Append('=');
-            if (escapeValue && !string.IsNullOrEmpty(value))
-            {
-                value = Uri.EscapeDataString(value);
-            }
             _pathAndQuery.Append(value);
         }
 
@@ -199,16 +184,6 @@ namespace Azure.Core
         /// </summary>
         /// <param name="value">The value to append.</param>
         public void AppendPath(string value)
-        {
-            AppendPath(value, escape: true);
-        }
-
-        /// <summary>
-        /// Appends optionally escaped <paramref name="value"/> to <see cref="Path"/> without adding path separator.
-        /// </summary>
-        /// <param name="value">The value to append.</param>
-        /// <param name="escape">Whether value should be escaped.</param>
-        public void AppendPath(string value, bool escape)
         {
             if (string.IsNullOrEmpty(value))
             {
@@ -223,26 +198,12 @@ namespace Azure.Core
             }
             if (HasQuery)
             {
-                string substring = value.Substring(startIndex, value.Length - startIndex);
-                if (escape)
-                {
-                    substring = Uri.EscapeDataString(substring);
-                }
-                _pathAndQuery.Insert(_queryIndex - 1, substring);
+                _pathAndQuery.Insert(_queryIndex - 1, value.Substring(startIndex, value.Length - startIndex));
                 _queryIndex += value.Length;
             }
             else
             {
-                if (escape)
-                {
-                    string substring = value.Substring(startIndex, value.Length - startIndex);
-                    substring = Uri.EscapeDataString(substring);
-                    _pathAndQuery.Append(substring);
-                }
-                else
-                {
-                    _pathAndQuery.Append(value, startIndex, value.Length - startIndex);
-                }
+                _pathAndQuery.Append(value, startIndex, value.Length - startIndex);
             }
         }
 
@@ -275,11 +236,11 @@ namespace Azure.Core
             // TODO: Escaping can be done in-place
             if (!HasQuery)
             {
-                stringBuilder.Append(_pathAndQuery);
+                stringBuilder.Append(Uri.EscapeUriString(_pathAndQuery.ToString()));
             }
             else
             {
-                stringBuilder.Append(_pathAndQuery.ToString(0, _queryIndex));
+                stringBuilder.Append(Uri.EscapeUriString(_pathAndQuery.ToString(0, _queryIndex)));
                 if (allowedQueryParameters == null)
                 {
                     stringBuilder.Append(_pathAndQuery.ToString(_queryIndex, _pathAndQuery.Length - _queryIndex));

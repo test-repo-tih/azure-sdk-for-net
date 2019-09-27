@@ -7,6 +7,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Azure.Core.Testing;
 using Azure.Storage.Blobs.Models;
+using Azure.Storage.Common;
+using Azure.Storage.Common.Test;
 using Azure.Storage.Test;
 using Azure.Storage.Test.Shared;
 using NUnit.Framework;
@@ -361,7 +363,7 @@ namespace Azure.Storage.Blobs.Test
             BlobServiceClient service = GetServiceClient_OauthAccount();
 
             // Act
-            Response<UserDelegationKey> response = await service.GetUserDelegationKeyAsync(startsOn: null, expiresOn: Recording.UtcNow.AddHours(1));
+            Response<UserDelegationKey> response = await service.GetUserDelegationKeyAsync(start: null, expiry: Recording.UtcNow.AddHours(1));
 
             // Assert
             Assert.IsNotNull(response.Value);
@@ -375,7 +377,7 @@ namespace Azure.Storage.Blobs.Test
 
             // Act
             await TestHelper.AssertExpectedExceptionAsync<StorageRequestFailedException>(
-                service.GetUserDelegationKeyAsync(startsOn: null, expiresOn: Recording.UtcNow.AddHours(1)),
+                service.GetUserDelegationKeyAsync(start: null, expiry: Recording.UtcNow.AddHours(1)),
                 e => Assert.AreEqual("AuthenticationFailed", e.ErrorCode.Split('\n')[0]));
         }
 
@@ -387,8 +389,8 @@ namespace Azure.Storage.Blobs.Test
 
             // Act
             await TestHelper.AssertExpectedExceptionAsync<ArgumentException>(
-                service.GetUserDelegationKeyAsync(startsOn: null, expiresOn: Recording.Now.AddHours(1)),
-                e => Assert.AreEqual("expiresOn must be UTC", e.Message));
+                service.GetUserDelegationKeyAsync(start: null, expiry: Recording.Now.AddHours(1)),
+                e => Assert.AreEqual("expiry must be UTC", e.Message));
         }
 
         [Test]
