@@ -12,7 +12,7 @@ using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Azure.Storage
+namespace Azure.Storage.Common
 {
     internal class StreamPartitioner : IDisposable
     {
