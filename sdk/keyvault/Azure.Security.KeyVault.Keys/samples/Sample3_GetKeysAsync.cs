@@ -32,47 +32,45 @@ namespace Azure.Security.KeyVault.Keys.Samples
             // Let's create EC and RSA keys valid for 1 year. If the key
             // already exists in the Key Vault, then a new version of the key is created.
             string rsaKeyName = $"CloudRsaKey-{Guid.NewGuid()}";
-            var rsaKey = new CreateRsaKeyOptions(rsaKeyName, hardwareProtected: false)
+            var rsaKey = new RsaKeyCreateOptions(rsaKeyName, hsm: false, keySize: 2048)
             {
-                KeySize = 2048,
-                ExpiresOn = DateTimeOffset.Now.AddYears(1)
+                Expires = DateTimeOffset.Now.AddYears(1)
             };
 
             await client.CreateRsaKeyAsync(rsaKey);
 
             string ecKeyName = $"CloudECKey-{Guid.NewGuid()}";
-            var ecKey = new CreateEcKeyOptions(ecKeyName, hardwareProtected: false)
+            var ecKey = new EcKeyCreateOptions(ecKeyName, hsm: false)
             {
-                ExpiresOn = DateTimeOffset.Now.AddYears(1)
+                Expires = DateTimeOffset.Now.AddYears(1)
             };
 
             await client.CreateEcKeyAsync(ecKey);
 
             // You need to check the type of keys that already exist in your Key Vault.
             // Let's list the keys and print their types.
-            // List operations don't return the actual key, but only properties of the key.
-            // So, for each returned key we call GetKey to get the actual key.
-            await foreach (KeyProperties key in client.GetPropertiesOfKeysAsync())
+            // List operations don't return the keys with key material information.
+            // So, for each returned key we call GetKey to get the key with its key material information.
+            await foreach (KeyProperties key in client.GetKeysAsync())
             {
-                KeyVaultKey keyWithType = await client.GetKeyAsync(key.Name);
-                Debug.WriteLine($"Key is returned with name {keyWithType.Name} and type {keyWithType.KeyType}");
+                Key keyWithType = await client.GetKeyAsync(key.Name);
+                Debug.WriteLine($"Key is returned with name {keyWithType.Name} and type {keyWithType.KeyMaterial.KeyType}");
             }
 
             // We need the Cloud RSA key with bigger key size, so you want to update the key in Key Vault to ensure
             // it has the required size.
             // Calling CreateRsaKey on an existing key creates a new version of the key in the Key Vault
             // with the new specified size.
-            var newRsaKey = new CreateRsaKeyOptions(rsaKeyName, hardwareProtected: false)
+            var newRsaKey = new RsaKeyCreateOptions(rsaKeyName, hsm: false, keySize: 4096)
             {
-                KeySize = 4096,
-                ExpiresOn = DateTimeOffset.Now.AddYears(1)
+                Expires = DateTimeOffset.Now.AddYears(1)
             };
 
             await client.CreateRsaKeyAsync(newRsaKey);
 
             // You need to check all the different versions Cloud RSA key had previously.
             // Lets print all the versions of this key.
-            await foreach (KeyProperties key in client.GetPropertiesOfKeyVersionsAsync(rsaKeyName))
+            await foreach (KeyProperties key in client.GetKeyVersionsAsync(rsaKeyName))
             {
                 Debug.WriteLine($"Key's version {key.Version} with name {key.Name}");
             }

@@ -6,7 +6,7 @@ using System.Text.Json;
 
 namespace Azure.Security.KeyVault.Keys.Cryptography
 {
-    internal class SecretKey : KeyVaultKey
+    internal class SecretKey : Key
     {
         private const string IdPropertyName = "id";
         private const string ValuePropertyName = "value";
@@ -14,10 +14,9 @@ namespace Azure.Security.KeyVault.Keys.Cryptography
 
         public SecretKey()
         {
-            Key = new JsonWebKey(new[] { KeyOperation.Encrypt, KeyOperation.Decrypt, KeyOperation.WrapKey, KeyOperation.UnwrapKey })
-            {
-                KeyType = Keys.KeyType.Oct,
-            };
+            KeyMaterial = new JsonWebKey();
+            KeyMaterial.KeyType = KeyType.Oct;
+            KeyMaterial.KeyOps = new[] { KeyOperation.Encrypt, KeyOperation.Decrypt, KeyOperation.WrapKey, KeyOperation.UnwrapKey };
         }
 
         public string ContentType { get; private set; }
@@ -27,11 +26,11 @@ namespace Azure.Security.KeyVault.Keys.Cryptography
             switch (prop.Name)
             {
                 case IdPropertyName:
-                    Key.Id = prop.Value.GetString();
-                    Properties.Id = new Uri(Key.Id);
+                    KeyMaterial.Id = prop.Value.GetString();
+                    Properties.Id = new Uri(KeyMaterial.Id);
                     KeyVaultIdentifier kvid = KeyVaultIdentifier.Parse(Properties.Id);
                     Properties.Name = kvid.Name;
-                    Properties.VaultEndpoint = kvid.VaultEndpoint;
+                    Properties.VaultUri = kvid.VaultUri;
                     Properties.Version = kvid.Version;
                     break;
 
@@ -41,7 +40,7 @@ namespace Azure.Security.KeyVault.Keys.Cryptography
 
                 case ValuePropertyName:
                     byte[] keyBytes = Base64Url.Decode(prop.Value.GetString());
-                    Key.K = keyBytes;
+                    KeyMaterial.K = keyBytes;
                     break;
 
                 default:
