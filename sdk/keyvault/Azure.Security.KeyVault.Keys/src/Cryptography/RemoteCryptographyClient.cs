@@ -42,12 +42,14 @@ namespace Azure.Security.KeyVault.Keys.Cryptography
 
         public bool SupportsOperation(KeyOperation operation) => true;
 
-        public virtual async Task<Response<EncryptResult>> EncryptAsync(EncryptionAlgorithm algorithm, byte[] plaintext, CancellationToken cancellationToken = default)
+        public virtual async Task<Response<EncryptResult>> EncryptAsync(EncryptionAlgorithm algorithm, byte[] plaintext, byte[] iv = default, byte[] authenticationData = default, CancellationToken cancellationToken = default)
         {
             var parameters = new KeyEncryptParameters()
             {
                 Algorithm = algorithm.ToString(),
                 Value = plaintext,
+                Iv = iv,
+                AuthenticationData = authenticationData
             };
 
             using DiagnosticScope scope = Pipeline.CreateScope("Azure.Security.KeyVault.Keys.Cryptography.RemoteCryptographyClient.Encrypt");
@@ -65,12 +67,14 @@ namespace Azure.Security.KeyVault.Keys.Cryptography
             }
         }
 
-        public virtual Response<EncryptResult> Encrypt(EncryptionAlgorithm algorithm, byte[] plaintext, CancellationToken cancellationToken = default)
+        public virtual Response<EncryptResult> Encrypt(EncryptionAlgorithm algorithm, byte[] plaintext, byte[] iv = default, byte[] authenticationData = default, CancellationToken cancellationToken = default)
         {
             var parameters = new KeyEncryptParameters()
             {
                 Algorithm = algorithm.ToString(),
                 Value = plaintext,
+                Iv = iv,
+                AuthenticationData = authenticationData
             };
 
             using DiagnosticScope scope = Pipeline.CreateScope("Azure.Security.KeyVault.Keys.Cryptography.RemoteCryptographyClient.Encrypt");
@@ -88,12 +92,15 @@ namespace Azure.Security.KeyVault.Keys.Cryptography
             }
         }
 
-        public virtual async Task<Response<DecryptResult>> DecryptAsync(EncryptionAlgorithm algorithm, byte[] ciphertext, CancellationToken cancellationToken = default)
+        public virtual async Task<Response<DecryptResult>> DecryptAsync(EncryptionAlgorithm algorithm, byte[] ciphertext, byte[] iv = default, byte[] authenticationData = default, byte[] authenticationTag = default, CancellationToken cancellationToken = default)
         {
             var parameters = new KeyEncryptParameters()
             {
                 Algorithm = algorithm.ToString(),
                 Value = ciphertext,
+                Iv = iv,
+                AuthenticationData = authenticationData,
+                AuthenticationTag = authenticationTag
             };
 
             using DiagnosticScope scope = Pipeline.CreateScope("Azure.Security.KeyVault.Keys.Cryptography.RemoteCryptographyClient.Decrypt");
@@ -111,12 +118,15 @@ namespace Azure.Security.KeyVault.Keys.Cryptography
             }
         }
 
-        public virtual Response<DecryptResult> Decrypt(EncryptionAlgorithm algorithm, byte[] ciphertext, CancellationToken cancellationToken = default)
+        public virtual Response<DecryptResult> Decrypt(EncryptionAlgorithm algorithm, byte[] ciphertext, byte[] iv = default, byte[] authenticationData = default, byte[] authenticationTag = default, CancellationToken cancellationToken = default)
         {
             var parameters = new KeyEncryptParameters()
             {
                 Algorithm = algorithm.ToString(),
                 Value = ciphertext,
+                Iv = iv,
+                AuthenticationData = authenticationData,
+                AuthenticationTag = authenticationTag
             };
 
             using DiagnosticScope scope = Pipeline.CreateScope("Azure.Security.KeyVault.Keys.Cryptography.RemoteCryptographyClient.Decrypt");
@@ -356,24 +366,24 @@ namespace Azure.Security.KeyVault.Keys.Cryptography
 
         bool ICryptographyProvider.ShouldRemote => false;
 
-        async Task<EncryptResult> ICryptographyProvider.EncryptAsync(EncryptionAlgorithm algorithm, byte[] plaintext, CancellationToken cancellationToken)
+        async Task<EncryptResult> ICryptographyProvider.EncryptAsync(EncryptionAlgorithm algorithm, byte[] plaintext, byte[] iv, byte[] authenticationData, CancellationToken cancellationToken)
         {
-            return await EncryptAsync(algorithm, plaintext, cancellationToken).ConfigureAwait(false);
+            return await EncryptAsync(algorithm, plaintext, iv, authenticationData, cancellationToken).ConfigureAwait(false);
         }
 
-        EncryptResult ICryptographyProvider.Encrypt(EncryptionAlgorithm algorithm, byte[] plaintext, CancellationToken cancellationToken)
+        EncryptResult ICryptographyProvider.Encrypt(EncryptionAlgorithm algorithm, byte[] plaintext, byte[] iv, byte[] authenticationData, CancellationToken cancellationToken)
         {
-            return Encrypt(algorithm, plaintext, cancellationToken);
+            return Encrypt(algorithm, plaintext, iv, authenticationData, cancellationToken);
         }
 
-        async Task<DecryptResult> ICryptographyProvider.DecryptAsync(EncryptionAlgorithm algorithm, byte[] ciphertext, CancellationToken cancellationToken)
+        async Task<DecryptResult> ICryptographyProvider.DecryptAsync(EncryptionAlgorithm algorithm, byte[] ciphertext, byte[] iv, byte[] authenticationData, byte[] authenticationTag, CancellationToken cancellationToken)
         {
-            return await DecryptAsync(algorithm, ciphertext, cancellationToken).ConfigureAwait(false);
+            return await DecryptAsync(algorithm, ciphertext, iv, authenticationData, authenticationTag, cancellationToken).ConfigureAwait(false);
         }
 
-        DecryptResult ICryptographyProvider.Decrypt(EncryptionAlgorithm algorithm, byte[] ciphertext, CancellationToken cancellationToken)
+        DecryptResult ICryptographyProvider.Decrypt(EncryptionAlgorithm algorithm, byte[] ciphertext, byte[] iv, byte[] authenticationData, byte[] authenticationTag, CancellationToken cancellationToken)
         {
-            return Decrypt(algorithm, ciphertext, cancellationToken);
+            return Decrypt(algorithm, ciphertext, iv, authenticationData, authenticationTag, cancellationToken);
         }
 
         async Task<WrapResult> ICryptographyProvider.WrapKeyAsync(KeyWrapAlgorithm algorithm, byte[] key, CancellationToken cancellationToken)

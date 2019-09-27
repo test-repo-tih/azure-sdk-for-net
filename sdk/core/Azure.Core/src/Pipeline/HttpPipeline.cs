@@ -31,20 +31,20 @@ namespace Azure.Core.Pipeline
         public Request CreateRequest()
             => _transport.CreateRequest();
 
-        public HttpMessage CreateMessage()
+        public HttpPipelineMessage CreateMessage()
         {
-            return new HttpMessage(CreateRequest(), ResponseClassifier);
+            return new HttpPipelineMessage(CreateRequest(), ResponseClassifier);
         }
 
         public ResponseClassifier ResponseClassifier { get; }
 
-        public ValueTask SendAsync(HttpMessage message, CancellationToken cancellationToken)
+        public ValueTask SendAsync(HttpPipelineMessage message, CancellationToken cancellationToken)
         {
             message.CancellationToken = cancellationToken;
             return _pipeline.Span[0].ProcessAsync(message, _pipeline.Slice(1));
         }
 
-        public void Send(HttpMessage message, CancellationToken cancellationToken)
+        public void Send(HttpPipelineMessage message, CancellationToken cancellationToken)
         {
             message.CancellationToken = cancellationToken;
             _pipeline.Span[0].Process(message, _pipeline.Slice(1));
@@ -52,14 +52,14 @@ namespace Azure.Core.Pipeline
 
         public async ValueTask<Response> SendRequestAsync(Request request, CancellationToken cancellationToken)
         {
-            HttpMessage message = new HttpMessage(request, ResponseClassifier);
+            HttpPipelineMessage message = new HttpPipelineMessage(request, ResponseClassifier);
             await SendAsync(message, cancellationToken).ConfigureAwait(false);
             return message.Response;
         }
 
         public Response SendRequest(Request request, CancellationToken cancellationToken)
         {
-            HttpMessage message = new HttpMessage(request, ResponseClassifier);
+            HttpPipelineMessage message = new HttpPipelineMessage(request, ResponseClassifier);
             Send(message, cancellationToken);
             return message.Response;
         }

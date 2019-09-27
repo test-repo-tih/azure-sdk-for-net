@@ -169,12 +169,12 @@ namespace Azure.Data.AppConfiguration
             BuildUriForKvRoute(request.Uri, setting);
 
             MatchConditions requestOptions = new MatchConditions();
-            requestOptions.IfNoneMatch = ETag.All;
+            requestOptions.SetIfNotExistsCondition();
             ConditionalRequestOptionsExtensions.ApplyHeaders(request, requestOptions);
 
             request.Headers.Add(s_mediaTypeKeyValueApplicationHeader);
             request.Headers.Add(HttpHeader.Common.JsonContentType);
-            request.Content = RequestContent.Create(content);
+            request.Content = HttpPipelineRequestContent.Create(content);
 
             return request;
         }
@@ -220,7 +220,7 @@ namespace Azure.Data.AppConfiguration
             if (onlyIfUnchanged)
             {
                 requestOptions = new MatchConditions();
-                requestOptions.IfMatch = setting.ETag;
+                requestOptions.SetIfUnmodifiedCondition(setting.ETag);
             }
 
             return await SetAsync(setting, requestOptions, cancellationToken).ConfigureAwait(false);
@@ -241,7 +241,7 @@ namespace Azure.Data.AppConfiguration
             if (onlyIfUnchanged)
             {
                 requestOptions = new MatchConditions();
-                requestOptions.IfMatch = setting.ETag;
+                requestOptions.SetIfUnmodifiedCondition(setting.ETag);
             }
 
             return Set(setting, requestOptions, cancellationToken);
@@ -332,7 +332,7 @@ namespace Azure.Data.AppConfiguration
                 ConditionalRequestOptionsExtensions.ApplyHeaders(request, requestOptions);
             }
 
-            request.Content = RequestContent.Create(content);
+            request.Content = HttpPipelineRequestContent.Create(content);
             return request;
         }
 
@@ -373,7 +373,7 @@ namespace Azure.Data.AppConfiguration
             if (onlyIfUnchanged)
             {
                 requestOptions = new MatchConditions();
-                requestOptions.IfMatch = setting.ETag;
+                requestOptions.SetIfUnmodifiedCondition(setting.ETag);
             }
 
             return await DeleteAsync(setting.Key, setting.Label, requestOptions, cancellationToken).ConfigureAwait(false);
@@ -394,7 +394,7 @@ namespace Azure.Data.AppConfiguration
             if (onlyIfUnchanged)
             {
                 requestOptions = new MatchConditions();
-                requestOptions.IfMatch = setting.ETag;
+                requestOptions.SetIfUnmodifiedCondition(setting.ETag);
             }
 
             return Delete(setting.Key, setting.Label, requestOptions, cancellationToken);
@@ -523,7 +523,7 @@ namespace Azure.Data.AppConfiguration
             if (onlyIfChanged)
             {
                 requestOptions = new MatchConditions();
-                requestOptions.IfNoneMatch = setting.ETag;
+                requestOptions.SetIfModifiedCondition(setting.ETag);
             }
 
             return await GetAsync(setting.Key, setting.Label, acceptDateTime: default, requestOptions, cancellationToken).ConfigureAwait(false);
@@ -544,7 +544,7 @@ namespace Azure.Data.AppConfiguration
             if (onlyIfChanged)
             {
                 requestOptions = new MatchConditions();
-                requestOptions.IfNoneMatch = setting.ETag;
+                requestOptions.SetIfModifiedCondition(setting.ETag);
             }
 
             return Get(setting.Key, setting.Label, acceptDateTime: default, requestOptions, cancellationToken);

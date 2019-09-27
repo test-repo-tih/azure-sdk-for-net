@@ -137,7 +137,7 @@ namespace Microsoft.Azure.Batch.Conventions.Files
             string relativePath,
             CancellationToken cancellationToken = default(CancellationToken)
         )
-            => await SaveAsyncImpl(kind, new DirectoryInfo(Directory.GetCurrentDirectory()), relativePath, cancellationToken).ConfigureAwait(false);
+            => await SaveAsyncImpl(kind, new DirectoryInfo(Directory.GetCurrentDirectory()), relativePath, cancellationToken);
 
         internal async Task SaveAsyncImpl(
             TaskOutputKind kind,
@@ -145,7 +145,7 @@ namespace Microsoft.Azure.Batch.Conventions.Files
             string relativePath,
             CancellationToken cancellationToken = default(CancellationToken)
         )
-            => await _storagePath.SaveAsync(kind, baseFolder, relativePath, cancellationToken).ConfigureAwait(false);
+            => await _storagePath.SaveAsync(kind, baseFolder, relativePath, cancellationToken);
 
         /// <summary>
         /// Saves the specified file to persistent storage.
@@ -165,7 +165,7 @@ namespace Microsoft.Azure.Batch.Conventions.Files
             string destinationRelativePath,
             CancellationToken cancellationToken = default(CancellationToken)
         )
-            => await _storagePath.SaveAsync(kind, sourcePath, destinationRelativePath, cancellationToken).ConfigureAwait(false);
+            => await _storagePath.SaveAsync(kind, sourcePath, destinationRelativePath, cancellationToken);
 
         /// <summary>
         /// Saves the specified text to persistent storage, without requiring you to create a local file.
@@ -185,7 +185,7 @@ namespace Microsoft.Azure.Batch.Conventions.Files
             string destinationRelativePath,
             CancellationToken cancellationToken = default(CancellationToken)
         )
-            => await _storagePath.SaveTextAsync(kind, text, destinationRelativePath, cancellationToken).ConfigureAwait(false);
+            => await _storagePath.SaveTextAsync(kind, text, destinationRelativePath, cancellationToken);
 
         /// <summary>
         /// Lists the task outputs of the specified kind.
@@ -210,7 +210,7 @@ namespace Microsoft.Azure.Batch.Conventions.Files
             string filePath,
             CancellationToken cancellationToken = default(CancellationToken)
         )
-            => await _storagePath.GetOutputAsync(kind, filePath, cancellationToken).ConfigureAwait(false);
+            => await _storagePath.GetOutputAsync(kind, filePath, cancellationToken);
 
         /// <summary>
         /// Saves the specified file to persistent storage as a <see cref="TaskOutputKind.TaskLog"/>,
@@ -236,7 +236,7 @@ namespace Microsoft.Azure.Batch.Conventions.Files
         /// <exception cref="ArgumentNullException">The <paramref name="relativePath"/> argument is null.</exception>
         /// <exception cref="ArgumentException">The <paramref name="relativePath"/> argument is an absolute path, or is empty.</exception>
         public async Task<ITrackedSaveOperation> SaveTrackedAsync(string relativePath)
-            => await _storagePath.SaveTrackedAsync(TaskOutputKind.TaskLog, relativePath, TrackedFile.DefaultFlushInterval).ConfigureAwait(false);
+            => await _storagePath.SaveTrackedAsync(TaskOutputKind.TaskLog, relativePath, TrackedFile.DefaultFlushInterval);
 
         /// <summary>
         /// Saves the specified file to persistent storage, and tracks subsequent appends to the file
@@ -267,7 +267,7 @@ namespace Microsoft.Azure.Batch.Conventions.Files
             string destinationRelativePath,
             TimeSpan flushInterval
         )
-            => await _storagePath.SaveTrackedAsync(kind, sourcePath, destinationRelativePath, flushInterval).ConfigureAwait(false);
+            => await _storagePath.SaveTrackedAsync(kind, sourcePath, destinationRelativePath, flushInterval);
 
         /// <summary>
         /// Gets the Blob name prefix/folder where files of the given kind are stored
