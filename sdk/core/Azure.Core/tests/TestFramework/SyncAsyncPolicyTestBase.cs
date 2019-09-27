@@ -19,7 +19,7 @@ namespace Azure.Core.Testing
 
         protected async Task<Response> SendRequestAsync(HttpPipeline pipeline, Action<Request> requestAction, bool bufferResponse = true, CancellationToken cancellationToken = default)
         {
-            HttpMessage message = pipeline.CreateMessage();
+            HttpPipelineMessage message = pipeline.CreateMessage();
             message.BufferResponse = bufferResponse;
             requestAction(message.Request);
 

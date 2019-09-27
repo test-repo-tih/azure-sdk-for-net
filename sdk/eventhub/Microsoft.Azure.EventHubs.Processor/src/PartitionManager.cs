@@ -171,8 +171,6 @@ namespace Microsoft.Azure.EventHubs.Processor
                         ProcessorEventSource.Log.EventProcessorHostWarning(this.host.HostName, retryMessage, ex.ToString());
                     }
 
-                    this.host.EventProcessorOptions.NotifyOfException(this.host.HostName, partitionId, ex, action);
-
                     finalException = ex;
                     retryCount++;
                 }
@@ -218,7 +216,7 @@ namespace Microsoft.Azure.EventHubs.Processor
                 { 
                     try
                     {
-                        downloadedLeases = await leaseManager.GetAllLeasesAsync().ConfigureAwait(false);
+                        downloadedLeases = await leaseManager.GetAllLeasesAsync();
                     }
                     catch (Exception e)
                     {
@@ -226,7 +224,7 @@ namespace Microsoft.Azure.EventHubs.Processor
                         this.host.EventProcessorOptions.NotifyOfException(this.host.HostName, "N/A", e, EventProcessorHostActionStrings.DownloadingLeases);
 
                         // Avoid tight spin if getallleases call keeps failing.
-                        await Task.Delay(1000).ConfigureAwait(false);
+                        await Task.Delay(1000);
 
                         continue;
                     }
@@ -489,7 +487,7 @@ namespace Microsoft.Azure.EventHubs.Processor
         async Task CreateNewPumpAsync(string partitionId)
         {
             // Refresh lease content and do last minute check to reduce partition moves.
-            var refreshedLease = await this.host.LeaseManager.GetLeaseAsync(partitionId).ConfigureAwait(false);
+            var refreshedLease = await this.host.LeaseManager.GetLeaseAsync(partitionId);
             if (refreshedLease.Owner != this.host.HostName || await refreshedLease.IsExpired().ConfigureAwait(false))
             {
                 // Partition moved to some other node after lease acquisition.
