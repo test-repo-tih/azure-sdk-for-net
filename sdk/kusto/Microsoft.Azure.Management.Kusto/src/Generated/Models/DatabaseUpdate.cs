@@ -16,21 +16,21 @@ namespace Microsoft.Azure.Management.Kusto.Models
     using System.Linq;
 
     /// <summary>
-    /// Class representing a Kusto database.
+    /// Class representing an update to a Kusto database.
     /// </summary>
     [Rest.Serialization.JsonTransformation]
-    public partial class Database : ProxyResource
+    public partial class DatabaseUpdate : Resource
     {
         /// <summary>
-        /// Initializes a new instance of the Database class.
+        /// Initializes a new instance of the DatabaseUpdate class.
         /// </summary>
-        public Database()
+        public DatabaseUpdate()
         {
             CustomInit();
         }
 
         /// <summary>
-        /// Initializes a new instance of the Database class.
+        /// Initializes a new instance of the DatabaseUpdate class.
         /// </summary>
         /// <param name="id">Fully qualified resource Id for the resource. Ex -
         /// /subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}/providers/{resourceProviderNamespace}/{resourceType}/{resourceName}</param>
@@ -47,7 +47,7 @@ namespace Microsoft.Azure.Management.Kusto.Models
         /// <param name="hotCachePeriod">The time the data should be kept in
         /// cache for fast queries in TimeSpan.</param>
         /// <param name="statistics">The statistics of the database.</param>
-        public Database(string id = default(string), string name = default(string), string type = default(string), string location = default(string), string provisioningState = default(string), System.TimeSpan? softDeletePeriod = default(System.TimeSpan?), System.TimeSpan? hotCachePeriod = default(System.TimeSpan?), DatabaseStatistics statistics = default(DatabaseStatistics))
+        public DatabaseUpdate(string id = default(string), string name = default(string), string type = default(string), string location = default(string), string provisioningState = default(string), System.TimeSpan? softDeletePeriod = default(System.TimeSpan?), System.TimeSpan? hotCachePeriod = default(System.TimeSpan?), DatabaseStatistics statistics = default(DatabaseStatistics))
             : base(id, name, type)
         {
             Location = location;
