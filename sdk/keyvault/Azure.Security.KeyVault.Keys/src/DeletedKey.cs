@@ -9,15 +9,15 @@ namespace Azure.Security.KeyVault.Keys
     /// <summary>
     /// Represents a KeyVault key that has been deleted, allowing it to be recovered, if needed.
     /// </summary>
-    public class DeletedKey : KeyVaultKey
+    public class DeletedKey : Key
     {
         private const string RecoveryIdPropertyName = "recoveryId";
-        private const string DeletedOnPropertyName = "deletedDate";
+        private const string DeletedDatePropertyName = "deletedDate";
         private const string ScheduledPurgeDatePropertyName = "scheduledPurgeDate";
 
         private string _recoveryId;
 
-        internal DeletedKey(KeyProperties properties = null) : base(properties)
+        internal DeletedKey()
         {
         }
 
@@ -28,21 +28,17 @@ namespace Azure.Security.KeyVault.Keys
         /// <summary>
         /// The identifier of the deleted key. This is used to recover the key.
         /// </summary>
-        public Uri RecoveryId
-        {
-            get => _recoveryId is null ? null : new Uri(_recoveryId);
-            internal set => _recoveryId = value?.ToString();
-        }
+        public Uri RecoveryId => new Uri(_recoveryId);
 
         /// <summary>
         /// The time when the key was deleted, in UTC.
         /// </summary>
-        public DateTimeOffset? DeletedOn { get; internal set; }
+        public DateTimeOffset? DeletedDate { get; private set; }
 
         /// <summary>
         /// The time when the key is scheduled to be purged, in UTC
         /// </summary>
-        public DateTimeOffset? ScheduledPurgeDate { get; internal set; }
+        public DateTimeOffset? ScheduledPurgeDate { get; private set; }
 
         internal override void ReadProperty(JsonProperty prop)
         {
@@ -52,8 +48,8 @@ namespace Azure.Security.KeyVault.Keys
                     _recoveryId = prop.Value.GetString();
                     break;
 
-                case DeletedOnPropertyName:
-                    DeletedOn = DateTimeOffset.FromUnixTimeSeconds(prop.Value.GetInt64());
+                case DeletedDatePropertyName:
+                    DeletedDate = DateTimeOffset.FromUnixTimeSeconds(prop.Value.GetInt64());
                     break;
 
                 case ScheduledPurgeDatePropertyName:
