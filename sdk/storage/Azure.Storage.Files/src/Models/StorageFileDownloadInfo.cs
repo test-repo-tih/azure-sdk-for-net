@@ -31,11 +31,6 @@ namespace Azure.Storage.Files.Models
         public Stream Content => _flattened.Content;
 
         /// <summary>
-        /// The content type specified for the file. The default content type is 'application/octet-stream'
-        /// </summary>
-        public string ContentType => _flattened.ContentType;
-
-        /// <summary>
         /// If the file has an MD5 hash and this operation is to read the full content, this response header is returned so that the client can check for message content integrity.
         /// </summary>
 #pragma warning disable CA1819 // Properties should not return arrays
@@ -43,9 +38,9 @@ namespace Azure.Storage.Files.Models
 #pragma warning restore CA1819 // Properties should not return arrays
 
         /// <summary>
-        /// Details returned when downloading a file
+        /// Properties returned when downloading a file
         /// </summary>
-        public StorageFileDownloadDetails Details { get; private set; }
+        public StorageFileDownloadProperties Properties { get; private set; }
 
         /// <summary>
         /// Creates a new StorageFileDownloadInfo backed by FlattenedStorageFileProperties
@@ -54,7 +49,7 @@ namespace Azure.Storage.Files.Models
         internal StorageFileDownloadInfo(FlattenedStorageFileProperties flattened)
         {
             _flattened = flattened;
-            Details = new StorageFileDownloadDetails(flattened);
+            Properties = new StorageFileDownloadProperties(flattened);
         }
 
         /// <summary>

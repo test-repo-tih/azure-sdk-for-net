@@ -52,28 +52,30 @@ namespace Microsoft.Azure.Management.RecoveryServices.Backup.Models
         partial void CustomInit();
 
         /// <summary>
-        /// Gets error code.
+        /// Gets or sets error code.
         /// </summary>
         [JsonProperty(PropertyName = "errorCode")]
-        public int? ErrorCode { get; private set; }
+        public int? ErrorCode { get; set; }
 
         /// <summary>
-        /// Gets title: Typically, the entity that the error pertains to.
+        /// Gets or sets title: Typically, the entity that the error pertains
+        /// to.
         /// </summary>
         [JsonProperty(PropertyName = "errorTitle")]
-        public string ErrorTitle { get; private set; }
+        public string ErrorTitle { get; set; }
 
         /// <summary>
-        /// Gets localized error string.
+        /// Gets or sets localized error string.
         /// </summary>
         [JsonProperty(PropertyName = "errorString")]
-        public string ErrorString { get; private set; }
+        public string ErrorString { get; set; }
 
         /// <summary>
-        /// Gets list of localized recommendations for above error code.
+        /// Gets or sets list of localized recommendations for above error
+        /// code.
         /// </summary>
         [JsonProperty(PropertyName = "recommendations")]
-        public IList<string> Recommendations { get; private set; }
+        public IList<string> Recommendations { get; set; }
 
     }
 }

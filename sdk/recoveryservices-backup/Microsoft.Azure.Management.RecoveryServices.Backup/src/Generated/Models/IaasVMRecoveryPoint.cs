@@ -53,9 +53,7 @@ namespace Microsoft.Azure.Management.RecoveryServices.Backup.Models
         /// <param name="originalStorageAccountOption">Original Storage Account
         /// Option</param>
         /// <param name="osType">OS type</param>
-        /// <param name="recoveryPointDiskConfiguration">Disk
-        /// configuration</param>
-        public IaasVMRecoveryPoint(string recoveryPointType = default(string), System.DateTime? recoveryPointTime = default(System.DateTime?), string recoveryPointAdditionalInfo = default(string), string sourceVMStorageType = default(string), bool? isSourceVMEncrypted = default(bool?), KeyAndSecretDetails keyAndSecret = default(KeyAndSecretDetails), bool? isInstantIlrSessionActive = default(bool?), IList<RecoveryPointTierInformation> recoveryPointTierDetails = default(IList<RecoveryPointTierInformation>), bool? isManagedVirtualMachine = default(bool?), string virtualMachineSize = default(string), bool? originalStorageAccountOption = default(bool?), string osType = default(string), RecoveryPointDiskConfiguration recoveryPointDiskConfiguration = default(RecoveryPointDiskConfiguration))
+        public IaasVMRecoveryPoint(string recoveryPointType = default(string), System.DateTime? recoveryPointTime = default(System.DateTime?), string recoveryPointAdditionalInfo = default(string), string sourceVMStorageType = default(string), bool? isSourceVMEncrypted = default(bool?), KeyAndSecretDetails keyAndSecret = default(KeyAndSecretDetails), bool? isInstantIlrSessionActive = default(bool?), IList<RecoveryPointTierInformation> recoveryPointTierDetails = default(IList<RecoveryPointTierInformation>), bool? isManagedVirtualMachine = default(bool?), string virtualMachineSize = default(string), bool? originalStorageAccountOption = default(bool?), string osType = default(string))
         {
             RecoveryPointType = recoveryPointType;
             RecoveryPointTime = recoveryPointTime;
@@ -69,7 +67,6 @@ namespace Microsoft.Azure.Management.RecoveryServices.Backup.Models
             VirtualMachineSize = virtualMachineSize;
             OriginalStorageAccountOption = originalStorageAccountOption;
             OsType = osType;
-            RecoveryPointDiskConfiguration = recoveryPointDiskConfiguration;
             CustomInit();
         }
 
@@ -79,35 +76,36 @@ namespace Microsoft.Azure.Management.RecoveryServices.Backup.Models
         partial void CustomInit();
 
         /// <summary>
-        /// Gets type of the backup copy.
+        /// Gets or sets type of the backup copy.
         /// </summary>
         [JsonProperty(PropertyName = "recoveryPointType")]
-        public string RecoveryPointType { get; private set; }
+        public string RecoveryPointType { get; set; }
 
         /// <summary>
-        /// Gets time at which this backup copy was created.
+        /// Gets or sets time at which this backup copy was created.
         /// </summary>
         [JsonProperty(PropertyName = "recoveryPointTime")]
-        public System.DateTime? RecoveryPointTime { get; private set; }
+        public System.DateTime? RecoveryPointTime { get; set; }
 
         /// <summary>
-        /// Gets additional information associated with this backup copy.
+        /// Gets or sets additional information associated with this backup
+        /// copy.
         /// </summary>
         [JsonProperty(PropertyName = "recoveryPointAdditionalInfo")]
-        public string RecoveryPointAdditionalInfo { get; private set; }
+        public string RecoveryPointAdditionalInfo { get; set; }
 
         /// <summary>
-        /// Gets storage type of the VM whose backup copy is created.
+        /// Gets or sets storage type of the VM whose backup copy is created.
         /// </summary>
         [JsonProperty(PropertyName = "sourceVMStorageType")]
-        public string SourceVMStorageType { get; private set; }
+        public string SourceVMStorageType { get; set; }
 
         /// <summary>
-        /// Gets identifies whether the VM was encrypted when the backup copy
-        /// is created.
+        /// Gets or sets identifies whether the VM was encrypted when the
+        /// backup copy is created.
         /// </summary>
         [JsonProperty(PropertyName = "isSourceVMEncrypted")]
-        public bool? IsSourceVMEncrypted { get; private set; }
+        public bool? IsSourceVMEncrypted { get; set; }
 
         /// <summary>
         /// Gets or sets required details for recovering an encrypted VM.
@@ -152,12 +150,6 @@ namespace Microsoft.Azure.Management.RecoveryServices.Backup.Models
         /// </summary>
         [JsonProperty(PropertyName = "osType")]
         public string OsType { get; set; }
-
-        /// <summary>
-        /// Gets or sets disk configuration
-        /// </summary>
-        [JsonProperty(PropertyName = "recoveryPointDiskConfiguration")]
-        public RecoveryPointDiskConfiguration RecoveryPointDiskConfiguration { get; set; }
 
     }
 }
