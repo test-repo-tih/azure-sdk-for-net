@@ -108,7 +108,7 @@ namespace Azure.Identity
                 }
                 else
                 {
-                    account = (await _pubApp.GetAccountsAsync().ConfigureAwait(false)).Where(a => a.Username == _username).Single();
+                    account = await _pubApp.GetAccountAsync(_username).ConfigureAwait(false);
                 }
             }
             catch (InvalidOperationException) { } // more than on account
