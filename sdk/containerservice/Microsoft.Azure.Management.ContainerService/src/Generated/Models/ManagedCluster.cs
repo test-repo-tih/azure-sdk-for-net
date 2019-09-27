@@ -69,11 +69,11 @@ namespace Microsoft.Azure.Management.ContainerService.Models
         /// configuration.</param>
         /// <param name="aadProfile">Profile of Azure Active Directory
         /// configuration.</param>
-        /// <param name="apiServerAuthorizedIPRanges">(PREVIEW) Authorized IP
-        /// Ranges to kubernetes API server.</param>
+        /// <param name="apiServerAccessProfile">Access profile for managed
+        /// cluster API server.</param>
         /// <param name="identity">The identity of the managed cluster, if
         /// configured.</param>
-        public ManagedCluster(string location, string id = default(string), string name = default(string), string type = default(string), IDictionary<string, string> tags = default(IDictionary<string, string>), string provisioningState = default(string), int? maxAgentPools = default(int?), string kubernetesVersion = default(string), string dnsPrefix = default(string), string fqdn = default(string), IList<ManagedClusterAgentPoolProfile> agentPoolProfiles = default(IList<ManagedClusterAgentPoolProfile>), ContainerServiceLinuxProfile linuxProfile = default(ContainerServiceLinuxProfile), ManagedClusterWindowsProfile windowsProfile = default(ManagedClusterWindowsProfile), ManagedClusterServicePrincipalProfile servicePrincipalProfile = default(ManagedClusterServicePrincipalProfile), IDictionary<string, ManagedClusterAddonProfile> addonProfiles = default(IDictionary<string, ManagedClusterAddonProfile>), string nodeResourceGroup = default(string), bool? enableRBAC = default(bool?), bool? enablePodSecurityPolicy = default(bool?), ContainerServiceNetworkProfile networkProfile = default(ContainerServiceNetworkProfile), ManagedClusterAADProfile aadProfile = default(ManagedClusterAADProfile), IList<string> apiServerAuthorizedIPRanges = default(IList<string>), ManagedClusterIdentity identity = default(ManagedClusterIdentity))
+        public ManagedCluster(string location, string id = default(string), string name = default(string), string type = default(string), IDictionary<string, string> tags = default(IDictionary<string, string>), string provisioningState = default(string), int? maxAgentPools = default(int?), string kubernetesVersion = default(string), string dnsPrefix = default(string), string fqdn = default(string), IList<ManagedClusterAgentPoolProfile> agentPoolProfiles = default(IList<ManagedClusterAgentPoolProfile>), ContainerServiceLinuxProfile linuxProfile = default(ContainerServiceLinuxProfile), ManagedClusterWindowsProfile windowsProfile = default(ManagedClusterWindowsProfile), ManagedClusterServicePrincipalProfile servicePrincipalProfile = default(ManagedClusterServicePrincipalProfile), IDictionary<string, ManagedClusterAddonProfile> addonProfiles = default(IDictionary<string, ManagedClusterAddonProfile>), string nodeResourceGroup = default(string), bool? enableRBAC = default(bool?), bool? enablePodSecurityPolicy = default(bool?), ContainerServiceNetworkProfile networkProfile = default(ContainerServiceNetworkProfile), ManagedClusterAADProfile aadProfile = default(ManagedClusterAADProfile), ManagedClusterAPIServerAccessProfile apiServerAccessProfile = default(ManagedClusterAPIServerAccessProfile), ManagedClusterIdentity identity = default(ManagedClusterIdentity))
             : base(location, id, name, type, tags)
         {
             ProvisioningState = provisioningState;
@@ -91,7 +91,7 @@ namespace Microsoft.Azure.Management.ContainerService.Models
             EnablePodSecurityPolicy = enablePodSecurityPolicy;
             NetworkProfile = networkProfile;
             AadProfile = aadProfile;
-            ApiServerAuthorizedIPRanges = apiServerAuthorizedIPRanges;
+            ApiServerAccessProfile = apiServerAccessProfile;
             Identity = identity;
             CustomInit();
         }
@@ -201,11 +201,10 @@ namespace Microsoft.Azure.Management.ContainerService.Models
         public ManagedClusterAADProfile AadProfile { get; set; }
 
         /// <summary>
-        /// Gets or sets (PREVIEW) Authorized IP Ranges to kubernetes API
-        /// server.
+        /// Gets or sets access profile for managed cluster API server.
         /// </summary>
-        [JsonProperty(PropertyName = "properties.apiServerAuthorizedIPRanges")]
-        public IList<string> ApiServerAuthorizedIPRanges { get; set; }
+        [JsonProperty(PropertyName = "properties.apiServerAccessProfile")]
+        public ManagedClusterAPIServerAccessProfile ApiServerAccessProfile { get; set; }
 
         /// <summary>
         /// Gets or sets the identity of the managed cluster, if configured.
