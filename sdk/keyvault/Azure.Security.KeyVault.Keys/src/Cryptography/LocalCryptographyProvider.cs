@@ -26,25 +26,25 @@ namespace Azure.Security.KeyVault.Keys.Cryptography
 
         public abstract bool SupportsOperation(KeyOperation operation);
 
-        public virtual DecryptResult Decrypt(EncryptionAlgorithm algorithm, byte[] ciphertext, CancellationToken cancellationToken = default)
+        public virtual DecryptResult Decrypt(EncryptionAlgorithm algorithm, byte[] ciphertext, byte[] iv = null, byte[] authenticationData = null, byte[] authenticationTag = null, CancellationToken cancellationToken = default)
         {
             throw new NotSupportedException();
         }
 
-        public virtual Task<DecryptResult> DecryptAsync(EncryptionAlgorithm algorithm, byte[] ciphertext, CancellationToken cancellationToken = default)
+        public virtual Task<DecryptResult> DecryptAsync(EncryptionAlgorithm algorithm, byte[] ciphertext, byte[] iv = null, byte[] authenticationData = null, byte[] authenticationTag = null, CancellationToken cancellationToken = default)
         {
-            DecryptResult result = Decrypt(algorithm, ciphertext, cancellationToken);
+            DecryptResult result = Decrypt(algorithm, ciphertext, iv, authenticationData, authenticationTag, cancellationToken);
             return Task.FromResult(result);
         }
 
-        public virtual EncryptResult Encrypt(EncryptionAlgorithm algorithm, byte[] plaintext, CancellationToken cancellationToken = default)
+        public virtual EncryptResult Encrypt(EncryptionAlgorithm algorithm, byte[] plaintext, byte[] iv = null, byte[] authenticationData = null, CancellationToken cancellationToken = default)
         {
             throw new NotSupportedException();
         }
 
-        public virtual Task<EncryptResult> EncryptAsync(EncryptionAlgorithm algorithm, byte[] plaintext, CancellationToken cancellationToken = default)
+        public virtual Task<EncryptResult> EncryptAsync(EncryptionAlgorithm algorithm, byte[] plaintext, byte[] iv = null, byte[] authenticationData = null, CancellationToken cancellationToken = default)
         {
-            EncryptResult result = Encrypt(algorithm, plaintext, cancellationToken);
+            EncryptResult result = Encrypt(algorithm, plaintext, iv, authenticationData, cancellationToken);
             return Task.FromResult(result);
         }
 

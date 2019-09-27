@@ -163,7 +163,7 @@ namespace Azure.Storage.Blobs.Specialized
         /// A <see cref="StorageRequestFailedException"/> will be thrown if
         /// a failure occurs.
         /// </remarks>
-        public virtual Response<BlobLease> Acquire(
+        public virtual Response<Lease> Acquire(
             TimeSpan duration,
             HttpAccessConditions? accessConditions = default,
             CancellationToken cancellationToken = default) =>
@@ -208,7 +208,7 @@ namespace Azure.Storage.Blobs.Specialized
         /// A <see cref="StorageRequestFailedException"/> will be thrown if
         /// a failure occurs.
         /// </remarks>
-        public virtual async Task<Response<BlobLease>> AcquireAsync(
+        public virtual async Task<Response<Lease>> AcquireAsync(
             TimeSpan duration,
             HttpAccessConditions? accessConditions = default,
             CancellationToken cancellationToken = default) =>
@@ -256,7 +256,7 @@ namespace Azure.Storage.Blobs.Specialized
         /// A <see cref="StorageRequestFailedException"/> will be thrown if
         /// a failure occurs.
         /// </remarks>
-        private async Task<Response<BlobLease>> AcquireInternal(
+        private async Task<Response<Lease>> AcquireInternal(
             TimeSpan duration,
             HttpAccessConditions? httpAccessConditions,
             bool async,
@@ -355,7 +355,7 @@ namespace Azure.Storage.Blobs.Specialized
         /// A <see cref="StorageRequestFailedException"/> will be thrown if
         /// a failure occurs.
         /// </remarks>
-        public virtual Response<BlobLease> Renew(
+        public virtual Response<Lease> Renew(
             HttpAccessConditions? accessConditions = default,
             CancellationToken cancellationToken = default) =>
             RenewInternal(
@@ -391,7 +391,7 @@ namespace Azure.Storage.Blobs.Specialized
         /// A <see cref="StorageRequestFailedException"/> will be thrown if
         /// a failure occurs.
         /// </remarks>
-        public virtual async Task<Response<BlobLease>> RenewAsync(
+        public virtual async Task<Response<Lease>> RenewAsync(
             HttpAccessConditions? accessConditions = default,
             CancellationToken cancellationToken = default) =>
             await RenewInternal(
@@ -430,7 +430,7 @@ namespace Azure.Storage.Blobs.Specialized
         /// A <see cref="StorageRequestFailedException"/> will be thrown if
         /// a failure occurs.
         /// </remarks>
-        private async Task<Response<BlobLease>> RenewInternal(
+        private async Task<Response<Lease>> RenewInternal(
             HttpAccessConditions? httpAccessConditions,
             bool async,
             CancellationToken cancellationToken)
@@ -696,7 +696,7 @@ namespace Azure.Storage.Blobs.Specialized
         /// A <see cref="StorageRequestFailedException"/> will be thrown if
         /// a failure occurs.
         /// </remarks>
-        public virtual Response<BlobLease> Change(
+        public virtual Response<Lease> Change(
             string proposedId,
             HttpAccessConditions? accessConditions = default,
             CancellationToken cancellationToken = default) =>
@@ -734,7 +734,7 @@ namespace Azure.Storage.Blobs.Specialized
         /// A <see cref="StorageRequestFailedException"/> will be thrown if
         /// a failure occurs.
         /// </remarks>
-        public virtual async Task<Response<BlobLease>> ChangeAsync(
+        public virtual async Task<Response<Lease>> ChangeAsync(
             string proposedId,
             HttpAccessConditions? accessConditions = default,
             CancellationToken cancellationToken = default) =>
@@ -775,7 +775,7 @@ namespace Azure.Storage.Blobs.Specialized
         /// A <see cref="StorageRequestFailedException"/> will be thrown if
         /// a failure occurs.
         /// </remarks>
-        private async Task<Response<BlobLease>> ChangeInternal(
+        private async Task<Response<Lease>> ChangeInternal(
             string proposedId,
             HttpAccessConditions? httpAccessConditions,
             bool async,
@@ -891,7 +891,7 @@ namespace Azure.Storage.Blobs.Specialized
         /// A <see cref="StorageRequestFailedException"/> will be thrown if
         /// a failure occurs.
         /// </remarks>
-        public virtual Response<BlobLease> Break(
+        public virtual Response<Lease> Break(
             TimeSpan? breakPeriod = default,
             HttpAccessConditions? accessConditions = default,
             CancellationToken cancellationToken = default) =>
@@ -947,7 +947,7 @@ namespace Azure.Storage.Blobs.Specialized
         /// A <see cref="StorageRequestFailedException"/> will be thrown if
         /// a failure occurs.
         /// </remarks>
-        public virtual async Task<Response<BlobLease>> BreakAsync(
+        public virtual async Task<Response<Lease>> BreakAsync(
             TimeSpan? breakPeriod = default,
             HttpAccessConditions? accessConditions = default,
             CancellationToken cancellationToken = default) =>
@@ -1006,7 +1006,7 @@ namespace Azure.Storage.Blobs.Specialized
         /// A <see cref="StorageRequestFailedException"/> will be thrown if
         /// a failure occurs.
         /// </remarks>
-        private async Task<Response<BlobLease>> BreakInternal(
+        private async Task<Response<Lease>> BreakInternal(
             TimeSpan? breakPeriod,
             HttpAccessConditions? httpAccessConditions,
             bool async,
