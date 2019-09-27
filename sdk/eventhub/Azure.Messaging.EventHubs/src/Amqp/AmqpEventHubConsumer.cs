@@ -165,7 +165,7 @@ namespace Azure.Messaging.EventHubs.Amqp
                                                                         TimeSpan? maximumWaitTime,
                                                                         CancellationToken cancellationToken)
         {
-            Argument.AssertNotClosed(_closed, nameof(AmqpEventHubConsumer));
+            Argument.AssertNotClosed(_closed, nameof(AmqpEventHubClient));
             Argument.AssertAtLeast(maximumMessageCount, 1, nameof(maximumMessageCount));
 
             var receivedEventCount = 0;
@@ -247,7 +247,6 @@ namespace Azure.Messaging.EventHubs.Amqp
 
                         if ((retryDelay.HasValue) && (!ConnectionScope.IsDisposed))
                         {
-                            cancellationToken.ThrowIfCancellationRequested<TaskCanceledException>();
                             await Task.Delay(UseMinimum(retryDelay.Value, waitTime.CalculateRemaining(stopWatch.Elapsed)), cancellationToken).ConfigureAwait(false);
                         }
                         else
@@ -282,32 +281,16 @@ namespace Azure.Messaging.EventHubs.Amqp
                 return;
             }
 
-            var clientId = GetHashCode().ToString();
-            var clientType = GetType();
+            cancellationToken.ThrowIfCancellationRequested<TaskCanceledException>();
 
-            try
+            if (ReceiveLink?.TryGetOpenedObject(out var _) == true)
             {
-                EventHubsEventSource.Log.ClientCloseStart(clientType, EventHubName, clientId);
-                cancellationToken.ThrowIfCancellationRequested<TaskCanceledException>();
-
-                if (ReceiveLink?.TryGetOpenedObject(out var _) == true)
-                {
-                    await ReceiveLink.CloseAsync().ConfigureAwait(false);
-                }
-
-                ReceiveLink.Dispose();
-
-                _closed = true;
+                await ReceiveLink.CloseAsync().ConfigureAwait(false);
             }
-            catch (Exception ex)
-            {
-                EventHubsEventSource.Log.ClientCloseError(clientType, EventHubName, clientId, ex.Message);
-                throw;
-            }
-            finally
-            {
-                EventHubsEventSource.Log.ClientCloseComplete(clientType, EventHubName, clientId);
-            }
+
+            ReceiveLink.Dispose();
+
+            _closed = true;
         }
 
         /// <summary>
@@ -317,7 +300,7 @@ namespace Azure.Messaging.EventHubs.Amqp
         /// <param name="firstOption">The first option to consider.</param>
         /// <param name="secondOption">The second option to consider.</param>
         ///
-        /// <returns>The smaller of the two specified intervals.</returns>
+        /// <returns></returns>
         ///
         private static TimeSpan UseMinimum(TimeSpan firstOption,
                                            TimeSpan secondOption) => (firstOption < secondOption) ? firstOption : secondOption;
