@@ -26,9 +26,8 @@ namespace Azure.Security.KeyVault.Secrets
         private static readonly JsonEncodedText s_tagsPropertyNameBytes = JsonEncodedText.Encode(TagsPropertyName);
 
         private ObjectId _identifier;
-        private SecretAttributes _attributes;
+        private VaultAttributes _attributes;
         private Dictionary<string, string> _tags;
-        private string _keyId;
 
         internal SecretProperties()
         {
@@ -62,22 +61,22 @@ namespace Azure.Security.KeyVault.Secrets
         /// <summary>
         /// Secret identifier.
         /// </summary>
-        public Uri Id { get => _identifier.Id; internal set => _identifier.Id = value; }
+        public Uri Id => _identifier.Id;
 
         /// <summary>
         /// Vault base URL.
         /// </summary>
-        public Uri VaultEndpoint { get => _identifier.VaultEndpoint; internal set => _identifier.VaultEndpoint = value; }
+        public Uri VaultUri => _identifier.VaultUri;
 
         /// <summary>
         /// Name of the secret.
         /// </summary>
-        public string Name { get => _identifier.Name; internal set => _identifier.Name = value; }
+        public string Name => _identifier.Name;
 
         /// <summary>
         /// Version of the secret.
         /// </summary>
-        public string Version { get => _identifier.Version; internal set => _identifier.Version = value; }
+        public string Version => _identifier.Version;
 
         /// <summary>
         /// Content type of the secret value such as a password.
@@ -88,17 +87,13 @@ namespace Azure.Security.KeyVault.Secrets
         /// Set to true if the secret's lifetime is managed by key vault. If this
         /// is a secret backing a KV certificate, then managed will be true.
         /// </summary>
-        public bool? Managed { get; internal set; }
+        public bool? Managed { get; private set; }
 
         /// <summary>
         /// If this is a secret backing a KV certificate, then this field specifies
         /// the corresponding key backing the KV certificate.
         /// </summary>
-        public Uri KeyId
-        {
-            get => _keyId is null ? null : new Uri(_keyId);
-            internal set => _keyId = value?.ToString();
-        }
+        public string KeyId { get; private set; }
 
         /// <summary>
         /// Specifies whether the secret is enabled and useable.
@@ -113,17 +108,17 @@ namespace Azure.Security.KeyVault.Secrets
         /// <summary>
         /// Identifies the expiration time (in UTC) on or after which the secret data should not be retrieved.
         /// </summary>
-        public DateTimeOffset? ExpiresOn { get => _attributes.ExpiresOn; set => _attributes.ExpiresOn = value; }
+        public DateTimeOffset? Expires { get => _attributes.Expires; set => _attributes.Expires = value; }
 
         /// <summary>
         /// Creation time in UTC.
         /// </summary>
-        public DateTimeOffset? CreatedOn { get => _attributes.CreatedOn; internal set => _attributes.CreatedOn = value; }
+        public DateTimeOffset? Created => _attributes.Created;
 
         /// <summary>
         /// Last updated time in UTC.
         /// </summary>
-        public DateTimeOffset? UpdatedOn { get => _attributes.UpdatedOn; internal set => _attributes.UpdatedOn = value; }
+        public DateTimeOffset? Updated => _attributes.Updated;
 
         /// <summary>
         /// Reflects the deletion recovery level currently in effect for
@@ -134,7 +129,7 @@ namespace Azure.Security.KeyVault.Secrets
         /// 'Recoverable+Purgeable', 'Recoverable',
         /// 'Recoverable+ProtectedSubscription'
         /// </summary>
-        public string RecoveryLevel { get => _attributes.RecoveryLevel; internal set => _attributes.RecoveryLevel = value; }
+        public string RecoveryLevel => _attributes.RecoveryLevel;
 
         /// <summary>
         /// A dictionary of tags with specific metadata about the secret.
@@ -162,7 +157,7 @@ namespace Azure.Security.KeyVault.Secrets
                     break;
 
                 case KidPropertyName:
-                    _keyId = prop.Value.GetString();
+                    KeyId = prop.Value.GetString();
                     break;
 
                 case ManagedPropertyName:
@@ -189,7 +184,7 @@ namespace Azure.Security.KeyVault.Secrets
                 json.WriteString(s_contentTypePropertyNameBytes, ContentType);
             }
 
-            if (_attributes.Enabled.HasValue || _attributes.NotBefore.HasValue || _attributes.ExpiresOn.HasValue)
+            if (_attributes.Enabled.HasValue || _attributes.NotBefore.HasValue || _attributes.Expires.HasValue)
             {
                 json.WriteStartObject(s_attributesPropertyNameBytes);
 

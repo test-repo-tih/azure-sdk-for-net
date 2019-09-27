@@ -90,7 +90,9 @@ namespace Azure.Messaging.EventHubs.Core
             TimeSpan retryDelay = Options.Mode switch
             {
                 RetryMode.Fixed => CalculateFixedDelay(Options.Delay.TotalSeconds, baseJitterSeconds, s_randomNumberGenerator.Value),
+
                 RetryMode.Exponential => CalculateExponentialDelay(attemptCount, Options.Delay.TotalSeconds, baseJitterSeconds, s_randomNumberGenerator.Value),
+
                 _ => throw new NotSupportedException(string.Format(CultureInfo.CurrentCulture, Resources.UnknownRetryMode, Options.Mode.ToString())),
             };
 
@@ -115,7 +117,7 @@ namespace Azure.Messaging.EventHubs.Core
         ///
         private static bool ShouldRetryException(Exception exception)
         {
-            if ((exception is TaskCanceledException) || (exception is OperationCanceledException))
+            if (exception is TaskCanceledException)
             {
                 exception = exception?.InnerException;
             }

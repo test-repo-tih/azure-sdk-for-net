@@ -297,7 +297,7 @@ directive:
   transform: >
     $.put.responses["201"].description = "The lease operation completed successfully.";
     $.put.responses["201"].headers["x-ms-lease-id"].description = "Uniquely identifies a container's or blob's lease";
-    $.put.responses["201"]["x-az-response-name"] = "BlobLease";
+    $.put.responses["201"]["x-az-response-name"] = "Lease";
 ```
 
 ### /{containerName}?comp=lease&restype=container&release
@@ -318,7 +318,7 @@ directive:
   transform: >
     $.put.responses["200"].description = "The lease operation completed successfully.";
     $.put.responses["200"].headers["x-ms-lease-id"].description = "Uniquely identifies a container's or blob's lease";
-    $.put.responses["200"]["x-az-response-name"] = "BlobLease";
+    $.put.responses["200"]["x-az-response-name"] = "Lease";
 ```
 
 ### /{containerName}?comp=lease&restype=container&break
@@ -339,7 +339,7 @@ directive:
   transform: >
     $.put.responses["200"].description = "The lease operation completed successfully.";
     $.put.responses["200"].headers["x-ms-lease-id"].description = "Uniquely identifies a container's or blob's lease";
-    $.put.responses["200"]["x-az-response-name"] = "BlobLease";
+    $.put.responses["200"]["x-az-response-name"] = "Lease";
 ```
 
 ### /{containerName}?restype=container&comp=list&flat
@@ -605,7 +605,7 @@ directive:
 - from: swagger-document
   where: $["x-ms-paths"]["/{containerName}/{blob}?comp=lease&acquire"]
   transform: >
-    $.put.responses["201"]["x-az-response-name"] = "BlobLease";
+    $.put.responses["201"]["x-az-response-name"] = "Lease";
     $.put.responses["201"].description = "The lease operation completed successfully.";
     $.put.responses["201"].headers["x-ms-lease-id"].description = "Uniquely identifies a container's or blob's lease";
 ```
@@ -626,7 +626,7 @@ directive:
 - from: swagger-document
   where: $["x-ms-paths"]["/{containerName}/{blob}?comp=lease&renew"]
   transform: >
-    $.put.responses["200"]["x-az-response-name"] = "BlobLease";
+    $.put.responses["200"]["x-az-response-name"] = "Lease";
     $.put.responses["200"].description = "The lease operation completed successfully.";
     $.put.responses["200"].headers["x-ms-lease-id"].description = "Uniquely identifies a container's or blob's lease";
 ```
@@ -637,7 +637,7 @@ directive:
 - from: swagger-document
   where: $["x-ms-paths"]["/{containerName}/{blob}?comp=lease&change"]
   transform: >
-    $.put.responses["200"]["x-az-response-name"] = "BlobLease";
+    $.put.responses["200"]["x-az-response-name"] = "Lease";
     $.put.responses["200"].description = "The lease operation completed successfully.";
     $.put.responses["200"].headers["x-ms-lease-id"].description = "Uniquely identifies a container's or blob's lease";
 ```
@@ -784,8 +784,7 @@ directive:
 - from: swagger-document
   where: $["x-ms-paths"]["/{containerName}/{blob}?comp=pagelist"]
   transform: >
-    $.get.responses["200"]["x-az-response-name"] = "PageRangesInfoInternal";
-    $.get.responses["200"]["x-az-public"] = false;
+    $.get.responses["200"]["x-az-response-name"] = "PageRangesInfo";
     $.get.responses["304"] = {
         "description": "The condition specified using HTTP conditional header(s) is not met.",
         "x-az-response-name": "ConditionNotMetError",
@@ -801,8 +800,7 @@ directive:
 - from: swagger-document
   where: $["x-ms-paths"]["/{containerName}/{blob}?comp=pagelist&diff"]
   transform: >
-    $.get.responses["200"]["x-az-response-name"] = "PageRangesInfoInternal";
-    $.get.responses["200"]["x-az-public"] = false;
+    $.get.responses["200"]["x-az-response-name"] = "PageRangesInfo";
     $.get.responses["304"] = {
         "description": "The condition specified using HTTP conditional header(s) is not met.",
         "x-az-response-name": "ConditionNotMetError",
@@ -1037,30 +1035,9 @@ directive:
 - from: swagger-document
   where: $.definitions.KeyInfo
   transform: >
-    $.properties.StartsOn = $.properties.Start;
-    $.properties.StartsOn.xml = { "name": "Start"};
-    $.properties.ExpiresOn = $.properties.Expiry;
-    $.properties.ExpiresOn.xml = { "name": "Expiry"};
-    $.required = ["ExpiresOn"];
-    $.properties.StartsOn.format = $.properties.ExpiresOn.format = "date-time-8601";
+    $.required = ["Expiry"];
+    $.properties.Start.format = $.properties.Expiry.format = "date-time-8601";
     $["x-az-public"] = false;
-    delete $.properties.Start;
-    delete $.properties.Expiry;
-```
-
-### UserDelegationKey
-``` yaml
-directive:
-- from: swagger-document
-  where: $.definitions.UserDelegationKey
-  transform: >
-    $.properties.SignedExpiresOn = $.properties.SignedExpiry;
-    $.properties.SignedExpiresOn.xml = { "name": "SignedExpiry"};
-    $.properties.SignedStartsOn = $.properties.SignedStart;
-    $.properties.SignedStartsOn.xml = { "name": "SignedStart"};
-    $.required = ["SignedOid", "SignedTid", "SignedStartsOn", "SignedExpiresOn", "SignedService", "SignedVersion", "Value"];
-    delete $.properties.SignedExpiry;
-    delete $.properties.SignedStart;
 ```
 
 ### Hide various Include types
@@ -1139,20 +1116,6 @@ directive:
 - from: swagger-document
   where: $.definitions.ContainerProperties
   transform: $.required.push("PublicAccess");
-  ```
-
-  ### Remove `Blob` suffix in BlobType enum values
-``` yaml
-directive:
-- from: swagger-document
-  where:
-    - $.definitions.BlobItemProperties.properties.BlobType
-    - $["x-ms-paths"]["/{containerName}/{blob}"].get.responses["200"].headers["x-ms-blob-type"]
-    - $["x-ms-paths"]["/{containerName}/{blob}"].get.responses["206"].headers["x-ms-blob-type"]
-    - $["x-ms-paths"]["/{containerName}/{blob}"].head.responses["200"].headers["x-ms-blob-type"]
-  transform: >
-    $.enum = [ "Block", "Page", "Append" ];
-    $["x-ms-enum"].values = [ { name: "Block", value: "BlockBlob" }, { name: "Page", value: "PageBlob" }, { name: "Append", value: "AppendBlob" }];
   ```
 
 ### Make lease duration/break period a long
@@ -1295,24 +1258,6 @@ directive:
     $["x-az-public"] = false;
 ```
 
-### Change Block to BlobBlock
-``` yaml
-directive:
-- from: swagger-document
-  where: $.definitions
-  transform: >
-    if (!$.BlobBlock) {
-        $.BlobBlock = $.Block;
-        delete $.Block;
-        $.BlobBlock.xml = { "name": "Block" };
-        const path = $.BlockList.properties.CommittedBlocks.items.$ref.replace(/[#].*$/, "#/definitions/BlobBlock");
-        $.BlockList.properties.CommittedBlocks.items.$ref = path;
-        $.BlockList.properties.CommittedBlocks.xml.name = "CommittedBlocks";
-        $.BlockList.properties.UncommittedBlocks.items.$ref = path;
-        $.BlockList.properties.UncommittedBlocks.xml.name = "UncommittedBlocks";
-    }
-```
-
 ### Batch returns a 202
 ``` yaml
 directive:
@@ -1327,34 +1272,4 @@ directive:
         $["202"]["x-az-response-name"] = "BlobBatchResult";
         $["202"]["x-az-response-schema-name"] = "Content";
     }
-```
-
-### Hide PageList/PageRange/ClearRange
-``` yaml
-directive:
-- from: swagger-document
-  where: $.definitions
-  transform: >
-    $.PageList["x-az-public"] = false;
-    $.PageRange["x-az-public"] = false;
-    $.ClearRange["x-az-public"] = false;
-
-### Access Policy properties renaming
-``` yaml
-directive:
-- from: swagger-document
-  where: $.definitions.AccessPolicy
-  transform: >
-    $["x-ms-client-name"] = "BlobAccessPolicy";
-    $.xml = {"name": "AccessPolicy"};
-    $.properties.StartsOn = $.properties.Start;
-    $.properties.StartsOn.xml = { "name": "Start"};
-    delete $.properties.Start;
-    $.properties.ExpiresOn = $.properties.Expiry;
-    $.properties.ExpiresOn.xml = { "name": "Expiry"};
-    delete $.properties.Expiry;
-    $.properties.Permissions = $.properties.Permission;
-    $.properties.Permissions.xml = { "name": "Permission"};
-    delete $.properties.Permission;
-    $.required = ["StartsOn", "ExpiresOn", "Permissions"];
 ```
