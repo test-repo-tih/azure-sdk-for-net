@@ -36,14 +36,11 @@ namespace Microsoft.Azure.Management.RecoveryServices.SiteRecovery.Models
         /// before failover.</param>
         /// <param name="recoveryReplicaDiskAccountType">The replica disk type
         /// before failover.</param>
-        /// <param name="diskEncryptionInfo">The recovery disk encryption
-        /// information (for one / single pass flows).</param>
-        public A2AVmManagedDiskUpdateDetails(string diskId = default(string), string recoveryTargetDiskAccountType = default(string), string recoveryReplicaDiskAccountType = default(string), DiskEncryptionInfo diskEncryptionInfo = default(DiskEncryptionInfo))
+        public A2AVmManagedDiskUpdateDetails(string diskId = default(string), string recoveryTargetDiskAccountType = default(string), string recoveryReplicaDiskAccountType = default(string))
         {
             DiskId = diskId;
             RecoveryTargetDiskAccountType = recoveryTargetDiskAccountType;
             RecoveryReplicaDiskAccountType = recoveryReplicaDiskAccountType;
-            DiskEncryptionInfo = diskEncryptionInfo;
             CustomInit();
         }
 
@@ -69,13 +66,6 @@ namespace Microsoft.Azure.Management.RecoveryServices.SiteRecovery.Models
         /// </summary>
         [JsonProperty(PropertyName = "recoveryReplicaDiskAccountType")]
         public string RecoveryReplicaDiskAccountType { get; set; }
-
-        /// <summary>
-        /// Gets or sets the recovery disk encryption information (for one /
-        /// single pass flows).
-        /// </summary>
-        [JsonProperty(PropertyName = "diskEncryptionInfo")]
-        public DiskEncryptionInfo DiskEncryptionInfo { get; set; }
 
     }
 }

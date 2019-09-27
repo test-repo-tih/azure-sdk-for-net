@@ -38,14 +38,14 @@ namespace Azure.Storage.Sas
         /// start time for this call is assumed to be the time when the
         /// storage service receives the request.
         /// </summary>
-        public DateTimeOffset StartsOn { get; set; }
+        public DateTimeOffset StartTime { get; set; }
 
         /// <summary>
         /// The time at which the shared access signature becomes invalid.
         /// This field must be omitted if it has been specified in an
         /// associated stored access policy.
         /// </summary>
-        public DateTimeOffset ExpiresOn { get; set; }
+        public DateTimeOffset ExpiryTime { get; set; }
 
         /// <summary>
         /// The permissions associated with the shared access signature. The
@@ -66,7 +66,7 @@ namespace Azure.Storage.Sas
         /// When specifying a range of IP addresses, note that the range is
         /// inclusive.
         /// </summary>
-        public SasIPRange IPRange { get; set; }
+        public IPRange IPRange { get; set; }
 
         /// <summary>
         /// An optional unique value up to 64 characters in length that
@@ -153,8 +153,8 @@ namespace Azure.Storage.Sas
 
             EnsureState();
 
-            var startTime = SasQueryParameters.FormatTimesForSasSigning(StartsOn);
-            var expiryTime = SasQueryParameters.FormatTimesForSasSigning(ExpiresOn);
+            var startTime = SasQueryParameters.FormatTimesForSasSigning(StartTime);
+            var expiryTime = SasQueryParameters.FormatTimesForSasSigning(ExpiryTime);
 
             // See http://msdn.microsoft.com/en-us/library/azure/dn140255.aspx
             var stringToSign = String.Join("\n",
@@ -164,7 +164,7 @@ namespace Azure.Storage.Sas
                 GetCanonicalName(sharedKeyCredential.AccountName, BlobContainerName ?? String.Empty, BlobName ?? String.Empty),
                 Identifier,
                 IPRange.ToString(),
-                Protocol.ToProtocolString(),
+                Protocol.ToString(),
                 Version,
                 Resource,
                 Snapshot,
@@ -178,11 +178,11 @@ namespace Azure.Storage.Sas
 
             var p = new BlobSasQueryParameters(
                 version: Version,
-                services: default,
-                resourceTypes: default,
+                services: null,
+                resourceTypes: null,
                 protocol: Protocol,
-                startsOn: StartsOn,
-                expiresOn: ExpiresOn,
+                startTime: StartTime,
+                expiryTime: ExpiryTime,
                 ipRange: IPRange,
                 identifier: Identifier,
                 resource: Resource,
@@ -215,10 +215,10 @@ namespace Azure.Storage.Sas
 
             EnsureState();
 
-            var startTime = SasQueryParameters.FormatTimesForSasSigning(StartsOn);
-            var expiryTime = SasQueryParameters.FormatTimesForSasSigning(ExpiresOn);
-            var signedStart = SasQueryParameters.FormatTimesForSasSigning(userDelegationKey.SignedStartsOn);
-            var signedExpiry = SasQueryParameters.FormatTimesForSasSigning(userDelegationKey.SignedExpiresOn);
+            var startTime = SasQueryParameters.FormatTimesForSasSigning(StartTime);
+            var expiryTime = SasQueryParameters.FormatTimesForSasSigning(ExpiryTime);
+            var signedStart = SasQueryParameters.FormatTimesForSasSigning(userDelegationKey.SignedStart);
+            var signedExpiry = SasQueryParameters.FormatTimesForSasSigning(userDelegationKey.SignedExpiry);
 
             // See http://msdn.microsoft.com/en-us/library/azure/dn140255.aspx
             var stringToSign = String.Join("\n",
@@ -233,7 +233,7 @@ namespace Azure.Storage.Sas
                 userDelegationKey.SignedService,
                 userDelegationKey.SignedVersion,
                 IPRange.ToString(),
-                Protocol.ToProtocolString(),
+                Protocol.ToString(),
                 Version,
                 Resource,
                 Snapshot,
@@ -247,19 +247,19 @@ namespace Azure.Storage.Sas
 
             var p = new BlobSasQueryParameters(
                 version: Version,
-                services: default,
-                resourceTypes: default,
+                services: null,
+                resourceTypes: null,
                 protocol: Protocol,
-                startsOn: StartsOn,
-                expiresOn: ExpiresOn,
+                startTime: StartTime,
+                expiryTime: ExpiryTime,
                 ipRange: IPRange,
                 identifier: null,
                 resource: Resource,
                 permissions: Permissions,
                 keyOid: userDelegationKey.SignedObjectId,
                 keyTid: userDelegationKey.SignedTenantId,
-                keyStart: userDelegationKey.SignedStartsOn,
-                keyExpiry: userDelegationKey.SignedExpiresOn,
+                keyStart: userDelegationKey.SignedStart,
+                keyExpiry: userDelegationKey.SignedExpiry,
                 keyService: userDelegationKey.SignedService,
                 keyVersion: userDelegationKey.SignedVersion,
                 signature: signature,
@@ -362,6 +362,59 @@ namespace Azure.Storage.Sas
         /// </summary>
         /// <returns>Hash code for the BlobSasBuilder.</returns>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public override int GetHashCode() => base.GetHashCode();
+        public override int GetHashCode() =>
+            BlobName.GetHashCode() ^
+            CacheControl.GetHashCode() ^
+            BlobContainerName.GetHashCode() ^
+            ContentDisposition.GetHashCode() ^
+            ContentEncoding.GetHashCode() ^
+            ContentLanguage.GetHashCode() ^
+            ContentType.GetHashCode() ^
+            ExpiryTime.GetHashCode() ^
+            Identifier.GetHashCode() ^
+            IPRange.GetHashCode() ^
+            Permissions.GetHashCode() ^
+            Protocol.GetHashCode() ^
+            StartTime.GetHashCode() ^
+            Version.GetHashCode();
+
+        /// <summary>
+        /// Check if two BlobSasBuilder instances are equal.
+        /// </summary>
+        /// <param name="left">The first instance to compare.</param>
+        /// <param name="right">The second instance to compare.</param>
+        /// <returns>True if they're equal, false otherwise.</returns>
+        public static bool operator ==(BlobSasBuilder left, BlobSasBuilder right) =>
+            left.Equals(right);
+
+        /// <summary>
+        /// Check if two BlobSasBuilder instances are not equal.
+        /// </summary>
+        /// <param name="left">The first instance to compare.</param>
+        /// <param name="right">The second instance to compare.</param>
+        /// <returns>True if they're not equal, false otherwise.</returns>
+        public static bool operator !=(BlobSasBuilder left, BlobSasBuilder right) =>
+            !(left == right);
+
+        /// <summary>
+        /// Check if two BlobSasBuilder instances are equal.
+        /// </summary>
+        /// <param name="other">The instance to compare to.</param>
+        /// <returns>True if they're equal, false otherwise.</returns>
+        public bool Equals(BlobSasBuilder other) =>
+            BlobName == other.BlobName &&
+            CacheControl == other.CacheControl &&
+            BlobContainerName == other.BlobContainerName &&
+            ContentDisposition == other.ContentDisposition &&
+            ContentEncoding == other.ContentEncoding &&
+            ContentLanguage == other.ContentEncoding &&
+            ContentType == other.ContentType &&
+            ExpiryTime == other.ExpiryTime &&
+            Identifier == other.Identifier &&
+            IPRange == other.IPRange &&
+            Permissions == other.Permissions &&
+            Protocol == other.Protocol &&
+            StartTime == other.StartTime &&
+            Version == other.Version;
     }
 }
