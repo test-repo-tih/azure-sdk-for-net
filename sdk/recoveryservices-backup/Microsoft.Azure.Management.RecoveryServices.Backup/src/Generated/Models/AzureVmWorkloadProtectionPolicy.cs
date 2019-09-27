@@ -45,15 +45,12 @@ namespace Microsoft.Azure.Management.RecoveryServices.Backup.Models
         /// management</param>
         /// <param name="subProtectionPolicy">List of sub-protection policies
         /// which includes schedule and retention</param>
-        /// <param name="makePolicyConsistent">Fix the policy
-        /// inconsistency</param>
-        public AzureVmWorkloadProtectionPolicy(int? protectedItemsCount = default(int?), string workLoadType = default(string), Settings settings = default(Settings), IList<SubProtectionPolicy> subProtectionPolicy = default(IList<SubProtectionPolicy>), bool? makePolicyConsistent = default(bool?))
+        public AzureVmWorkloadProtectionPolicy(int? protectedItemsCount = default(int?), string workLoadType = default(string), Settings settings = default(Settings), IList<SubProtectionPolicy> subProtectionPolicy = default(IList<SubProtectionPolicy>))
             : base(protectedItemsCount)
         {
             WorkLoadType = workLoadType;
             Settings = settings;
             SubProtectionPolicy = subProtectionPolicy;
-            MakePolicyConsistent = makePolicyConsistent;
             CustomInit();
         }
 
@@ -84,12 +81,6 @@ namespace Microsoft.Azure.Management.RecoveryServices.Backup.Models
         /// </summary>
         [JsonProperty(PropertyName = "subProtectionPolicy")]
         public IList<SubProtectionPolicy> SubProtectionPolicy { get; set; }
-
-        /// <summary>
-        /// Gets or sets fix the policy inconsistency
-        /// </summary>
-        [JsonProperty(PropertyName = "makePolicyConsistent")]
-        public bool? MakePolicyConsistent { get; set; }
 
     }
 }

@@ -16,7 +16,7 @@ namespace Microsoft.Azure.EventHubs.ServiceFabricProcessor
         {
             using (FabricClient fabricClient = new FabricClient())
             {
-                this.partitionList = await fabricClient.QueryManager.GetPartitionListAsync(serviceFabricServiceName).ConfigureAwait(false);
+                this.partitionList = await fabricClient.QueryManager.GetPartitionListAsync(serviceFabricServiceName);
             }
             return this.partitionList.Count;
         }
