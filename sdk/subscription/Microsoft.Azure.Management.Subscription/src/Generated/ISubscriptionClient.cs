@@ -70,14 +70,14 @@ namespace Microsoft.Azure.Management.Subscription
         ISubscriptionOperationOperations SubscriptionOperation { get; }
 
         /// <summary>
-        /// Gets the ISubscriptionFactoryOperations.
-        /// </summary>
-        ISubscriptionFactoryOperations SubscriptionFactory { get; }
-
-        /// <summary>
         /// Gets the ISubscriptionOperations.
         /// </summary>
         ISubscriptionOperations SubscriptionOperations { get; }
+
+        /// <summary>
+        /// Gets the ISubscriptionFactoryOperations.
+        /// </summary>
+        ISubscriptionFactoryOperations SubscriptionFactory { get; }
 
         /// <summary>
         /// Gets the IOperations.

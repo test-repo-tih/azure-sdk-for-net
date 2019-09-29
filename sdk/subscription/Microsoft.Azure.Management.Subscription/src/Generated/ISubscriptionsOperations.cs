@@ -93,6 +93,100 @@ namespace Microsoft.Azure.Management.Subscription
         /// </exception>
         Task<AzureOperationResponse<EnabledSubscriptionId>> EnableWithHttpMessagesAsync(string subscriptionId, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
+        /// The operation to create a new WebDirect or EA Azure subscription.
+        /// </summary>
+        /// <param name='billingAccountName'>
+        /// The name of the Microsoft Customer Agreement billing account for
+        /// which you want to create the subscription.
+        /// </param>
+        /// <param name='invoiceSectionName'>
+        /// The name of the invoice section in the billing account for which
+        /// you want to create the subscription.
+        /// </param>
+        /// <param name='body'>
+        /// The subscription creation parameters.
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="ErrorResponseException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        Task<AzureOperationResponse<SubscriptionCreationResult,SubscriptionsCreateSubscriptionHeaders>> CreateSubscriptionWithHttpMessagesAsync(string billingAccountName, string invoiceSectionName, ModernSubscriptionCreationParameters body, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        /// <summary>
+        /// The operation to create a new WebDirect or EA Azure subscription
+        /// (under billingProfiles).
+        /// </summary>
+        /// <param name='billingAccountName'>
+        /// The name of the Microsoft Customer Agreement billing account for
+        /// which you want to create the subscription.
+        /// </param>
+        /// <param name='billingProfileName'>
+        /// The name of the billing profile in the billing account for which
+        /// you want to create the subscription.
+        /// </param>
+        /// <param name='invoiceSectionName'>
+        /// The name of the invoice section in the billing account for which
+        /// you want to create the subscription.
+        /// </param>
+        /// <param name='body'>
+        /// The subscription creation parameters.
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="ErrorResponseException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        Task<AzureOperationResponse<SubscriptionCreationResult,SubscriptionsCreateSubscriptionUnderBillingProfileHeaders>> CreateSubscriptionUnderBillingProfileWithHttpMessagesAsync(string billingAccountName, string billingProfileName, string invoiceSectionName, ModernSubscriptionCreationParameters body, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        /// <summary>
+        /// The operation to create a new CSP subscription.
+        /// </summary>
+        /// <param name='billingAccountName'>
+        /// The name of the Microsoft Customer Agreement billing account for
+        /// which you want to create the subscription.
+        /// </param>
+        /// <param name='customerName'>
+        /// The name of the customer.
+        /// </param>
+        /// <param name='body'>
+        /// The subscription creation parameters.
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="ErrorResponseException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        Task<AzureOperationResponse<SubscriptionCreationResult,SubscriptionsCreateCspSubscriptionHeaders>> CreateCspSubscriptionWithHttpMessagesAsync(string billingAccountName, string customerName, ModernCspSubscriptionCreationParameters body, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        /// <summary>
         /// Gets all available geo-locations.
         /// </summary>
         /// <remarks>
@@ -160,6 +254,100 @@ namespace Microsoft.Azure.Management.Subscription
         /// Thrown when a required parameter is null
         /// </exception>
         Task<AzureOperationResponse<IPage<SubscriptionModel>>> ListWithHttpMessagesAsync(Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        /// <summary>
+        /// The operation to create a new WebDirect or EA Azure subscription.
+        /// </summary>
+        /// <param name='billingAccountName'>
+        /// The name of the Microsoft Customer Agreement billing account for
+        /// which you want to create the subscription.
+        /// </param>
+        /// <param name='invoiceSectionName'>
+        /// The name of the invoice section in the billing account for which
+        /// you want to create the subscription.
+        /// </param>
+        /// <param name='body'>
+        /// The subscription creation parameters.
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="ErrorResponseException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        Task<AzureOperationResponse<SubscriptionCreationResult,SubscriptionsCreateSubscriptionHeaders>> BeginCreateSubscriptionWithHttpMessagesAsync(string billingAccountName, string invoiceSectionName, ModernSubscriptionCreationParameters body, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        /// <summary>
+        /// The operation to create a new WebDirect or EA Azure subscription
+        /// (under billingProfiles).
+        /// </summary>
+        /// <param name='billingAccountName'>
+        /// The name of the Microsoft Customer Agreement billing account for
+        /// which you want to create the subscription.
+        /// </param>
+        /// <param name='billingProfileName'>
+        /// The name of the billing profile in the billing account for which
+        /// you want to create the subscription.
+        /// </param>
+        /// <param name='invoiceSectionName'>
+        /// The name of the invoice section in the billing account for which
+        /// you want to create the subscription.
+        /// </param>
+        /// <param name='body'>
+        /// The subscription creation parameters.
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="ErrorResponseException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        Task<AzureOperationResponse<SubscriptionCreationResult,SubscriptionsCreateSubscriptionUnderBillingProfileHeaders>> BeginCreateSubscriptionUnderBillingProfileWithHttpMessagesAsync(string billingAccountName, string billingProfileName, string invoiceSectionName, ModernSubscriptionCreationParameters body, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        /// <summary>
+        /// The operation to create a new CSP subscription.
+        /// </summary>
+        /// <param name='billingAccountName'>
+        /// The name of the Microsoft Customer Agreement billing account for
+        /// which you want to create the subscription.
+        /// </param>
+        /// <param name='customerName'>
+        /// The name of the customer.
+        /// </param>
+        /// <param name='body'>
+        /// The subscription creation parameters.
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="ErrorResponseException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        Task<AzureOperationResponse<SubscriptionCreationResult,SubscriptionsCreateCspSubscriptionHeaders>> BeginCreateCspSubscriptionWithHttpMessagesAsync(string billingAccountName, string customerName, ModernCspSubscriptionCreationParameters body, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
         /// Gets all subscriptions for a tenant.
         /// </summary>
