@@ -24,36 +24,6 @@ namespace Microsoft.Azure.Management.Subscription
     public partial interface ISubscriptionFactoryOperations
     {
         /// <summary>
-        /// The operation to create a new Azure subscription
-        /// </summary>
-        /// <param name='billingAccountName'>
-        /// The name of the Microsoft Customer Agreement billing account for
-        /// which you want to create the subscription.
-        /// </param>
-        /// <param name='invoiceSectionName'>
-        /// The name of the invoice section in the billing account for which
-        /// you want to create the subscription.
-        /// </param>
-        /// <param name='body'>
-        /// The subscription creation parameters.
-        /// </param>
-        /// <param name='customHeaders'>
-        /// The headers that will be added to request.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        /// <exception cref="ErrorResponseException">
-        /// Thrown when the operation returned an invalid status code
-        /// </exception>
-        /// <exception cref="Microsoft.Rest.SerializationException">
-        /// Thrown when unable to deserialize the response
-        /// </exception>
-        /// <exception cref="Microsoft.Rest.ValidationException">
-        /// Thrown when a required parameter is null
-        /// </exception>
-        Task<AzureOperationResponse<SubscriptionCreationResult,SubscriptionFactoryCreateSubscriptionHeaders>> CreateSubscriptionWithHttpMessagesAsync(string billingAccountName, string invoiceSectionName, ModernSubscriptionCreationParameters body, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
-        /// <summary>
         /// Creates an Azure subscription
         /// </summary>
         /// <param name='enrollmentAccountName'>
@@ -79,36 +49,6 @@ namespace Microsoft.Azure.Management.Subscription
         /// Thrown when a required parameter is null
         /// </exception>
         Task<AzureOperationResponse<SubscriptionCreationResult,SubscriptionFactoryCreateSubscriptionInEnrollmentAccountHeaders>> CreateSubscriptionInEnrollmentAccountWithHttpMessagesAsync(string enrollmentAccountName, SubscriptionCreationParameters body, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
-        /// <summary>
-        /// The operation to create a new Azure subscription
-        /// </summary>
-        /// <param name='billingAccountName'>
-        /// The name of the Microsoft Customer Agreement billing account for
-        /// which you want to create the subscription.
-        /// </param>
-        /// <param name='invoiceSectionName'>
-        /// The name of the invoice section in the billing account for which
-        /// you want to create the subscription.
-        /// </param>
-        /// <param name='body'>
-        /// The subscription creation parameters.
-        /// </param>
-        /// <param name='customHeaders'>
-        /// The headers that will be added to request.
-        /// </param>
-        /// <param name='cancellationToken'>
-        /// The cancellation token.
-        /// </param>
-        /// <exception cref="ErrorResponseException">
-        /// Thrown when the operation returned an invalid status code
-        /// </exception>
-        /// <exception cref="Microsoft.Rest.SerializationException">
-        /// Thrown when unable to deserialize the response
-        /// </exception>
-        /// <exception cref="Microsoft.Rest.ValidationException">
-        /// Thrown when a required parameter is null
-        /// </exception>
-        Task<AzureOperationResponse<SubscriptionCreationResult,SubscriptionFactoryCreateSubscriptionHeaders>> BeginCreateSubscriptionWithHttpMessagesAsync(string billingAccountName, string invoiceSectionName, ModernSubscriptionCreationParameters body, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
         /// Creates an Azure subscription
         /// </summary>
