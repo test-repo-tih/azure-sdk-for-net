@@ -75,14 +75,14 @@ namespace Microsoft.Azure.Management.Subscription
         public virtual ISubscriptionOperationOperations SubscriptionOperation { get; private set; }
 
         /// <summary>
-        /// Gets the ISubscriptionFactoryOperations.
-        /// </summary>
-        public virtual ISubscriptionFactoryOperations SubscriptionFactory { get; private set; }
-
-        /// <summary>
         /// Gets the ISubscriptionOperations.
         /// </summary>
         public virtual ISubscriptionOperations SubscriptionOperations { get; private set; }
+
+        /// <summary>
+        /// Gets the ISubscriptionFactoryOperations.
+        /// </summary>
+        public virtual ISubscriptionFactoryOperations SubscriptionFactory { get; private set; }
 
         /// <summary>
         /// Gets the IOperations.
@@ -337,8 +337,8 @@ namespace Microsoft.Azure.Management.Subscription
         {
             Subscriptions = new SubscriptionsOperations(this);
             SubscriptionOperation = new SubscriptionOperationOperations(this);
-            SubscriptionFactory = new SubscriptionFactoryOperations(this);
             SubscriptionOperations = new SubscriptionOperations(this);
+            SubscriptionFactory = new SubscriptionFactoryOperations(this);
             Operations = new Operations(this);
             Tenants = new TenantsOperations(this);
             BaseUri = new System.Uri("https://management.azure.com");

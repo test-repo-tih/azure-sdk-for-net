@@ -22,56 +22,6 @@ namespace Microsoft.Azure.Management.Subscription
     public static partial class SubscriptionFactoryOperationsExtensions
     {
             /// <summary>
-            /// The operation to create a new Azure subscription
-            /// </summary>
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='billingAccountName'>
-            /// The name of the Microsoft Customer Agreement billing account for which you
-            /// want to create the subscription.
-            /// </param>
-            /// <param name='invoiceSectionName'>
-            /// The name of the invoice section in the billing account for which you want
-            /// to create the subscription.
-            /// </param>
-            /// <param name='body'>
-            /// The subscription creation parameters.
-            /// </param>
-            public static SubscriptionCreationResult CreateSubscription(this ISubscriptionFactoryOperations operations, string billingAccountName, string invoiceSectionName, ModernSubscriptionCreationParameters body)
-            {
-                return operations.CreateSubscriptionAsync(billingAccountName, invoiceSectionName, body).GetAwaiter().GetResult();
-            }
-
-            /// <summary>
-            /// The operation to create a new Azure subscription
-            /// </summary>
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='billingAccountName'>
-            /// The name of the Microsoft Customer Agreement billing account for which you
-            /// want to create the subscription.
-            /// </param>
-            /// <param name='invoiceSectionName'>
-            /// The name of the invoice section in the billing account for which you want
-            /// to create the subscription.
-            /// </param>
-            /// <param name='body'>
-            /// The subscription creation parameters.
-            /// </param>
-            /// <param name='cancellationToken'>
-            /// The cancellation token.
-            /// </param>
-            public static async Task<SubscriptionCreationResult> CreateSubscriptionAsync(this ISubscriptionFactoryOperations operations, string billingAccountName, string invoiceSectionName, ModernSubscriptionCreationParameters body, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                using (var _result = await operations.CreateSubscriptionWithHttpMessagesAsync(billingAccountName, invoiceSectionName, body, null, cancellationToken).ConfigureAwait(false))
-                {
-                    return _result.Body;
-                }
-            }
-
-            /// <summary>
             /// Creates an Azure subscription
             /// </summary>
             /// <param name='operations'>
@@ -108,56 +58,6 @@ namespace Microsoft.Azure.Management.Subscription
             public static async Task<SubscriptionCreationResult> CreateSubscriptionInEnrollmentAccountAsync(this ISubscriptionFactoryOperations operations, string enrollmentAccountName, SubscriptionCreationParameters body, CancellationToken cancellationToken = default(CancellationToken))
             {
                 using (var _result = await operations.CreateSubscriptionInEnrollmentAccountWithHttpMessagesAsync(enrollmentAccountName, body, null, cancellationToken).ConfigureAwait(false))
-                {
-                    return _result.Body;
-                }
-            }
-
-            /// <summary>
-            /// The operation to create a new Azure subscription
-            /// </summary>
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='billingAccountName'>
-            /// The name of the Microsoft Customer Agreement billing account for which you
-            /// want to create the subscription.
-            /// </param>
-            /// <param name='invoiceSectionName'>
-            /// The name of the invoice section in the billing account for which you want
-            /// to create the subscription.
-            /// </param>
-            /// <param name='body'>
-            /// The subscription creation parameters.
-            /// </param>
-            public static SubscriptionCreationResult BeginCreateSubscription(this ISubscriptionFactoryOperations operations, string billingAccountName, string invoiceSectionName, ModernSubscriptionCreationParameters body)
-            {
-                return operations.BeginCreateSubscriptionAsync(billingAccountName, invoiceSectionName, body).GetAwaiter().GetResult();
-            }
-
-            /// <summary>
-            /// The operation to create a new Azure subscription
-            /// </summary>
-            /// <param name='operations'>
-            /// The operations group for this extension method.
-            /// </param>
-            /// <param name='billingAccountName'>
-            /// The name of the Microsoft Customer Agreement billing account for which you
-            /// want to create the subscription.
-            /// </param>
-            /// <param name='invoiceSectionName'>
-            /// The name of the invoice section in the billing account for which you want
-            /// to create the subscription.
-            /// </param>
-            /// <param name='body'>
-            /// The subscription creation parameters.
-            /// </param>
-            /// <param name='cancellationToken'>
-            /// The cancellation token.
-            /// </param>
-            public static async Task<SubscriptionCreationResult> BeginCreateSubscriptionAsync(this ISubscriptionFactoryOperations operations, string billingAccountName, string invoiceSectionName, ModernSubscriptionCreationParameters body, CancellationToken cancellationToken = default(CancellationToken))
-            {
-                using (var _result = await operations.BeginCreateSubscriptionWithHttpMessagesAsync(billingAccountName, invoiceSectionName, body, null, cancellationToken).ConfigureAwait(false))
                 {
                     return _result.Body;
                 }
