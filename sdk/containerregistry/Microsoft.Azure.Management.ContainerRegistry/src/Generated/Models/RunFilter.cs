@@ -32,6 +32,8 @@ namespace Microsoft.Azure.Management.ContainerRegistry.Models
         /// <param name="runId">The unique identifier for the run.</param>
         /// <param name="runType">The type of run. Possible values include:
         /// 'QuickBuild', 'QuickRun', 'AutoBuild', 'AutoRun'</param>
+        /// <param name="taskRunName">The name of task run associated with this
+        /// run.</param>
         /// <param name="status">The current status of the run. Possible values
         /// include: 'Queued', 'Started', 'Running', 'Succeeded', 'Failed',
         /// 'Canceled', 'Error', 'Timeout'</param>
@@ -45,10 +47,11 @@ namespace Microsoft.Azure.Management.ContainerRegistry.Models
         /// archiving is enabled or not.</param>
         /// <param name="taskName">The name of the task that the run
         /// corresponds to.</param>
-        public RunFilter(string runId = default(string), string runType = default(string), string status = default(string), System.DateTime? createTime = default(System.DateTime?), System.DateTime? finishTime = default(System.DateTime?), string outputImageManifests = default(string), bool? isArchiveEnabled = default(bool?), string taskName = default(string))
+        public RunFilter(string runId = default(string), string runType = default(string), string taskRunName = default(string), string status = default(string), System.DateTime? createTime = default(System.DateTime?), System.DateTime? finishTime = default(System.DateTime?), string outputImageManifests = default(string), bool? isArchiveEnabled = default(bool?), string taskName = default(string))
         {
             RunId = runId;
             RunType = runType;
+            TaskRunName = taskRunName;
             Status = status;
             CreateTime = createTime;
             FinishTime = finishTime;
@@ -75,6 +78,12 @@ namespace Microsoft.Azure.Management.ContainerRegistry.Models
         /// </summary>
         [JsonProperty(PropertyName = "runType")]
         public string RunType { get; set; }
+
+        /// <summary>
+        /// Gets or sets the name of task run associated with this run.
+        /// </summary>
+        [JsonProperty(PropertyName = "taskRunName")]
+        public string TaskRunName { get; set; }
 
         /// <summary>
         /// Gets or sets the current status of the run. Possible values
