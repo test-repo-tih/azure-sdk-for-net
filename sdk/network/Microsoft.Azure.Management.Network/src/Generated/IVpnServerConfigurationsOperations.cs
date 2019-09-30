@@ -19,18 +19,18 @@ namespace Microsoft.Azure.Management.Network
     using System.Threading.Tasks;
 
     /// <summary>
-    /// VirtualWansOperations operations.
+    /// VpnServerConfigurationsOperations operations.
     /// </summary>
-    public partial interface IVirtualWansOperations
+    public partial interface IVpnServerConfigurationsOperations
     {
         /// <summary>
-        /// Retrieves the details of a VirtualWAN.
+        /// Retrieves the details of a VpnServerConfiguration.
         /// </summary>
         /// <param name='resourceGroupName'>
-        /// The resource group name of the VirtualWan.
+        /// The resource group name of the VpnServerConfiguration.
         /// </param>
-        /// <param name='virtualWANName'>
-        /// The name of the VirtualWAN being retrieved.
+        /// <param name='vpnServerConfigurationName'>
+        /// The name of the VpnServerConfiguration being retrieved.
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -38,7 +38,7 @@ namespace Microsoft.Azure.Management.Network
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        /// <exception cref="ErrorException">
+        /// <exception cref="Microsoft.Rest.Azure.CloudException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
         /// <exception cref="Microsoft.Rest.SerializationException">
@@ -47,19 +47,19 @@ namespace Microsoft.Azure.Management.Network
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<AzureOperationResponse<VirtualWAN>> GetWithHttpMessagesAsync(string resourceGroupName, string virtualWANName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<AzureOperationResponse<VpnServerConfiguration>> GetWithHttpMessagesAsync(string resourceGroupName, string vpnServerConfigurationName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
-        /// Creates a VirtualWAN resource if it doesn't exist else updates the
-        /// existing VirtualWAN.
+        /// Creates a VpnServerConfiguration resource if it doesn't exist else
+        /// updates the existing VpnServerConfiguration.
         /// </summary>
         /// <param name='resourceGroupName'>
-        /// The resource group name of the VirtualWan.
+        /// The resource group name of the VpnServerConfiguration.
         /// </param>
-        /// <param name='virtualWANName'>
-        /// The name of the VirtualWAN being created or updated.
+        /// <param name='vpnServerConfigurationName'>
+        /// The name of the VpnServerConfiguration being created or updated.
         /// </param>
-        /// <param name='wANParameters'>
-        /// Parameters supplied to create or update VirtualWAN.
+        /// <param name='vpnServerConfigurationParameters'>
+        /// Parameters supplied to create or update VpnServerConfiguration.
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -67,7 +67,7 @@ namespace Microsoft.Azure.Management.Network
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        /// <exception cref="ErrorException">
+        /// <exception cref="Microsoft.Rest.Azure.CloudException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
         /// <exception cref="Microsoft.Rest.SerializationException">
@@ -76,18 +76,18 @@ namespace Microsoft.Azure.Management.Network
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<AzureOperationResponse<VirtualWAN>> CreateOrUpdateWithHttpMessagesAsync(string resourceGroupName, string virtualWANName, VirtualWAN wANParameters, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<AzureOperationResponse<VpnServerConfiguration>> CreateOrUpdateWithHttpMessagesAsync(string resourceGroupName, string vpnServerConfigurationName, VpnServerConfiguration vpnServerConfigurationParameters, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
-        /// Updates a VirtualWAN tags.
+        /// Updates VpnServerConfiguration tags.
         /// </summary>
         /// <param name='resourceGroupName'>
-        /// The resource group name of the VirtualWan.
+        /// The resource group name of the VpnServerConfiguration.
         /// </param>
-        /// <param name='virtualWANName'>
-        /// The name of the VirtualWAN being updated.
+        /// <param name='vpnServerConfigurationName'>
+        /// The name of the VpnServerConfiguration being updated.
         /// </param>
-        /// <param name='wANParameters'>
-        /// Parameters supplied to Update VirtualWAN tags.
+        /// <param name='vpnServerConfigurationParameters'>
+        /// Parameters supplied to update VpnServerConfiguration tags.
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -95,7 +95,7 @@ namespace Microsoft.Azure.Management.Network
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        /// <exception cref="ErrorException">
+        /// <exception cref="Microsoft.Rest.Azure.CloudException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
         /// <exception cref="Microsoft.Rest.SerializationException">
@@ -104,15 +104,15 @@ namespace Microsoft.Azure.Management.Network
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<AzureOperationResponse<VirtualWAN>> UpdateTagsWithHttpMessagesAsync(string resourceGroupName, string virtualWANName, TagsObject wANParameters, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<AzureOperationResponse<VpnServerConfiguration>> UpdateTagsWithHttpMessagesAsync(string resourceGroupName, string vpnServerConfigurationName, TagsObject vpnServerConfigurationParameters, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
-        /// Deletes a VirtualWAN.
+        /// Deletes a VpnServerConfiguration.
         /// </summary>
         /// <param name='resourceGroupName'>
-        /// The resource group name of the VirtualWan.
+        /// The resource group name of the VpnServerConfiguration.
         /// </param>
-        /// <param name='virtualWANName'>
-        /// The name of the VirtualWAN being deleted.
+        /// <param name='vpnServerConfigurationName'>
+        /// The name of the VpnServerConfiguration being deleted.
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -120,18 +120,18 @@ namespace Microsoft.Azure.Management.Network
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        /// <exception cref="ErrorException">
+        /// <exception cref="Microsoft.Rest.Azure.CloudException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<AzureOperationResponse> DeleteWithHttpMessagesAsync(string resourceGroupName, string virtualWANName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<AzureOperationResponse> DeleteWithHttpMessagesAsync(string resourceGroupName, string vpnServerConfigurationName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
-        /// Lists all the VirtualWANs in a resource group.
+        /// Lists all the vpnServerConfigurations in a resource group.
         /// </summary>
         /// <param name='resourceGroupName'>
-        /// The resource group name of the VirtualWan.
+        /// The resource group name of the VpnServerConfiguration.
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -139,7 +139,7 @@ namespace Microsoft.Azure.Management.Network
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        /// <exception cref="ErrorException">
+        /// <exception cref="Microsoft.Rest.Azure.CloudException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
         /// <exception cref="Microsoft.Rest.SerializationException">
@@ -148,9 +148,9 @@ namespace Microsoft.Azure.Management.Network
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<AzureOperationResponse<IPage<VirtualWAN>>> ListByResourceGroupWithHttpMessagesAsync(string resourceGroupName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<AzureOperationResponse<IPage<VpnServerConfiguration>>> ListByResourceGroupWithHttpMessagesAsync(string resourceGroupName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
-        /// Lists all the VirtualWANs in a subscription.
+        /// Lists all the VpnServerConfigurations in a subscription.
         /// </summary>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -158,7 +158,7 @@ namespace Microsoft.Azure.Management.Network
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        /// <exception cref="ErrorException">
+        /// <exception cref="Microsoft.Rest.Azure.CloudException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
         /// <exception cref="Microsoft.Rest.SerializationException">
@@ -167,19 +167,19 @@ namespace Microsoft.Azure.Management.Network
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<AzureOperationResponse<IPage<VirtualWAN>>> ListWithHttpMessagesAsync(Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<AzureOperationResponse<IPage<VpnServerConfiguration>>> ListWithHttpMessagesAsync(Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
-        /// Creates a VirtualWAN resource if it doesn't exist else updates the
-        /// existing VirtualWAN.
+        /// Creates a VpnServerConfiguration resource if it doesn't exist else
+        /// updates the existing VpnServerConfiguration.
         /// </summary>
         /// <param name='resourceGroupName'>
-        /// The resource group name of the VirtualWan.
+        /// The resource group name of the VpnServerConfiguration.
         /// </param>
-        /// <param name='virtualWANName'>
-        /// The name of the VirtualWAN being created or updated.
+        /// <param name='vpnServerConfigurationName'>
+        /// The name of the VpnServerConfiguration being created or updated.
         /// </param>
-        /// <param name='wANParameters'>
-        /// Parameters supplied to create or update VirtualWAN.
+        /// <param name='vpnServerConfigurationParameters'>
+        /// Parameters supplied to create or update VpnServerConfiguration.
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -187,7 +187,7 @@ namespace Microsoft.Azure.Management.Network
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        /// <exception cref="ErrorException">
+        /// <exception cref="Microsoft.Rest.Azure.CloudException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
         /// <exception cref="Microsoft.Rest.SerializationException">
@@ -196,18 +196,18 @@ namespace Microsoft.Azure.Management.Network
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<AzureOperationResponse<VirtualWAN>> BeginCreateOrUpdateWithHttpMessagesAsync(string resourceGroupName, string virtualWANName, VirtualWAN wANParameters, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<AzureOperationResponse<VpnServerConfiguration>> BeginCreateOrUpdateWithHttpMessagesAsync(string resourceGroupName, string vpnServerConfigurationName, VpnServerConfiguration vpnServerConfigurationParameters, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
-        /// Updates a VirtualWAN tags.
+        /// Updates VpnServerConfiguration tags.
         /// </summary>
         /// <param name='resourceGroupName'>
-        /// The resource group name of the VirtualWan.
+        /// The resource group name of the VpnServerConfiguration.
         /// </param>
-        /// <param name='virtualWANName'>
-        /// The name of the VirtualWAN being updated.
+        /// <param name='vpnServerConfigurationName'>
+        /// The name of the VpnServerConfiguration being updated.
         /// </param>
-        /// <param name='wANParameters'>
-        /// Parameters supplied to Update VirtualWAN tags.
+        /// <param name='vpnServerConfigurationParameters'>
+        /// Parameters supplied to update VpnServerConfiguration tags.
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -215,7 +215,7 @@ namespace Microsoft.Azure.Management.Network
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        /// <exception cref="ErrorException">
+        /// <exception cref="Microsoft.Rest.Azure.CloudException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
         /// <exception cref="Microsoft.Rest.SerializationException">
@@ -224,15 +224,15 @@ namespace Microsoft.Azure.Management.Network
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<AzureOperationResponse<VirtualWAN>> BeginUpdateTagsWithHttpMessagesAsync(string resourceGroupName, string virtualWANName, TagsObject wANParameters, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<AzureOperationResponse<VpnServerConfiguration>> BeginUpdateTagsWithHttpMessagesAsync(string resourceGroupName, string vpnServerConfigurationName, TagsObject vpnServerConfigurationParameters, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
-        /// Deletes a VirtualWAN.
+        /// Deletes a VpnServerConfiguration.
         /// </summary>
         /// <param name='resourceGroupName'>
-        /// The resource group name of the VirtualWan.
+        /// The resource group name of the VpnServerConfiguration.
         /// </param>
-        /// <param name='virtualWANName'>
-        /// The name of the VirtualWAN being deleted.
+        /// <param name='vpnServerConfigurationName'>
+        /// The name of the VpnServerConfiguration being deleted.
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -240,15 +240,15 @@ namespace Microsoft.Azure.Management.Network
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        /// <exception cref="ErrorException">
+        /// <exception cref="Microsoft.Rest.Azure.CloudException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<AzureOperationResponse> BeginDeleteWithHttpMessagesAsync(string resourceGroupName, string virtualWANName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<AzureOperationResponse> BeginDeleteWithHttpMessagesAsync(string resourceGroupName, string vpnServerConfigurationName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
-        /// Lists all the VirtualWANs in a resource group.
+        /// Lists all the vpnServerConfigurations in a resource group.
         /// </summary>
         /// <param name='nextPageLink'>
         /// The NextLink from the previous successful call to List operation.
@@ -259,7 +259,7 @@ namespace Microsoft.Azure.Management.Network
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        /// <exception cref="ErrorException">
+        /// <exception cref="Microsoft.Rest.Azure.CloudException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
         /// <exception cref="Microsoft.Rest.SerializationException">
@@ -268,9 +268,9 @@ namespace Microsoft.Azure.Management.Network
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<AzureOperationResponse<IPage<VirtualWAN>>> ListByResourceGroupNextWithHttpMessagesAsync(string nextPageLink, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<AzureOperationResponse<IPage<VpnServerConfiguration>>> ListByResourceGroupNextWithHttpMessagesAsync(string nextPageLink, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
-        /// Lists all the VirtualWANs in a subscription.
+        /// Lists all the VpnServerConfigurations in a subscription.
         /// </summary>
         /// <param name='nextPageLink'>
         /// The NextLink from the previous successful call to List operation.
@@ -281,7 +281,7 @@ namespace Microsoft.Azure.Management.Network
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        /// <exception cref="ErrorException">
+        /// <exception cref="Microsoft.Rest.Azure.CloudException">
         /// Thrown when the operation returned an invalid status code
         /// </exception>
         /// <exception cref="Microsoft.Rest.SerializationException">
@@ -290,6 +290,6 @@ namespace Microsoft.Azure.Management.Network
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<AzureOperationResponse<IPage<VirtualWAN>>> ListNextWithHttpMessagesAsync(string nextPageLink, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<AzureOperationResponse<IPage<VpnServerConfiguration>>> ListNextWithHttpMessagesAsync(string nextPageLink, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
     }
 }
