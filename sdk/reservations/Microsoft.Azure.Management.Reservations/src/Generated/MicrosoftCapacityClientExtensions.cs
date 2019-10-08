@@ -19,9 +19,9 @@ namespace Microsoft.Azure.Management.Reservations
     using System.Threading.Tasks;
 
     /// <summary>
-    /// Extension methods for AzureReservationAPIClient.
+    /// Extension methods for MicrosoftCapacityClient.
     /// </summary>
-    public static partial class AzureReservationAPIClientExtensions
+    public static partial class MicrosoftCapacityClientExtensions
     {
             /// <summary>
             /// Get the regions and skus that are available for RI purchase for the
@@ -40,7 +40,7 @@ namespace Microsoft.Azure.Management.Reservations
             /// Filters the skus based on the location specified in this parameter. This
             /// can be an azure region or global
             /// </param>
-            public static IList<Catalog> GetCatalog(this IAzureReservationAPIClient operations, string subscriptionId, string reservedResourceType, string location = default(string))
+            public static IList<Catalog> GetCatalog(this IMicrosoftCapacityClient operations, string subscriptionId, string reservedResourceType, string location = default(string))
             {
                 return operations.GetCatalogAsync(subscriptionId, reservedResourceType, location).GetAwaiter().GetResult();
             }
@@ -65,7 +65,7 @@ namespace Microsoft.Azure.Management.Reservations
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<IList<Catalog>> GetCatalogAsync(this IAzureReservationAPIClient operations, string subscriptionId, string reservedResourceType, string location = default(string), CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<IList<Catalog>> GetCatalogAsync(this IMicrosoftCapacityClient operations, string subscriptionId, string reservedResourceType, string location = default(string), CancellationToken cancellationToken = default(CancellationToken))
             {
                 using (var _result = await operations.GetCatalogWithHttpMessagesAsync(subscriptionId, reservedResourceType, location, null, cancellationToken).ConfigureAwait(false))
                 {
@@ -86,7 +86,7 @@ namespace Microsoft.Azure.Management.Reservations
             /// <param name='subscriptionId'>
             /// Id of the subscription
             /// </param>
-            public static AppliedReservations GetAppliedReservationList(this IAzureReservationAPIClient operations, string subscriptionId)
+            public static AppliedReservations GetAppliedReservationList(this IMicrosoftCapacityClient operations, string subscriptionId)
             {
                 return operations.GetAppliedReservationListAsync(subscriptionId).GetAwaiter().GetResult();
             }
@@ -107,7 +107,7 @@ namespace Microsoft.Azure.Management.Reservations
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<AppliedReservations> GetAppliedReservationListAsync(this IAzureReservationAPIClient operations, string subscriptionId, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<AppliedReservations> GetAppliedReservationListAsync(this IMicrosoftCapacityClient operations, string subscriptionId, CancellationToken cancellationToken = default(CancellationToken))
             {
                 using (var _result = await operations.GetAppliedReservationListWithHttpMessagesAsync(subscriptionId, null, cancellationToken).ConfigureAwait(false))
                 {
