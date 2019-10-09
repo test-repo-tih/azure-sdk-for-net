@@ -22,6 +22,536 @@ namespace Microsoft.Azure.Management.FrontDoor
     public static partial class FrontDoorManagementClientExtensions
     {
             /// <summary>
+            /// Gets an NetworkExperiment Profile by ProfileName
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// Name of the Resource group within the Azure subscription.
+            /// </param>
+            /// <param name='profileName'>
+            /// The Profile identifier associated with the Tenant and Partner
+            /// </param>
+            public static Profile GetNetworkExperimentProfilesByProfileName(this IFrontDoorManagementClient operations, string resourceGroupName, string profileName)
+            {
+                return operations.GetNetworkExperimentProfilesByProfileNameAsync(resourceGroupName, profileName).GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// Gets an NetworkExperiment Profile by ProfileName
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// Name of the Resource group within the Azure subscription.
+            /// </param>
+            /// <param name='profileName'>
+            /// The Profile identifier associated with the Tenant and Partner
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<Profile> GetNetworkExperimentProfilesByProfileNameAsync(this IFrontDoorManagementClient operations, string resourceGroupName, string profileName, CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.GetNetworkExperimentProfilesByProfileNameWithHttpMessagesAsync(resourceGroupName, profileName, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
+            /// <summary>
+            /// Creates an NetworkExperiment Profile
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='profileName'>
+            /// The Profile identifier associated with the Tenant and Partner
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// Name of the Resource group within the Azure subscription.
+            /// </param>
+            /// <param name='parameters'>
+            /// An Network Experiment Profile
+            /// </param>
+            public static Profile CreateOrUpdateNetworkExperimentProfiles(this IFrontDoorManagementClient operations, string profileName, string resourceGroupName, Profile parameters)
+            {
+                return operations.CreateOrUpdateNetworkExperimentProfilesAsync(profileName, resourceGroupName, parameters).GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// Creates an NetworkExperiment Profile
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='profileName'>
+            /// The Profile identifier associated with the Tenant and Partner
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// Name of the Resource group within the Azure subscription.
+            /// </param>
+            /// <param name='parameters'>
+            /// An Network Experiment Profile
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<Profile> CreateOrUpdateNetworkExperimentProfilesAsync(this IFrontDoorManagementClient operations, string profileName, string resourceGroupName, Profile parameters, CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.CreateOrUpdateNetworkExperimentProfilesWithHttpMessagesAsync(profileName, resourceGroupName, parameters, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
+            /// <summary>
+            /// Updates an NetworkExperimentProfiles by NetworkExperimentProfile name
+            /// </summary>
+            /// <remarks>
+            /// Updates an NetworkExperimentProfiles
+            /// </remarks>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// Name of the Resource group within the Azure subscription.
+            /// </param>
+            /// <param name='profileName'>
+            /// The Profile identifier associated with the Tenant and Partner
+            /// </param>
+            /// <param name='parameters'>
+            /// The Profile Update Model
+            /// </param>
+            public static Profile UpdateNetworkExperimentProfilesByProfilesName(this IFrontDoorManagementClient operations, string resourceGroupName, string profileName, ProfileUpdateModel parameters)
+            {
+                return operations.UpdateNetworkExperimentProfilesByProfilesNameAsync(resourceGroupName, profileName, parameters).GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// Updates an NetworkExperimentProfiles by NetworkExperimentProfile name
+            /// </summary>
+            /// <remarks>
+            /// Updates an NetworkExperimentProfiles
+            /// </remarks>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// Name of the Resource group within the Azure subscription.
+            /// </param>
+            /// <param name='profileName'>
+            /// The Profile identifier associated with the Tenant and Partner
+            /// </param>
+            /// <param name='parameters'>
+            /// The Profile Update Model
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<Profile> UpdateNetworkExperimentProfilesByProfilesNameAsync(this IFrontDoorManagementClient operations, string resourceGroupName, string profileName, ProfileUpdateModel parameters, CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.UpdateNetworkExperimentProfilesByProfilesNameWithHttpMessagesAsync(resourceGroupName, profileName, parameters, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
+            /// <summary>
+            /// Deletes an NetworkExperiment Profile by ProfileName
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// Name of the Resource group within the Azure subscription.
+            /// </param>
+            /// <param name='profileName'>
+            /// The Profile identifier associated with the Tenant and Partner
+            /// </param>
+            public static void DeleteNetworkExperimentProfiles(this IFrontDoorManagementClient operations, string resourceGroupName, string profileName)
+            {
+                operations.DeleteNetworkExperimentProfilesAsync(resourceGroupName, profileName).GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// Deletes an NetworkExperiment Profile by ProfileName
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// Name of the Resource group within the Azure subscription.
+            /// </param>
+            /// <param name='profileName'>
+            /// The Profile identifier associated with the Tenant and Partner
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task DeleteNetworkExperimentProfilesAsync(this IFrontDoorManagementClient operations, string resourceGroupName, string profileName, CancellationToken cancellationToken = default(CancellationToken))
+            {
+                (await operations.DeleteNetworkExperimentProfilesWithHttpMessagesAsync(resourceGroupName, profileName, null, cancellationToken).ConfigureAwait(false)).Dispose();
+            }
+
+            /// <summary>
+            /// Gets an Experiment by ExperimentName
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// Name of the Resource group within the Azure subscription.
+            /// </param>
+            /// <param name='profileName'>
+            /// The Profile identifier associated with the Tenant and Partner
+            /// </param>
+            /// <param name='experimentName'>
+            /// The Experiment identifier associated with the Experiment
+            /// </param>
+            public static Experiment GetExperimentsByExperimentName(this IFrontDoorManagementClient operations, string resourceGroupName, string profileName, string experimentName)
+            {
+                return operations.GetExperimentsByExperimentNameAsync(resourceGroupName, profileName, experimentName).GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// Gets an Experiment by ExperimentName
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// Name of the Resource group within the Azure subscription.
+            /// </param>
+            /// <param name='profileName'>
+            /// The Profile identifier associated with the Tenant and Partner
+            /// </param>
+            /// <param name='experimentName'>
+            /// The Experiment identifier associated with the Experiment
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<Experiment> GetExperimentsByExperimentNameAsync(this IFrontDoorManagementClient operations, string resourceGroupName, string profileName, string experimentName, CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.GetExperimentsByExperimentNameWithHttpMessagesAsync(resourceGroupName, profileName, experimentName, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
+            /// <summary>
+            /// Creates or updates an Experiment
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// Name of the Resource group within the Azure subscription.
+            /// </param>
+            /// <param name='profileName'>
+            /// The Profile identifier associated with the Tenant and Partner
+            /// </param>
+            /// <param name='experimentName'>
+            /// The Experiment identifier associated with the Experiment
+            /// </param>
+            /// <param name='parameters'>
+            /// The Experiment resource
+            /// </param>
+            public static Experiment CreateOrUpdateExperiments(this IFrontDoorManagementClient operations, string resourceGroupName, string profileName, string experimentName, Experiment parameters)
+            {
+                return operations.CreateOrUpdateExperimentsAsync(resourceGroupName, profileName, experimentName, parameters).GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// Creates or updates an Experiment
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// Name of the Resource group within the Azure subscription.
+            /// </param>
+            /// <param name='profileName'>
+            /// The Profile identifier associated with the Tenant and Partner
+            /// </param>
+            /// <param name='experimentName'>
+            /// The Experiment identifier associated with the Experiment
+            /// </param>
+            /// <param name='parameters'>
+            /// The Experiment resource
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<Experiment> CreateOrUpdateExperimentsAsync(this IFrontDoorManagementClient operations, string resourceGroupName, string profileName, string experimentName, Experiment parameters, CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.CreateOrUpdateExperimentsWithHttpMessagesAsync(resourceGroupName, profileName, experimentName, parameters, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
+            /// <summary>
+            /// Updates an Experiment by Experiment id
+            /// </summary>
+            /// <remarks>
+            /// Updates an Experiment
+            /// </remarks>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// Name of the Resource group within the Azure subscription.
+            /// </param>
+            /// <param name='profileName'>
+            /// The Profile identifier associated with the Tenant and Partner
+            /// </param>
+            /// <param name='experimentName'>
+            /// The Experiment identifier associated with the Experiment
+            /// </param>
+            /// <param name='parameters'>
+            /// The Experiment Update Model
+            /// </param>
+            public static Experiment UpdateExperimentsByExperimentName(this IFrontDoorManagementClient operations, string resourceGroupName, string profileName, string experimentName, ExperimentUpdateModel parameters)
+            {
+                return operations.UpdateExperimentsByExperimentNameAsync(resourceGroupName, profileName, experimentName, parameters).GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// Updates an Experiment by Experiment id
+            /// </summary>
+            /// <remarks>
+            /// Updates an Experiment
+            /// </remarks>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// Name of the Resource group within the Azure subscription.
+            /// </param>
+            /// <param name='profileName'>
+            /// The Profile identifier associated with the Tenant and Partner
+            /// </param>
+            /// <param name='experimentName'>
+            /// The Experiment identifier associated with the Experiment
+            /// </param>
+            /// <param name='parameters'>
+            /// The Experiment Update Model
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<Experiment> UpdateExperimentsByExperimentNameAsync(this IFrontDoorManagementClient operations, string resourceGroupName, string profileName, string experimentName, ExperimentUpdateModel parameters, CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.UpdateExperimentsByExperimentNameWithHttpMessagesAsync(resourceGroupName, profileName, experimentName, parameters, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
+            /// <summary>
+            /// Deletes an Experiment
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// Name of the Resource group within the Azure subscription.
+            /// </param>
+            /// <param name='profileName'>
+            /// The Profile identifier associated with the Tenant and Partner
+            /// </param>
+            /// <param name='experimentName'>
+            /// The Experiment identifier associated with the Experiment
+            /// </param>
+            public static void DeleteExperiments(this IFrontDoorManagementClient operations, string resourceGroupName, string profileName, string experimentName)
+            {
+                operations.DeleteExperimentsAsync(resourceGroupName, profileName, experimentName).GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// Deletes an Experiment
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// Name of the Resource group within the Azure subscription.
+            /// </param>
+            /// <param name='profileName'>
+            /// The Profile identifier associated with the Tenant and Partner
+            /// </param>
+            /// <param name='experimentName'>
+            /// The Experiment identifier associated with the Experiment
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task DeleteExperimentsAsync(this IFrontDoorManagementClient operations, string resourceGroupName, string profileName, string experimentName, CancellationToken cancellationToken = default(CancellationToken))
+            {
+                (await operations.DeleteExperimentsWithHttpMessagesAsync(resourceGroupName, profileName, experimentName, null, cancellationToken).ConfigureAwait(false)).Dispose();
+            }
+
+            /// <summary>
+            /// Gets a Latency Scorecard for a given Experiment
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// Name of the Resource group within the Azure subscription.
+            /// </param>
+            /// <param name='profileName'>
+            /// The Profile identifier associated with the Tenant and Partner
+            /// </param>
+            /// <param name='experimentName'>
+            /// The Experiment identifier associated with the Experiment
+            /// </param>
+            /// <param name='aggregationInterval'>
+            /// The aggregation interval of the Latency Scorecard. Possible values include:
+            /// 'Daily', 'Weekly', 'Monthly'
+            /// </param>
+            /// <param name='endDateTimeUTC'>
+            /// The end DateTime of the Latency Scorecard in UTC
+            /// </param>
+            /// <param name='country'>
+            /// The country associated with the Latency Scorecard. Values are country ISO
+            /// codes as specified here- https://www.iso.org/iso-3166-country-codes.html
+            /// </param>
+            public static LatencyScorecard GetLatencyScorecards(this IFrontDoorManagementClient operations, string resourceGroupName, string profileName, string experimentName, string aggregationInterval, string endDateTimeUTC = default(string), string country = default(string))
+            {
+                return operations.GetLatencyScorecardsAsync(resourceGroupName, profileName, experimentName, aggregationInterval, endDateTimeUTC, country).GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// Gets a Latency Scorecard for a given Experiment
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// Name of the Resource group within the Azure subscription.
+            /// </param>
+            /// <param name='profileName'>
+            /// The Profile identifier associated with the Tenant and Partner
+            /// </param>
+            /// <param name='experimentName'>
+            /// The Experiment identifier associated with the Experiment
+            /// </param>
+            /// <param name='aggregationInterval'>
+            /// The aggregation interval of the Latency Scorecard. Possible values include:
+            /// 'Daily', 'Weekly', 'Monthly'
+            /// </param>
+            /// <param name='endDateTimeUTC'>
+            /// The end DateTime of the Latency Scorecard in UTC
+            /// </param>
+            /// <param name='country'>
+            /// The country associated with the Latency Scorecard. Values are country ISO
+            /// codes as specified here- https://www.iso.org/iso-3166-country-codes.html
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<LatencyScorecard> GetLatencyScorecardsAsync(this IFrontDoorManagementClient operations, string resourceGroupName, string profileName, string experimentName, string aggregationInterval, string endDateTimeUTC = default(string), string country = default(string), CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.GetLatencyScorecardsWithHttpMessagesAsync(resourceGroupName, profileName, experimentName, aggregationInterval, endDateTimeUTC, country, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
+            /// <summary>
+            /// Gets a Timeseries for a given Experiment
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// Name of the Resource group within the Azure subscription.
+            /// </param>
+            /// <param name='profileName'>
+            /// The Profile identifier associated with the Tenant and Partner
+            /// </param>
+            /// <param name='experimentName'>
+            /// The Experiment identifier associated with the Experiment
+            /// </param>
+            /// <param name='startDateTimeUTC'>
+            /// The start DateTime of the Timeseries in UTC
+            /// </param>
+            /// <param name='endDateTimeUTC'>
+            /// The end DateTime of the Timeseries in UTC
+            /// </param>
+            /// <param name='aggregationInterval'>
+            /// The aggregation interval of the Timeseries. Possible values include:
+            /// 'Hourly', 'Daily'
+            /// </param>
+            /// <param name='timeseriesType'>
+            /// The type of Timeseries. Possible values include: 'MeasurementCounts',
+            /// 'LatencyP50', 'LatencyP75', 'LatencyP95'
+            /// </param>
+            /// <param name='endpoint'>
+            /// The specific endpoint
+            /// </param>
+            /// <param name='country'>
+            /// The country associated with the Timeseries. Values are country ISO codes as
+            /// specified here- https://www.iso.org/iso-3166-country-codes.html
+            /// </param>
+            public static Timeseries GetTimeseries(this IFrontDoorManagementClient operations, string resourceGroupName, string profileName, string experimentName, System.DateTime startDateTimeUTC, System.DateTime endDateTimeUTC, string aggregationInterval, string timeseriesType, string endpoint = default(string), string country = default(string))
+            {
+                return operations.GetTimeseriesAsync(resourceGroupName, profileName, experimentName, startDateTimeUTC, endDateTimeUTC, aggregationInterval, timeseriesType, endpoint, country).GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// Gets a Timeseries for a given Experiment
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// Name of the Resource group within the Azure subscription.
+            /// </param>
+            /// <param name='profileName'>
+            /// The Profile identifier associated with the Tenant and Partner
+            /// </param>
+            /// <param name='experimentName'>
+            /// The Experiment identifier associated with the Experiment
+            /// </param>
+            /// <param name='startDateTimeUTC'>
+            /// The start DateTime of the Timeseries in UTC
+            /// </param>
+            /// <param name='endDateTimeUTC'>
+            /// The end DateTime of the Timeseries in UTC
+            /// </param>
+            /// <param name='aggregationInterval'>
+            /// The aggregation interval of the Timeseries. Possible values include:
+            /// 'Hourly', 'Daily'
+            /// </param>
+            /// <param name='timeseriesType'>
+            /// The type of Timeseries. Possible values include: 'MeasurementCounts',
+            /// 'LatencyP50', 'LatencyP75', 'LatencyP95'
+            /// </param>
+            /// <param name='endpoint'>
+            /// The specific endpoint
+            /// </param>
+            /// <param name='country'>
+            /// The country associated with the Timeseries. Values are country ISO codes as
+            /// specified here- https://www.iso.org/iso-3166-country-codes.html
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<Timeseries> GetTimeseriesAsync(this IFrontDoorManagementClient operations, string resourceGroupName, string profileName, string experimentName, System.DateTime startDateTimeUTC, System.DateTime endDateTimeUTC, string aggregationInterval, string timeseriesType, string endpoint = default(string), string country = default(string), CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.GetTimeseriesWithHttpMessagesAsync(resourceGroupName, profileName, experimentName, startDateTimeUTC, endDateTimeUTC, aggregationInterval, timeseriesType, endpoint, country, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
+            /// <summary>
             /// Check the availability of a Front Door resource name.
             /// </summary>
             /// <param name='operations'>
@@ -87,6 +617,294 @@ namespace Microsoft.Azure.Management.FrontDoor
                 {
                     return _result.Body;
                 }
+            }
+
+            /// <summary>
+            /// Creates an NetworkExperiment Profile
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='profileName'>
+            /// The Profile identifier associated with the Tenant and Partner
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// Name of the Resource group within the Azure subscription.
+            /// </param>
+            /// <param name='parameters'>
+            /// An Network Experiment Profile
+            /// </param>
+            public static Profile BeginCreateOrUpdateNetworkExperimentProfiles(this IFrontDoorManagementClient operations, string profileName, string resourceGroupName, Profile parameters)
+            {
+                return operations.BeginCreateOrUpdateNetworkExperimentProfilesAsync(profileName, resourceGroupName, parameters).GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// Creates an NetworkExperiment Profile
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='profileName'>
+            /// The Profile identifier associated with the Tenant and Partner
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// Name of the Resource group within the Azure subscription.
+            /// </param>
+            /// <param name='parameters'>
+            /// An Network Experiment Profile
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<Profile> BeginCreateOrUpdateNetworkExperimentProfilesAsync(this IFrontDoorManagementClient operations, string profileName, string resourceGroupName, Profile parameters, CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.BeginCreateOrUpdateNetworkExperimentProfilesWithHttpMessagesAsync(profileName, resourceGroupName, parameters, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
+            /// <summary>
+            /// Updates an NetworkExperimentProfiles by NetworkExperimentProfile name
+            /// </summary>
+            /// <remarks>
+            /// Updates an NetworkExperimentProfiles
+            /// </remarks>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// Name of the Resource group within the Azure subscription.
+            /// </param>
+            /// <param name='profileName'>
+            /// The Profile identifier associated with the Tenant and Partner
+            /// </param>
+            /// <param name='parameters'>
+            /// The Profile Update Model
+            /// </param>
+            public static Profile BeginUpdateNetworkExperimentProfilesByProfilesName(this IFrontDoorManagementClient operations, string resourceGroupName, string profileName, ProfileUpdateModel parameters)
+            {
+                return operations.BeginUpdateNetworkExperimentProfilesByProfilesNameAsync(resourceGroupName, profileName, parameters).GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// Updates an NetworkExperimentProfiles by NetworkExperimentProfile name
+            /// </summary>
+            /// <remarks>
+            /// Updates an NetworkExperimentProfiles
+            /// </remarks>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// Name of the Resource group within the Azure subscription.
+            /// </param>
+            /// <param name='profileName'>
+            /// The Profile identifier associated with the Tenant and Partner
+            /// </param>
+            /// <param name='parameters'>
+            /// The Profile Update Model
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<Profile> BeginUpdateNetworkExperimentProfilesByProfilesNameAsync(this IFrontDoorManagementClient operations, string resourceGroupName, string profileName, ProfileUpdateModel parameters, CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.BeginUpdateNetworkExperimentProfilesByProfilesNameWithHttpMessagesAsync(resourceGroupName, profileName, parameters, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
+            /// <summary>
+            /// Deletes an NetworkExperiment Profile by ProfileName
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// Name of the Resource group within the Azure subscription.
+            /// </param>
+            /// <param name='profileName'>
+            /// The Profile identifier associated with the Tenant and Partner
+            /// </param>
+            public static void BeginDeleteNetworkExperimentProfiles(this IFrontDoorManagementClient operations, string resourceGroupName, string profileName)
+            {
+                operations.BeginDeleteNetworkExperimentProfilesAsync(resourceGroupName, profileName).GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// Deletes an NetworkExperiment Profile by ProfileName
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// Name of the Resource group within the Azure subscription.
+            /// </param>
+            /// <param name='profileName'>
+            /// The Profile identifier associated with the Tenant and Partner
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task BeginDeleteNetworkExperimentProfilesAsync(this IFrontDoorManagementClient operations, string resourceGroupName, string profileName, CancellationToken cancellationToken = default(CancellationToken))
+            {
+                (await operations.BeginDeleteNetworkExperimentProfilesWithHttpMessagesAsync(resourceGroupName, profileName, null, cancellationToken).ConfigureAwait(false)).Dispose();
+            }
+
+            /// <summary>
+            /// Creates or updates an Experiment
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// Name of the Resource group within the Azure subscription.
+            /// </param>
+            /// <param name='profileName'>
+            /// The Profile identifier associated with the Tenant and Partner
+            /// </param>
+            /// <param name='experimentName'>
+            /// The Experiment identifier associated with the Experiment
+            /// </param>
+            /// <param name='parameters'>
+            /// The Experiment resource
+            /// </param>
+            public static Experiment BeginCreateOrUpdateExperiments(this IFrontDoorManagementClient operations, string resourceGroupName, string profileName, string experimentName, Experiment parameters)
+            {
+                return operations.BeginCreateOrUpdateExperimentsAsync(resourceGroupName, profileName, experimentName, parameters).GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// Creates or updates an Experiment
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// Name of the Resource group within the Azure subscription.
+            /// </param>
+            /// <param name='profileName'>
+            /// The Profile identifier associated with the Tenant and Partner
+            /// </param>
+            /// <param name='experimentName'>
+            /// The Experiment identifier associated with the Experiment
+            /// </param>
+            /// <param name='parameters'>
+            /// The Experiment resource
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<Experiment> BeginCreateOrUpdateExperimentsAsync(this IFrontDoorManagementClient operations, string resourceGroupName, string profileName, string experimentName, Experiment parameters, CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.BeginCreateOrUpdateExperimentsWithHttpMessagesAsync(resourceGroupName, profileName, experimentName, parameters, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
+            /// <summary>
+            /// Updates an Experiment by Experiment id
+            /// </summary>
+            /// <remarks>
+            /// Updates an Experiment
+            /// </remarks>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// Name of the Resource group within the Azure subscription.
+            /// </param>
+            /// <param name='profileName'>
+            /// The Profile identifier associated with the Tenant and Partner
+            /// </param>
+            /// <param name='experimentName'>
+            /// The Experiment identifier associated with the Experiment
+            /// </param>
+            /// <param name='parameters'>
+            /// The Experiment Update Model
+            /// </param>
+            public static Experiment BeginUpdateExperimentsByExperimentName(this IFrontDoorManagementClient operations, string resourceGroupName, string profileName, string experimentName, ExperimentUpdateModel parameters)
+            {
+                return operations.BeginUpdateExperimentsByExperimentNameAsync(resourceGroupName, profileName, experimentName, parameters).GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// Updates an Experiment by Experiment id
+            /// </summary>
+            /// <remarks>
+            /// Updates an Experiment
+            /// </remarks>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// Name of the Resource group within the Azure subscription.
+            /// </param>
+            /// <param name='profileName'>
+            /// The Profile identifier associated with the Tenant and Partner
+            /// </param>
+            /// <param name='experimentName'>
+            /// The Experiment identifier associated with the Experiment
+            /// </param>
+            /// <param name='parameters'>
+            /// The Experiment Update Model
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<Experiment> BeginUpdateExperimentsByExperimentNameAsync(this IFrontDoorManagementClient operations, string resourceGroupName, string profileName, string experimentName, ExperimentUpdateModel parameters, CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.BeginUpdateExperimentsByExperimentNameWithHttpMessagesAsync(resourceGroupName, profileName, experimentName, parameters, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
+            /// <summary>
+            /// Deletes an Experiment
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// Name of the Resource group within the Azure subscription.
+            /// </param>
+            /// <param name='profileName'>
+            /// The Profile identifier associated with the Tenant and Partner
+            /// </param>
+            /// <param name='experimentName'>
+            /// The Experiment identifier associated with the Experiment
+            /// </param>
+            public static void BeginDeleteExperiments(this IFrontDoorManagementClient operations, string resourceGroupName, string profileName, string experimentName)
+            {
+                operations.BeginDeleteExperimentsAsync(resourceGroupName, profileName, experimentName).GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// Deletes an Experiment
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='resourceGroupName'>
+            /// Name of the Resource group within the Azure subscription.
+            /// </param>
+            /// <param name='profileName'>
+            /// The Profile identifier associated with the Tenant and Partner
+            /// </param>
+            /// <param name='experimentName'>
+            /// The Experiment identifier associated with the Experiment
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task BeginDeleteExperimentsAsync(this IFrontDoorManagementClient operations, string resourceGroupName, string profileName, string experimentName, CancellationToken cancellationToken = default(CancellationToken))
+            {
+                (await operations.BeginDeleteExperimentsWithHttpMessagesAsync(resourceGroupName, profileName, experimentName, null, cancellationToken).ConfigureAwait(false)).Dispose();
             }
 
     }

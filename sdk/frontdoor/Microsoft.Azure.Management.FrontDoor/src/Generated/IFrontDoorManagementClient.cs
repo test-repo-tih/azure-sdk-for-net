@@ -71,29 +71,24 @@ namespace Microsoft.Azure.Management.FrontDoor
 
 
         /// <summary>
+        /// Gets the IProfilesOperations.
+        /// </summary>
+        IProfilesOperations Profiles { get; }
+
+        /// <summary>
+        /// Gets the IPreconfiguredEndpointsOperations.
+        /// </summary>
+        IPreconfiguredEndpointsOperations PreconfiguredEndpoints { get; }
+
+        /// <summary>
+        /// Gets the IExperimentsOperations.
+        /// </summary>
+        IExperimentsOperations Experiments { get; }
+
+        /// <summary>
         /// Gets the IFrontDoorsOperations.
         /// </summary>
         IFrontDoorsOperations FrontDoors { get; }
-
-        /// <summary>
-        /// Gets the IRoutingRulesOperations.
-        /// </summary>
-        IRoutingRulesOperations RoutingRules { get; }
-
-        /// <summary>
-        /// Gets the IHealthProbeSettingsOperations.
-        /// </summary>
-        IHealthProbeSettingsOperations HealthProbeSettings { get; }
-
-        /// <summary>
-        /// Gets the ILoadBalancingSettingsOperations.
-        /// </summary>
-        ILoadBalancingSettingsOperations LoadBalancingSettings { get; }
-
-        /// <summary>
-        /// Gets the IBackendPoolsOperations.
-        /// </summary>
-        IBackendPoolsOperations BackendPools { get; }
 
         /// <summary>
         /// Gets the IFrontendEndpointsOperations.
@@ -114,6 +109,247 @@ namespace Microsoft.Azure.Management.FrontDoor
         /// Gets the IManagedRuleSetsOperations.
         /// </summary>
         IManagedRuleSetsOperations ManagedRuleSets { get; }
+
+        /// <summary>
+        /// Gets an NetworkExperiment Profile by ProfileName
+        /// </summary>
+        /// <param name='resourceGroupName'>
+        /// Name of the Resource group within the Azure subscription.
+        /// </param>
+        /// <param name='profileName'>
+        /// The Profile identifier associated with the Tenant and Partner
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        Task<AzureOperationResponse<Profile>> GetNetworkExperimentProfilesByProfileNameWithHttpMessagesAsync(string resourceGroupName, string profileName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+
+        /// <summary>
+        /// Creates an NetworkExperiment Profile
+        /// </summary>
+        /// <param name='profileName'>
+        /// The Profile identifier associated with the Tenant and Partner
+        /// </param>
+        /// <param name='resourceGroupName'>
+        /// Name of the Resource group within the Azure subscription.
+        /// </param>
+        /// <param name='parameters'>
+        /// An Network Experiment Profile
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        Task<AzureOperationResponse<Profile>> CreateOrUpdateNetworkExperimentProfilesWithHttpMessagesAsync(string profileName, string resourceGroupName, Profile parameters, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+
+        /// <summary>
+        /// Updates an NetworkExperimentProfiles by NetworkExperimentProfile
+        /// name
+        /// </summary>
+        /// <remarks>
+        /// Updates an NetworkExperimentProfiles
+        /// </remarks>
+        /// <param name='resourceGroupName'>
+        /// Name of the Resource group within the Azure subscription.
+        /// </param>
+        /// <param name='profileName'>
+        /// The Profile identifier associated with the Tenant and Partner
+        /// </param>
+        /// <param name='parameters'>
+        /// The Profile Update Model
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        Task<AzureOperationResponse<Profile>> UpdateNetworkExperimentProfilesByProfilesNameWithHttpMessagesAsync(string resourceGroupName, string profileName, ProfileUpdateModel parameters, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+
+        /// <summary>
+        /// Deletes an NetworkExperiment Profile by ProfileName
+        /// </summary>
+        /// <param name='resourceGroupName'>
+        /// Name of the Resource group within the Azure subscription.
+        /// </param>
+        /// <param name='profileName'>
+        /// The Profile identifier associated with the Tenant and Partner
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        Task<AzureOperationResponse> DeleteNetworkExperimentProfilesWithHttpMessagesAsync(string resourceGroupName, string profileName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+
+        /// <summary>
+        /// Gets an Experiment by ExperimentName
+        /// </summary>
+        /// <param name='resourceGroupName'>
+        /// Name of the Resource group within the Azure subscription.
+        /// </param>
+        /// <param name='profileName'>
+        /// The Profile identifier associated with the Tenant and Partner
+        /// </param>
+        /// <param name='experimentName'>
+        /// The Experiment identifier associated with the Experiment
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        Task<AzureOperationResponse<Experiment>> GetExperimentsByExperimentNameWithHttpMessagesAsync(string resourceGroupName, string profileName, string experimentName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+
+        /// <summary>
+        /// Creates or updates an Experiment
+        /// </summary>
+        /// <param name='resourceGroupName'>
+        /// Name of the Resource group within the Azure subscription.
+        /// </param>
+        /// <param name='profileName'>
+        /// The Profile identifier associated with the Tenant and Partner
+        /// </param>
+        /// <param name='experimentName'>
+        /// The Experiment identifier associated with the Experiment
+        /// </param>
+        /// <param name='parameters'>
+        /// The Experiment resource
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        Task<AzureOperationResponse<Experiment>> CreateOrUpdateExperimentsWithHttpMessagesAsync(string resourceGroupName, string profileName, string experimentName, Experiment parameters, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+
+        /// <summary>
+        /// Updates an Experiment by Experiment id
+        /// </summary>
+        /// <remarks>
+        /// Updates an Experiment
+        /// </remarks>
+        /// <param name='resourceGroupName'>
+        /// Name of the Resource group within the Azure subscription.
+        /// </param>
+        /// <param name='profileName'>
+        /// The Profile identifier associated with the Tenant and Partner
+        /// </param>
+        /// <param name='experimentName'>
+        /// The Experiment identifier associated with the Experiment
+        /// </param>
+        /// <param name='parameters'>
+        /// The Experiment Update Model
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        Task<AzureOperationResponse<Experiment>> UpdateExperimentsByExperimentNameWithHttpMessagesAsync(string resourceGroupName, string profileName, string experimentName, ExperimentUpdateModel parameters, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+
+        /// <summary>
+        /// Deletes an Experiment
+        /// </summary>
+        /// <param name='resourceGroupName'>
+        /// Name of the Resource group within the Azure subscription.
+        /// </param>
+        /// <param name='profileName'>
+        /// The Profile identifier associated with the Tenant and Partner
+        /// </param>
+        /// <param name='experimentName'>
+        /// The Experiment identifier associated with the Experiment
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        Task<AzureOperationResponse> DeleteExperimentsWithHttpMessagesAsync(string resourceGroupName, string profileName, string experimentName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+
+        /// <summary>
+        /// Gets a Latency Scorecard for a given Experiment
+        /// </summary>
+        /// <param name='resourceGroupName'>
+        /// Name of the Resource group within the Azure subscription.
+        /// </param>
+        /// <param name='profileName'>
+        /// The Profile identifier associated with the Tenant and Partner
+        /// </param>
+        /// <param name='experimentName'>
+        /// The Experiment identifier associated with the Experiment
+        /// </param>
+        /// <param name='aggregationInterval'>
+        /// The aggregation interval of the Latency Scorecard. Possible values
+        /// include: 'Daily', 'Weekly', 'Monthly'
+        /// </param>
+        /// <param name='endDateTimeUTC'>
+        /// The end DateTime of the Latency Scorecard in UTC
+        /// </param>
+        /// <param name='country'>
+        /// The country associated with the Latency Scorecard. Values are
+        /// country ISO codes as specified here-
+        /// https://www.iso.org/iso-3166-country-codes.html
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        Task<AzureOperationResponse<LatencyScorecard>> GetLatencyScorecardsWithHttpMessagesAsync(string resourceGroupName, string profileName, string experimentName, string aggregationInterval, string endDateTimeUTC = default(string), string country = default(string), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+
+        /// <summary>
+        /// Gets a Timeseries for a given Experiment
+        /// </summary>
+        /// <param name='resourceGroupName'>
+        /// Name of the Resource group within the Azure subscription.
+        /// </param>
+        /// <param name='profileName'>
+        /// The Profile identifier associated with the Tenant and Partner
+        /// </param>
+        /// <param name='experimentName'>
+        /// The Experiment identifier associated with the Experiment
+        /// </param>
+        /// <param name='startDateTimeUTC'>
+        /// The start DateTime of the Timeseries in UTC
+        /// </param>
+        /// <param name='endDateTimeUTC'>
+        /// The end DateTime of the Timeseries in UTC
+        /// </param>
+        /// <param name='aggregationInterval'>
+        /// The aggregation interval of the Timeseries. Possible values
+        /// include: 'Hourly', 'Daily'
+        /// </param>
+        /// <param name='timeseriesType'>
+        /// The type of Timeseries. Possible values include:
+        /// 'MeasurementCounts', 'LatencyP50', 'LatencyP75', 'LatencyP95'
+        /// </param>
+        /// <param name='endpoint'>
+        /// The specific endpoint
+        /// </param>
+        /// <param name='country'>
+        /// The country associated with the Timeseries. Values are country ISO
+        /// codes as specified here-
+        /// https://www.iso.org/iso-3166-country-codes.html
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        Task<AzureOperationResponse<Timeseries>> GetTimeseriesWithHttpMessagesAsync(string resourceGroupName, string profileName, string experimentName, System.DateTime startDateTimeUTC, System.DateTime endDateTimeUTC, string aggregationInterval, string timeseriesType, string endpoint = default(string), string country = default(string), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
 
         /// <summary>
         /// Check the availability of a Front Door resource name.
@@ -142,6 +378,136 @@ namespace Microsoft.Azure.Management.FrontDoor
         /// The cancellation token.
         /// </param>
         Task<AzureOperationResponse<CheckNameAvailabilityOutput>> CheckFrontDoorNameAvailabilityWithSubscriptionWithHttpMessagesAsync(CheckNameAvailabilityInput checkFrontDoorNameAvailabilityInput, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+
+        /// <summary>
+        /// Creates an NetworkExperiment Profile
+        /// </summary>
+        /// <param name='profileName'>
+        /// The Profile identifier associated with the Tenant and Partner
+        /// </param>
+        /// <param name='resourceGroupName'>
+        /// Name of the Resource group within the Azure subscription.
+        /// </param>
+        /// <param name='parameters'>
+        /// An Network Experiment Profile
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        Task<AzureOperationResponse<Profile>> BeginCreateOrUpdateNetworkExperimentProfilesWithHttpMessagesAsync(string profileName, string resourceGroupName, Profile parameters, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+
+        /// <summary>
+        /// Updates an NetworkExperimentProfiles by NetworkExperimentProfile
+        /// name
+        /// </summary>
+        /// <remarks>
+        /// Updates an NetworkExperimentProfiles
+        /// </remarks>
+        /// <param name='resourceGroupName'>
+        /// Name of the Resource group within the Azure subscription.
+        /// </param>
+        /// <param name='profileName'>
+        /// The Profile identifier associated with the Tenant and Partner
+        /// </param>
+        /// <param name='parameters'>
+        /// The Profile Update Model
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        Task<AzureOperationResponse<Profile>> BeginUpdateNetworkExperimentProfilesByProfilesNameWithHttpMessagesAsync(string resourceGroupName, string profileName, ProfileUpdateModel parameters, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+
+        /// <summary>
+        /// Deletes an NetworkExperiment Profile by ProfileName
+        /// </summary>
+        /// <param name='resourceGroupName'>
+        /// Name of the Resource group within the Azure subscription.
+        /// </param>
+        /// <param name='profileName'>
+        /// The Profile identifier associated with the Tenant and Partner
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        Task<AzureOperationResponse> BeginDeleteNetworkExperimentProfilesWithHttpMessagesAsync(string resourceGroupName, string profileName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+
+        /// <summary>
+        /// Creates or updates an Experiment
+        /// </summary>
+        /// <param name='resourceGroupName'>
+        /// Name of the Resource group within the Azure subscription.
+        /// </param>
+        /// <param name='profileName'>
+        /// The Profile identifier associated with the Tenant and Partner
+        /// </param>
+        /// <param name='experimentName'>
+        /// The Experiment identifier associated with the Experiment
+        /// </param>
+        /// <param name='parameters'>
+        /// The Experiment resource
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        Task<AzureOperationResponse<Experiment>> BeginCreateOrUpdateExperimentsWithHttpMessagesAsync(string resourceGroupName, string profileName, string experimentName, Experiment parameters, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+
+        /// <summary>
+        /// Updates an Experiment by Experiment id
+        /// </summary>
+        /// <remarks>
+        /// Updates an Experiment
+        /// </remarks>
+        /// <param name='resourceGroupName'>
+        /// Name of the Resource group within the Azure subscription.
+        /// </param>
+        /// <param name='profileName'>
+        /// The Profile identifier associated with the Tenant and Partner
+        /// </param>
+        /// <param name='experimentName'>
+        /// The Experiment identifier associated with the Experiment
+        /// </param>
+        /// <param name='parameters'>
+        /// The Experiment Update Model
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        Task<AzureOperationResponse<Experiment>> BeginUpdateExperimentsByExperimentNameWithHttpMessagesAsync(string resourceGroupName, string profileName, string experimentName, ExperimentUpdateModel parameters, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+
+        /// <summary>
+        /// Deletes an Experiment
+        /// </summary>
+        /// <param name='resourceGroupName'>
+        /// Name of the Resource group within the Azure subscription.
+        /// </param>
+        /// <param name='profileName'>
+        /// The Profile identifier associated with the Tenant and Partner
+        /// </param>
+        /// <param name='experimentName'>
+        /// The Experiment identifier associated with the Experiment
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        Task<AzureOperationResponse> BeginDeleteExperimentsWithHttpMessagesAsync(string resourceGroupName, string profileName, string experimentName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
 
     }
 }
