@@ -16,27 +16,27 @@ namespace Microsoft.Azure.Management.Subscription.Models
     /// <summary>
     /// Defines headers for CreateSubscription operation.
     /// </summary>
-    public partial class SubscriptionFactoryCreateSubscriptionHeaders
+    public partial class SubscriptionsCreateSubscriptionHeaders
     {
         /// <summary>
         /// Initializes a new instance of the
-        /// SubscriptionFactoryCreateSubscriptionHeaders class.
+        /// SubscriptionsCreateSubscriptionHeaders class.
         /// </summary>
-        public SubscriptionFactoryCreateSubscriptionHeaders()
+        public SubscriptionsCreateSubscriptionHeaders()
         {
             CustomInit();
         }
 
         /// <summary>
         /// Initializes a new instance of the
-        /// SubscriptionFactoryCreateSubscriptionHeaders class.
+        /// SubscriptionsCreateSubscriptionHeaders class.
         /// </summary>
         /// <param name="location">GET this URL to retrieve the status of the
         /// asynchronous operation.</param>
         /// <param name="retryAfter">The amount of delay to use while the
         /// status of the operation is checked. The value is expressed in
         /// seconds.</param>
-        public SubscriptionFactoryCreateSubscriptionHeaders(string location = default(string), int? retryAfter = default(int?))
+        public SubscriptionsCreateSubscriptionHeaders(string location = default(string), int? retryAfter = default(int?))
         {
             Location = location;
             RetryAfter = retryAfter;
