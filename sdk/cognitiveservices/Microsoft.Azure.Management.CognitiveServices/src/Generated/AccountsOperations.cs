@@ -61,7 +61,7 @@ namespace Microsoft.Azure.Management.CognitiveServices
         /// <param name='accountName'>
         /// The name of Cognitive Services account.
         /// </param>
-        /// <param name='parameters'>
+        /// <param name='account'>
         /// The parameters to provide for the created account.
         /// </param>
         /// <param name='customHeaders'>
@@ -85,7 +85,7 @@ namespace Microsoft.Azure.Management.CognitiveServices
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<AzureOperationResponse<CognitiveServicesAccount>> CreateWithHttpMessagesAsync(string resourceGroupName, string accountName, CognitiveServicesAccountCreateParameters parameters, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<AzureOperationResponse<CognitiveServicesAccount>> CreateWithHttpMessagesAsync(string resourceGroupName, string accountName, CognitiveServicesAccount account, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
             if (resourceGroupName == null)
             {
@@ -110,13 +110,13 @@ namespace Microsoft.Azure.Management.CognitiveServices
                     throw new ValidationException(ValidationRules.Pattern, "accountName", "^[a-zA-Z0-9][a-zA-Z0-9_.-]*$");
                 }
             }
-            if (parameters == null)
+            if (account == null)
             {
-                throw new ValidationException(ValidationRules.CannotBeNull, "parameters");
+                throw new ValidationException(ValidationRules.CannotBeNull, "account");
             }
-            if (parameters != null)
+            if (account != null)
             {
-                parameters.Validate();
+                account.Validate();
             }
             if (Client.ApiVersion == null)
             {
@@ -135,7 +135,7 @@ namespace Microsoft.Azure.Management.CognitiveServices
                 Dictionary<string, object> tracingParameters = new Dictionary<string, object>();
                 tracingParameters.Add("resourceGroupName", resourceGroupName);
                 tracingParameters.Add("accountName", accountName);
-                tracingParameters.Add("parameters", parameters);
+                tracingParameters.Add("account", account);
                 tracingParameters.Add("cancellationToken", cancellationToken);
                 ServiceClientTracing.Enter(_invocationId, this, "Create", tracingParameters);
             }
@@ -188,9 +188,9 @@ namespace Microsoft.Azure.Management.CognitiveServices
 
             // Serialize Request
             string _requestContent = null;
-            if(parameters != null)
+            if(account != null)
             {
-                _requestContent = Rest.Serialization.SafeJsonConvert.SerializeObject(parameters, Client.SerializationSettings);
+                _requestContent = Rest.Serialization.SafeJsonConvert.SerializeObject(account, Client.SerializationSettings);
                 _httpRequest.Content = new StringContent(_requestContent, System.Text.Encoding.UTF8);
                 _httpRequest.Content.Headers.ContentType =System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json; charset=utf-8");
             }
@@ -303,18 +303,8 @@ namespace Microsoft.Azure.Management.CognitiveServices
         /// <param name='accountName'>
         /// The name of Cognitive Services account.
         /// </param>
-        /// <param name='sku'>
-        /// Gets or sets the SKU of the resource.
-        /// </param>
-        /// <param name='tags'>
-        /// Gets or sets a list of key value pairs that describe the resource. These
-        /// tags can be used in viewing and grouping this resource (across resource
-        /// groups). A maximum of 15 tags can be provided for a resource. Each tag must
-        /// have a key no greater than 128 characters and value no greater than 256
-        /// characters.
-        /// </param>
-        /// <param name='properties'>
-        /// Additional properties for Account. Only provided fields will be updated.
+        /// <param name='account'>
+        /// The parameters to provide for the created account.
         /// </param>
         /// <param name='customHeaders'>
         /// Headers that will be added to request.
@@ -337,7 +327,7 @@ namespace Microsoft.Azure.Management.CognitiveServices
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<AzureOperationResponse<CognitiveServicesAccount>> UpdateWithHttpMessagesAsync(string resourceGroupName, string accountName, Sku sku = default(Sku), IDictionary<string, string> tags = default(IDictionary<string, string>), object properties = default(object), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<AzureOperationResponse<CognitiveServicesAccount>> UpdateWithHttpMessagesAsync(string resourceGroupName, string accountName, CognitiveServicesAccount account, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
             if (resourceGroupName == null)
             {
@@ -362,6 +352,10 @@ namespace Microsoft.Azure.Management.CognitiveServices
                     throw new ValidationException(ValidationRules.Pattern, "accountName", "^[a-zA-Z0-9][a-zA-Z0-9_.-]*$");
                 }
             }
+            if (account == null)
+            {
+                throw new ValidationException(ValidationRules.CannotBeNull, "account");
+            }
             if (Client.ApiVersion == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "this.Client.ApiVersion");
@@ -369,17 +363,6 @@ namespace Microsoft.Azure.Management.CognitiveServices
             if (Client.SubscriptionId == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "this.Client.SubscriptionId");
-            }
-            if (sku != null)
-            {
-                sku.Validate();
-            }
-            CognitiveServicesAccountUpdateParameters parameters = new CognitiveServicesAccountUpdateParameters();
-            if (sku != null || tags != null || properties != null)
-            {
-                parameters.Sku = sku;
-                parameters.Tags = tags;
-                parameters.Properties = properties;
             }
             // Tracing
             bool _shouldTrace = ServiceClientTracing.IsEnabled;
@@ -390,7 +373,7 @@ namespace Microsoft.Azure.Management.CognitiveServices
                 Dictionary<string, object> tracingParameters = new Dictionary<string, object>();
                 tracingParameters.Add("resourceGroupName", resourceGroupName);
                 tracingParameters.Add("accountName", accountName);
-                tracingParameters.Add("parameters", parameters);
+                tracingParameters.Add("account", account);
                 tracingParameters.Add("cancellationToken", cancellationToken);
                 ServiceClientTracing.Enter(_invocationId, this, "Update", tracingParameters);
             }
@@ -443,9 +426,9 @@ namespace Microsoft.Azure.Management.CognitiveServices
 
             // Serialize Request
             string _requestContent = null;
-            if(parameters != null)
+            if(account != null)
             {
-                _requestContent = Rest.Serialization.SafeJsonConvert.SerializeObject(parameters, Client.SerializationSettings);
+                _requestContent = Rest.Serialization.SafeJsonConvert.SerializeObject(account, Client.SerializationSettings);
                 _httpRequest.Content = new StringContent(_requestContent, System.Text.Encoding.UTF8);
                 _httpRequest.Content.Headers.ContentType =System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json; charset=utf-8");
             }
