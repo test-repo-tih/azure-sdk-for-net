@@ -44,7 +44,9 @@ namespace Microsoft.Azure.Management.RecoveryServices.Backup.Models
         /// engine.</param>
         /// <param name="azureProtectedInstances">Protected instances in the
         /// backup engine.</param>
-        public BackupEngineExtendedInfo(string databaseName = default(string), int? protectedItemsCount = default(int?), int? protectedServersCount = default(int?), int? diskCount = default(int?), double? usedDiskSpace = default(double?), double? availableDiskSpace = default(double?), System.DateTime? refreshedAt = default(System.DateTime?), int? azureProtectedInstances = default(int?))
+        /// <param name="isSyncEnabled">Indicates if DS was synced to BMS or
+        /// not</param>
+        public BackupEngineExtendedInfo(string databaseName = default(string), int? protectedItemsCount = default(int?), int? protectedServersCount = default(int?), int? diskCount = default(int?), double? usedDiskSpace = default(double?), double? availableDiskSpace = default(double?), System.DateTime? refreshedAt = default(System.DateTime?), int? azureProtectedInstances = default(int?), bool? isSyncEnabled = default(bool?))
         {
             DatabaseName = databaseName;
             ProtectedItemsCount = protectedItemsCount;
@@ -54,6 +56,7 @@ namespace Microsoft.Azure.Management.RecoveryServices.Backup.Models
             AvailableDiskSpace = availableDiskSpace;
             RefreshedAt = refreshedAt;
             AzureProtectedInstances = azureProtectedInstances;
+            IsSyncEnabled = isSyncEnabled;
             CustomInit();
         }
 
@@ -109,6 +112,12 @@ namespace Microsoft.Azure.Management.RecoveryServices.Backup.Models
         /// </summary>
         [JsonProperty(PropertyName = "azureProtectedInstances")]
         public int? AzureProtectedInstances { get; set; }
+
+        /// <summary>
+        /// Gets or sets indicates if DS was synced to BMS or not
+        /// </summary>
+        [JsonProperty(PropertyName = "isSyncEnabled")]
+        public bool? IsSyncEnabled { get; set; }
 
     }
 }

@@ -45,13 +45,19 @@ namespace Microsoft.Azure.Management.RecoveryServices.Backup.Models
         /// container.</param>
         /// <param name="lastBackupStatus">Latest backup status of this
         /// container.</param>
-        public MabContainerExtendedInfo(System.DateTime? lastRefreshedAt = default(System.DateTime?), string backupItemType = default(string), IList<string> backupItems = default(IList<string>), string policyName = default(string), string lastBackupStatus = default(string))
+        /// <param name="isSyncEnabled">Indicates if DS was synced to BMS or
+        /// not</param>
+        /// <param name="protectedItemsCount">Number of protected items in the
+        /// container.</param>
+        public MabContainerExtendedInfo(System.DateTime? lastRefreshedAt = default(System.DateTime?), string backupItemType = default(string), IList<string> backupItems = default(IList<string>), string policyName = default(string), string lastBackupStatus = default(string), bool? isSyncEnabled = default(bool?), int? protectedItemsCount = default(int?))
         {
             LastRefreshedAt = lastRefreshedAt;
             BackupItemType = backupItemType;
             BackupItems = backupItems;
             PolicyName = policyName;
             LastBackupStatus = lastBackupStatus;
+            IsSyncEnabled = isSyncEnabled;
+            ProtectedItemsCount = protectedItemsCount;
             CustomInit();
         }
 
@@ -93,6 +99,18 @@ namespace Microsoft.Azure.Management.RecoveryServices.Backup.Models
         /// </summary>
         [JsonProperty(PropertyName = "lastBackupStatus")]
         public string LastBackupStatus { get; set; }
+
+        /// <summary>
+        /// Gets or sets indicates if DS was synced to BMS or not
+        /// </summary>
+        [JsonProperty(PropertyName = "isSyncEnabled")]
+        public bool? IsSyncEnabled { get; set; }
+
+        /// <summary>
+        /// Gets or sets number of protected items in the container.
+        /// </summary>
+        [JsonProperty(PropertyName = "protectedItemsCount")]
+        public int? ProtectedItemsCount { get; set; }
 
     }
 }

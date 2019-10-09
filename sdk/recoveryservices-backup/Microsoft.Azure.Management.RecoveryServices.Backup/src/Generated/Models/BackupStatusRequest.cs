@@ -38,11 +38,14 @@ namespace Microsoft.Azure.Management.RecoveryServices.Backup.Models
         /// <param name="resourceId">Entire ARM resource id of the
         /// resource</param>
         /// <param name="poLogicalName">Protectable Item Logical Name</param>
-        public BackupStatusRequest(string resourceType = default(string), string resourceId = default(string), string poLogicalName = default(string))
+        /// <param name="poPublicUri">Public URI of the resource if
+        /// available.</param>
+        public BackupStatusRequest(string resourceType = default(string), string resourceId = default(string), string poLogicalName = default(string), PublicUri poPublicUri = default(PublicUri))
         {
             ResourceType = resourceType;
             ResourceId = resourceId;
             PoLogicalName = poLogicalName;
+            PoPublicUri = poPublicUri;
             CustomInit();
         }
 
@@ -72,6 +75,12 @@ namespace Microsoft.Azure.Management.RecoveryServices.Backup.Models
         /// </summary>
         [JsonProperty(PropertyName = "poLogicalName")]
         public string PoLogicalName { get; set; }
+
+        /// <summary>
+        /// Gets or sets public URI of the resource if available.
+        /// </summary>
+        [JsonProperty(PropertyName = "poPublicUri")]
+        public PublicUri PoPublicUri { get; set; }
 
     }
 }

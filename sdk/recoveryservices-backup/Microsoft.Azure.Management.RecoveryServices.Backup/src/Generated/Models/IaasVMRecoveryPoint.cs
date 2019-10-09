@@ -53,7 +53,8 @@ namespace Microsoft.Azure.Management.RecoveryServices.Backup.Models
         /// <param name="originalStorageAccountOption">Original Storage Account
         /// Option</param>
         /// <param name="osType">OS type</param>
-        public IaasVMRecoveryPoint(string recoveryPointType = default(string), System.DateTime? recoveryPointTime = default(System.DateTime?), string recoveryPointAdditionalInfo = default(string), string sourceVMStorageType = default(string), bool? isSourceVMEncrypted = default(bool?), KeyAndSecretDetails keyAndSecret = default(KeyAndSecretDetails), bool? isInstantIlrSessionActive = default(bool?), IList<RecoveryPointTierInformation> recoveryPointTierDetails = default(IList<RecoveryPointTierInformation>), bool? isManagedVirtualMachine = default(bool?), string virtualMachineSize = default(string), bool? originalStorageAccountOption = default(bool?), string osType = default(string))
+        /// <param name="rpDiskConfiguration">Disk configuration</param>
+        public IaasVMRecoveryPoint(string recoveryPointType = default(string), System.DateTime? recoveryPointTime = default(System.DateTime?), string recoveryPointAdditionalInfo = default(string), string sourceVMStorageType = default(string), bool? isSourceVMEncrypted = default(bool?), KeyAndSecretDetails keyAndSecret = default(KeyAndSecretDetails), bool? isInstantIlrSessionActive = default(bool?), IList<RecoveryPointTierInformation> recoveryPointTierDetails = default(IList<RecoveryPointTierInformation>), bool? isManagedVirtualMachine = default(bool?), string virtualMachineSize = default(string), bool? originalStorageAccountOption = default(bool?), string osType = default(string), RecoveryPointDiskConfiguration rpDiskConfiguration = default(RecoveryPointDiskConfiguration))
         {
             RecoveryPointType = recoveryPointType;
             RecoveryPointTime = recoveryPointTime;
@@ -67,6 +68,7 @@ namespace Microsoft.Azure.Management.RecoveryServices.Backup.Models
             VirtualMachineSize = virtualMachineSize;
             OriginalStorageAccountOption = originalStorageAccountOption;
             OsType = osType;
+            RpDiskConfiguration = rpDiskConfiguration;
             CustomInit();
         }
 
@@ -150,6 +152,12 @@ namespace Microsoft.Azure.Management.RecoveryServices.Backup.Models
         /// </summary>
         [JsonProperty(PropertyName = "osType")]
         public string OsType { get; set; }
+
+        /// <summary>
+        /// Gets or sets disk configuration
+        /// </summary>
+        [JsonProperty(PropertyName = "rpDiskConfiguration")]
+        public RecoveryPointDiskConfiguration RpDiskConfiguration { get; set; }
 
     }
 }

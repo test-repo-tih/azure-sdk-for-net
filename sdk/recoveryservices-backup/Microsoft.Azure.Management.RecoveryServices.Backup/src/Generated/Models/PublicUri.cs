@@ -10,26 +10,42 @@
 
 namespace Microsoft.Azure.Management.RecoveryServices.Backup.Models
 {
+    using Newtonsoft.Json;
     using System.Linq;
 
     /// <summary>
-    /// Parameters to Provision ILR API.
+    /// Base class for Public Uri.
     /// </summary>
-    public partial class ILRRequest
+    public partial class PublicUri
     {
         /// <summary>
-        /// Initializes a new instance of the ILRRequest class.
+        /// Initializes a new instance of the PublicUri class.
         /// </summary>
-        public ILRRequest()
+        public PublicUri()
         {
             CustomInit();
         }
 
+        /// <summary>
+        /// Initializes a new instance of the PublicUri class.
+        /// </summary>
+        /// <param name="publicUriType">public uri type.</param>
+        public PublicUri(string publicUriType = default(string))
+        {
+            PublicUriType = publicUriType;
+            CustomInit();
+        }
 
         /// <summary>
         /// An initialization method that performs custom operations like setting defaults
         /// </summary>
         partial void CustomInit();
+
+        /// <summary>
+        /// Gets or sets public uri type.
+        /// </summary>
+        [JsonProperty(PropertyName = "publicUriType")]
+        public string PublicUriType { get; set; }
 
     }
 }

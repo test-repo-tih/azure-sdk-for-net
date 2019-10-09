@@ -20,12 +20,12 @@ namespace Microsoft.Azure.Management.RecoveryServices.Backup
               return new Tuple<string, string, string>[]
               {
                 new Tuple<string, string, string>("RecoveryServices", "BackupEngines", "2016-12-01"),
-                new Tuple<string, string, string>("RecoveryServices", "BackupJobs", "2017-07-01"),
+                new Tuple<string, string, string>("RecoveryServices", "BackupJobs", "2019-05-13"),
                 new Tuple<string, string, string>("RecoveryServices", "BackupOperationResults", "2016-12-01"),
                 new Tuple<string, string, string>("RecoveryServices", "BackupOperationStatuses", "2016-12-01"),
                 new Tuple<string, string, string>("RecoveryServices", "BackupPolicies", "2017-07-01"),
                 new Tuple<string, string, string>("RecoveryServices", "BackupProtectableItems", "2016-12-01"),
-                new Tuple<string, string, string>("RecoveryServices", "BackupProtectedItems", "2017-07-01"),
+                new Tuple<string, string, string>("RecoveryServices", "BackupProtectedItems", "2019-05-13"),
                 new Tuple<string, string, string>("RecoveryServices", "BackupProtectionContainers", "2016-12-01"),
                 new Tuple<string, string, string>("RecoveryServices", "BackupProtectionIntent", "2017-07-01"),
                 new Tuple<string, string, string>("RecoveryServices", "BackupResourceStorageConfigs", "2016-12-01"),
@@ -47,29 +47,20 @@ namespace Microsoft.Azure.Management.RecoveryServices.Backup
                 new Tuple<string, string, string>("RecoveryServices", "ProtectedItemOperationResults", "2016-12-01"),
                 new Tuple<string, string, string>("RecoveryServices", "ProtectedItemOperationStatuses", "2016-12-01"),
                 new Tuple<string, string, string>("RecoveryServices", "ProtectedItems", "2016-12-01"),
+                new Tuple<string, string, string>("RecoveryServices", "ProtectedItems", "2019-05-13"),
                 new Tuple<string, string, string>("RecoveryServices", "ProtectionContainerOperationResults", "2016-12-01"),
                 new Tuple<string, string, string>("RecoveryServices", "ProtectionContainerRefreshOperationResults", "2016-12-01"),
                 new Tuple<string, string, string>("RecoveryServices", "ProtectionContainers", "2016-12-01"),
                 new Tuple<string, string, string>("RecoveryServices", "ProtectionIntent", "2017-07-01"),
                 new Tuple<string, string, string>("RecoveryServices", "ProtectionPolicies", "2016-12-01"),
+                new Tuple<string, string, string>("RecoveryServices", "ProtectionPolicies", "2017-07-01"),
                 new Tuple<string, string, string>("RecoveryServices", "ProtectionPolicyOperationResults", "2016-12-01"),
                 new Tuple<string, string, string>("RecoveryServices", "ProtectionPolicyOperationStatuses", "2016-12-01"),
-                new Tuple<string, string, string>("RecoveryServices", "RecoveryPoints", "2016-12-01"),
-                new Tuple<string, string, string>("RecoveryServices", "Restores", "2016-12-01"),
+                new Tuple<string, string, string>("RecoveryServices", "RecoveryPoints", "2019-05-13"),
+                new Tuple<string, string, string>("RecoveryServices", "Restores", "2019-05-13"),
                 new Tuple<string, string, string>("RecoveryServices", "SecurityPINs", "2016-12-01"),
               }.AsEnumerable();
           }
       }
-      // BEGIN: Code Generation Metadata Section
-      public static readonly String AutoRestVersion = "latest";
-      public static readonly String AutoRestBootStrapperVersion = "autorest@2.0.4283";
-      public static readonly String AutoRestCmdExecuted = "cmd.exe /c autorest.cmd https://github.com/Azure/azure-rest-api-specs/blob/master/specification/recoveryservicesbackup/resource-manager/readme.md --csharp --version=latest --reflect-api-versions --csharp-sdks-folder=D:\\one\\Azure\\azure-sdk-for-net\\sdk";
-      public static readonly String GithubForkName = "Azure";
-      public static readonly String GithubBranchName = "master";
-      public static readonly String GithubCommidId = "fb8f078deac2367f3dbcfbd8a542c77083c28a5b";
-      public static readonly String CodeGenerationErrors = "";
-      public static readonly String GithubRepoName = "azure-rest-api-specs";
-      // END: Code Generation Metadata Section
   }
 }
-

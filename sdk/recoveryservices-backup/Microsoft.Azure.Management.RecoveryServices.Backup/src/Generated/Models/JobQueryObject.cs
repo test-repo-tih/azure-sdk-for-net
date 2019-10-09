@@ -38,13 +38,16 @@ namespace Microsoft.Azure.Management.RecoveryServices.Backup.Models
         /// 'AzureWorkload', 'DefaultBackup'</param>
         /// <param name="operation">Type of operation. Possible values include:
         /// 'Invalid', 'Register', 'UnRegister', 'ConfigureBackup', 'Backup',
-        /// 'Restore', 'DisableBackup', 'DeleteBackupData'</param>
+        /// 'Restore', 'DisableBackup', 'DeleteBackupData',
+        /// 'CrossRegionRestore', 'Undelete'</param>
         /// <param name="jobId">JobID represents the job uniquely.</param>
         /// <param name="startTime">Job has started at this time. Value is in
         /// UTC.</param>
         /// <param name="endTime">Job has ended at this time. Value is in
         /// UTC.</param>
-        public JobQueryObject(string status = default(string), string backupManagementType = default(string), string operation = default(string), string jobId = default(string), System.DateTime? startTime = default(System.DateTime?), System.DateTime? endTime = default(System.DateTime?))
+        /// <param name="generateExcelFileForExportJobs">True if excel file
+        /// should be generated.</param>
+        public JobQueryObject(string status = default(string), string backupManagementType = default(string), string operation = default(string), string jobId = default(string), System.DateTime? startTime = default(System.DateTime?), System.DateTime? endTime = default(System.DateTime?), bool? generateExcelFileForExportJobs = default(bool?))
         {
             Status = status;
             BackupManagementType = backupManagementType;
@@ -52,6 +55,7 @@ namespace Microsoft.Azure.Management.RecoveryServices.Backup.Models
             JobId = jobId;
             StartTime = startTime;
             EndTime = endTime;
+            GenerateExcelFileForExportJobs = generateExcelFileForExportJobs;
             CustomInit();
         }
 
@@ -80,7 +84,8 @@ namespace Microsoft.Azure.Management.RecoveryServices.Backup.Models
         /// <summary>
         /// Gets or sets type of operation. Possible values include: 'Invalid',
         /// 'Register', 'UnRegister', 'ConfigureBackup', 'Backup', 'Restore',
-        /// 'DisableBackup', 'DeleteBackupData'
+        /// 'DisableBackup', 'DeleteBackupData', 'CrossRegionRestore',
+        /// 'Undelete'
         /// </summary>
         [JsonProperty(PropertyName = "operation")]
         public string Operation { get; set; }
@@ -102,6 +107,12 @@ namespace Microsoft.Azure.Management.RecoveryServices.Backup.Models
         /// </summary>
         [JsonProperty(PropertyName = "endTime")]
         public System.DateTime? EndTime { get; set; }
+
+        /// <summary>
+        /// Gets or sets true if excel file should be generated.
+        /// </summary>
+        [JsonProperty(PropertyName = "generateExcelFileForExportJobs")]
+        public bool? GenerateExcelFileForExportJobs { get; set; }
 
     }
 }

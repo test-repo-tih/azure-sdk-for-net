@@ -37,11 +37,14 @@ namespace Microsoft.Azure.Management.RecoveryServices.Backup.Models
         /// is registered against a resource, the storageTypeState is always
         /// Locked. Possible values include: 'Invalid', 'Locked',
         /// 'Unlocked'</param>
-        public BackupResourceConfig(string storageModelType = default(string), string storageType = default(string), string storageTypeState = default(string))
+        /// <param name="crossRegionRestoreFlag">Opt in details of Cross Region
+        /// Restore feature.</param>
+        public BackupResourceConfig(string storageModelType = default(string), string storageType = default(string), string storageTypeState = default(string), bool? crossRegionRestoreFlag = default(bool?))
         {
             StorageModelType = storageModelType;
             StorageType = storageType;
             StorageTypeState = storageTypeState;
+            CrossRegionRestoreFlag = crossRegionRestoreFlag;
             CustomInit();
         }
 
@@ -71,6 +74,12 @@ namespace Microsoft.Azure.Management.RecoveryServices.Backup.Models
         /// </summary>
         [JsonProperty(PropertyName = "storageTypeState")]
         public string StorageTypeState { get; set; }
+
+        /// <summary>
+        /// Gets or sets opt in details of Cross Region Restore feature.
+        /// </summary>
+        [JsonProperty(PropertyName = "crossRegionRestoreFlag")]
+        public bool? CrossRegionRestoreFlag { get; set; }
 
     }
 }

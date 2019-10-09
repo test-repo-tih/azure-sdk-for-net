@@ -70,6 +70,31 @@ namespace Microsoft.Azure.Management.RecoveryServices.Backup
         public bool? GenerateClientRequestId { get; set; }
 
         /// <summary>
+        /// Gets the IProtectedItemsOperations.
+        /// </summary>
+        public virtual IProtectedItemsOperations ProtectedItems { get; private set; }
+
+        /// <summary>
+        /// Gets the IRecoveryPointsOperations.
+        /// </summary>
+        public virtual IRecoveryPointsOperations RecoveryPoints { get; private set; }
+
+        /// <summary>
+        /// Gets the IRestoresOperations.
+        /// </summary>
+        public virtual IRestoresOperations Restores { get; private set; }
+
+        /// <summary>
+        /// Gets the IBackupJobsOperations.
+        /// </summary>
+        public virtual IBackupJobsOperations BackupJobs { get; private set; }
+
+        /// <summary>
+        /// Gets the IBackupProtectedItemsOperations.
+        /// </summary>
+        public virtual IBackupProtectedItemsOperations BackupProtectedItems { get; private set; }
+
+        /// <summary>
         /// Gets the IProtectionIntentOperations.
         /// </summary>
         public virtual IProtectionIntentOperations ProtectionIntent { get; private set; }
@@ -83,11 +108,6 @@ namespace Microsoft.Azure.Management.RecoveryServices.Backup
         /// Gets the IFeatureSupportOperations.
         /// </summary>
         public virtual IFeatureSupportOperations FeatureSupport { get; private set; }
-
-        /// <summary>
-        /// Gets the IBackupJobsOperations.
-        /// </summary>
-        public virtual IBackupJobsOperations BackupJobs { get; private set; }
 
         /// <summary>
         /// Gets the IJobDetailsOperations.
@@ -110,9 +130,9 @@ namespace Microsoft.Azure.Management.RecoveryServices.Backup
         public virtual IBackupPoliciesOperations BackupPolicies { get; private set; }
 
         /// <summary>
-        /// Gets the IBackupProtectedItemsOperations.
+        /// Gets the IProtectionPoliciesOperations.
         /// </summary>
-        public virtual IBackupProtectedItemsOperations BackupProtectedItems { get; private set; }
+        public virtual IProtectionPoliciesOperations ProtectionPolicies { get; private set; }
 
         /// <summary>
         /// Gets the IBackupProtectionIntentOperations.
@@ -165,11 +185,6 @@ namespace Microsoft.Azure.Management.RecoveryServices.Backup
         public virtual IProtectionContainerOperationResultsOperations ProtectionContainerOperationResults { get; private set; }
 
         /// <summary>
-        /// Gets the IProtectedItemsOperations.
-        /// </summary>
-        public virtual IProtectedItemsOperations ProtectedItems { get; private set; }
-
-        /// <summary>
         /// Gets the IBackupsOperations.
         /// </summary>
         public virtual IBackupsOperations Backups { get; private set; }
@@ -185,19 +200,9 @@ namespace Microsoft.Azure.Management.RecoveryServices.Backup
         public virtual IProtectedItemOperationStatusesOperations ProtectedItemOperationStatuses { get; private set; }
 
         /// <summary>
-        /// Gets the IRecoveryPointsOperations.
-        /// </summary>
-        public virtual IRecoveryPointsOperations RecoveryPoints { get; private set; }
-
-        /// <summary>
         /// Gets the IItemLevelRecoveryConnectionsOperations.
         /// </summary>
         public virtual IItemLevelRecoveryConnectionsOperations ItemLevelRecoveryConnections { get; private set; }
-
-        /// <summary>
-        /// Gets the IRestoresOperations.
-        /// </summary>
-        public virtual IRestoresOperations Restores { get; private set; }
 
         /// <summary>
         /// Gets the IJobCancellationsOperations.
@@ -218,11 +223,6 @@ namespace Microsoft.Azure.Management.RecoveryServices.Backup
         /// Gets the IBackupOperationStatusesOperations.
         /// </summary>
         public virtual IBackupOperationStatusesOperations BackupOperationStatuses { get; private set; }
-
-        /// <summary>
-        /// Gets the IProtectionPoliciesOperations.
-        /// </summary>
-        public virtual IProtectionPoliciesOperations ProtectionPolicies { get; private set; }
 
         /// <summary>
         /// Gets the IProtectionPolicyOperationResultsOperations.
@@ -500,15 +500,19 @@ namespace Microsoft.Azure.Management.RecoveryServices.Backup
         /// </summary>
         private void Initialize()
         {
+            ProtectedItems = new ProtectedItemsOperations(this);
+            RecoveryPoints = new RecoveryPointsOperations(this);
+            Restores = new RestoresOperations(this);
+            BackupJobs = new BackupJobsOperations(this);
+            BackupProtectedItems = new BackupProtectedItemsOperations(this);
             ProtectionIntent = new ProtectionIntentOperations(this);
             BackupStatus = new BackupStatusOperations(this);
             FeatureSupport = new FeatureSupportOperations(this);
-            BackupJobs = new BackupJobsOperations(this);
             JobDetails = new JobDetailsOperations(this);
             ExportJobsOperationResults = new ExportJobsOperationResultsOperations(this);
             Jobs = new JobsOperations(this);
             BackupPolicies = new BackupPoliciesOperations(this);
-            BackupProtectedItems = new BackupProtectedItemsOperations(this);
+            ProtectionPolicies = new ProtectionPoliciesOperations(this);
             BackupProtectionIntent = new BackupProtectionIntentOperations(this);
             BackupUsageSummaries = new BackupUsageSummariesOperations(this);
             Operation = new OperationOperations(this);
@@ -519,18 +523,14 @@ namespace Microsoft.Azure.Management.RecoveryServices.Backup
             ProtectionContainers = new ProtectionContainersOperations(this);
             BackupWorkloadItems = new BackupWorkloadItemsOperations(this);
             ProtectionContainerOperationResults = new ProtectionContainerOperationResultsOperations(this);
-            ProtectedItems = new ProtectedItemsOperations(this);
             Backups = new BackupsOperations(this);
             ProtectedItemOperationResults = new ProtectedItemOperationResultsOperations(this);
             ProtectedItemOperationStatuses = new ProtectedItemOperationStatusesOperations(this);
-            RecoveryPoints = new RecoveryPointsOperations(this);
             ItemLevelRecoveryConnections = new ItemLevelRecoveryConnectionsOperations(this);
-            Restores = new RestoresOperations(this);
             JobCancellations = new JobCancellationsOperations(this);
             JobOperationResults = new JobOperationResultsOperations(this);
             BackupOperationResults = new BackupOperationResultsOperations(this);
             BackupOperationStatuses = new BackupOperationStatusesOperations(this);
-            ProtectionPolicies = new ProtectionPoliciesOperations(this);
             ProtectionPolicyOperationResults = new ProtectionPolicyOperationResultsOperations(this);
             ProtectionPolicyOperationStatuses = new ProtectionPolicyOperationStatusesOperations(this);
             BackupProtectableItems = new BackupProtectableItemsOperations(this);
@@ -567,24 +567,26 @@ namespace Microsoft.Azure.Management.RecoveryServices.Backup
                         new Iso8601TimeSpanConverter()
                     }
             };
+            SerializationSettings.Converters.Add(new PolymorphicSerializeJsonConverter<Job>("jobType"));
+            DeserializationSettings.Converters.Add(new PolymorphicDeserializeJsonConverter<Job>("jobType"));
+            SerializationSettings.Converters.Add(new PolymorphicSerializeJsonConverter<ProtectedItem>("protectedItemType"));
+            DeserializationSettings.Converters.Add(new PolymorphicDeserializeJsonConverter<ProtectedItem>("protectedItemType"));
+            SerializationSettings.Converters.Add(new PolymorphicSerializeJsonConverter<RecoveryPoint>("objectType"));
+            DeserializationSettings.Converters.Add(new PolymorphicDeserializeJsonConverter<RecoveryPoint>("objectType"));
+            SerializationSettings.Converters.Add(new PolymorphicSerializeJsonConverter<RestoreRequest>("objectType"));
+            DeserializationSettings.Converters.Add(new PolymorphicDeserializeJsonConverter<RestoreRequest>("objectType"));
             SerializationSettings.Converters.Add(new PolymorphicSerializeJsonConverter<SchedulePolicy>("schedulePolicyType"));
             DeserializationSettings.Converters.Add(new PolymorphicDeserializeJsonConverter<SchedulePolicy>("schedulePolicyType"));
             SerializationSettings.Converters.Add(new PolymorphicSerializeJsonConverter<RetentionPolicy>("retentionPolicyType"));
             DeserializationSettings.Converters.Add(new PolymorphicDeserializeJsonConverter<RetentionPolicy>("retentionPolicyType"));
             SerializationSettings.Converters.Add(new PolymorphicSerializeJsonConverter<FeatureSupportRequest>("featureType"));
             DeserializationSettings.Converters.Add(new PolymorphicDeserializeJsonConverter<FeatureSupportRequest>("featureType"));
-            SerializationSettings.Converters.Add(new PolymorphicSerializeJsonConverter<Job>("jobType"));
-            DeserializationSettings.Converters.Add(new PolymorphicDeserializeJsonConverter<Job>("jobType"));
             SerializationSettings.Converters.Add(new PolymorphicSerializeJsonConverter<OperationResultInfoBase>("objectType"));
             DeserializationSettings.Converters.Add(new PolymorphicDeserializeJsonConverter<OperationResultInfoBase>("objectType"));
-            SerializationSettings.Converters.Add(new PolymorphicSerializeJsonConverter<ProtectedItem>("protectedItemType"));
-            DeserializationSettings.Converters.Add(new PolymorphicDeserializeJsonConverter<ProtectedItem>("protectedItemType"));
             SerializationSettings.Converters.Add(new PolymorphicSerializeJsonConverter<ProtectionIntent>("protectionIntentItemType"));
             DeserializationSettings.Converters.Add(new PolymorphicDeserializeJsonConverter<ProtectionIntent>("protectionIntentItemType"));
             SerializationSettings.Converters.Add(new PolymorphicSerializeJsonConverter<ProtectionPolicy>("backupManagementType"));
             DeserializationSettings.Converters.Add(new PolymorphicDeserializeJsonConverter<ProtectionPolicy>("backupManagementType"));
-            SerializationSettings.Converters.Add(new PolymorphicSerializeJsonConverter<RestoreRequest>("objectType"));
-            DeserializationSettings.Converters.Add(new PolymorphicDeserializeJsonConverter<RestoreRequest>("objectType"));
             SerializationSettings.Converters.Add(new PolymorphicSerializeJsonConverter<ValidateOperationRequest>("objectType"));
             DeserializationSettings.Converters.Add(new PolymorphicDeserializeJsonConverter<ValidateOperationRequest>("objectType"));
             SerializationSettings.Converters.Add(new PolymorphicSerializeJsonConverter<BackupEngineBase>("backupEngineType"));
@@ -599,8 +601,6 @@ namespace Microsoft.Azure.Management.RecoveryServices.Backup
             DeserializationSettings.Converters.Add(new PolymorphicDeserializeJsonConverter<ProtectableContainer>("protectableContainerType"));
             SerializationSettings.Converters.Add(new PolymorphicSerializeJsonConverter<ProtectionContainer>("containerType"));
             DeserializationSettings.Converters.Add(new PolymorphicDeserializeJsonConverter<ProtectionContainer>("containerType"));
-            SerializationSettings.Converters.Add(new PolymorphicSerializeJsonConverter<RecoveryPoint>("objectType"));
-            DeserializationSettings.Converters.Add(new PolymorphicDeserializeJsonConverter<RecoveryPoint>("objectType"));
             SerializationSettings.Converters.Add(new PolymorphicSerializeJsonConverter<WorkloadItem>("workloadItemType"));
             DeserializationSettings.Converters.Add(new PolymorphicDeserializeJsonConverter<WorkloadItem>("workloadItemType"));
             SerializationSettings.Converters.Add(new PolymorphicSerializeJsonConverter<WorkloadProtectableItem>("protectableItemType"));

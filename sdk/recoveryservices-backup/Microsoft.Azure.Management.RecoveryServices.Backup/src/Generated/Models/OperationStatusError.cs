@@ -32,10 +32,13 @@ namespace Microsoft.Azure.Management.RecoveryServices.Backup.Models
         /// <param name="code">Error code of the operation failure.</param>
         /// <param name="message">Error message displayed if the operation
         /// failure.</param>
-        public OperationStatusError(string code = default(string), string message = default(string))
+        /// <param name="recommendation">Recommended action displayed in case
+        /// operation fails.</param>
+        public OperationStatusError(string code = default(string), string message = default(string), string recommendation = default(string))
         {
             Code = code;
             Message = message;
+            Recommendation = recommendation;
             CustomInit();
         }
 
@@ -55,6 +58,12 @@ namespace Microsoft.Azure.Management.RecoveryServices.Backup.Models
         /// </summary>
         [JsonProperty(PropertyName = "message")]
         public string Message { get; set; }
+
+        /// <summary>
+        /// Gets or sets recommended action displayed in case operation fails.
+        /// </summary>
+        [JsonProperty(PropertyName = "recommendation")]
+        public string Recommendation { get; set; }
 
     }
 }
