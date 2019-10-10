@@ -12,11 +12,11 @@ namespace Microsoft.Azure.Management.ContainerService.Models
 {
 
     /// <summary>
-    /// Defines values for OpenShiftAgentPoolProfileRole.
+    /// Defines values for ScaleSetEvictionPolicy.
     /// </summary>
-    public static class OpenShiftAgentPoolProfileRole
+    public static class ScaleSetEvictionPolicy
     {
-        public const string Compute = "compute";
-        public const string Infra = "infra";
+        public const string Delete = "Delete";
+        public const string Deallocate = "Deallocate";
     }
 }
