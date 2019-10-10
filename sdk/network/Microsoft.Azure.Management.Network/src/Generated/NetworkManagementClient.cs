@@ -304,11 +304,6 @@ namespace Microsoft.Azure.Management.Network
         public virtual IPacketCapturesOperations PacketCaptures { get; private set; }
 
         /// <summary>
-        /// Gets the IConnectionMonitorsOperations.
-        /// </summary>
-        public virtual IConnectionMonitorsOperations ConnectionMonitors { get; private set; }
-
-        /// <summary>
         /// Gets the IOperations.
         /// </summary>
         public virtual IOperations Operations { get; private set; }
@@ -794,7 +789,6 @@ namespace Microsoft.Azure.Management.Network
             DefaultSecurityRules = new DefaultSecurityRulesOperations(this);
             NetworkWatchers = new NetworkWatchersOperations(this);
             PacketCaptures = new PacketCapturesOperations(this);
-            ConnectionMonitors = new ConnectionMonitorsOperations(this);
             Operations = new Operations(this);
             PrivateEndpoints = new PrivateEndpointsOperations(this);
             AvailablePrivateEndpointTypes = new AvailablePrivateEndpointTypesOperations(this);
@@ -919,7 +913,7 @@ namespace Microsoft.Azure.Management.Network
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "this.SubscriptionId");
             }
-            string apiVersion = "2019-08-01";
+            string apiVersion = "2019-09-01";
             // Tracing
             bool _shouldTrace = ServiceClientTracing.IsEnabled;
             string _invocationId = null;
@@ -1117,7 +1111,7 @@ namespace Microsoft.Azure.Management.Network
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "virtualWANName");
             }
-            string apiVersion = "2019-08-01";
+            string apiVersion = "2019-09-01";
             // Tracing
             bool _shouldTrace = ServiceClientTracing.IsEnabled;
             string _invocationId = null;
@@ -1351,7 +1345,7 @@ namespace Microsoft.Azure.Management.Network
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "vpnClientParams");
             }
-            string apiVersion = "2019-08-01";
+            string apiVersion = "2019-09-01";
             // Tracing
             bool _shouldTrace = ServiceClientTracing.IsEnabled;
             string _invocationId = null;
