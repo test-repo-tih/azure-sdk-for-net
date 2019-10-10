@@ -209,6 +209,11 @@ namespace Microsoft.Azure.Management.Network
         public virtual IFirewallPolicyRuleGroupsOperations FirewallPolicyRuleGroups { get; private set; }
 
         /// <summary>
+        /// Gets the IIpGroupsOperations.
+        /// </summary>
+        public virtual IIpGroupsOperations IpGroups { get; private set; }
+
+        /// <summary>
         /// Gets the ILoadBalancersOperations.
         /// </summary>
         public virtual ILoadBalancersOperations LoadBalancers { get; private set; }
@@ -302,11 +307,6 @@ namespace Microsoft.Azure.Management.Network
         /// Gets the IPacketCapturesOperations.
         /// </summary>
         public virtual IPacketCapturesOperations PacketCaptures { get; private set; }
-
-        /// <summary>
-        /// Gets the IConnectionMonitorsOperations.
-        /// </summary>
-        public virtual IConnectionMonitorsOperations ConnectionMonitors { get; private set; }
 
         /// <summary>
         /// Gets the IOperations.
@@ -775,6 +775,7 @@ namespace Microsoft.Azure.Management.Network
             ExpressRouteLinks = new ExpressRouteLinksOperations(this);
             FirewallPolicies = new FirewallPoliciesOperations(this);
             FirewallPolicyRuleGroups = new FirewallPolicyRuleGroupsOperations(this);
+            IpGroups = new IpGroupsOperations(this);
             LoadBalancers = new LoadBalancersOperations(this);
             LoadBalancerBackendAddressPools = new LoadBalancerBackendAddressPoolsOperations(this);
             LoadBalancerFrontendIPConfigurations = new LoadBalancerFrontendIPConfigurationsOperations(this);
@@ -794,7 +795,6 @@ namespace Microsoft.Azure.Management.Network
             DefaultSecurityRules = new DefaultSecurityRulesOperations(this);
             NetworkWatchers = new NetworkWatchersOperations(this);
             PacketCaptures = new PacketCapturesOperations(this);
-            ConnectionMonitors = new ConnectionMonitorsOperations(this);
             Operations = new Operations(this);
             PrivateEndpoints = new PrivateEndpointsOperations(this);
             AvailablePrivateEndpointTypes = new AvailablePrivateEndpointTypesOperations(this);
@@ -919,7 +919,7 @@ namespace Microsoft.Azure.Management.Network
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "this.SubscriptionId");
             }
-            string apiVersion = "2019-08-01";
+            string apiVersion = "2019-09-01";
             // Tracing
             bool _shouldTrace = ServiceClientTracing.IsEnabled;
             string _invocationId = null;
@@ -1117,7 +1117,7 @@ namespace Microsoft.Azure.Management.Network
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "virtualWANName");
             }
-            string apiVersion = "2019-08-01";
+            string apiVersion = "2019-09-01";
             // Tracing
             bool _shouldTrace = ServiceClientTracing.IsEnabled;
             string _invocationId = null;
@@ -1351,7 +1351,7 @@ namespace Microsoft.Azure.Management.Network
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "vpnClientParams");
             }
-            string apiVersion = "2019-08-01";
+            string apiVersion = "2019-09-01";
             // Tracing
             bool _shouldTrace = ServiceClientTracing.IsEnabled;
             string _invocationId = null;

@@ -45,7 +45,9 @@ namespace Microsoft.Azure.Management.Network.Models
         /// rule.</param>
         /// <param name="translatedPort">The translated port for this NAT
         /// rule.</param>
-        public AzureFirewallNatRule(string name = default(string), string description = default(string), IList<string> sourceAddresses = default(IList<string>), IList<string> destinationAddresses = default(IList<string>), IList<string> destinationPorts = default(IList<string>), IList<string> protocols = default(IList<string>), string translatedAddress = default(string), string translatedPort = default(string))
+        /// <param name="sourceIpGroups">List of source IpGroups for this
+        /// rule.</param>
+        public AzureFirewallNatRule(string name = default(string), string description = default(string), IList<string> sourceAddresses = default(IList<string>), IList<string> destinationAddresses = default(IList<string>), IList<string> destinationPorts = default(IList<string>), IList<string> protocols = default(IList<string>), string translatedAddress = default(string), string translatedPort = default(string), IList<string> sourceIpGroups = default(IList<string>))
         {
             Name = name;
             Description = description;
@@ -55,6 +57,7 @@ namespace Microsoft.Azure.Management.Network.Models
             Protocols = protocols;
             TranslatedAddress = translatedAddress;
             TranslatedPort = translatedPort;
+            SourceIpGroups = sourceIpGroups;
             CustomInit();
         }
 
@@ -112,6 +115,12 @@ namespace Microsoft.Azure.Management.Network.Models
         /// </summary>
         [JsonProperty(PropertyName = "translatedPort")]
         public string TranslatedPort { get; set; }
+
+        /// <summary>
+        /// Gets or sets list of source IpGroups for this rule.
+        /// </summary>
+        [JsonProperty(PropertyName = "sourceIpGroups")]
+        public IList<string> SourceIpGroups { get; set; }
 
     }
 }

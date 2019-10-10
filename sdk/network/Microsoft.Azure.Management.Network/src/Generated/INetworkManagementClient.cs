@@ -206,6 +206,11 @@ namespace Microsoft.Azure.Management.Network
         IFirewallPolicyRuleGroupsOperations FirewallPolicyRuleGroups { get; }
 
         /// <summary>
+        /// Gets the IIpGroupsOperations.
+        /// </summary>
+        IIpGroupsOperations IpGroups { get; }
+
+        /// <summary>
         /// Gets the ILoadBalancersOperations.
         /// </summary>
         ILoadBalancersOperations LoadBalancers { get; }
@@ -299,11 +304,6 @@ namespace Microsoft.Azure.Management.Network
         /// Gets the IPacketCapturesOperations.
         /// </summary>
         IPacketCapturesOperations PacketCaptures { get; }
-
-        /// <summary>
-        /// Gets the IConnectionMonitorsOperations.
-        /// </summary>
-        IConnectionMonitorsOperations ConnectionMonitors { get; }
 
         /// <summary>
         /// Gets the IOperations.
