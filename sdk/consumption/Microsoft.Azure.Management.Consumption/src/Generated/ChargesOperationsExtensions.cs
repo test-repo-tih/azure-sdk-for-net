@@ -29,9 +29,9 @@ namespace Microsoft.Azure.Management.Consumption
             /// The operations group for this extension method.
             /// </param>
             /// <param name='scope'>
-            /// The scope associated with usage details operations. This includes
+            /// The scope associated with charges operations. This includes
             /// '/providers/Microsoft.Billing/billingAccounts/{billingAccountId}/departments/{departmentId}'
-            /// for Department scope and
+            /// for Department scope, and
             /// '/providers/Microsoft.Billing/billingAccounts/{billingAccountId}/enrollmentAccounts/{enrollmentAccountId}'
             /// for EnrollmentAccount scope. For department and enrollment accounts, you
             /// can also add billing period to the scope using
@@ -59,9 +59,9 @@ namespace Microsoft.Azure.Management.Consumption
             /// The operations group for this extension method.
             /// </param>
             /// <param name='scope'>
-            /// The scope associated with usage details operations. This includes
+            /// The scope associated with charges operations. This includes
             /// '/providers/Microsoft.Billing/billingAccounts/{billingAccountId}/departments/{departmentId}'
-            /// for Department scope and
+            /// for Department scope, and
             /// '/providers/Microsoft.Billing/billingAccounts/{billingAccountId}/enrollmentAccounts/{enrollmentAccountId}'
             /// for EnrollmentAccount scope. For department and enrollment accounts, you
             /// can also add billing period to the scope using

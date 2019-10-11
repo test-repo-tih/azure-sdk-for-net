@@ -122,6 +122,50 @@ namespace Microsoft.Azure.Management.Consumption
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
+            /// <param name='billingAccountId'>
+            /// BillingAccount ID
+            /// </param>
+            /// <param name='filter'>
+            /// Filter reservation details by date range. The properties/UsageDate for
+            /// start date and end date. The filter supports 'le' and  'ge'
+            /// </param>
+            public static IPage<ReservationDetail> ListByBillingAccountId(this IReservationsDetailsOperations operations, string billingAccountId, string filter)
+            {
+                return operations.ListByBillingAccountIdAsync(billingAccountId, filter).GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// Lists the reservations details for provided date range.
+            /// <see href="https://docs.microsoft.com/en-us/rest/api/consumption/" />
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='billingAccountId'>
+            /// BillingAccount ID
+            /// </param>
+            /// <param name='filter'>
+            /// Filter reservation details by date range. The properties/UsageDate for
+            /// start date and end date. The filter supports 'le' and  'ge'
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<IPage<ReservationDetail>> ListByBillingAccountIdAsync(this IReservationsDetailsOperations operations, string billingAccountId, string filter, CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.ListByBillingAccountIdWithHttpMessagesAsync(billingAccountId, filter, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
+            /// <summary>
+            /// Lists the reservations details for provided date range.
+            /// <see href="https://docs.microsoft.com/en-us/rest/api/consumption/" />
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
             /// <param name='nextPageLink'>
             /// The NextLink from the previous successful call to List operation.
             /// </param>
@@ -182,6 +226,42 @@ namespace Microsoft.Azure.Management.Consumption
             public static async Task<IPage<ReservationDetail>> ListByReservationOrderAndReservationNextAsync(this IReservationsDetailsOperations operations, string nextPageLink, CancellationToken cancellationToken = default(CancellationToken))
             {
                 using (var _result = await operations.ListByReservationOrderAndReservationNextWithHttpMessagesAsync(nextPageLink, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
+            /// <summary>
+            /// Lists the reservations details for provided date range.
+            /// <see href="https://docs.microsoft.com/en-us/rest/api/consumption/" />
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='nextPageLink'>
+            /// The NextLink from the previous successful call to List operation.
+            /// </param>
+            public static IPage<ReservationDetail> ListByBillingAccountIdNext(this IReservationsDetailsOperations operations, string nextPageLink)
+            {
+                return operations.ListByBillingAccountIdNextAsync(nextPageLink).GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// Lists the reservations details for provided date range.
+            /// <see href="https://docs.microsoft.com/en-us/rest/api/consumption/" />
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='nextPageLink'>
+            /// The NextLink from the previous successful call to List operation.
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<IPage<ReservationDetail>> ListByBillingAccountIdNextAsync(this IReservationsDetailsOperations operations, string nextPageLink, CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.ListByBillingAccountIdNextWithHttpMessagesAsync(nextPageLink, null, cancellationToken).ConfigureAwait(false))
                 {
                     return _result.Body;
                 }

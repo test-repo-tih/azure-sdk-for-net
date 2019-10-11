@@ -84,6 +84,33 @@ namespace Microsoft.Azure.Management.Consumption
         /// Lists the reservations details for provided date range.
         /// <see href="https://docs.microsoft.com/en-us/rest/api/consumption/" />
         /// </summary>
+        /// <param name='billingAccountId'>
+        /// BillingAccount ID
+        /// </param>
+        /// <param name='filter'>
+        /// Filter reservation details by date range. The properties/UsageDate
+        /// for start date and end date. The filter supports 'le' and  'ge'
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="ErrorResponseException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        Task<AzureOperationResponse<IPage<ReservationDetail>>> ListByBillingAccountIdWithHttpMessagesAsync(string billingAccountId, string filter, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        /// <summary>
+        /// Lists the reservations details for provided date range.
+        /// <see href="https://docs.microsoft.com/en-us/rest/api/consumption/" />
+        /// </summary>
         /// <param name='nextPageLink'>
         /// The NextLink from the previous successful call to List operation.
         /// </param>
@@ -126,5 +153,28 @@ namespace Microsoft.Azure.Management.Consumption
         /// Thrown when a required parameter is null
         /// </exception>
         Task<AzureOperationResponse<IPage<ReservationDetail>>> ListByReservationOrderAndReservationNextWithHttpMessagesAsync(string nextPageLink, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        /// <summary>
+        /// Lists the reservations details for provided date range.
+        /// <see href="https://docs.microsoft.com/en-us/rest/api/consumption/" />
+        /// </summary>
+        /// <param name='nextPageLink'>
+        /// The NextLink from the previous successful call to List operation.
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        /// <exception cref="ErrorResponseException">
+        /// Thrown when the operation returned an invalid status code
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.SerializationException">
+        /// Thrown when unable to deserialize the response
+        /// </exception>
+        /// <exception cref="Microsoft.Rest.ValidationException">
+        /// Thrown when a required parameter is null
+        /// </exception>
+        Task<AzureOperationResponse<IPage<ReservationDetail>>> ListByBillingAccountIdNextWithHttpMessagesAsync(string nextPageLink, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
     }
 }

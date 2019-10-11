@@ -43,7 +43,7 @@ namespace Microsoft.Azure.Management.Consumption
 
         /// <summary>
         /// Version of the API to be used with the client request. The current
-        /// version is 2019-04-01-preview.
+        /// version is 2019-10-01.
         /// </summary>
         string ApiVersion { get; }
 
@@ -51,6 +51,16 @@ namespace Microsoft.Azure.Management.Consumption
         /// Azure Subscription ID.
         /// </summary>
         string SubscriptionId { get; set; }
+
+        /// <summary>
+        /// Start date
+        /// </summary>
+        string StartDate { get; set; }
+
+        /// <summary>
+        /// End date
+        /// </summary>
+        string EndDate { get; set; }
 
         /// <summary>
         /// The preferred language for the response.
@@ -117,6 +127,11 @@ namespace Microsoft.Azure.Management.Consumption
         IReservationRecommendationsOperations ReservationRecommendations { get; }
 
         /// <summary>
+        /// Gets the IReservationTransactionsOperations.
+        /// </summary>
+        IReservationTransactionsOperations ReservationTransactions { get; }
+
+        /// <summary>
         /// Gets the IPriceSheetOperations.
         /// </summary>
         IPriceSheetOperations PriceSheet { get; }
@@ -135,6 +150,21 @@ namespace Microsoft.Azure.Management.Consumption
         /// Gets the IAggregatedCostOperations.
         /// </summary>
         IAggregatedCostOperations AggregatedCost { get; }
+
+        /// <summary>
+        /// Gets the IEventsByBillingProfileOperations.
+        /// </summary>
+        IEventsByBillingProfileOperations EventsByBillingProfile { get; }
+
+        /// <summary>
+        /// Gets the ILotsByBillingProfileOperations.
+        /// </summary>
+        ILotsByBillingProfileOperations LotsByBillingProfile { get; }
+
+        /// <summary>
+        /// Gets the ICreditSummaryByBillingProfileOperations.
+        /// </summary>
+        ICreditSummaryByBillingProfileOperations CreditSummaryByBillingProfile { get; }
 
     }
 }

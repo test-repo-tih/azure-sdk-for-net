@@ -49,7 +49,7 @@ namespace Microsoft.Azure.Management.Consumption
 
         /// <summary>
         /// Version of the API to be used with the client request. The current version
-        /// is 2019-04-01-preview.
+        /// is 2019-10-01.
         /// </summary>
         public string ApiVersion { get; private set; }
 
@@ -57,6 +57,16 @@ namespace Microsoft.Azure.Management.Consumption
         /// Azure Subscription ID.
         /// </summary>
         public string SubscriptionId { get; set; }
+
+        /// <summary>
+        /// Start date
+        /// </summary>
+        public string StartDate { get; set; }
+
+        /// <summary>
+        /// End date
+        /// </summary>
+        public string EndDate { get; set; }
 
         /// <summary>
         /// The preferred language for the response.
@@ -122,6 +132,11 @@ namespace Microsoft.Azure.Management.Consumption
         public virtual IReservationRecommendationsOperations ReservationRecommendations { get; private set; }
 
         /// <summary>
+        /// Gets the IReservationTransactionsOperations.
+        /// </summary>
+        public virtual IReservationTransactionsOperations ReservationTransactions { get; private set; }
+
+        /// <summary>
         /// Gets the IPriceSheetOperations.
         /// </summary>
         public virtual IPriceSheetOperations PriceSheet { get; private set; }
@@ -140,6 +155,21 @@ namespace Microsoft.Azure.Management.Consumption
         /// Gets the IAggregatedCostOperations.
         /// </summary>
         public virtual IAggregatedCostOperations AggregatedCost { get; private set; }
+
+        /// <summary>
+        /// Gets the IEventsByBillingProfileOperations.
+        /// </summary>
+        public virtual IEventsByBillingProfileOperations EventsByBillingProfile { get; private set; }
+
+        /// <summary>
+        /// Gets the ILotsByBillingProfileOperations.
+        /// </summary>
+        public virtual ILotsByBillingProfileOperations LotsByBillingProfile { get; private set; }
+
+        /// <summary>
+        /// Gets the ICreditSummaryByBillingProfileOperations.
+        /// </summary>
+        public virtual ICreditSummaryByBillingProfileOperations CreditSummaryByBillingProfile { get; private set; }
 
         /// <summary>
         /// Initializes a new instance of the ConsumptionManagementClient class.
@@ -391,12 +421,16 @@ namespace Microsoft.Azure.Management.Consumption
             ReservationsSummaries = new ReservationsSummariesOperations(this);
             ReservationsDetails = new ReservationsDetailsOperations(this);
             ReservationRecommendations = new ReservationRecommendationsOperations(this);
+            ReservationTransactions = new ReservationTransactionsOperations(this);
             PriceSheet = new PriceSheetOperations(this);
             Forecasts = new ForecastsOperations(this);
             Operations = new Operations(this);
             AggregatedCost = new AggregatedCostOperations(this);
+            EventsByBillingProfile = new EventsByBillingProfileOperations(this);
+            LotsByBillingProfile = new LotsByBillingProfileOperations(this);
+            CreditSummaryByBillingProfile = new CreditSummaryByBillingProfileOperations(this);
             BaseUri = new System.Uri("https://management.azure.com");
-            ApiVersion = "2019-04-01-preview";
+            ApiVersion = "2019-10-01";
             AcceptLanguage = "en-US";
             LongRunningOperationRetryTimeout = 30;
             GenerateClientRequestId = true;

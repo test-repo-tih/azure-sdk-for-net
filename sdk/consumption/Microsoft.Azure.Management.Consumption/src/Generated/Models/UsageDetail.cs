@@ -64,7 +64,7 @@ namespace Microsoft.Azure.Management.Consumption.Models
         /// <param name="meterDetails">The details about the meter. By default
         /// this is not populated, unless it's specified in $expand.</param>
         /// <param name="quantity">The usage quantity.</param>
-        /// <param name="effectivePrice">Effective Price that’s charged for the
+        /// <param name="effectivePrice">Effective Price that's charged for the
         /// usage.</param>
         /// <param name="cost">The amount of cost before tax.</param>
         /// <param name="unitPrice">Unit Price is the price applicable to you.
@@ -271,7 +271,7 @@ namespace Microsoft.Azure.Management.Consumption.Models
         public decimal? Quantity { get; private set; }
 
         /// <summary>
-        /// Gets effective Price that’s charged for the usage.
+        /// Gets effective Price that's charged for the usage.
         /// </summary>
         [JsonProperty(PropertyName = "properties.effectivePrice")]
         public decimal? EffectivePrice { get; private set; }
