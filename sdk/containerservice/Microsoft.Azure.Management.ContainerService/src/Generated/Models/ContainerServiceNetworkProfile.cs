@@ -51,7 +51,9 @@ namespace Microsoft.Azure.Management.ContainerService.Models
         /// ranges or the Kubernetes service address range.</param>
         /// <param name="loadBalancerSku">The load balancer sku for the managed
         /// cluster. Possible values include: 'standard', 'basic'</param>
-        public ContainerServiceNetworkProfile(string networkPlugin = default(string), string networkPolicy = default(string), string podCidr = default(string), string serviceCidr = default(string), string dnsServiceIP = default(string), string dockerBridgeCidr = default(string), string loadBalancerSku = default(string))
+        /// <param name="loadBalancerProfile">Profile of the cluster load
+        /// balancer.</param>
+        public ContainerServiceNetworkProfile(string networkPlugin = default(string), string networkPolicy = default(string), string podCidr = default(string), string serviceCidr = default(string), string dnsServiceIP = default(string), string dockerBridgeCidr = default(string), string loadBalancerSku = default(string), ManagedClusterLoadBalancerProfile loadBalancerProfile = default(ManagedClusterLoadBalancerProfile))
         {
             NetworkPlugin = networkPlugin;
             NetworkPolicy = networkPolicy;
@@ -60,6 +62,7 @@ namespace Microsoft.Azure.Management.ContainerService.Models
             DnsServiceIP = dnsServiceIP;
             DockerBridgeCidr = dockerBridgeCidr;
             LoadBalancerSku = loadBalancerSku;
+            LoadBalancerProfile = loadBalancerProfile;
             CustomInit();
         }
 
@@ -120,6 +123,12 @@ namespace Microsoft.Azure.Management.ContainerService.Models
         public string LoadBalancerSku { get; set; }
 
         /// <summary>
+        /// Gets or sets profile of the cluster load balancer.
+        /// </summary>
+        [JsonProperty(PropertyName = "loadBalancerProfile")]
+        public ManagedClusterLoadBalancerProfile LoadBalancerProfile { get; set; }
+
+        /// <summary>
         /// Validate the object.
         /// </summary>
         /// <exception cref="ValidationException">
@@ -154,6 +163,10 @@ namespace Microsoft.Azure.Management.ContainerService.Models
                 {
                     throw new ValidationException(ValidationRules.Pattern, "DockerBridgeCidr", "^([0-9]{1,3}\\.){3}[0-9]{1,3}(\\/([0-9]|[1-2][0-9]|3[0-2]))?$");
                 }
+            }
+            if (LoadBalancerProfile != null)
+            {
+                LoadBalancerProfile.Validate();
             }
         }
     }
