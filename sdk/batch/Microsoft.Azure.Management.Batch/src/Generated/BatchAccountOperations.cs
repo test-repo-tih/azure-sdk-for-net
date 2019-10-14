@@ -67,7 +67,7 @@ namespace Microsoft.Azure.Management.Batch
         /// http://accountname.region.batch.azure.com/.
         /// </param>
         /// <param name='parameters'>
-        /// Additional parameters for account creation.
+        /// Additional parameters for account creation test.
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -1556,7 +1556,7 @@ namespace Microsoft.Azure.Management.Batch
         /// http://accountname.region.batch.azure.com/.
         /// </param>
         /// <param name='parameters'>
-        /// Additional parameters for account creation.
+        /// Additional parameters for account creation test.
         /// </param>
         /// <param name='customHeaders'>
         /// Headers that will be added to request.

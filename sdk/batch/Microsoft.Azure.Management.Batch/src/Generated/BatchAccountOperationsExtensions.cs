@@ -41,7 +41,7 @@ namespace Microsoft.Azure.Management.Batch
             /// http://accountname.region.batch.azure.com/.
             /// </param>
             /// <param name='parameters'>
-            /// Additional parameters for account creation.
+            /// Additional parameters for account creation test.
             /// </param>
             public static BatchAccount Create(this IBatchAccountOperations operations, string resourceGroupName, string accountName, BatchAccountCreateParameters parameters)
             {
@@ -68,7 +68,7 @@ namespace Microsoft.Azure.Management.Batch
             /// http://accountname.region.batch.azure.com/.
             /// </param>
             /// <param name='parameters'>
-            /// Additional parameters for account creation.
+            /// Additional parameters for account creation test.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
@@ -432,7 +432,7 @@ namespace Microsoft.Azure.Management.Batch
             /// http://accountname.region.batch.azure.com/.
             /// </param>
             /// <param name='parameters'>
-            /// Additional parameters for account creation.
+            /// Additional parameters for account creation test.
             /// </param>
             public static BatchAccount BeginCreate(this IBatchAccountOperations operations, string resourceGroupName, string accountName, BatchAccountCreateParameters parameters)
             {
@@ -459,7 +459,7 @@ namespace Microsoft.Azure.Management.Batch
             /// http://accountname.region.batch.azure.com/.
             /// </param>
             /// <param name='parameters'>
-            /// Additional parameters for account creation.
+            /// Additional parameters for account creation test.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
