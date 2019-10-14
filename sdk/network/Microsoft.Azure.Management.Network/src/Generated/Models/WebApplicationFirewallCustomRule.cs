@@ -41,12 +41,15 @@ namespace Microsoft.Azure.Management.Network.Models
         /// include: 'MatchRule', 'Invalid'</param>
         /// <param name="matchConditions">List of match conditions.</param>
         /// <param name="action">Type of Actions. Possible values include:
-        /// 'Allow', 'Block', 'Log'</param>
+        /// 'Allow', 'Block', 'Log', 'Skip'</param>
         /// <param name="name">The name of the resource that is unique within a
         /// policy. This name can be used to access the resource.</param>
         /// <param name="etag">A unique read-only string that changes whenever
         /// the resource is updated.</param>
-        public WebApplicationFirewallCustomRule(int priority, string ruleType, IList<MatchCondition> matchConditions, string action, string name = default(string), string etag = default(string))
+        /// <param name="skippedManagedRuleSets">List of managed rule sets,
+        /// managed rule groups and managed rules to be skipped. (Skip action
+        /// only)</param>
+        public WebApplicationFirewallCustomRule(int priority, string ruleType, IList<MatchCondition> matchConditions, string action, string name = default(string), string etag = default(string), IList<SkipActionRuleSet> skippedManagedRuleSets = default(IList<SkipActionRuleSet>))
         {
             Name = name;
             Etag = etag;
@@ -54,6 +57,7 @@ namespace Microsoft.Azure.Management.Network.Models
             RuleType = ruleType;
             MatchConditions = matchConditions;
             Action = action;
+            SkippedManagedRuleSets = skippedManagedRuleSets;
             CustomInit();
         }
 
@@ -98,10 +102,17 @@ namespace Microsoft.Azure.Management.Network.Models
 
         /// <summary>
         /// Gets or sets type of Actions. Possible values include: 'Allow',
-        /// 'Block', 'Log'
+        /// 'Block', 'Log', 'Skip'
         /// </summary>
         [JsonProperty(PropertyName = "action")]
         public string Action { get; set; }
+
+        /// <summary>
+        /// Gets or sets list of managed rule sets, managed rule groups and
+        /// managed rules to be skipped. (Skip action only)
+        /// </summary>
+        [JsonProperty(PropertyName = "skippedManagedRuleSets")]
+        public IList<SkipActionRuleSet> SkippedManagedRuleSets { get; set; }
 
         /// <summary>
         /// Validate the object.
@@ -137,6 +148,16 @@ namespace Microsoft.Azure.Management.Network.Models
                     if (element != null)
                     {
                         element.Validate();
+                    }
+                }
+            }
+            if (SkippedManagedRuleSets != null)
+            {
+                foreach (var element1 in SkippedManagedRuleSets)
+                {
+                    if (element1 != null)
+                    {
+                        element1.Validate();
                     }
                 }
             }
