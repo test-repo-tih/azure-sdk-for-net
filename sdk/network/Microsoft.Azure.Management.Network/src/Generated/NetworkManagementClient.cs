@@ -49,16 +49,9 @@ namespace Microsoft.Azure.Management.Network
         public ServiceClientCredentials Credentials { get; private set; }
 
         /// <summary>
-        /// The subscription credentials which uniquely identify the Microsoft Azure
-        /// subscription. The subscription ID forms part of the URI for every service
-        /// call.
+        /// The ID of the target subscription.
         /// </summary>
         public string SubscriptionId { get; set; }
-
-        /// <summary>
-        /// Client API version.
-        /// </summary>
-        public string ApiVersion { get; private set; }
 
         /// <summary>
         /// The preferred language for the response.
@@ -504,6 +497,11 @@ namespace Microsoft.Azure.Management.Network
         public virtual IVpnServerConfigurationsAssociatedWithVirtualWanOperations VpnServerConfigurationsAssociatedWithVirtualWan { get; private set; }
 
         /// <summary>
+        /// Gets the IVirtualHubRouteTableV2sOperations.
+        /// </summary>
+        public virtual IVirtualHubRouteTableV2sOperations VirtualHubRouteTableV2s { get; private set; }
+
+        /// <summary>
         /// Gets the IWebApplicationFirewallPoliciesOperations.
         /// </summary>
         public virtual IWebApplicationFirewallPoliciesOperations WebApplicationFirewallPolicies { get; private set; }
@@ -834,6 +832,7 @@ namespace Microsoft.Azure.Management.Network
             VpnLinkConnections = new VpnLinkConnectionsOperations(this);
             P2sVpnGateways = new P2sVpnGatewaysOperations(this);
             VpnServerConfigurationsAssociatedWithVirtualWan = new VpnServerConfigurationsAssociatedWithVirtualWanOperations(this);
+            VirtualHubRouteTableV2s = new VirtualHubRouteTableV2sOperations(this);
             WebApplicationFirewallPolicies = new WebApplicationFirewallPoliciesOperations(this);
             BaseUri = new System.Uri("https://management.azure.com");
             AcceptLanguage = "en-US";
@@ -919,7 +918,14 @@ namespace Microsoft.Azure.Management.Network
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "this.SubscriptionId");
             }
-            string apiVersion = "2019-08-01";
+            if (SubscriptionId != null)
+            {
+                if (SubscriptionId.Length < 1)
+                {
+                    throw new ValidationException(ValidationRules.MinLength, "SubscriptionId", 1);
+                }
+            }
+            string apiVersion = "2019-09-01";
             // Tracing
             bool _shouldTrace = ServiceClientTracing.IsEnabled;
             string _invocationId = null;
@@ -1109,6 +1115,13 @@ namespace Microsoft.Azure.Management.Network
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "this.SubscriptionId");
             }
+            if (SubscriptionId != null)
+            {
+                if (SubscriptionId.Length < 1)
+                {
+                    throw new ValidationException(ValidationRules.MinLength, "SubscriptionId", 1);
+                }
+            }
             if (resourceGroupName == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "resourceGroupName");
@@ -1117,7 +1130,7 @@ namespace Microsoft.Azure.Management.Network
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "virtualWANName");
             }
-            string apiVersion = "2019-08-01";
+            string apiVersion = "2019-09-01";
             // Tracing
             bool _shouldTrace = ServiceClientTracing.IsEnabled;
             string _invocationId = null;
@@ -1339,6 +1352,13 @@ namespace Microsoft.Azure.Management.Network
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "this.SubscriptionId");
             }
+            if (SubscriptionId != null)
+            {
+                if (SubscriptionId.Length < 1)
+                {
+                    throw new ValidationException(ValidationRules.MinLength, "SubscriptionId", 1);
+                }
+            }
             if (resourceGroupName == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "resourceGroupName");
@@ -1351,7 +1371,7 @@ namespace Microsoft.Azure.Management.Network
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "vpnClientParams");
             }
-            string apiVersion = "2019-08-01";
+            string apiVersion = "2019-09-01";
             // Tracing
             bool _shouldTrace = ServiceClientTracing.IsEnabled;
             string _invocationId = null;

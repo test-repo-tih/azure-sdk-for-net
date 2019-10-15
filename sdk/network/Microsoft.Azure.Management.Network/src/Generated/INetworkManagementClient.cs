@@ -45,16 +45,9 @@ namespace Microsoft.Azure.Management.Network
         ServiceClientCredentials Credentials { get; }
 
         /// <summary>
-        /// The subscription credentials which uniquely identify the Microsoft
-        /// Azure subscription. The subscription ID forms part of the URI for
-        /// every service call.
+        /// The ID of the target subscription.
         /// </summary>
         string SubscriptionId { get; set; }
-
-        /// <summary>
-        /// Client API version.
-        /// </summary>
-        string ApiVersion { get; }
 
         /// <summary>
         /// The preferred language for the response.
@@ -499,6 +492,11 @@ namespace Microsoft.Azure.Management.Network
         /// Gets the IVpnServerConfigurationsAssociatedWithVirtualWanOperations.
         /// </summary>
         IVpnServerConfigurationsAssociatedWithVirtualWanOperations VpnServerConfigurationsAssociatedWithVirtualWan { get; }
+
+        /// <summary>
+        /// Gets the IVirtualHubRouteTableV2sOperations.
+        /// </summary>
+        IVirtualHubRouteTableV2sOperations VirtualHubRouteTableV2s { get; }
 
         /// <summary>
         /// Gets the IWebApplicationFirewallPoliciesOperations.
