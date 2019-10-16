@@ -20,5 +20,6 @@ namespace Microsoft.Azure.Management.Advisor.Models
         public const string Security = "Security";
         public const string Performance = "Performance";
         public const string Cost = "Cost";
+        public const string OperationalExcellence = "OperationalExcellence";
     }
 }
