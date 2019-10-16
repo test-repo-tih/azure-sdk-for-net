@@ -10,7 +10,6 @@
 
 namespace Microsoft.Azure.Management.Network.Models
 {
-    using Microsoft.Rest;
     using Newtonsoft.Json;
     using System.Collections;
     using System.Collections.Generic;
@@ -32,11 +31,11 @@ namespace Microsoft.Azure.Management.Network.Models
         /// <summary>
         /// Initializes a new instance of the ManagedRulesDefinition class.
         /// </summary>
-        /// <param name="managedRuleSets">Describes the ruleSets that are
-        /// associated with the policy.</param>
         /// <param name="exclusions">Describes the Exclusions that are applied
         /// on the policy.</param>
-        public ManagedRulesDefinition(IList<ManagedRuleSet> managedRuleSets, IList<OwaspCrsExclusionEntry> exclusions = default(IList<OwaspCrsExclusionEntry>))
+        /// <param name="managedRuleSets">Describes the ruleSets that are
+        /// associated with the policy.</param>
+        public ManagedRulesDefinition(IList<OwaspCrsExclusionEntry> exclusions = default(IList<OwaspCrsExclusionEntry>), IList<ManagedRuleSet> managedRuleSets = default(IList<ManagedRuleSet>))
         {
             Exclusions = exclusions;
             ManagedRuleSets = managedRuleSets;
@@ -62,38 +61,5 @@ namespace Microsoft.Azure.Management.Network.Models
         [JsonProperty(PropertyName = "managedRuleSets")]
         public IList<ManagedRuleSet> ManagedRuleSets { get; set; }
 
-        /// <summary>
-        /// Validate the object.
-        /// </summary>
-        /// <exception cref="ValidationException">
-        /// Thrown if validation fails
-        /// </exception>
-        public virtual void Validate()
-        {
-            if (ManagedRuleSets == null)
-            {
-                throw new ValidationException(ValidationRules.CannotBeNull, "ManagedRuleSets");
-            }
-            if (Exclusions != null)
-            {
-                foreach (var element in Exclusions)
-                {
-                    if (element != null)
-                    {
-                        element.Validate();
-                    }
-                }
-            }
-            if (ManagedRuleSets != null)
-            {
-                foreach (var element1 in ManagedRuleSets)
-                {
-                    if (element1 != null)
-                    {
-                        element1.Validate();
-                    }
-                }
-            }
-        }
     }
 }

@@ -60,9 +60,12 @@ namespace Microsoft.Azure.Management.Network.Models
         /// 'Updating', 'Deleting', 'Failed'</param>
         /// <param name="securityProviderName">The Security Provider
         /// name.</param>
+        /// <param name="virtualHubRouteTableV2s">List of all virtual hub route
+        /// table v2s associated with this VirtualHub.</param>
+        /// <param name="sku">The sku of this VirtualHub.</param>
         /// <param name="etag">A unique read-only string that changes whenever
         /// the resource is updated.</param>
-        public VirtualHub(string id = default(string), string name = default(string), string type = default(string), string location = default(string), IDictionary<string, string> tags = default(IDictionary<string, string>), SubResource virtualWan = default(SubResource), SubResource vpnGateway = default(SubResource), SubResource p2SVpnGateway = default(SubResource), SubResource expressRouteGateway = default(SubResource), SubResource azureFirewall = default(SubResource), IList<HubVirtualNetworkConnection> virtualNetworkConnections = default(IList<HubVirtualNetworkConnection>), string addressPrefix = default(string), VirtualHubRouteTable routeTable = default(VirtualHubRouteTable), string provisioningState = default(string), string securityProviderName = default(string), string etag = default(string))
+        public VirtualHub(string id = default(string), string name = default(string), string type = default(string), string location = default(string), IDictionary<string, string> tags = default(IDictionary<string, string>), SubResource virtualWan = default(SubResource), SubResource vpnGateway = default(SubResource), SubResource p2SVpnGateway = default(SubResource), SubResource expressRouteGateway = default(SubResource), SubResource azureFirewall = default(SubResource), IList<HubVirtualNetworkConnection> virtualNetworkConnections = default(IList<HubVirtualNetworkConnection>), string addressPrefix = default(string), VirtualHubRouteTable routeTable = default(VirtualHubRouteTable), string provisioningState = default(string), string securityProviderName = default(string), IList<VirtualHubRouteTableV2> virtualHubRouteTableV2s = default(IList<VirtualHubRouteTableV2>), string sku = default(string), string etag = default(string))
             : base(id, name, type, location, tags)
         {
             VirtualWan = virtualWan;
@@ -75,6 +78,8 @@ namespace Microsoft.Azure.Management.Network.Models
             RouteTable = routeTable;
             ProvisioningState = provisioningState;
             SecurityProviderName = securityProviderName;
+            VirtualHubRouteTableV2s = virtualHubRouteTableV2s;
+            Sku = sku;
             Etag = etag;
             CustomInit();
         }
@@ -146,6 +151,19 @@ namespace Microsoft.Azure.Management.Network.Models
         /// </summary>
         [JsonProperty(PropertyName = "properties.securityProviderName")]
         public string SecurityProviderName { get; set; }
+
+        /// <summary>
+        /// Gets or sets list of all virtual hub route table v2s associated
+        /// with this VirtualHub.
+        /// </summary>
+        [JsonProperty(PropertyName = "properties.virtualHubRouteTableV2s")]
+        public IList<VirtualHubRouteTableV2> VirtualHubRouteTableV2s { get; set; }
+
+        /// <summary>
+        /// Gets or sets the sku of this VirtualHub.
+        /// </summary>
+        [JsonProperty(PropertyName = "properties.sku")]
+        public string Sku { get; set; }
 
         /// <summary>
         /// Gets a unique read-only string that changes whenever the resource
