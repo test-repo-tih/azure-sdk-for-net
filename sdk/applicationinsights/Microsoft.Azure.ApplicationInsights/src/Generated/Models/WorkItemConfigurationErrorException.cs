@@ -13,10 +13,10 @@ namespace Microsoft.Azure.Management.ApplicationInsights.Management.Models
     using Microsoft.Rest;
 
     /// <summary>
-    /// Exception thrown for an invalid response with ErrorResponse
-    /// information.
+    /// Exception thrown for an invalid response with
+    /// WorkItemConfigurationError information.
     /// </summary>
-    public partial class ErrorResponseException : RestException
+    public partial class WorkItemConfigurationErrorException : RestException
     {
         /// <summary>
         /// Gets information about the associated HTTP request.
@@ -31,30 +31,30 @@ namespace Microsoft.Azure.Management.ApplicationInsights.Management.Models
         /// <summary>
         /// Gets or sets the body object.
         /// </summary>
-        public ErrorResponse Body { get; set; }
+        public WorkItemConfigurationError Body { get; set; }
 
         /// <summary>
-        /// Initializes a new instance of the ErrorResponseException class.
+        /// Initializes a new instance of the WorkItemConfigurationErrorException class.
         /// </summary>
-        public ErrorResponseException()
+        public WorkItemConfigurationErrorException()
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the ErrorResponseException class.
+        /// Initializes a new instance of the WorkItemConfigurationErrorException class.
         /// </summary>
         /// <param name="message">The exception message.</param>
-        public ErrorResponseException(string message)
+        public WorkItemConfigurationErrorException(string message)
             : this(message, null)
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the ErrorResponseException class.
+        /// Initializes a new instance of the WorkItemConfigurationErrorException class.
         /// </summary>
         /// <param name="message">The exception message.</param>
         /// <param name="innerException">Inner exception.</param>
-        public ErrorResponseException(string message, System.Exception innerException)
+        public WorkItemConfigurationErrorException(string message, System.Exception innerException)
             : base(message, innerException)
         {
         }

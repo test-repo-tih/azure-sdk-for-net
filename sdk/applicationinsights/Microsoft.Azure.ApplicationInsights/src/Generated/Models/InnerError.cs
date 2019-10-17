@@ -14,29 +14,28 @@ namespace Microsoft.Azure.Management.ApplicationInsights.Management.Models
     using System.Linq;
 
     /// <summary>
-    /// Error response indicates Insights service is not able to process the
-    /// incoming request. The reason is provided in the error message.
+    /// Inner error
     /// </summary>
-    public partial class ErrorResponse
+    public partial class InnerError
     {
         /// <summary>
-        /// Initializes a new instance of the ErrorResponse class.
+        /// Initializes a new instance of the InnerError class.
         /// </summary>
-        public ErrorResponse()
+        public InnerError()
         {
             CustomInit();
         }
 
         /// <summary>
-        /// Initializes a new instance of the ErrorResponse class.
+        /// Initializes a new instance of the InnerError class.
         /// </summary>
-        /// <param name="code">Error code.</param>
-        /// <param name="message">Error message indicating why the operation
-        /// failed.</param>
-        public ErrorResponse(string code = default(string), string message = default(string))
+        /// <param name="diagnosticcontext">Provides correlation for
+        /// request</param>
+        /// <param name="time">Request time</param>
+        public InnerError(string diagnosticcontext = default(string), System.DateTime? time = default(System.DateTime?))
         {
-            Code = code;
-            Message = message;
+            Diagnosticcontext = diagnosticcontext;
+            Time = time;
             CustomInit();
         }
 
@@ -46,16 +45,16 @@ namespace Microsoft.Azure.Management.ApplicationInsights.Management.Models
         partial void CustomInit();
 
         /// <summary>
-        /// Gets or sets error code.
+        /// Gets or sets provides correlation for request
         /// </summary>
-        [JsonProperty(PropertyName = "code")]
-        public string Code { get; set; }
+        [JsonProperty(PropertyName = "diagnosticcontext")]
+        public string Diagnosticcontext { get; set; }
 
         /// <summary>
-        /// Gets or sets error message indicating why the operation failed.
+        /// Gets or sets request time
         /// </summary>
-        [JsonProperty(PropertyName = "message")]
-        public string Message { get; set; }
+        [JsonProperty(PropertyName = "time")]
+        public System.DateTime? Time { get; set; }
 
     }
 }
