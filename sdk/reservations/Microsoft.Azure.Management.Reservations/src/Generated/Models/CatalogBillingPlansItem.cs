@@ -28,13 +28,13 @@ namespace Microsoft.Azure.Management.Reservations.Models
         /// <summary>
         /// Initializes a new instance of the CatalogBillingPlansItem class.
         /// </summary>
-        /// <param name="p1Y"></param>
-        /// <param name="p3Y"></param>
-        /// <param name="name"></param>
-        public CatalogBillingPlansItem(IList<string> p1Y = default(IList<string>), IList<string> p3Y = default(IList<string>), string name = default(string))
+        /// <param name="additionalProperties">Unmatched properties from the
+        /// message are deserialized this collection</param>
+        /// <param name="name">The term for the billing SKU is available for.
+        /// Possible values include: 'P1Y', 'P3Y'</param>
+        public CatalogBillingPlansItem(IDictionary<string, IList<string>> additionalProperties = default(IDictionary<string, IList<string>>), string name = default(string))
         {
-            P1Y = p1Y;
-            P3Y = p3Y;
+            AdditionalProperties = additionalProperties;
             Name = name;
             CustomInit();
         }
@@ -48,8 +48,8 @@ namespace Microsoft.Azure.Management.Reservations.Models
         /// Gets or sets unmatched properties from the message are deserialized
         /// this collection
         /// </summary>
-        //[JsonExtensionData]
-        //public IDictionary<string, IList<string>> AdditionalProperties { get; set; }
+        [JsonExtensionData]
+        public IDictionary<string, IList<string>> AdditionalProperties { get; set; }
 
         /// <summary>
         /// Gets or sets the term for the billing SKU is available for.
@@ -57,12 +57,6 @@ namespace Microsoft.Azure.Management.Reservations.Models
         /// </summary>
         [JsonProperty(PropertyName = "name")]
         public string Name { get; set; }
-
-        [JsonProperty(PropertyName = "p1Y")]
-        public IList<string> P1Y { get; set; }
-
-        [JsonProperty(PropertyName = "p3Y")]
-        public IList<string> P3Y { get; set; }
 
     }
 }

@@ -13,15 +13,18 @@ namespace Microsoft.Azure.Management.Reservations
 
   internal static partial class SdkInfo
   {
-      public static IEnumerable<Tuple<string, string, string>> ApiInfo_AzureReservationAPI
+      public static IEnumerable<Tuple<string, string, string>> ApiInfo_MicrosoftCapacity
       {
           get
           {
               return new Tuple<string, string, string>[]
               {
+                new Tuple<string, string, string>("Capacity", "AutoQuotaIncrease", "2019-07-19-preview"),
                 new Tuple<string, string, string>("Capacity", "GetAppliedReservationList", "2019-04-01"),
                 new Tuple<string, string, string>("Capacity", "GetCatalog", "2019-04-01"),
                 new Tuple<string, string, string>("Capacity", "Operation", "2019-04-01"),
+                new Tuple<string, string, string>("Capacity", "QuotaRequests", "2019-07-19-preview"),
+                new Tuple<string, string, string>("Capacity", "Quotas", "2019-07-19-preview"),
                 new Tuple<string, string, string>("Capacity", "Reservation", "2019-04-01"),
                 new Tuple<string, string, string>("Capacity", "ReservationOrder", "2019-04-01"),
               }.AsEnumerable();
