@@ -118,7 +118,17 @@ namespace Microsoft.Azure.Management.ContainerService.Models
         /// provisioning state, which only appears in the response.</param>
         /// <param name="availabilityZones">(PREVIEW) Availability zones for
         /// nodes. Must use VirtualMachineScaleSets AgentPoolType.</param>
-        public ManagedClusterAgentPoolProfileProperties(int count, string vmSize, int? osDiskSizeGB = default(int?), string vnetSubnetID = default(string), int? maxPods = default(int?), string osType = default(string), int? maxCount = default(int?), int? minCount = default(int?), bool? enableAutoScaling = default(bool?), string type = default(string), string orchestratorVersion = default(string), string provisioningState = default(string), IList<string> availabilityZones = default(IList<string>))
+        /// <param name="enableNodePublicIP">Enable public IP for nodes</param>
+        /// <param name="scaleSetPriority">ScaleSetPriority to be used to
+        /// specify virtual machine scale set priority. Default to regular.
+        /// Possible values include: 'Low', 'Regular'</param>
+        /// <param name="scaleSetEvictionPolicy">ScaleSetEvictionPolicy to be
+        /// used to specify eviction policy for low priority virtual machine
+        /// scale set. Default to Delete. Possible values include: 'Delete',
+        /// 'Deallocate'</param>
+        /// <param name="nodeTaints">Taints added to new nodes during node pool
+        /// create and scale. For example, key=value:NoSchedule.</param>
+        public ManagedClusterAgentPoolProfileProperties(int count, string vmSize, int? osDiskSizeGB = default(int?), string vnetSubnetID = default(string), int? maxPods = default(int?), string osType = default(string), int? maxCount = default(int?), int? minCount = default(int?), bool? enableAutoScaling = default(bool?), string type = default(string), string orchestratorVersion = default(string), string provisioningState = default(string), IList<string> availabilityZones = default(IList<string>), bool? enableNodePublicIP = default(bool?), string scaleSetPriority = default(string), string scaleSetEvictionPolicy = default(string), IList<string> nodeTaints = default(IList<string>))
         {
             Count = count;
             VmSize = vmSize;
@@ -133,6 +143,10 @@ namespace Microsoft.Azure.Management.ContainerService.Models
             OrchestratorVersion = orchestratorVersion;
             ProvisioningState = provisioningState;
             AvailabilityZones = availabilityZones;
+            EnableNodePublicIP = enableNodePublicIP;
+            ScaleSetPriority = scaleSetPriority;
+            ScaleSetEvictionPolicy = scaleSetEvictionPolicy;
+            NodeTaints = nodeTaints;
             CustomInit();
         }
 
@@ -284,6 +298,35 @@ namespace Microsoft.Azure.Management.ContainerService.Models
         /// </summary>
         [JsonProperty(PropertyName = "availabilityZones")]
         public IList<string> AvailabilityZones { get; set; }
+
+        /// <summary>
+        /// Gets or sets enable public IP for nodes
+        /// </summary>
+        [JsonProperty(PropertyName = "enableNodePublicIP")]
+        public bool? EnableNodePublicIP { get; set; }
+
+        /// <summary>
+        /// Gets or sets scaleSetPriority to be used to specify virtual machine
+        /// scale set priority. Default to regular. Possible values include:
+        /// 'Low', 'Regular'
+        /// </summary>
+        [JsonProperty(PropertyName = "scaleSetPriority")]
+        public string ScaleSetPriority { get; set; }
+
+        /// <summary>
+        /// Gets or sets scaleSetEvictionPolicy to be used to specify eviction
+        /// policy for low priority virtual machine scale set. Default to
+        /// Delete. Possible values include: 'Delete', 'Deallocate'
+        /// </summary>
+        [JsonProperty(PropertyName = "scaleSetEvictionPolicy")]
+        public string ScaleSetEvictionPolicy { get; set; }
+
+        /// <summary>
+        /// Gets or sets taints added to new nodes during node pool create and
+        /// scale. For example, key=value:NoSchedule.
+        /// </summary>
+        [JsonProperty(PropertyName = "nodeTaints")]
+        public IList<string> NodeTaints { get; set; }
 
         /// <summary>
         /// Validate the object.
