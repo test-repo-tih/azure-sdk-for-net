@@ -77,7 +77,7 @@ namespace Microsoft.Azure.Management.Network.Models
         /// resource.</param>
         /// <param name="etag">A unique read-only string that changes whenever
         /// the resource is updated.</param>
-        public Subnet(string id = default(string), string addressPrefix = default(string), IList<string> addressPrefixes = default(IList<string>), NetworkSecurityGroup networkSecurityGroup = default(NetworkSecurityGroup), RouteTable routeTable = default(RouteTable), SubResource natGateway = default(SubResource), IList<ServiceEndpointPropertiesFormat> serviceEndpoints = default(IList<ServiceEndpointPropertiesFormat>), IList<ServiceEndpointPolicy> serviceEndpointPolicies = default(IList<ServiceEndpointPolicy>), IList<PrivateEndpoint> privateEndpoints = default(IList<PrivateEndpoint>), IList<IPConfiguration> ipConfigurations = default(IList<IPConfiguration>), IList<IPConfigurationProfile> ipConfigurationProfiles = default(IList<IPConfigurationProfile>), IList<ResourceNavigationLink> resourceNavigationLinks = default(IList<ResourceNavigationLink>), IList<ServiceAssociationLink> serviceAssociationLinks = default(IList<ServiceAssociationLink>), IList<Delegation> delegations = default(IList<Delegation>), string purpose = default(string), string provisioningState = default(string), string privateEndpointNetworkPolicies = default(string), string privateLinkServiceNetworkPolicies = default(string), string name = default(string), string etag = default(string))
+        public Subnet(string id = default(string), string addressPrefix = default(string), IList<string> addressPrefixes = default(IList<string>), SubResource networkSecurityGroup = default(SubResource), SubResource routeTable = default(SubResource), SubResource natGateway = default(SubResource), IList<ServiceEndpointPropertiesFormat> serviceEndpoints = default(IList<ServiceEndpointPropertiesFormat>), IList<SubResource> serviceEndpointPolicies = default(IList<SubResource>), IList<SubResource> privateEndpoints = default(IList<SubResource>), IList<SubResource> ipConfigurations = default(IList<SubResource>), IList<SubResource> ipConfigurationProfiles = default(IList<SubResource>), IList<ResourceNavigationLink> resourceNavigationLinks = default(IList<ResourceNavigationLink>), IList<ServiceAssociationLink> serviceAssociationLinks = default(IList<ServiceAssociationLink>), IList<Delegation> delegations = default(IList<Delegation>), string purpose = default(string), string provisioningState = default(string), string privateEndpointNetworkPolicies = default(string), string privateLinkServiceNetworkPolicies = default(string), string name = default(string), string etag = default(string))
             : base(id)
         {
             AddressPrefix = addressPrefix;
@@ -123,13 +123,13 @@ namespace Microsoft.Azure.Management.Network.Models
         /// Gets or sets the reference of the NetworkSecurityGroup resource.
         /// </summary>
         [JsonProperty(PropertyName = "properties.networkSecurityGroup")]
-        public NetworkSecurityGroup NetworkSecurityGroup { get; set; }
+        public SubResource NetworkSecurityGroup { get; set; }
 
         /// <summary>
         /// Gets or sets the reference of the RouteTable resource.
         /// </summary>
         [JsonProperty(PropertyName = "properties.routeTable")]
-        public RouteTable RouteTable { get; set; }
+        public SubResource RouteTable { get; set; }
 
         /// <summary>
         /// Gets or sets nat gateway associated with this subnet.
@@ -147,41 +147,39 @@ namespace Microsoft.Azure.Management.Network.Models
         /// Gets or sets an array of service endpoint policies.
         /// </summary>
         [JsonProperty(PropertyName = "properties.serviceEndpointPolicies")]
-        public IList<ServiceEndpointPolicy> ServiceEndpointPolicies { get; set; }
+        public IList<SubResource> ServiceEndpointPolicies { get; set; }
 
         /// <summary>
         /// Gets an array of references to private endpoints.
         /// </summary>
         [JsonProperty(PropertyName = "properties.privateEndpoints")]
-        public IList<PrivateEndpoint> PrivateEndpoints { get; private set; }
+        public IList<SubResource> PrivateEndpoints { get; private set; }
 
         /// <summary>
         /// Gets an array of references to the network interface IP
         /// configurations using subnet.
         /// </summary>
         [JsonProperty(PropertyName = "properties.ipConfigurations")]
-        public IList<IPConfiguration> IpConfigurations { get; private set; }
+        public IList<SubResource> IpConfigurations { get; private set; }
 
         /// <summary>
         /// Gets array of IP configuration profiles which reference this
         /// subnet.
         /// </summary>
         [JsonProperty(PropertyName = "properties.ipConfigurationProfiles")]
-        public IList<IPConfigurationProfile> IpConfigurationProfiles { get; private set; }
+        public IList<SubResource> IpConfigurationProfiles { get; private set; }
 
         /// <summary>
-        /// Gets or sets an array of references to the external resources using
-        /// subnet.
+        /// Gets an array of references to the external resources using subnet.
         /// </summary>
         [JsonProperty(PropertyName = "properties.resourceNavigationLinks")]
-        public IList<ResourceNavigationLink> ResourceNavigationLinks { get; set; }
+        public IList<ResourceNavigationLink> ResourceNavigationLinks { get; private set; }
 
         /// <summary>
-        /// Gets or sets an array of references to services injecting into this
-        /// subnet.
+        /// Gets an array of references to services injecting into this subnet.
         /// </summary>
         [JsonProperty(PropertyName = "properties.serviceAssociationLinks")]
-        public IList<ServiceAssociationLink> ServiceAssociationLinks { get; set; }
+        public IList<ServiceAssociationLink> ServiceAssociationLinks { get; private set; }
 
         /// <summary>
         /// Gets or sets an array of references to the delegations on the
@@ -198,12 +196,11 @@ namespace Microsoft.Azure.Management.Network.Models
         public string Purpose { get; private set; }
 
         /// <summary>
-        /// Gets or sets the provisioning state of the subnet resource.
-        /// Possible values include: 'Succeeded', 'Updating', 'Deleting',
-        /// 'Failed'
+        /// Gets the provisioning state of the subnet resource. Possible values
+        /// include: 'Succeeded', 'Updating', 'Deleting', 'Failed'
         /// </summary>
         [JsonProperty(PropertyName = "properties.provisioningState")]
-        public string ProvisioningState { get; set; }
+        public string ProvisioningState { get; private set; }
 
         /// <summary>
         /// Gets or sets enable or Disable apply network policies on private
@@ -227,11 +224,11 @@ namespace Microsoft.Azure.Management.Network.Models
         public string Name { get; set; }
 
         /// <summary>
-        /// Gets or sets a unique read-only string that changes whenever the
-        /// resource is updated.
+        /// Gets a unique read-only string that changes whenever the resource
+        /// is updated.
         /// </summary>
         [JsonProperty(PropertyName = "etag")]
-        public string Etag { get; set; }
+        public string Etag { get; private set; }
 
     }
 }

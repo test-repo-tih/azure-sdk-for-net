@@ -50,7 +50,7 @@ namespace Microsoft.Azure.Management.Network.Models
         /// 'Succeeded', 'Updating', 'Deleting', 'Failed'</param>
         /// <param name="etag">A unique read-only string that changes whenever
         /// the resource is updated.</param>
-        public ExpressRouteGateway(VirtualHubId virtualHub, string id = default(string), string name = default(string), string type = default(string), string location = default(string), IDictionary<string, string> tags = default(IDictionary<string, string>), ExpressRouteGatewayPropertiesAutoScaleConfiguration autoScaleConfiguration = default(ExpressRouteGatewayPropertiesAutoScaleConfiguration), IList<ExpressRouteConnection> expressRouteConnections = default(IList<ExpressRouteConnection>), string provisioningState = default(string), string etag = default(string))
+        public ExpressRouteGateway(SubResource virtualHub, string id = default(string), string name = default(string), string type = default(string), string location = default(string), IDictionary<string, string> tags = default(IDictionary<string, string>), ExpressRouteGatewayPropertiesAutoScaleConfiguration autoScaleConfiguration = default(ExpressRouteGatewayPropertiesAutoScaleConfiguration), IList<ExpressRouteConnection> expressRouteConnections = default(IList<ExpressRouteConnection>), string provisioningState = default(string), string etag = default(string))
             : base(id, name, type, location, tags)
         {
             AutoScaleConfiguration = autoScaleConfiguration;
@@ -79,19 +79,19 @@ namespace Microsoft.Azure.Management.Network.Models
         public IList<ExpressRouteConnection> ExpressRouteConnections { get; private set; }
 
         /// <summary>
-        /// Gets or sets the provisioning state of the express route gateway
-        /// resource. Possible values include: 'Succeeded', 'Updating',
-        /// 'Deleting', 'Failed'
+        /// Gets the provisioning state of the express route gateway resource.
+        /// Possible values include: 'Succeeded', 'Updating', 'Deleting',
+        /// 'Failed'
         /// </summary>
         [JsonProperty(PropertyName = "properties.provisioningState")]
-        public string ProvisioningState { get; set; }
+        public string ProvisioningState { get; private set; }
 
         /// <summary>
         /// Gets or sets the Virtual Hub where the ExpressRoute gateway is or
         /// will be deployed.
         /// </summary>
         [JsonProperty(PropertyName = "properties.virtualHub")]
-        public VirtualHubId VirtualHub { get; set; }
+        public SubResource VirtualHub { get; set; }
 
         /// <summary>
         /// Gets a unique read-only string that changes whenever the resource

@@ -36,7 +36,7 @@ namespace Microsoft.Azure.Management.Network.Models
         /// Intent Policy for storing in target subscription.</param>
         /// <param name="sourceNetworkIntentPolicy">Source network intent
         /// policy.</param>
-        public NetworkIntentPolicyConfiguration(string networkIntentPolicyName = default(string), NetworkIntentPolicy sourceNetworkIntentPolicy = default(NetworkIntentPolicy))
+        public NetworkIntentPolicyConfiguration(string networkIntentPolicyName = default(string), SubResource sourceNetworkIntentPolicy = default(SubResource))
         {
             NetworkIntentPolicyName = networkIntentPolicyName;
             SourceNetworkIntentPolicy = sourceNetworkIntentPolicy;
@@ -59,7 +59,7 @@ namespace Microsoft.Azure.Management.Network.Models
         /// Gets or sets source network intent policy.
         /// </summary>
         [JsonProperty(PropertyName = "sourceNetworkIntentPolicy")]
-        public NetworkIntentPolicy SourceNetworkIntentPolicy { get; set; }
+        public SubResource SourceNetworkIntentPolicy { get; set; }
 
     }
 }

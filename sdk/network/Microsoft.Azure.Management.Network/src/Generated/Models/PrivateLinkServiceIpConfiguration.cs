@@ -54,7 +54,7 @@ namespace Microsoft.Azure.Management.Network.Models
         /// <param name="etag">A unique read-only string that changes whenever
         /// the resource is updated.</param>
         /// <param name="type">The resource type.</param>
-        public PrivateLinkServiceIpConfiguration(string id = default(string), string privateIPAddress = default(string), string privateIPAllocationMethod = default(string), Subnet subnet = default(Subnet), bool? primary = default(bool?), string provisioningState = default(string), string privateIPAddressVersion = default(string), string name = default(string), string etag = default(string), string type = default(string))
+        public PrivateLinkServiceIpConfiguration(string id = default(string), string privateIPAddress = default(string), string privateIPAllocationMethod = default(string), SubResource subnet = default(SubResource), bool? primary = default(bool?), string provisioningState = default(string), string privateIPAddressVersion = default(string), string name = default(string), string etag = default(string), string type = default(string))
             : base(id)
         {
             PrivateIPAddress = privateIPAddress;
@@ -91,7 +91,7 @@ namespace Microsoft.Azure.Management.Network.Models
         /// Gets or sets the reference to the subnet resource.
         /// </summary>
         [JsonProperty(PropertyName = "properties.subnet")]
-        public Subnet Subnet { get; set; }
+        public SubResource Subnet { get; set; }
 
         /// <summary>
         /// Gets or sets whether the ip configuration is primary or not.
@@ -100,12 +100,12 @@ namespace Microsoft.Azure.Management.Network.Models
         public bool? Primary { get; set; }
 
         /// <summary>
-        /// Gets or sets the provisioning state of the private link service IP
+        /// Gets the provisioning state of the private link service IP
         /// configuration resource. Possible values include: 'Succeeded',
         /// 'Updating', 'Deleting', 'Failed'
         /// </summary>
         [JsonProperty(PropertyName = "properties.provisioningState")]
-        public string ProvisioningState { get; set; }
+        public string ProvisioningState { get; private set; }
 
         /// <summary>
         /// Gets or sets whether the specific IP configuration is IPv4 or IPv6.

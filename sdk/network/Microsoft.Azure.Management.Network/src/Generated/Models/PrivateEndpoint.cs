@@ -54,7 +54,7 @@ namespace Microsoft.Azure.Management.Network.Models
         /// the remote resource.</param>
         /// <param name="etag">A unique read-only string that changes whenever
         /// the resource is updated.</param>
-        public PrivateEndpoint(string id = default(string), string name = default(string), string type = default(string), string location = default(string), IDictionary<string, string> tags = default(IDictionary<string, string>), Subnet subnet = default(Subnet), IList<NetworkInterface> networkInterfaces = default(IList<NetworkInterface>), string provisioningState = default(string), IList<PrivateLinkServiceConnection> privateLinkServiceConnections = default(IList<PrivateLinkServiceConnection>), IList<PrivateLinkServiceConnection> manualPrivateLinkServiceConnections = default(IList<PrivateLinkServiceConnection>), string etag = default(string))
+        public PrivateEndpoint(string id = default(string), string name = default(string), string type = default(string), string location = default(string), IDictionary<string, string> tags = default(IDictionary<string, string>), SubResource subnet = default(SubResource), IList<SubResource> networkInterfaces = default(IList<SubResource>), string provisioningState = default(string), IList<PrivateLinkServiceConnection> privateLinkServiceConnections = default(IList<PrivateLinkServiceConnection>), IList<PrivateLinkServiceConnection> manualPrivateLinkServiceConnections = default(IList<PrivateLinkServiceConnection>), string etag = default(string))
             : base(id, name, type, location, tags)
         {
             Subnet = subnet;
@@ -76,22 +76,22 @@ namespace Microsoft.Azure.Management.Network.Models
         /// allocated.
         /// </summary>
         [JsonProperty(PropertyName = "properties.subnet")]
-        public Subnet Subnet { get; set; }
+        public SubResource Subnet { get; set; }
 
         /// <summary>
         /// Gets an array of references to the network interfaces created for
         /// this private endpoint.
         /// </summary>
         [JsonProperty(PropertyName = "properties.networkInterfaces")]
-        public IList<NetworkInterface> NetworkInterfaces { get; private set; }
+        public IList<SubResource> NetworkInterfaces { get; private set; }
 
         /// <summary>
-        /// Gets or sets the provisioning state of the private endpoint
-        /// resource. Possible values include: 'Succeeded', 'Updating',
-        /// 'Deleting', 'Failed'
+        /// Gets the provisioning state of the private endpoint resource.
+        /// Possible values include: 'Succeeded', 'Updating', 'Deleting',
+        /// 'Failed'
         /// </summary>
         [JsonProperty(PropertyName = "properties.provisioningState")]
-        public string ProvisioningState { get; set; }
+        public string ProvisioningState { get; private set; }
 
         /// <summary>
         /// Gets or sets a grouping of information about the connection to the
@@ -109,11 +109,11 @@ namespace Microsoft.Azure.Management.Network.Models
         public IList<PrivateLinkServiceConnection> ManualPrivateLinkServiceConnections { get; set; }
 
         /// <summary>
-        /// Gets or sets a unique read-only string that changes whenever the
-        /// resource is updated.
+        /// Gets a unique read-only string that changes whenever the resource
+        /// is updated.
         /// </summary>
         [JsonProperty(PropertyName = "etag")]
-        public string Etag { get; set; }
+        public string Etag { get; private set; }
 
     }
 }

@@ -51,7 +51,7 @@ namespace Microsoft.Azure.Management.Network.Models
         /// the resource is updated.</param>
         /// <param name="type">Resource type.</param>
         /// <param name="tags">Resource tags.</param>
-        public PatchRouteFilter(string id = default(string), IList<RouteFilterRule> rules = default(IList<RouteFilterRule>), IList<ExpressRouteCircuitPeering> peerings = default(IList<ExpressRouteCircuitPeering>), IList<ExpressRouteCircuitPeering> ipv6Peerings = default(IList<ExpressRouteCircuitPeering>), string provisioningState = default(string), string name = default(string), string etag = default(string), string type = default(string), IDictionary<string, string> tags = default(IDictionary<string, string>))
+        public PatchRouteFilter(string id = default(string), IList<RouteFilterRule> rules = default(IList<RouteFilterRule>), IList<SubResource> peerings = default(IList<SubResource>), IList<SubResource> ipv6Peerings = default(IList<SubResource>), string provisioningState = default(string), string name = default(string), string etag = default(string), string type = default(string), IDictionary<string, string> tags = default(IDictionary<string, string>))
             : base(id)
         {
             Rules = rules;
@@ -78,18 +78,17 @@ namespace Microsoft.Azure.Management.Network.Models
         public IList<RouteFilterRule> Rules { get; set; }
 
         /// <summary>
-        /// Gets or sets a collection of references to express route circuit
-        /// peerings.
+        /// Gets a collection of references to express route circuit peerings.
         /// </summary>
         [JsonProperty(PropertyName = "properties.peerings")]
-        public IList<ExpressRouteCircuitPeering> Peerings { get; set; }
+        public IList<SubResource> Peerings { get; private set; }
 
         /// <summary>
-        /// Gets or sets a collection of references to express route circuit
-        /// ipv6 peerings.
+        /// Gets a collection of references to express route circuit ipv6
+        /// peerings.
         /// </summary>
         [JsonProperty(PropertyName = "properties.ipv6Peerings")]
-        public IList<ExpressRouteCircuitPeering> Ipv6Peerings { get; set; }
+        public IList<SubResource> Ipv6Peerings { get; private set; }
 
         /// <summary>
         /// Gets the provisioning state of the route filter resource. Possible

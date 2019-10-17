@@ -50,7 +50,7 @@ namespace Microsoft.Azure.Management.Network.Models
         /// <param name="type">Sub Resource type.</param>
         /// <param name="etag">A unique read-only string that changes whenever
         /// the resource is updated.</param>
-        public ContainerNetworkInterface(string id = default(string), ContainerNetworkInterfaceConfiguration containerNetworkInterfaceConfiguration = default(ContainerNetworkInterfaceConfiguration), Container container = default(Container), IList<ContainerNetworkInterfaceIpConfiguration> ipConfigurations = default(IList<ContainerNetworkInterfaceIpConfiguration>), string provisioningState = default(string), string name = default(string), string type = default(string), string etag = default(string))
+        public ContainerNetworkInterface(string id = default(string), SubResource containerNetworkInterfaceConfiguration = default(SubResource), SubResource container = default(SubResource), IList<ContainerNetworkInterfaceIpConfiguration> ipConfigurations = default(IList<ContainerNetworkInterfaceIpConfiguration>), string provisioningState = default(string), string name = default(string), string type = default(string), string etag = default(string))
             : base(id)
         {
             ContainerNetworkInterfaceConfiguration = containerNetworkInterfaceConfiguration;
@@ -69,25 +69,24 @@ namespace Microsoft.Azure.Management.Network.Models
         partial void CustomInit();
 
         /// <summary>
-        /// Gets or sets container network interface configuration from which
-        /// this container network interface is created.
+        /// Gets container network interface configuration from which this
+        /// container network interface is created.
         /// </summary>
         [JsonProperty(PropertyName = "properties.containerNetworkInterfaceConfiguration")]
-        public ContainerNetworkInterfaceConfiguration ContainerNetworkInterfaceConfiguration { get; set; }
+        public SubResource ContainerNetworkInterfaceConfiguration { get; private set; }
 
         /// <summary>
         /// Gets or sets reference to the container to which this container
         /// network interface is attached.
         /// </summary>
         [JsonProperty(PropertyName = "properties.container")]
-        public Container Container { get; set; }
+        public SubResource Container { get; set; }
 
         /// <summary>
-        /// Gets or sets reference to the ip configuration on this container
-        /// nic.
+        /// Gets reference to the ip configuration on this container nic.
         /// </summary>
         [JsonProperty(PropertyName = "properties.ipConfigurations")]
-        public IList<ContainerNetworkInterfaceIpConfiguration> IpConfigurations { get; set; }
+        public IList<ContainerNetworkInterfaceIpConfiguration> IpConfigurations { get; private set; }
 
         /// <summary>
         /// Gets the provisioning state of the container network interface
@@ -111,11 +110,11 @@ namespace Microsoft.Azure.Management.Network.Models
         public string Type { get; private set; }
 
         /// <summary>
-        /// Gets or sets a unique read-only string that changes whenever the
-        /// resource is updated.
+        /// Gets a unique read-only string that changes whenever the resource
+        /// is updated.
         /// </summary>
         [JsonProperty(PropertyName = "etag")]
-        public string Etag { get; set; }
+        public string Etag { get; private set; }
 
     }
 }

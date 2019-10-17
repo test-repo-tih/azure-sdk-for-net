@@ -66,7 +66,7 @@ namespace Microsoft.Azure.Management.Network.Models
         /// <param name="type">Type of the resource.</param>
         /// <param name="zones">A list of availability zones denoting the IP
         /// allocated for the resource needs to come from.</param>
-        public FrontendIPConfiguration(string id = default(string), IList<SubResource> inboundNatRules = default(IList<SubResource>), IList<SubResource> inboundNatPools = default(IList<SubResource>), IList<SubResource> outboundRules = default(IList<SubResource>), IList<SubResource> loadBalancingRules = default(IList<SubResource>), string privateIPAddress = default(string), string privateIPAllocationMethod = default(string), string privateIPAddressVersion = default(string), Subnet subnet = default(Subnet), PublicIPAddress publicIPAddress = default(PublicIPAddress), SubResource publicIPPrefix = default(SubResource), string provisioningState = default(string), string name = default(string), string etag = default(string), string type = default(string), IList<string> zones = default(IList<string>))
+        public FrontendIPConfiguration(string id = default(string), IList<SubResource> inboundNatRules = default(IList<SubResource>), IList<SubResource> inboundNatPools = default(IList<SubResource>), IList<SubResource> outboundRules = default(IList<SubResource>), IList<SubResource> loadBalancingRules = default(IList<SubResource>), string privateIPAddress = default(string), string privateIPAllocationMethod = default(string), string privateIPAddressVersion = default(string), Subnet subnet = default(Subnet), SubResource publicIPAddress = default(SubResource), SubResource publicIPPrefix = default(SubResource), string provisioningState = default(string), string name = default(string), string etag = default(string), string type = default(string), IList<string> zones = default(IList<string>))
             : base(id)
         {
             InboundNatRules = inboundNatRules;
@@ -150,7 +150,7 @@ namespace Microsoft.Azure.Management.Network.Models
         /// Gets or sets the reference of the Public IP resource.
         /// </summary>
         [JsonProperty(PropertyName = "properties.publicIPAddress")]
-        public PublicIPAddress PublicIPAddress { get; set; }
+        public SubResource PublicIPAddress { get; set; }
 
         /// <summary>
         /// Gets or sets the reference of the Public IP Prefix resource.
@@ -159,12 +159,12 @@ namespace Microsoft.Azure.Management.Network.Models
         public SubResource PublicIPPrefix { get; set; }
 
         /// <summary>
-        /// Gets or sets the provisioning state of the frontend IP
-        /// configuration resource. Possible values include: 'Succeeded',
-        /// 'Updating', 'Deleting', 'Failed'
+        /// Gets the provisioning state of the frontend IP configuration
+        /// resource. Possible values include: 'Succeeded', 'Updating',
+        /// 'Deleting', 'Failed'
         /// </summary>
         [JsonProperty(PropertyName = "properties.provisioningState")]
-        public string ProvisioningState { get; set; }
+        public string ProvisioningState { get; private set; }
 
         /// <summary>
         /// Gets or sets the name of the resource that is unique within the set
@@ -175,11 +175,11 @@ namespace Microsoft.Azure.Management.Network.Models
         public string Name { get; set; }
 
         /// <summary>
-        /// Gets or sets a unique read-only string that changes whenever the
-        /// resource is updated.
+        /// Gets a unique read-only string that changes whenever the resource
+        /// is updated.
         /// </summary>
         [JsonProperty(PropertyName = "etag")]
-        public string Etag { get; set; }
+        public string Etag { get; private set; }
 
         /// <summary>
         /// Gets type of the resource.

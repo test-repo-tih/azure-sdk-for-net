@@ -46,7 +46,7 @@ namespace Microsoft.Azure.Management.Network.Models
         /// <param name="etag">A unique read-only string that changes whenever
         /// the resource is updated.</param>
         /// <param name="type">Sub Resource type.</param>
-        public NetworkInterfaceTapConfiguration(string id = default(string), VirtualNetworkTap virtualNetworkTap = default(VirtualNetworkTap), string provisioningState = default(string), string name = default(string), string etag = default(string), string type = default(string))
+        public NetworkInterfaceTapConfiguration(string id = default(string), SubResource virtualNetworkTap = default(SubResource), string provisioningState = default(string), string name = default(string), string etag = default(string), string type = default(string))
             : base(id)
         {
             VirtualNetworkTap = virtualNetworkTap;
@@ -66,7 +66,7 @@ namespace Microsoft.Azure.Management.Network.Models
         /// Gets or sets the reference of the Virtual Network Tap resource.
         /// </summary>
         [JsonProperty(PropertyName = "properties.virtualNetworkTap")]
-        public VirtualNetworkTap VirtualNetworkTap { get; set; }
+        public SubResource VirtualNetworkTap { get; set; }
 
         /// <summary>
         /// Gets the provisioning state of the network interface tap
@@ -84,11 +84,11 @@ namespace Microsoft.Azure.Management.Network.Models
         public string Name { get; set; }
 
         /// <summary>
-        /// Gets or sets a unique read-only string that changes whenever the
-        /// resource is updated.
+        /// Gets a unique read-only string that changes whenever the resource
+        /// is updated.
         /// </summary>
         [JsonProperty(PropertyName = "etag")]
-        public string Etag { get; set; }
+        public string Etag { get; private set; }
 
         /// <summary>
         /// Gets sub Resource type.

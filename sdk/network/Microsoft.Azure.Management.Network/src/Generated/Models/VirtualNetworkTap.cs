@@ -57,7 +57,7 @@ namespace Microsoft.Azure.Management.Network.Models
         /// receive the tapped traffic.</param>
         /// <param name="etag">A unique read-only string that changes whenever
         /// the resource is updated.</param>
-        public VirtualNetworkTap(string id = default(string), string name = default(string), string type = default(string), string location = default(string), IDictionary<string, string> tags = default(IDictionary<string, string>), IList<NetworkInterfaceTapConfiguration> networkInterfaceTapConfigurations = default(IList<NetworkInterfaceTapConfiguration>), string resourceGuid = default(string), string provisioningState = default(string), NetworkInterfaceIPConfiguration destinationNetworkInterfaceIPConfiguration = default(NetworkInterfaceIPConfiguration), FrontendIPConfiguration destinationLoadBalancerFrontEndIPConfiguration = default(FrontendIPConfiguration), int? destinationPort = default(int?), string etag = default(string))
+        public VirtualNetworkTap(string id = default(string), string name = default(string), string type = default(string), string location = default(string), IDictionary<string, string> tags = default(IDictionary<string, string>), IList<SubResource> networkInterfaceTapConfigurations = default(IList<SubResource>), string resourceGuid = default(string), string provisioningState = default(string), SubResource destinationNetworkInterfaceIPConfiguration = default(SubResource), SubResource destinationLoadBalancerFrontEndIPConfiguration = default(SubResource), int? destinationPort = default(int?), string etag = default(string))
             : base(id, name, type, location, tags)
         {
             NetworkInterfaceTapConfigurations = networkInterfaceTapConfigurations;
@@ -80,7 +80,7 @@ namespace Microsoft.Azure.Management.Network.Models
         /// IP configuration that needs to be tapped.
         /// </summary>
         [JsonProperty(PropertyName = "properties.networkInterfaceTapConfigurations")]
-        public IList<NetworkInterfaceTapConfiguration> NetworkInterfaceTapConfigurations { get; private set; }
+        public IList<SubResource> NetworkInterfaceTapConfigurations { get; private set; }
 
         /// <summary>
         /// Gets the resource GUID property of the virtual network tap
@@ -102,14 +102,14 @@ namespace Microsoft.Azure.Management.Network.Models
         /// collector nic that will receive the tap.
         /// </summary>
         [JsonProperty(PropertyName = "properties.destinationNetworkInterfaceIPConfiguration")]
-        public NetworkInterfaceIPConfiguration DestinationNetworkInterfaceIPConfiguration { get; set; }
+        public SubResource DestinationNetworkInterfaceIPConfiguration { get; set; }
 
         /// <summary>
         /// Gets or sets the reference to the private IP address on the
         /// internal Load Balancer that will receive the tap.
         /// </summary>
         [JsonProperty(PropertyName = "properties.destinationLoadBalancerFrontEndIPConfiguration")]
-        public FrontendIPConfiguration DestinationLoadBalancerFrontEndIPConfiguration { get; set; }
+        public SubResource DestinationLoadBalancerFrontEndIPConfiguration { get; set; }
 
         /// <summary>
         /// Gets or sets the VXLAN destination port that will receive the
@@ -119,11 +119,11 @@ namespace Microsoft.Azure.Management.Network.Models
         public int? DestinationPort { get; set; }
 
         /// <summary>
-        /// Gets or sets a unique read-only string that changes whenever the
-        /// resource is updated.
+        /// Gets a unique read-only string that changes whenever the resource
+        /// is updated.
         /// </summary>
         [JsonProperty(PropertyName = "etag")]
-        public string Etag { get; set; }
+        public string Etag { get; private set; }
 
     }
 }

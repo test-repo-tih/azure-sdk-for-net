@@ -51,7 +51,7 @@ namespace Microsoft.Azure.Management.Network.Models
         /// 'Succeeded', 'Updating', 'Deleting', 'Failed'</param>
         /// <param name="etag">A unique read-only string that changes whenever
         /// the resource is updated.</param>
-        public ServiceEndpointPolicy(string id = default(string), string name = default(string), string type = default(string), string location = default(string), IDictionary<string, string> tags = default(IDictionary<string, string>), IList<ServiceEndpointPolicyDefinition> serviceEndpointPolicyDefinitions = default(IList<ServiceEndpointPolicyDefinition>), IList<Subnet> subnets = default(IList<Subnet>), string resourceGuid = default(string), string provisioningState = default(string), string etag = default(string))
+        public ServiceEndpointPolicy(string id = default(string), string name = default(string), string type = default(string), string location = default(string), IDictionary<string, string> tags = default(IDictionary<string, string>), IList<ServiceEndpointPolicyDefinition> serviceEndpointPolicyDefinitions = default(IList<ServiceEndpointPolicyDefinition>), IList<SubResource> subnets = default(IList<SubResource>), string resourceGuid = default(string), string provisioningState = default(string), string etag = default(string))
             : base(id, name, type, location, tags)
         {
             ServiceEndpointPolicyDefinitions = serviceEndpointPolicyDefinitions;
@@ -78,7 +78,7 @@ namespace Microsoft.Azure.Management.Network.Models
         /// Gets a collection of references to subnets.
         /// </summary>
         [JsonProperty(PropertyName = "properties.subnets")]
-        public IList<Subnet> Subnets { get; private set; }
+        public IList<SubResource> Subnets { get; private set; }
 
         /// <summary>
         /// Gets the resource GUID property of the service endpoint policy
@@ -96,11 +96,11 @@ namespace Microsoft.Azure.Management.Network.Models
         public string ProvisioningState { get; private set; }
 
         /// <summary>
-        /// Gets or sets a unique read-only string that changes whenever the
-        /// resource is updated.
+        /// Gets a unique read-only string that changes whenever the resource
+        /// is updated.
         /// </summary>
         [JsonProperty(PropertyName = "etag")]
-        public string Etag { get; set; }
+        public string Etag { get; private set; }
 
     }
 }

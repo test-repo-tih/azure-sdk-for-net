@@ -63,7 +63,7 @@ namespace Microsoft.Azure.Management.Network.Models
         /// <param name="peerings">The list of peerings.</param>
         /// <param name="etag">A unique read-only string that changes whenever
         /// the resource is updated.</param>
-        public ExpressRouteCrossConnection(string id = default(string), string name = default(string), string type = default(string), string location = default(string), IDictionary<string, string> tags = default(IDictionary<string, string>), string primaryAzurePort = default(string), string secondaryAzurePort = default(string), int? sTag = default(int?), string peeringLocation = default(string), int? bandwidthInMbps = default(int?), ExpressRouteCircuitReference expressRouteCircuit = default(ExpressRouteCircuitReference), string serviceProviderProvisioningState = default(string), string serviceProviderNotes = default(string), string provisioningState = default(string), IList<ExpressRouteCrossConnectionPeering> peerings = default(IList<ExpressRouteCrossConnectionPeering>), string etag = default(string))
+        public ExpressRouteCrossConnection(string id = default(string), string name = default(string), string type = default(string), string location = default(string), IDictionary<string, string> tags = default(IDictionary<string, string>), string primaryAzurePort = default(string), string secondaryAzurePort = default(string), int? sTag = default(int?), string peeringLocation = default(string), int? bandwidthInMbps = default(int?), SubResource expressRouteCircuit = default(SubResource), string serviceProviderProvisioningState = default(string), string serviceProviderNotes = default(string), string provisioningState = default(string), IList<ExpressRouteCrossConnectionPeering> peerings = default(IList<ExpressRouteCrossConnectionPeering>), string etag = default(string))
             : base(id, name, type, location, tags)
         {
             PrimaryAzurePort = primaryAzurePort;
@@ -119,7 +119,7 @@ namespace Microsoft.Azure.Management.Network.Models
         /// Gets or sets the ExpressRouteCircuit.
         /// </summary>
         [JsonProperty(PropertyName = "properties.expressRouteCircuit")]
-        public ExpressRouteCircuitReference ExpressRouteCircuit { get; set; }
+        public SubResource ExpressRouteCircuit { get; set; }
 
         /// <summary>
         /// Gets or sets the provisioning state of the circuit in the

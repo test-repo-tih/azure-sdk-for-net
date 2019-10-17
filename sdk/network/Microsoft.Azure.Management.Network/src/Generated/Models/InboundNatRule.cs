@@ -68,7 +68,7 @@ namespace Microsoft.Azure.Management.Network.Models
         /// <param name="etag">A unique read-only string that changes whenever
         /// the resource is updated.</param>
         /// <param name="type">Type of the resource.</param>
-        public InboundNatRule(string id = default(string), SubResource frontendIPConfiguration = default(SubResource), NetworkInterfaceIPConfiguration backendIPConfiguration = default(NetworkInterfaceIPConfiguration), string protocol = default(string), int? frontendPort = default(int?), int? backendPort = default(int?), int? idleTimeoutInMinutes = default(int?), bool? enableFloatingIP = default(bool?), bool? enableTcpReset = default(bool?), string provisioningState = default(string), string name = default(string), string etag = default(string), string type = default(string))
+        public InboundNatRule(string id = default(string), SubResource frontendIPConfiguration = default(SubResource), SubResource backendIPConfiguration = default(SubResource), string protocol = default(string), int? frontendPort = default(int?), int? backendPort = default(int?), int? idleTimeoutInMinutes = default(int?), bool? enableFloatingIP = default(bool?), bool? enableTcpReset = default(bool?), string provisioningState = default(string), string name = default(string), string etag = default(string), string type = default(string))
             : base(id)
         {
             FrontendIPConfiguration = frontendIPConfiguration;
@@ -103,7 +103,7 @@ namespace Microsoft.Azure.Management.Network.Models
         /// frontend IP configurations is forwarded to the backend IP.
         /// </summary>
         [JsonProperty(PropertyName = "properties.backendIPConfiguration")]
-        public NetworkInterfaceIPConfiguration BackendIPConfiguration { get; private set; }
+        public SubResource BackendIPConfiguration { get; private set; }
 
         /// <summary>
         /// Gets or sets the reference to the transport protocol used by the
@@ -154,12 +154,12 @@ namespace Microsoft.Azure.Management.Network.Models
         public bool? EnableTcpReset { get; set; }
 
         /// <summary>
-        /// Gets or sets the provisioning state of the inbound NAT rule
-        /// resource. Possible values include: 'Succeeded', 'Updating',
-        /// 'Deleting', 'Failed'
+        /// Gets the provisioning state of the inbound NAT rule resource.
+        /// Possible values include: 'Succeeded', 'Updating', 'Deleting',
+        /// 'Failed'
         /// </summary>
         [JsonProperty(PropertyName = "properties.provisioningState")]
-        public string ProvisioningState { get; set; }
+        public string ProvisioningState { get; private set; }
 
         /// <summary>
         /// Gets or sets the name of the resource that is unique within the set
@@ -170,11 +170,11 @@ namespace Microsoft.Azure.Management.Network.Models
         public string Name { get; set; }
 
         /// <summary>
-        /// Gets or sets a unique read-only string that changes whenever the
-        /// resource is updated.
+        /// Gets a unique read-only string that changes whenever the resource
+        /// is updated.
         /// </summary>
         [JsonProperty(PropertyName = "etag")]
-        public string Etag { get; set; }
+        public string Etag { get; private set; }
 
         /// <summary>
         /// Gets type of the resource.

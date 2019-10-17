@@ -58,7 +58,7 @@ namespace Microsoft.Azure.Management.Network.Models
         /// <param name="alias">The alias of the private link service.</param>
         /// <param name="etag">A unique read-only string that changes whenever
         /// the resource is updated.</param>
-        public PrivateLinkService(string id = default(string), string name = default(string), string type = default(string), string location = default(string), IDictionary<string, string> tags = default(IDictionary<string, string>), IList<FrontendIPConfiguration> loadBalancerFrontendIpConfigurations = default(IList<FrontendIPConfiguration>), IList<PrivateLinkServiceIpConfiguration> ipConfigurations = default(IList<PrivateLinkServiceIpConfiguration>), IList<NetworkInterface> networkInterfaces = default(IList<NetworkInterface>), string provisioningState = default(string), IList<PrivateEndpointConnection> privateEndpointConnections = default(IList<PrivateEndpointConnection>), PrivateLinkServicePropertiesVisibility visibility = default(PrivateLinkServicePropertiesVisibility), PrivateLinkServicePropertiesAutoApproval autoApproval = default(PrivateLinkServicePropertiesAutoApproval), IList<string> fqdns = default(IList<string>), string alias = default(string), string etag = default(string))
+        public PrivateLinkService(string id = default(string), string name = default(string), string type = default(string), string location = default(string), IDictionary<string, string> tags = default(IDictionary<string, string>), IList<SubResource> loadBalancerFrontendIpConfigurations = default(IList<SubResource>), IList<PrivateLinkServiceIpConfiguration> ipConfigurations = default(IList<PrivateLinkServiceIpConfiguration>), IList<SubResource> networkInterfaces = default(IList<SubResource>), string provisioningState = default(string), IList<PrivateEndpointConnection> privateEndpointConnections = default(IList<PrivateEndpointConnection>), PrivateLinkServicePropertiesVisibility visibility = default(PrivateLinkServicePropertiesVisibility), PrivateLinkServicePropertiesAutoApproval autoApproval = default(PrivateLinkServicePropertiesAutoApproval), IList<string> fqdns = default(IList<string>), string alias = default(string), string etag = default(string))
             : base(id, name, type, location, tags)
         {
             LoadBalancerFrontendIpConfigurations = loadBalancerFrontendIpConfigurations;
@@ -84,7 +84,7 @@ namespace Microsoft.Azure.Management.Network.Models
         /// configurations.
         /// </summary>
         [JsonProperty(PropertyName = "properties.loadBalancerFrontendIpConfigurations")]
-        public IList<FrontendIPConfiguration> LoadBalancerFrontendIpConfigurations { get; set; }
+        public IList<SubResource> LoadBalancerFrontendIpConfigurations { get; set; }
 
         /// <summary>
         /// Gets or sets an array of private link service IP configurations.
@@ -97,22 +97,21 @@ namespace Microsoft.Azure.Management.Network.Models
         /// this private link service.
         /// </summary>
         [JsonProperty(PropertyName = "properties.networkInterfaces")]
-        public IList<NetworkInterface> NetworkInterfaces { get; private set; }
+        public IList<SubResource> NetworkInterfaces { get; private set; }
 
         /// <summary>
-        /// Gets or sets the provisioning state of the private link service
-        /// resource. Possible values include: 'Succeeded', 'Updating',
-        /// 'Deleting', 'Failed'
+        /// Gets the provisioning state of the private link service resource.
+        /// Possible values include: 'Succeeded', 'Updating', 'Deleting',
+        /// 'Failed'
         /// </summary>
         [JsonProperty(PropertyName = "properties.provisioningState")]
-        public string ProvisioningState { get; set; }
+        public string ProvisioningState { get; private set; }
 
         /// <summary>
-        /// Gets or sets an array of list about connections to the private
-        /// endpoint.
+        /// Gets an array of list about connections to the private endpoint.
         /// </summary>
         [JsonProperty(PropertyName = "properties.privateEndpointConnections")]
-        public IList<PrivateEndpointConnection> PrivateEndpointConnections { get; set; }
+        public IList<PrivateEndpointConnection> PrivateEndpointConnections { get; private set; }
 
         /// <summary>
         /// Gets or sets the visibility list of the private link service.
@@ -139,11 +138,11 @@ namespace Microsoft.Azure.Management.Network.Models
         public string Alias { get; private set; }
 
         /// <summary>
-        /// Gets or sets a unique read-only string that changes whenever the
-        /// resource is updated.
+        /// Gets a unique read-only string that changes whenever the resource
+        /// is updated.
         /// </summary>
         [JsonProperty(PropertyName = "etag")]
-        public string Etag { get; set; }
+        public string Etag { get; private set; }
 
     }
 }

@@ -70,7 +70,7 @@ namespace Microsoft.Azure.Management.Network.Models
         /// resource.</param>
         /// <param name="etag">A unique read-only string that changes whenever
         /// the resource is updated.</param>
-        public NetworkInterfaceIPConfiguration(string id = default(string), IList<VirtualNetworkTap> virtualNetworkTaps = default(IList<VirtualNetworkTap>), IList<ApplicationGatewayBackendAddressPool> applicationGatewayBackendAddressPools = default(IList<ApplicationGatewayBackendAddressPool>), IList<BackendAddressPool> loadBalancerBackendAddressPools = default(IList<BackendAddressPool>), IList<InboundNatRule> loadBalancerInboundNatRules = default(IList<InboundNatRule>), string privateIPAddress = default(string), string privateIPAllocationMethod = default(string), string privateIPAddressVersion = default(string), Subnet subnet = default(Subnet), bool? primary = default(bool?), PublicIPAddress publicIPAddress = default(PublicIPAddress), IList<ApplicationSecurityGroup> applicationSecurityGroups = default(IList<ApplicationSecurityGroup>), string provisioningState = default(string), NetworkInterfaceIPConfigurationPrivateLinkConnectionProperties privateLinkConnectionProperties = default(NetworkInterfaceIPConfigurationPrivateLinkConnectionProperties), string name = default(string), string etag = default(string))
+        public NetworkInterfaceIPConfiguration(string id = default(string), IList<SubResource> virtualNetworkTaps = default(IList<SubResource>), IList<SubResource> applicationGatewayBackendAddressPools = default(IList<SubResource>), IList<SubResource> loadBalancerBackendAddressPools = default(IList<SubResource>), IList<SubResource> loadBalancerInboundNatRules = default(IList<SubResource>), string privateIPAddress = default(string), string privateIPAllocationMethod = default(string), string privateIPAddressVersion = default(string), SubResource subnet = default(SubResource), bool? primary = default(bool?), SubResource publicIPAddress = default(SubResource), IList<SubResource> applicationSecurityGroups = default(IList<SubResource>), string provisioningState = default(string), NetworkInterfaceIPConfigurationPrivateLinkConnectionProperties privateLinkConnectionProperties = default(NetworkInterfaceIPConfigurationPrivateLinkConnectionProperties), string name = default(string), string etag = default(string))
             : base(id)
         {
             VirtualNetworkTaps = virtualNetworkTaps;
@@ -100,27 +100,27 @@ namespace Microsoft.Azure.Management.Network.Models
         /// Gets or sets the reference to Virtual Network Taps.
         /// </summary>
         [JsonProperty(PropertyName = "properties.virtualNetworkTaps")]
-        public IList<VirtualNetworkTap> VirtualNetworkTaps { get; set; }
+        public IList<SubResource> VirtualNetworkTaps { get; set; }
 
         /// <summary>
         /// Gets or sets the reference of ApplicationGatewayBackendAddressPool
         /// resource.
         /// </summary>
         [JsonProperty(PropertyName = "properties.applicationGatewayBackendAddressPools")]
-        public IList<ApplicationGatewayBackendAddressPool> ApplicationGatewayBackendAddressPools { get; set; }
+        public IList<SubResource> ApplicationGatewayBackendAddressPools { get; set; }
 
         /// <summary>
         /// Gets or sets the reference of LoadBalancerBackendAddressPool
         /// resource.
         /// </summary>
         [JsonProperty(PropertyName = "properties.loadBalancerBackendAddressPools")]
-        public IList<BackendAddressPool> LoadBalancerBackendAddressPools { get; set; }
+        public IList<SubResource> LoadBalancerBackendAddressPools { get; set; }
 
         /// <summary>
         /// Gets or sets a list of references of LoadBalancerInboundNatRules.
         /// </summary>
         [JsonProperty(PropertyName = "properties.loadBalancerInboundNatRules")]
-        public IList<InboundNatRule> LoadBalancerInboundNatRules { get; set; }
+        public IList<SubResource> LoadBalancerInboundNatRules { get; set; }
 
         /// <summary>
         /// Gets or sets private IP address of the IP configuration.
@@ -146,7 +146,7 @@ namespace Microsoft.Azure.Management.Network.Models
         /// Gets or sets subnet bound to the IP configuration.
         /// </summary>
         [JsonProperty(PropertyName = "properties.subnet")]
-        public Subnet Subnet { get; set; }
+        public SubResource Subnet { get; set; }
 
         /// <summary>
         /// Gets or sets whether this is a primary customer address on the
@@ -159,22 +159,22 @@ namespace Microsoft.Azure.Management.Network.Models
         /// Gets or sets public IP address bound to the IP configuration.
         /// </summary>
         [JsonProperty(PropertyName = "properties.publicIPAddress")]
-        public PublicIPAddress PublicIPAddress { get; set; }
+        public SubResource PublicIPAddress { get; set; }
 
         /// <summary>
         /// Gets or sets application security groups in which the IP
         /// configuration is included.
         /// </summary>
         [JsonProperty(PropertyName = "properties.applicationSecurityGroups")]
-        public IList<ApplicationSecurityGroup> ApplicationSecurityGroups { get; set; }
+        public IList<SubResource> ApplicationSecurityGroups { get; set; }
 
         /// <summary>
-        /// Gets or sets the provisioning state of the network interface IP
+        /// Gets the provisioning state of the network interface IP
         /// configuration. Possible values include: 'Succeeded', 'Updating',
         /// 'Deleting', 'Failed'
         /// </summary>
         [JsonProperty(PropertyName = "properties.provisioningState")]
-        public string ProvisioningState { get; set; }
+        public string ProvisioningState { get; private set; }
 
         /// <summary>
         /// Gets privateLinkConnection properties for the network interface.
@@ -190,11 +190,11 @@ namespace Microsoft.Azure.Management.Network.Models
         public string Name { get; set; }
 
         /// <summary>
-        /// Gets or sets a unique read-only string that changes whenever the
-        /// resource is updated.
+        /// Gets a unique read-only string that changes whenever the resource
+        /// is updated.
         /// </summary>
         [JsonProperty(PropertyName = "etag")]
-        public string Etag { get; set; }
+        public string Etag { get; private set; }
 
     }
 }

@@ -37,7 +37,7 @@ namespace Microsoft.Azure.Management.Network.Models
         /// ApplicationGatewayBackendHttpSettings resource.</param>
         /// <param name="servers">List of ApplicationGatewayBackendHealthServer
         /// resources.</param>
-        public ApplicationGatewayBackendHealthHttpSettings(ApplicationGatewayBackendHttpSettings backendHttpSettings = default(ApplicationGatewayBackendHttpSettings), IList<ApplicationGatewayBackendHealthServer> servers = default(IList<ApplicationGatewayBackendHealthServer>))
+        public ApplicationGatewayBackendHealthHttpSettings(SubResource backendHttpSettings = default(SubResource), IList<ApplicationGatewayBackendHealthServer> servers = default(IList<ApplicationGatewayBackendHealthServer>))
         {
             BackendHttpSettings = backendHttpSettings;
             Servers = servers;
@@ -54,7 +54,7 @@ namespace Microsoft.Azure.Management.Network.Models
         /// resource.
         /// </summary>
         [JsonProperty(PropertyName = "backendHttpSettings")]
-        public ApplicationGatewayBackendHttpSettings BackendHttpSettings { get; set; }
+        public SubResource BackendHttpSettings { get; set; }
 
         /// <summary>
         /// Gets or sets list of ApplicationGatewayBackendHealthServer
@@ -63,18 +63,5 @@ namespace Microsoft.Azure.Management.Network.Models
         [JsonProperty(PropertyName = "servers")]
         public IList<ApplicationGatewayBackendHealthServer> Servers { get; set; }
 
-        /// <summary>
-        /// Validate the object.
-        /// </summary>
-        /// <exception cref="Rest.ValidationException">
-        /// Thrown if validation fails
-        /// </exception>
-        public virtual void Validate()
-        {
-            if (BackendHttpSettings != null)
-            {
-                BackendHttpSettings.Validate();
-            }
-        }
     }
 }

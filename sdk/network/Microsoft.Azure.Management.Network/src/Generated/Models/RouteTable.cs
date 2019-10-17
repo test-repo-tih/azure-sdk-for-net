@@ -51,7 +51,7 @@ namespace Microsoft.Azure.Management.Network.Models
         /// 'Deleting', 'Failed'</param>
         /// <param name="etag">A unique read-only string that changes whenever
         /// the resource is updated.</param>
-        public RouteTable(string id = default(string), string name = default(string), string type = default(string), string location = default(string), IDictionary<string, string> tags = default(IDictionary<string, string>), IList<Route> routes = default(IList<Route>), IList<Subnet> subnets = default(IList<Subnet>), bool? disableBgpRoutePropagation = default(bool?), string provisioningState = default(string), string etag = default(string))
+        public RouteTable(string id = default(string), string name = default(string), string type = default(string), string location = default(string), IDictionary<string, string> tags = default(IDictionary<string, string>), IList<Route> routes = default(IList<Route>), IList<SubResource> subnets = default(IList<SubResource>), bool? disableBgpRoutePropagation = default(bool?), string provisioningState = default(string), string etag = default(string))
             : base(id, name, type, location, tags)
         {
             Routes = routes;
@@ -77,7 +77,7 @@ namespace Microsoft.Azure.Management.Network.Models
         /// Gets a collection of references to subnets.
         /// </summary>
         [JsonProperty(PropertyName = "properties.subnets")]
-        public IList<Subnet> Subnets { get; private set; }
+        public IList<SubResource> Subnets { get; private set; }
 
         /// <summary>
         /// Gets or sets whether to disable the routes learned by BGP on that
@@ -87,19 +87,18 @@ namespace Microsoft.Azure.Management.Network.Models
         public bool? DisableBgpRoutePropagation { get; set; }
 
         /// <summary>
-        /// Gets or sets the provisioning state of the route table resource.
-        /// Possible values include: 'Succeeded', 'Updating', 'Deleting',
-        /// 'Failed'
+        /// Gets the provisioning state of the route table resource. Possible
+        /// values include: 'Succeeded', 'Updating', 'Deleting', 'Failed'
         /// </summary>
         [JsonProperty(PropertyName = "properties.provisioningState")]
-        public string ProvisioningState { get; set; }
+        public string ProvisioningState { get; private set; }
 
         /// <summary>
-        /// Gets or sets a unique read-only string that changes whenever the
-        /// resource is updated.
+        /// Gets a unique read-only string that changes whenever the resource
+        /// is updated.
         /// </summary>
         [JsonProperty(PropertyName = "etag")]
-        public string Etag { get; set; }
+        public string Etag { get; private set; }
 
     }
 }

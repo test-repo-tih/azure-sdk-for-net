@@ -35,7 +35,7 @@ namespace Microsoft.Azure.Management.Network.Models
         /// ApplicationGatewayBackendAddressPool resource.</param>
         /// <param name="backendHealthHttpSettings">Application gateway
         /// BackendHealthHttp settings.</param>
-        public ApplicationGatewayBackendHealthOnDemand(ApplicationGatewayBackendAddressPool backendAddressPool = default(ApplicationGatewayBackendAddressPool), ApplicationGatewayBackendHealthHttpSettings backendHealthHttpSettings = default(ApplicationGatewayBackendHealthHttpSettings))
+        public ApplicationGatewayBackendHealthOnDemand(SubResource backendAddressPool = default(SubResource), ApplicationGatewayBackendHealthHttpSettings backendHealthHttpSettings = default(ApplicationGatewayBackendHealthHttpSettings))
         {
             BackendAddressPool = backendAddressPool;
             BackendHealthHttpSettings = backendHealthHttpSettings;
@@ -52,7 +52,7 @@ namespace Microsoft.Azure.Management.Network.Models
         /// resource.
         /// </summary>
         [JsonProperty(PropertyName = "backendAddressPool")]
-        public ApplicationGatewayBackendAddressPool BackendAddressPool { get; set; }
+        public SubResource BackendAddressPool { get; set; }
 
         /// <summary>
         /// Gets or sets application gateway BackendHealthHttp settings.
@@ -60,18 +60,5 @@ namespace Microsoft.Azure.Management.Network.Models
         [JsonProperty(PropertyName = "backendHealthHttpSettings")]
         public ApplicationGatewayBackendHealthHttpSettings BackendHealthHttpSettings { get; set; }
 
-        /// <summary>
-        /// Validate the object.
-        /// </summary>
-        /// <exception cref="Rest.ValidationException">
-        /// Thrown if validation fails
-        /// </exception>
-        public virtual void Validate()
-        {
-            if (BackendHealthHttpSettings != null)
-            {
-                BackendHealthHttpSettings.Validate();
-            }
-        }
     }
 }

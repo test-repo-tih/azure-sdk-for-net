@@ -43,7 +43,7 @@ namespace Microsoft.Azure.Management.Network.Models
         /// <param name="type">Sub Resource type.</param>
         /// <param name="etag">A unique read-only string that changes whenever
         /// the resource is updated.</param>
-        public IPConfigurationProfile(string id = default(string), Subnet subnet = default(Subnet), string provisioningState = default(string), string name = default(string), string type = default(string), string etag = default(string))
+        public IPConfigurationProfile(string id = default(string), SubResource subnet = default(SubResource), string provisioningState = default(string), string name = default(string), string type = default(string), string etag = default(string))
             : base(id)
         {
             Subnet = subnet;
@@ -64,7 +64,7 @@ namespace Microsoft.Azure.Management.Network.Models
         /// container network interface ip configuration.
         /// </summary>
         [JsonProperty(PropertyName = "properties.subnet")]
-        public Subnet Subnet { get; set; }
+        public SubResource Subnet { get; set; }
 
         /// <summary>
         /// Gets the provisioning state of the IP configuration profile
@@ -88,11 +88,11 @@ namespace Microsoft.Azure.Management.Network.Models
         public string Type { get; private set; }
 
         /// <summary>
-        /// Gets or sets a unique read-only string that changes whenever the
-        /// resource is updated.
+        /// Gets a unique read-only string that changes whenever the resource
+        /// is updated.
         /// </summary>
         [JsonProperty(PropertyName = "etag")]
-        public string Etag { get; set; }
+        public string Etag { get; private set; }
 
     }
 }
