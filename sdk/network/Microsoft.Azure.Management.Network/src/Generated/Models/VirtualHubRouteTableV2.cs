@@ -13,42 +13,44 @@ namespace Microsoft.Azure.Management.Network.Models
     using Microsoft.Rest;
     using Microsoft.Rest.Serialization;
     using Newtonsoft.Json;
+    using System.Collections;
+    using System.Collections.Generic;
     using System.Linq;
 
     /// <summary>
-    /// VPN client revoked certificate of virtual network gateway.
+    /// VirtualHubRouteTableV2 Resource.
     /// </summary>
     [Rest.Serialization.JsonTransformation]
-    public partial class VpnClientRevokedCertificate : SubResource
+    public partial class VirtualHubRouteTableV2 : SubResource
     {
         /// <summary>
-        /// Initializes a new instance of the VpnClientRevokedCertificate
-        /// class.
+        /// Initializes a new instance of the VirtualHubRouteTableV2 class.
         /// </summary>
-        public VpnClientRevokedCertificate()
+        public VirtualHubRouteTableV2()
         {
             CustomInit();
         }
 
         /// <summary>
-        /// Initializes a new instance of the VpnClientRevokedCertificate
-        /// class.
+        /// Initializes a new instance of the VirtualHubRouteTableV2 class.
         /// </summary>
         /// <param name="id">Resource ID.</param>
-        /// <param name="thumbprint">The revoked VPN client certificate
-        /// thumbprint.</param>
-        /// <param name="provisioningState">The provisioning state of the VPN
-        /// client revoked certificate resource. Possible values include:
+        /// <param name="routes">List of all routes.</param>
+        /// <param name="attachedConnections">List of all connections attached
+        /// to this route table v2.</param>
+        /// <param name="provisioningState">The provisioning state of the
+        /// virtual hub route table v2 resource. Possible values include:
         /// 'Succeeded', 'Updating', 'Deleting', 'Failed'</param>
         /// <param name="name">The name of the resource that is unique within a
         /// resource group. This name can be used to access the
         /// resource.</param>
         /// <param name="etag">A unique read-only string that changes whenever
         /// the resource is updated.</param>
-        public VpnClientRevokedCertificate(string id = default(string), string thumbprint = default(string), string provisioningState = default(string), string name = default(string), string etag = default(string))
+        public VirtualHubRouteTableV2(string id = default(string), IList<VirtualHubRouteV2> routes = default(IList<VirtualHubRouteV2>), IList<string> attachedConnections = default(IList<string>), string provisioningState = default(string), string name = default(string), string etag = default(string))
             : base(id)
         {
-            Thumbprint = thumbprint;
+            Routes = routes;
+            AttachedConnections = attachedConnections;
             ProvisioningState = provisioningState;
             Name = name;
             Etag = etag;
@@ -61,13 +63,20 @@ namespace Microsoft.Azure.Management.Network.Models
         partial void CustomInit();
 
         /// <summary>
-        /// Gets or sets the revoked VPN client certificate thumbprint.
+        /// Gets or sets list of all routes.
         /// </summary>
-        [JsonProperty(PropertyName = "properties.thumbprint")]
-        public string Thumbprint { get; set; }
+        [JsonProperty(PropertyName = "properties.routes")]
+        public IList<VirtualHubRouteV2> Routes { get; set; }
 
         /// <summary>
-        /// Gets the provisioning state of the VPN client revoked certificate
+        /// Gets or sets list of all connections attached to this route table
+        /// v2.
+        /// </summary>
+        [JsonProperty(PropertyName = "properties.attachedConnections")]
+        public IList<string> AttachedConnections { get; set; }
+
+        /// <summary>
+        /// Gets the provisioning state of the virtual hub route table v2
         /// resource. Possible values include: 'Succeeded', 'Updating',
         /// 'Deleting', 'Failed'
         /// </summary>
