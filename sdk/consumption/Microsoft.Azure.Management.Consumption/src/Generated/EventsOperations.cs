@@ -23,12 +23,12 @@ namespace Microsoft.Azure.Management.Consumption
     using System.Threading.Tasks;
 
     /// <summary>
-    /// UsageDetailsOperations operations.
+    /// EventsOperations operations.
     /// </summary>
-    internal partial class UsageDetailsOperations : IServiceOperations<ConsumptionManagementClient>, IUsageDetailsOperations
+    internal partial class EventsOperations : IServiceOperations<ConsumptionManagementClient>, IEventsOperations
     {
         /// <summary>
-        /// Initializes a new instance of the UsageDetailsOperations class.
+        /// Initializes a new instance of the EventsOperations class.
         /// </summary>
         /// <param name='client'>
         /// Reference to the service client.
@@ -36,7 +36,7 @@ namespace Microsoft.Azure.Management.Consumption
         /// <exception cref="System.ArgumentNullException">
         /// Thrown when a required parameter is null
         /// </exception>
-        internal UsageDetailsOperations(ConsumptionManagementClient client)
+        internal EventsOperations(ConsumptionManagementClient client)
         {
             if (client == null)
             {
@@ -51,67 +51,21 @@ namespace Microsoft.Azure.Management.Consumption
         public ConsumptionManagementClient Client { get; private set; }
 
         /// <summary>
-        /// Lists the usage details for the defined scope. Usage details are available
-        /// via this API only for May 1, 2014 or later.
+        /// Lists the events by billingAccountId and billingProfileId for given start
+        /// and end date.
         /// <see href="https://docs.microsoft.com/en-us/rest/api/consumption/" />
         /// </summary>
-        /// <param name='scope'>
-        /// The scope associated with usage details operations. This includes
-        /// '/subscriptions/{subscriptionId}/' for subscription scope,
-        /// '/subscriptions/{subscriptionId}/resourceGroups/{resourceGroupName}' for
-        /// resourceGroup scope,
-        /// '/providers/Microsoft.Billing/billingAccounts/{billingAccountId}' for
-        /// Billing Account scope,
-        /// '/providers/Microsoft.Billing/departments/{departmentId}' for Department
-        /// scope,
-        /// '/providers/Microsoft.Billing/enrollmentAccounts/{enrollmentAccountId}' for
-        /// EnrollmentAccount scope and
-        /// '/providers/Microsoft.Management/managementGroups/{managementGroupId}' for
-        /// Management Group scope. For subscription, billing account, department,
-        /// enrollment account and management group, you can also add billing period to
-        /// the scope using
-        /// '/providers/Microsoft.Billing/billingPeriods/{billingPeriodName}'. For e.g.
-        /// to specify billing period at department scope use
-        /// '/providers/Microsoft.Billing/departments/{departmentId}/providers/Microsoft.Billing/billingPeriods/{billingPeriodName}'.
-        /// Also, Modern Commerce Account scopes are
-        /// '/providers/Microsoft.Billing/billingAccounts/{billingAccountId}' for
-        /// billingAccount scope,
-        /// '/providers/Microsoft.Billing/billingAccounts/{billingAccountId}/billingProfiles/{billingProfileId}'
-        /// for billingProfile scope,
-        /// 'providers/Microsoft.Billing/billingAccounts/{billingAccountId}/billingProfiles/{billingProfileId}/invoiceSections/{invoiceSectionId}'
-        /// for invoiceSection scope, and
-        /// 'providers/Microsoft.Billing/billingAccounts/{billingAccountId}/customers/{customerId}'
-        /// specific for partners.
+        /// <param name='billingAccountId'>
+        /// BillingAccount ID
         /// </param>
-        /// <param name='expand'>
-        /// May be used to expand the properties/additionalInfo or
-        /// properties/meterDetails within a list of usage details. By default, these
-        /// fields are not included when listing usage details.
+        /// <param name='billingProfileId'>
+        /// Azure Billing Profile ID.
         /// </param>
-        /// <param name='filter'>
-        /// May be used to filter usageDetails by properties/resourceGroup,
-        /// properties/resourceName, properties/resourceId, properties/chargeType,
-        /// properties/reservationId, properties/publisherType or tags. The filter
-        /// supports 'eq', 'lt', 'gt', 'le', 'ge', and 'and'. It does not currently
-        /// support 'ne', 'or', or 'not'. Tag filter is a key value pair string where
-        /// key and value is separated by a colon (:). PublisherType Filter accepts two
-        /// values azure and marketplace and it is currently supported for Web Direct
-        /// Offer Type
+        /// <param name='startDate'>
+        /// Start date
         /// </param>
-        /// <param name='skiptoken'>
-        /// Skiptoken is only used if a previous operation returned a partial result.
-        /// If a previous response contains a nextLink element, the value of the
-        /// nextLink element will include a skiptoken parameter that specifies a
-        /// starting point to use for subsequent calls.
-        /// </param>
-        /// <param name='top'>
-        /// May be used to limit the number of results to the most recent N
-        /// usageDetails.
-        /// </param>
-        /// <param name='metric'>
-        /// Allows to select different type of cost/usage records. Possible values
-        /// include: 'ActualCostMetricType', 'AmortizedCostMetricType',
-        /// 'UsageMetricType'
+        /// <param name='endDate'>
+        /// End date
         /// </param>
         /// <param name='customHeaders'>
         /// Headers that will be added to request.
@@ -134,23 +88,27 @@ namespace Microsoft.Azure.Management.Consumption
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<AzureOperationResponse<IPage<UsageDetail>>> ListWithHttpMessagesAsync(string scope, string expand = default(string), string filter = default(string), string skiptoken = default(string), int? top = default(int?), string metric = default(string), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<AzureOperationResponse<IPage<EventSummary>>> ListWithHttpMessagesAsync(string billingAccountId, string billingProfileId, string startDate, string endDate, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
-            if (scope == null)
+            if (billingAccountId == null)
             {
-                throw new ValidationException(ValidationRules.CannotBeNull, "scope");
+                throw new ValidationException(ValidationRules.CannotBeNull, "billingAccountId");
             }
-            if (top > 1000)
+            if (billingProfileId == null)
             {
-                throw new ValidationException(ValidationRules.InclusiveMaximum, "top", 1000);
-            }
-            if (top < 1)
-            {
-                throw new ValidationException(ValidationRules.InclusiveMinimum, "top", 1);
+                throw new ValidationException(ValidationRules.CannotBeNull, "billingProfileId");
             }
             if (Client.ApiVersion == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "this.Client.ApiVersion");
+            }
+            if (startDate == null)
+            {
+                throw new ValidationException(ValidationRules.CannotBeNull, "startDate");
+            }
+            if (endDate == null)
+            {
+                throw new ValidationException(ValidationRules.CannotBeNull, "endDate");
             }
             // Tracing
             bool _shouldTrace = ServiceClientTracing.IsEnabled;
@@ -159,43 +117,30 @@ namespace Microsoft.Azure.Management.Consumption
             {
                 _invocationId = ServiceClientTracing.NextInvocationId.ToString();
                 Dictionary<string, object> tracingParameters = new Dictionary<string, object>();
-                tracingParameters.Add("scope", scope);
-                tracingParameters.Add("expand", expand);
-                tracingParameters.Add("filter", filter);
-                tracingParameters.Add("skiptoken", skiptoken);
-                tracingParameters.Add("top", top);
-                tracingParameters.Add("metric", metric);
+                tracingParameters.Add("billingAccountId", billingAccountId);
+                tracingParameters.Add("billingProfileId", billingProfileId);
+                tracingParameters.Add("startDate", startDate);
+                tracingParameters.Add("endDate", endDate);
                 tracingParameters.Add("cancellationToken", cancellationToken);
                 ServiceClientTracing.Enter(_invocationId, this, "List", tracingParameters);
             }
             // Construct URL
             var _baseUrl = Client.BaseUri.AbsoluteUri;
-            var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "{scope}/providers/Microsoft.Consumption/usageDetails").ToString();
-            _url = _url.Replace("{scope}", scope);
+            var _url = new System.Uri(new System.Uri(_baseUrl + (_baseUrl.EndsWith("/") ? "" : "/")), "providers/Microsoft.Billing/billingAccounts/{billingAccountId}/billingProfiles/{billingProfileId}/providers/Microsoft.Consumption/events").ToString();
+            _url = _url.Replace("{billingAccountId}", System.Uri.EscapeDataString(billingAccountId));
+            _url = _url.Replace("{billingProfileId}", System.Uri.EscapeDataString(billingProfileId));
             List<string> _queryParameters = new List<string>();
-            if (expand != null)
-            {
-                _queryParameters.Add(string.Format("$expand={0}", System.Uri.EscapeDataString(expand)));
-            }
-            if (filter != null)
-            {
-                _queryParameters.Add(string.Format("$filter={0}", System.Uri.EscapeDataString(filter)));
-            }
-            if (skiptoken != null)
-            {
-                _queryParameters.Add(string.Format("$skiptoken={0}", System.Uri.EscapeDataString(skiptoken)));
-            }
-            if (top != null)
-            {
-                _queryParameters.Add(string.Format("$top={0}", System.Uri.EscapeDataString(Rest.Serialization.SafeJsonConvert.SerializeObject(top, Client.SerializationSettings).Trim('"'))));
-            }
             if (Client.ApiVersion != null)
             {
                 _queryParameters.Add(string.Format("api-version={0}", System.Uri.EscapeDataString(Client.ApiVersion)));
             }
-            if (metric != null)
+            if (startDate != null)
             {
-                _queryParameters.Add(string.Format("metric={0}", System.Uri.EscapeDataString(metric)));
+                _queryParameters.Add(string.Format("startDate={0}", System.Uri.EscapeDataString(startDate)));
+            }
+            if (endDate != null)
+            {
+                _queryParameters.Add(string.Format("endDate={0}", System.Uri.EscapeDataString(endDate)));
             }
             if (_queryParameters.Count > 0)
             {
@@ -285,7 +230,7 @@ namespace Microsoft.Azure.Management.Consumption
                 throw ex;
             }
             // Create Result
-            var _result = new AzureOperationResponse<IPage<UsageDetail>>();
+            var _result = new AzureOperationResponse<IPage<EventSummary>>();
             _result.Request = _httpRequest;
             _result.Response = _httpResponse;
             if (_httpResponse.Headers.Contains("x-ms-request-id"))
@@ -298,7 +243,7 @@ namespace Microsoft.Azure.Management.Consumption
                 _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
                 try
                 {
-                    _result.Body = Rest.Serialization.SafeJsonConvert.DeserializeObject<Page<UsageDetail>>(_responseContent, Client.DeserializationSettings);
+                    _result.Body = Rest.Serialization.SafeJsonConvert.DeserializeObject<Page<EventSummary>>(_responseContent, Client.DeserializationSettings);
                 }
                 catch (JsonException ex)
                 {
@@ -318,8 +263,8 @@ namespace Microsoft.Azure.Management.Consumption
         }
 
         /// <summary>
-        /// Lists the usage details for the defined scope. Usage details are available
-        /// via this API only for May 1, 2014 or later.
+        /// Lists the events by billingAccountId and billingProfileId for given start
+        /// and end date.
         /// <see href="https://docs.microsoft.com/en-us/rest/api/consumption/" />
         /// </summary>
         /// <param name='nextPageLink'>
@@ -346,7 +291,7 @@ namespace Microsoft.Azure.Management.Consumption
         /// <return>
         /// A response object containing the response body and response headers.
         /// </return>
-        public async Task<AzureOperationResponse<IPage<UsageDetail>>> ListNextWithHttpMessagesAsync(string nextPageLink, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<AzureOperationResponse<IPage<EventSummary>>> ListNextWithHttpMessagesAsync(string nextPageLink, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken))
         {
             if (nextPageLink == null)
             {
@@ -455,7 +400,7 @@ namespace Microsoft.Azure.Management.Consumption
                 throw ex;
             }
             // Create Result
-            var _result = new AzureOperationResponse<IPage<UsageDetail>>();
+            var _result = new AzureOperationResponse<IPage<EventSummary>>();
             _result.Request = _httpRequest;
             _result.Response = _httpResponse;
             if (_httpResponse.Headers.Contains("x-ms-request-id"))
@@ -468,7 +413,7 @@ namespace Microsoft.Azure.Management.Consumption
                 _responseContent = await _httpResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
                 try
                 {
-                    _result.Body = Rest.Serialization.SafeJsonConvert.DeserializeObject<Page<UsageDetail>>(_responseContent, Client.DeserializationSettings);
+                    _result.Body = Rest.Serialization.SafeJsonConvert.DeserializeObject<Page<EventSummary>>(_responseContent, Client.DeserializationSettings);
                 }
                 catch (JsonException ex)
                 {

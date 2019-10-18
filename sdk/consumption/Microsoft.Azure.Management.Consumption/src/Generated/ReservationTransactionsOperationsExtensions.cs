@@ -17,66 +17,56 @@ namespace Microsoft.Azure.Management.Consumption
     using System.Threading.Tasks;
 
     /// <summary>
-    /// Extension methods for ReservationRecommendationsOperations.
+    /// Extension methods for ReservationTransactionsOperations.
     /// </summary>
-    public static partial class ReservationRecommendationsOperationsExtensions
+    public static partial class ReservationTransactionsOperationsExtensions
     {
             /// <summary>
-            /// List of recommendations for purchasing reserved instances.
+            /// List of transactions for reserved instances on billing account scope
             /// <see href="https://docs.microsoft.com/en-us/rest/api/consumption/" />
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
-            /// <param name='scope'>
-            /// The scope associated with reservation recommendations operations. This
-            /// includes '/subscriptions/{subscriptionId}/' for subscription scope,
-            /// '/providers/Microsoft.Billing/billingAccounts/{billingAccountId}' for
-            /// BillingAccount scope, and
-            /// '/providers/Microsoft.Billing/billingAccounts/{billingAccountId}/billingProfiles/{billingProfileId}'
-            /// for billingProfile scope
+            /// <param name='billingAccountId'>
+            /// BillingAccount ID
             /// </param>
             /// <param name='filter'>
-            /// May be used to filter reservationRecommendations by properties/scope and
-            /// properties/lookBackPeriod.
+            /// Filter reservation transactions by date range. The properties/UsageDate for
+            /// start date and end date. The filter supports 'le' and  'ge'
             /// </param>
-            public static IPage<ReservationRecommendation> List(this IReservationRecommendationsOperations operations, string scope, string filter = default(string))
+            public static IPage<ReservationTransaction> List(this IReservationTransactionsOperations operations, string billingAccountId, string filter = default(string))
             {
-                return operations.ListAsync(scope, filter).GetAwaiter().GetResult();
+                return operations.ListAsync(billingAccountId, filter).GetAwaiter().GetResult();
             }
 
             /// <summary>
-            /// List of recommendations for purchasing reserved instances.
+            /// List of transactions for reserved instances on billing account scope
             /// <see href="https://docs.microsoft.com/en-us/rest/api/consumption/" />
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
-            /// <param name='scope'>
-            /// The scope associated with reservation recommendations operations. This
-            /// includes '/subscriptions/{subscriptionId}/' for subscription scope,
-            /// '/providers/Microsoft.Billing/billingAccounts/{billingAccountId}' for
-            /// BillingAccount scope, and
-            /// '/providers/Microsoft.Billing/billingAccounts/{billingAccountId}/billingProfiles/{billingProfileId}'
-            /// for billingProfile scope
+            /// <param name='billingAccountId'>
+            /// BillingAccount ID
             /// </param>
             /// <param name='filter'>
-            /// May be used to filter reservationRecommendations by properties/scope and
-            /// properties/lookBackPeriod.
+            /// Filter reservation transactions by date range. The properties/UsageDate for
+            /// start date and end date. The filter supports 'le' and  'ge'
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<IPage<ReservationRecommendation>> ListAsync(this IReservationRecommendationsOperations operations, string scope, string filter = default(string), CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<IPage<ReservationTransaction>> ListAsync(this IReservationTransactionsOperations operations, string billingAccountId, string filter = default(string), CancellationToken cancellationToken = default(CancellationToken))
             {
-                using (var _result = await operations.ListWithHttpMessagesAsync(scope, filter, null, cancellationToken).ConfigureAwait(false))
+                using (var _result = await operations.ListWithHttpMessagesAsync(billingAccountId, filter, null, cancellationToken).ConfigureAwait(false))
                 {
                     return _result.Body;
                 }
             }
 
             /// <summary>
-            /// List of recommendations for purchasing reserved instances.
+            /// List of transactions for reserved instances on billing account scope
             /// <see href="https://docs.microsoft.com/en-us/rest/api/consumption/" />
             /// </summary>
             /// <param name='operations'>
@@ -85,13 +75,13 @@ namespace Microsoft.Azure.Management.Consumption
             /// <param name='nextPageLink'>
             /// The NextLink from the previous successful call to List operation.
             /// </param>
-            public static IPage<ReservationRecommendation> ListNext(this IReservationRecommendationsOperations operations, string nextPageLink)
+            public static IPage<ReservationTransaction> ListNext(this IReservationTransactionsOperations operations, string nextPageLink)
             {
                 return operations.ListNextAsync(nextPageLink).GetAwaiter().GetResult();
             }
 
             /// <summary>
-            /// List of recommendations for purchasing reserved instances.
+            /// List of transactions for reserved instances on billing account scope
             /// <see href="https://docs.microsoft.com/en-us/rest/api/consumption/" />
             /// </summary>
             /// <param name='operations'>
@@ -103,7 +93,7 @@ namespace Microsoft.Azure.Management.Consumption
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<IPage<ReservationRecommendation>> ListNextAsync(this IReservationRecommendationsOperations operations, string nextPageLink, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<IPage<ReservationTransaction>> ListNextAsync(this IReservationTransactionsOperations operations, string nextPageLink, CancellationToken cancellationToken = default(CancellationToken))
             {
                 using (var _result = await operations.ListNextWithHttpMessagesAsync(nextPageLink, null, cancellationToken).ConfigureAwait(false))
                 {
