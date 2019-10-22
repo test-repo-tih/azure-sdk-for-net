@@ -22,10 +22,10 @@ namespace Microsoft.Azure.Management.EventGrid
     public static partial class DomainTopicsOperationsExtensions
     {
             /// <summary>
-            /// Get a domain topic.
+            /// Get a domain topic
             /// </summary>
             /// <remarks>
-            /// Get properties of a domain topic.
+            /// Get properties of a domain topic
             /// </remarks>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -34,10 +34,10 @@ namespace Microsoft.Azure.Management.EventGrid
             /// The name of the resource group within the user's subscription.
             /// </param>
             /// <param name='domainName'>
-            /// Name of the domain.
+            /// Name of the domain
             /// </param>
             /// <param name='domainTopicName'>
-            /// Name of the topic.
+            /// Name of the topic
             /// </param>
             public static DomainTopic Get(this IDomainTopicsOperations operations, string resourceGroupName, string domainName, string domainTopicName)
             {
@@ -45,10 +45,10 @@ namespace Microsoft.Azure.Management.EventGrid
             }
 
             /// <summary>
-            /// Get a domain topic.
+            /// Get a domain topic
             /// </summary>
             /// <remarks>
-            /// Get properties of a domain topic.
+            /// Get properties of a domain topic
             /// </remarks>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -57,10 +57,10 @@ namespace Microsoft.Azure.Management.EventGrid
             /// The name of the resource group within the user's subscription.
             /// </param>
             /// <param name='domainName'>
-            /// Name of the domain.
+            /// Name of the domain
             /// </param>
             /// <param name='domainTopicName'>
-            /// Name of the topic.
+            /// Name of the topic
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
@@ -74,7 +74,7 @@ namespace Microsoft.Azure.Management.EventGrid
             }
 
             /// <summary>
-            /// Create or update a domain topic.
+            /// Create or update a domain topic
             /// </summary>
             /// <remarks>
             /// Asynchronously creates or updates a new domain topic with the specified
@@ -87,10 +87,10 @@ namespace Microsoft.Azure.Management.EventGrid
             /// The name of the resource group within the user's subscription.
             /// </param>
             /// <param name='domainName'>
-            /// Name of the domain.
+            /// Name of the domain
             /// </param>
             /// <param name='domainTopicName'>
-            /// Name of the domain topic.
+            /// Name of the domain topic
             /// </param>
             public static DomainTopic CreateOrUpdate(this IDomainTopicsOperations operations, string resourceGroupName, string domainName, string domainTopicName)
             {
@@ -98,7 +98,7 @@ namespace Microsoft.Azure.Management.EventGrid
             }
 
             /// <summary>
-            /// Create or update a domain topic.
+            /// Create or update a domain topic
             /// </summary>
             /// <remarks>
             /// Asynchronously creates or updates a new domain topic with the specified
@@ -111,10 +111,10 @@ namespace Microsoft.Azure.Management.EventGrid
             /// The name of the resource group within the user's subscription.
             /// </param>
             /// <param name='domainName'>
-            /// Name of the domain.
+            /// Name of the domain
             /// </param>
             /// <param name='domainTopicName'>
-            /// Name of the domain topic.
+            /// Name of the domain topic
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
@@ -128,10 +128,10 @@ namespace Microsoft.Azure.Management.EventGrid
             }
 
             /// <summary>
-            /// Delete a domain topic.
+            /// Delete a domain topic
             /// </summary>
             /// <remarks>
-            /// Delete existing domain topic.
+            /// Delete existing domain topic
             /// </remarks>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -140,10 +140,10 @@ namespace Microsoft.Azure.Management.EventGrid
             /// The name of the resource group within the user's subscription.
             /// </param>
             /// <param name='domainName'>
-            /// Name of the domain.
+            /// Name of the domain
             /// </param>
             /// <param name='domainTopicName'>
-            /// Name of the domain topic.
+            /// Name of the domain topic
             /// </param>
             public static void Delete(this IDomainTopicsOperations operations, string resourceGroupName, string domainName, string domainTopicName)
             {
@@ -151,10 +151,10 @@ namespace Microsoft.Azure.Management.EventGrid
             }
 
             /// <summary>
-            /// Delete a domain topic.
+            /// Delete a domain topic
             /// </summary>
             /// <remarks>
-            /// Delete existing domain topic.
+            /// Delete existing domain topic
             /// </remarks>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -163,10 +163,10 @@ namespace Microsoft.Azure.Management.EventGrid
             /// The name of the resource group within the user's subscription.
             /// </param>
             /// <param name='domainName'>
-            /// Name of the domain.
+            /// Name of the domain
             /// </param>
             /// <param name='domainTopicName'>
-            /// Name of the domain topic.
+            /// Name of the domain topic
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
@@ -251,7 +251,7 @@ namespace Microsoft.Azure.Management.EventGrid
             }
 
             /// <summary>
-            /// Create or update a domain topic.
+            /// Create or update a domain topic
             /// </summary>
             /// <remarks>
             /// Asynchronously creates or updates a new domain topic with the specified
@@ -264,10 +264,10 @@ namespace Microsoft.Azure.Management.EventGrid
             /// The name of the resource group within the user's subscription.
             /// </param>
             /// <param name='domainName'>
-            /// Name of the domain.
+            /// Name of the domain
             /// </param>
             /// <param name='domainTopicName'>
-            /// Name of the domain topic.
+            /// Name of the domain topic
             /// </param>
             public static DomainTopic BeginCreateOrUpdate(this IDomainTopicsOperations operations, string resourceGroupName, string domainName, string domainTopicName)
             {
@@ -275,7 +275,7 @@ namespace Microsoft.Azure.Management.EventGrid
             }
 
             /// <summary>
-            /// Create or update a domain topic.
+            /// Create or update a domain topic
             /// </summary>
             /// <remarks>
             /// Asynchronously creates or updates a new domain topic with the specified
@@ -288,10 +288,10 @@ namespace Microsoft.Azure.Management.EventGrid
             /// The name of the resource group within the user's subscription.
             /// </param>
             /// <param name='domainName'>
-            /// Name of the domain.
+            /// Name of the domain
             /// </param>
             /// <param name='domainTopicName'>
-            /// Name of the domain topic.
+            /// Name of the domain topic
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
@@ -305,10 +305,10 @@ namespace Microsoft.Azure.Management.EventGrid
             }
 
             /// <summary>
-            /// Delete a domain topic.
+            /// Delete a domain topic
             /// </summary>
             /// <remarks>
-            /// Delete existing domain topic.
+            /// Delete existing domain topic
             /// </remarks>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -317,10 +317,10 @@ namespace Microsoft.Azure.Management.EventGrid
             /// The name of the resource group within the user's subscription.
             /// </param>
             /// <param name='domainName'>
-            /// Name of the domain.
+            /// Name of the domain
             /// </param>
             /// <param name='domainTopicName'>
-            /// Name of the domain topic.
+            /// Name of the domain topic
             /// </param>
             public static void BeginDelete(this IDomainTopicsOperations operations, string resourceGroupName, string domainName, string domainTopicName)
             {
@@ -328,10 +328,10 @@ namespace Microsoft.Azure.Management.EventGrid
             }
 
             /// <summary>
-            /// Delete a domain topic.
+            /// Delete a domain topic
             /// </summary>
             /// <remarks>
-            /// Delete existing domain topic.
+            /// Delete existing domain topic
             /// </remarks>
             /// <param name='operations'>
             /// The operations group for this extension method.
@@ -340,10 +340,10 @@ namespace Microsoft.Azure.Management.EventGrid
             /// The name of the resource group within the user's subscription.
             /// </param>
             /// <param name='domainName'>
-            /// Name of the domain.
+            /// Name of the domain
             /// </param>
             /// <param name='domainTopicName'>
-            /// Name of the domain topic.
+            /// Name of the domain topic
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
