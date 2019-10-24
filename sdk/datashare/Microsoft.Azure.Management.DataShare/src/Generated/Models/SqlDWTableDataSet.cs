@@ -16,7 +16,7 @@ namespace Microsoft.Azure.Management.DataShare.Models
     using System.Linq;
 
     /// <summary>
-    /// A SQL DW table dataset.
+    /// A SQL DW table data set.
     /// </summary>
     [Newtonsoft.Json.JsonObject("SqlDWTable")]
     [Rest.Serialization.JsonTransformation]

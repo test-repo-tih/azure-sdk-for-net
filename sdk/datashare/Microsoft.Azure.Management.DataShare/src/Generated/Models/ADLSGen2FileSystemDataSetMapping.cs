@@ -16,7 +16,7 @@ namespace Microsoft.Azure.Management.DataShare.Models
     using System.Linq;
 
     /// <summary>
-    /// An ADLS Gen2 file system dataset mapping.
+    /// An ADLS Gen2 file system data set mapping.
     /// </summary>
     [Newtonsoft.Json.JsonObject("AdlsGen2FileSystem")]
     [Rest.Serialization.JsonTransformation]
@@ -35,6 +35,7 @@ namespace Microsoft.Azure.Management.DataShare.Models
         /// Initializes a new instance of the ADLSGen2FileSystemDataSetMapping
         /// class.
         /// </summary>
+        /// <param name="dataSetId">The id of the source data set.</param>
         /// <param name="fileSystem">The file system name.</param>
         /// <param name="resourceGroup">Resource group of storage
         /// account.</param>
@@ -45,10 +46,9 @@ namespace Microsoft.Azure.Management.DataShare.Models
         /// <param name="id">The resource id of the azure resource</param>
         /// <param name="name">Name of the azure resource</param>
         /// <param name="type">Type of the azure resource</param>
-        /// <param name="dataSetId">Gets the id of source dataset.</param>
-        /// <param name="dataSetMappingStatus">Gets the status of the dataset
+        /// <param name="dataSetMappingStatus">Gets the status of the data set
         /// mapping. Possible values include: 'Ok', 'Broken'</param>
-        public ADLSGen2FileSystemDataSetMapping(string fileSystem, string resourceGroup, string storageAccountName, string subscriptionId, string id = default(string), string name = default(string), string type = default(string), string dataSetId = default(string), string dataSetMappingStatus = default(string))
+        public ADLSGen2FileSystemDataSetMapping(string dataSetId, string fileSystem, string resourceGroup, string storageAccountName, string subscriptionId, string id = default(string), string name = default(string), string type = default(string), string dataSetMappingStatus = default(string))
             : base(id, name, type)
         {
             DataSetId = dataSetId;
@@ -66,13 +66,13 @@ namespace Microsoft.Azure.Management.DataShare.Models
         partial void CustomInit();
 
         /// <summary>
-        /// Gets the id of source dataset.
+        /// Gets or sets the id of the source data set.
         /// </summary>
         [JsonProperty(PropertyName = "properties.dataSetId")]
         public string DataSetId { get; set; }
 
         /// <summary>
-        /// Gets the status of the dataset mapping. Possible values include:
+        /// Gets the status of the data set mapping. Possible values include:
         /// 'Ok', 'Broken'
         /// </summary>
         [JsonProperty(PropertyName = "properties.dataSetMappingStatus")]
@@ -110,6 +110,10 @@ namespace Microsoft.Azure.Management.DataShare.Models
         /// </exception>
         public virtual void Validate()
         {
+            if (DataSetId == null)
+            {
+                throw new ValidationException(ValidationRules.CannotBeNull, "DataSetId");
+            }
             if (FileSystem == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "FileSystem");
