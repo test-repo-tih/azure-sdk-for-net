@@ -136,7 +136,7 @@ namespace Microsoft.Azure.Management.Automation
             }
 
             /// <summary>
-            /// delete a specific software update configuration.
+            /// Delete a specific software update configuration.
             /// <see href="http://aka.ms/azureautomationsdk/softwareupdateconfigurationoperations" />
             /// </summary>
             /// <param name='operations'>
@@ -160,7 +160,7 @@ namespace Microsoft.Azure.Management.Automation
             }
 
             /// <summary>
-            /// delete a specific software update configuration.
+            /// Delete a specific software update configuration.
             /// <see href="http://aka.ms/azureautomationsdk/softwareupdateconfigurationoperations" />
             /// </summary>
             /// <param name='operations'>
@@ -205,7 +205,7 @@ namespace Microsoft.Azure.Management.Automation
             /// <param name='filter'>
             /// The filter to apply on the operation.
             /// </param>
-            public static SoftwareUpdateConfigurationListResult List(this ISoftwareUpdateConfigurationsOperations operations, string resourceGroupName, string automationAccountName, string clientRequestId = default(string), string filter = default(string))
+            public static IPage<SoftwareUpdateConfigurationCollectionItem> List(this ISoftwareUpdateConfigurationsOperations operations, string resourceGroupName, string automationAccountName, string clientRequestId = default(string), string filter = default(string))
             {
                 return operations.ListAsync(resourceGroupName, automationAccountName, clientRequestId, filter).GetAwaiter().GetResult();
             }
@@ -232,9 +232,51 @@ namespace Microsoft.Azure.Management.Automation
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<SoftwareUpdateConfigurationListResult> ListAsync(this ISoftwareUpdateConfigurationsOperations operations, string resourceGroupName, string automationAccountName, string clientRequestId = default(string), string filter = default(string), CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<IPage<SoftwareUpdateConfigurationCollectionItem>> ListAsync(this ISoftwareUpdateConfigurationsOperations operations, string resourceGroupName, string automationAccountName, string clientRequestId = default(string), string filter = default(string), CancellationToken cancellationToken = default(CancellationToken))
             {
                 using (var _result = await operations.ListWithHttpMessagesAsync(resourceGroupName, automationAccountName, clientRequestId, filter, null, cancellationToken).ConfigureAwait(false))
+                {
+                    return _result.Body;
+                }
+            }
+
+            /// <summary>
+            /// Get all software update configurations for the account.
+            /// <see href="http://aka.ms/azureautomationsdk/softwareupdateconfigurationoperations" />
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='nextPageLink'>
+            /// The NextLink from the previous successful call to List operation.
+            /// </param>
+            /// <param name='clientRequestId'>
+            /// Identifies this specific client request.
+            /// </param>
+            public static IPage<SoftwareUpdateConfigurationCollectionItem> ListNext(this ISoftwareUpdateConfigurationsOperations operations, string nextPageLink, string clientRequestId = default(string))
+            {
+                return operations.ListNextAsync(nextPageLink, clientRequestId).GetAwaiter().GetResult();
+            }
+
+            /// <summary>
+            /// Get all software update configurations for the account.
+            /// <see href="http://aka.ms/azureautomationsdk/softwareupdateconfigurationoperations" />
+            /// </summary>
+            /// <param name='operations'>
+            /// The operations group for this extension method.
+            /// </param>
+            /// <param name='nextPageLink'>
+            /// The NextLink from the previous successful call to List operation.
+            /// </param>
+            /// <param name='clientRequestId'>
+            /// Identifies this specific client request.
+            /// </param>
+            /// <param name='cancellationToken'>
+            /// The cancellation token.
+            /// </param>
+            public static async Task<IPage<SoftwareUpdateConfigurationCollectionItem>> ListNextAsync(this ISoftwareUpdateConfigurationsOperations operations, string nextPageLink, string clientRequestId = default(string), CancellationToken cancellationToken = default(CancellationToken))
+            {
+                using (var _result = await operations.ListNextWithHttpMessagesAsync(nextPageLink, clientRequestId, null, cancellationToken).ConfigureAwait(false))
                 {
                     return _result.Body;
                 }
