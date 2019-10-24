@@ -13,10 +13,10 @@ namespace Microsoft.Azure.Management.ApplicationInsights.Management.Models
     using Microsoft.Rest;
 
     /// <summary>
-    /// Exception thrown for an invalid response with ErrorResponse
+    /// Exception thrown for an invalid response with WorkbookError
     /// information.
     /// </summary>
-    public partial class ErrorResponseException : RestException
+    public partial class WorkbookErrorException : RestException
     {
         /// <summary>
         /// Gets information about the associated HTTP request.
@@ -31,30 +31,30 @@ namespace Microsoft.Azure.Management.ApplicationInsights.Management.Models
         /// <summary>
         /// Gets or sets the body object.
         /// </summary>
-        public ErrorResponse Body { get; set; }
+        public WorkbookError Body { get; set; }
 
         /// <summary>
-        /// Initializes a new instance of the ErrorResponseException class.
+        /// Initializes a new instance of the WorkbookErrorException class.
         /// </summary>
-        public ErrorResponseException()
+        public WorkbookErrorException()
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the ErrorResponseException class.
+        /// Initializes a new instance of the WorkbookErrorException class.
         /// </summary>
         /// <param name="message">The exception message.</param>
-        public ErrorResponseException(string message)
+        public WorkbookErrorException(string message)
             : this(message, null)
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the ErrorResponseException class.
+        /// Initializes a new instance of the WorkbookErrorException class.
         /// </summary>
         /// <param name="message">The exception message.</param>
         /// <param name="innerException">Inner exception.</param>
-        public ErrorResponseException(string message, System.Exception innerException)
+        public WorkbookErrorException(string message, System.Exception innerException)
             : base(message, innerException)
         {
         }
