@@ -211,5 +211,15 @@ namespace Microsoft.Azure.Management.Security
         /// </summary>
         IServerVulnerabilityAssessmentOperations ServerVulnerabilityAssessment { get; }
 
+        /// <summary>
+        /// Gets the ISubAssessmentsOperations.
+        /// </summary>
+        ISubAssessmentsOperations SubAssessments { get; }
+
+        /// <summary>
+        /// Gets the IAutomationsOperations.
+        /// </summary>
+        IAutomationsOperations Automations { get; }
+
     }
 }
