@@ -90,6 +90,11 @@ namespace Microsoft.Azure.Management.Cdn
         IOriginsOperations Origins { get; }
 
         /// <summary>
+        /// Gets the IOriginGroupsOperations.
+        /// </summary>
+        IOriginGroupsOperations OriginGroups { get; }
+
+        /// <summary>
         /// Gets the ICustomDomainsOperations.
         /// </summary>
         ICustomDomainsOperations CustomDomains { get; }

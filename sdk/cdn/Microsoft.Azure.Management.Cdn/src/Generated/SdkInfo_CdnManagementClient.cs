@@ -19,29 +19,19 @@ namespace Microsoft.Azure.Management.Cdn
           {
               return new Tuple<string, string, string>[]
               {
-                new Tuple<string, string, string>("Cdn", "CheckNameAvailability", "2019-04-15"),
-                new Tuple<string, string, string>("Cdn", "CheckNameAvailabilityWithSubscription", "2019-04-15"),
-                new Tuple<string, string, string>("Cdn", "CustomDomains", "2019-04-15"),
-                new Tuple<string, string, string>("Cdn", "EdgeNodes", "2019-04-15"),
-                new Tuple<string, string, string>("Cdn", "Endpoints", "2019-04-15"),
-                new Tuple<string, string, string>("Cdn", "Operations", "2019-04-15"),
-                new Tuple<string, string, string>("Cdn", "Origins", "2019-04-15"),
-                new Tuple<string, string, string>("Cdn", "Profiles", "2019-04-15"),
-                new Tuple<string, string, string>("Cdn", "ResourceUsage", "2019-04-15"),
-                new Tuple<string, string, string>("Cdn", "ValidateProbe", "2019-04-15"),
+                new Tuple<string, string, string>("Cdn", "CheckNameAvailability", "2019-12-31"),
+                new Tuple<string, string, string>("Cdn", "CheckNameAvailabilityWithSubscription", "2019-12-31"),
+                new Tuple<string, string, string>("Cdn", "CustomDomains", "2019-12-31"),
+                new Tuple<string, string, string>("Cdn", "EdgeNodes", "2019-12-31"),
+                new Tuple<string, string, string>("Cdn", "Endpoints", "2019-12-31"),
+                new Tuple<string, string, string>("Cdn", "Operations", "2019-12-31"),
+                new Tuple<string, string, string>("Cdn", "OriginGroups", "2019-12-31"),
+                new Tuple<string, string, string>("Cdn", "Origins", "2019-12-31"),
+                new Tuple<string, string, string>("Cdn", "Profiles", "2019-12-31"),
+                new Tuple<string, string, string>("Cdn", "ResourceUsage", "2019-12-31"),
+                new Tuple<string, string, string>("Cdn", "ValidateProbe", "2019-12-31"),
               }.AsEnumerable();
           }
       }
-      // BEGIN: Code Generation Metadata Section
-      public static readonly String AutoRestVersion = "latest";
-      public static readonly String AutoRestBootStrapperVersion = "autorest@2.0.4283";
-      public static readonly String AutoRestCmdExecuted = "cmd.exe /c autorest.cmd https://github.com/Azure/azure-rest-api-specs/blob/master/specification/cdn/resource-manager/readme.md --csharp --version=latest --reflect-api-versions --csharp-sdks-folder=D:\\hata-sdk\\azure-sdk-for-net\\sdk";
-      public static readonly String GithubForkName = "Azure";
-      public static readonly String GithubBranchName = "master";
-      public static readonly String GithubCommidId = "3abf6daa573fa6d4b95be526189a135f02577c97";
-      public static readonly String CodeGenerationErrors = "";
-      public static readonly String GithubRepoName = "azure-rest-api-specs";
-      // END: Code Generation Metadata Section
   }
 }
-
