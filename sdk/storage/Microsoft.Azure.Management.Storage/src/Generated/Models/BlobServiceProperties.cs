@@ -48,12 +48,14 @@ namespace Microsoft.Azure.Management.Storage.Models
         /// incoming request’s version is not specified. Possible values
         /// include version 2008-10-27 and all more recent versions.</param>
         /// <param name="deleteRetentionPolicy">The blob service properties for
-        /// soft delete.</param>
+        /// blob soft delete.</param>
         /// <param name="automaticSnapshotPolicyEnabled">Automatic Snapshot is
         /// enabled if set to true.</param>
         /// <param name="changeFeed">The blob service properties for change
         /// feed events.</param>
-        public BlobServiceProperties(string id = default(string), string name = default(string), string type = default(string), CorsRules cors = default(CorsRules), string defaultServiceVersion = default(string), DeleteRetentionPolicy deleteRetentionPolicy = default(DeleteRetentionPolicy), bool? automaticSnapshotPolicyEnabled = default(bool?), ChangeFeed changeFeed = default(ChangeFeed))
+        /// <param name="containerDeleteRetentionPolicy">The blob service
+        /// properties for container soft delete.</param>
+        public BlobServiceProperties(string id = default(string), string name = default(string), string type = default(string), CorsRules cors = default(CorsRules), string defaultServiceVersion = default(string), DeleteRetentionPolicy deleteRetentionPolicy = default(DeleteRetentionPolicy), bool? automaticSnapshotPolicyEnabled = default(bool?), ChangeFeed changeFeed = default(ChangeFeed), DeleteRetentionPolicy containerDeleteRetentionPolicy = default(DeleteRetentionPolicy))
             : base(id, name, type)
         {
             Cors = cors;
@@ -61,6 +63,7 @@ namespace Microsoft.Azure.Management.Storage.Models
             DeleteRetentionPolicy = deleteRetentionPolicy;
             AutomaticSnapshotPolicyEnabled = automaticSnapshotPolicyEnabled;
             ChangeFeed = changeFeed;
+            ContainerDeleteRetentionPolicy = containerDeleteRetentionPolicy;
             CustomInit();
         }
 
@@ -88,7 +91,7 @@ namespace Microsoft.Azure.Management.Storage.Models
         public string DefaultServiceVersion { get; set; }
 
         /// <summary>
-        /// Gets or sets the blob service properties for soft delete.
+        /// Gets or sets the blob service properties for blob soft delete.
         /// </summary>
         [JsonProperty(PropertyName = "properties.deleteRetentionPolicy")]
         public DeleteRetentionPolicy DeleteRetentionPolicy { get; set; }
@@ -106,6 +109,12 @@ namespace Microsoft.Azure.Management.Storage.Models
         public ChangeFeed ChangeFeed { get; set; }
 
         /// <summary>
+        /// Gets or sets the blob service properties for container soft delete.
+        /// </summary>
+        [JsonProperty(PropertyName = "properties.containerDeleteRetentionPolicy")]
+        public DeleteRetentionPolicy ContainerDeleteRetentionPolicy { get; set; }
+
+        /// <summary>
         /// Validate the object.
         /// </summary>
         /// <exception cref="ValidationException">
@@ -116,6 +125,10 @@ namespace Microsoft.Azure.Management.Storage.Models
             if (DeleteRetentionPolicy != null)
             {
                 DeleteRetentionPolicy.Validate();
+            }
+            if (ContainerDeleteRetentionPolicy != null)
+            {
+                ContainerDeleteRetentionPolicy.Validate();
             }
         }
     }
