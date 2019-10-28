@@ -217,6 +217,21 @@ namespace Microsoft.Azure.Management.Security
         public virtual IServerVulnerabilityAssessmentOperations ServerVulnerabilityAssessment { get; private set; }
 
         /// <summary>
+        /// Gets the ISubAssessmentsOperations.
+        /// </summary>
+        public virtual ISubAssessmentsOperations SubAssessments { get; private set; }
+
+        /// <summary>
+        /// Gets the IAssessmentsMetadataOperations.
+        /// </summary>
+        public virtual IAssessmentsMetadataOperations AssessmentsMetadata { get; private set; }
+
+        /// <summary>
+        /// Gets the IAssessmentsMetadataSubscriptionOperations.
+        /// </summary>
+        public virtual IAssessmentsMetadataSubscriptionOperations AssessmentsMetadataSubscription { get; private set; }
+
+        /// <summary>
         /// Initializes a new instance of the SecurityCenterClient class.
         /// </summary>
         /// <param name='httpClient'>
@@ -485,6 +500,9 @@ namespace Microsoft.Azure.Management.Security
             RegulatoryComplianceControls = new RegulatoryComplianceControlsOperations(this);
             RegulatoryComplianceAssessments = new RegulatoryComplianceAssessmentsOperations(this);
             ServerVulnerabilityAssessment = new ServerVulnerabilityAssessmentOperations(this);
+            SubAssessments = new SubAssessmentsOperations(this);
+            AssessmentsMetadata = new AssessmentsMetadataOperations(this);
+            AssessmentsMetadataSubscription = new AssessmentsMetadataSubscriptionOperations(this);
             BaseUri = new System.Uri("https://management.azure.com");
             AcceptLanguage = "en-US";
             LongRunningOperationRetryTimeout = 30;
@@ -517,6 +535,10 @@ namespace Microsoft.Azure.Management.Security
             };
             SerializationSettings.Converters.Add(new PolymorphicSerializeJsonConverter<ExternalSecuritySolution>("kind"));
             DeserializationSettings.Converters.Add(new PolymorphicDeserializeJsonConverter<ExternalSecuritySolution>("kind"));
+            SerializationSettings.Converters.Add(new PolymorphicSerializeJsonConverter<ResourceDetails>("source"));
+            DeserializationSettings.Converters.Add(new PolymorphicDeserializeJsonConverter<ResourceDetails>("source"));
+            SerializationSettings.Converters.Add(new PolymorphicSerializeJsonConverter<AdditionalData>("assessedResourceType"));
+            DeserializationSettings.Converters.Add(new PolymorphicDeserializeJsonConverter<AdditionalData>("assessedResourceType"));
             CustomInitialize();
             DeserializationSettings.Converters.Add(new TransformationJsonConverter());
             DeserializationSettings.Converters.Add(new CloudErrorJsonConverter());
