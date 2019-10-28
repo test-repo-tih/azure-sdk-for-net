@@ -16,7 +16,7 @@ namespace Microsoft.Azure.Management.DataShare.Models
     using System.Linq;
 
     /// <summary>
-    /// An ADLS Gen2 file dataset mapping.
+    /// An ADLS Gen2 file data set mapping.
     /// </summary>
     [Newtonsoft.Json.JsonObject("AdlsGen2File")]
     [Rest.Serialization.JsonTransformation]
@@ -33,6 +33,7 @@ namespace Microsoft.Azure.Management.DataShare.Models
         /// <summary>
         /// Initializes a new instance of the ADLSGen2FileDataSetMapping class.
         /// </summary>
+        /// <param name="dataSetId">The id of the source data set.</param>
         /// <param name="filePath">File path within the file system.</param>
         /// <param name="fileSystem">File system to which the file
         /// belongs.</param>
@@ -45,12 +46,11 @@ namespace Microsoft.Azure.Management.DataShare.Models
         /// <param name="id">The resource id of the azure resource</param>
         /// <param name="name">Name of the azure resource</param>
         /// <param name="type">Type of the azure resource</param>
-        /// <param name="dataSetId">Gets the id of source dataset.</param>
-        /// <param name="dataSetMappingStatus">Gets the status of the dataset
+        /// <param name="dataSetMappingStatus">Gets the status of the data set
         /// mapping. Possible values include: 'Ok', 'Broken'</param>
         /// <param name="outputType">Type of output file. Possible values
         /// include: 'Csv', 'Parquet'</param>
-        public ADLSGen2FileDataSetMapping(string filePath, string fileSystem, string resourceGroup, string storageAccountName, string subscriptionId, string id = default(string), string name = default(string), string type = default(string), string dataSetId = default(string), string dataSetMappingStatus = default(string), string outputType = default(string))
+        public ADLSGen2FileDataSetMapping(string dataSetId, string filePath, string fileSystem, string resourceGroup, string storageAccountName, string subscriptionId, string id = default(string), string name = default(string), string type = default(string), string dataSetMappingStatus = default(string), string outputType = default(string))
             : base(id, name, type)
         {
             DataSetId = dataSetId;
@@ -70,13 +70,13 @@ namespace Microsoft.Azure.Management.DataShare.Models
         partial void CustomInit();
 
         /// <summary>
-        /// Gets the id of source dataset.
+        /// Gets or sets the id of the source data set.
         /// </summary>
         [JsonProperty(PropertyName = "properties.dataSetId")]
         public string DataSetId { get; set; }
 
         /// <summary>
-        /// Gets the status of the dataset mapping. Possible values include:
+        /// Gets the status of the data set mapping. Possible values include:
         /// 'Ok', 'Broken'
         /// </summary>
         [JsonProperty(PropertyName = "properties.dataSetMappingStatus")]
@@ -127,6 +127,10 @@ namespace Microsoft.Azure.Management.DataShare.Models
         /// </exception>
         public virtual void Validate()
         {
+            if (DataSetId == null)
+            {
+                throw new ValidationException(ValidationRules.CannotBeNull, "DataSetId");
+            }
             if (FilePath == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "FilePath");

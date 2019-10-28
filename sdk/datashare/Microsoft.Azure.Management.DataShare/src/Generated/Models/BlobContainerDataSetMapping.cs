@@ -16,7 +16,7 @@ namespace Microsoft.Azure.Management.DataShare.Models
     using System.Linq;
 
     /// <summary>
-    /// A Blob container dataset mapping.
+    /// A Blob container data set mapping.
     /// </summary>
     [Newtonsoft.Json.JsonObject("Container")]
     [Rest.Serialization.JsonTransformation]
@@ -36,6 +36,7 @@ namespace Microsoft.Azure.Management.DataShare.Models
         /// class.
         /// </summary>
         /// <param name="containerName">BLOB Container name.</param>
+        /// <param name="dataSetId">The id of the source data set.</param>
         /// <param name="resourceGroup">Resource group of storage
         /// account.</param>
         /// <param name="storageAccountName">Storage account name of the source
@@ -45,10 +46,9 @@ namespace Microsoft.Azure.Management.DataShare.Models
         /// <param name="id">The resource id of the azure resource</param>
         /// <param name="name">Name of the azure resource</param>
         /// <param name="type">Type of the azure resource</param>
-        /// <param name="dataSetId">Gets the id of source dataset.</param>
-        /// <param name="dataSetMappingStatus">Gets the status of the dataset
+        /// <param name="dataSetMappingStatus">Gets the status of the data set
         /// mapping. Possible values include: 'Ok', 'Broken'</param>
-        public BlobContainerDataSetMapping(string containerName, string resourceGroup, string storageAccountName, string subscriptionId, string id = default(string), string name = default(string), string type = default(string), string dataSetId = default(string), string dataSetMappingStatus = default(string))
+        public BlobContainerDataSetMapping(string containerName, string dataSetId, string resourceGroup, string storageAccountName, string subscriptionId, string id = default(string), string name = default(string), string type = default(string), string dataSetMappingStatus = default(string))
             : base(id, name, type)
         {
             ContainerName = containerName;
@@ -72,13 +72,13 @@ namespace Microsoft.Azure.Management.DataShare.Models
         public string ContainerName { get; set; }
 
         /// <summary>
-        /// Gets the id of source dataset.
+        /// Gets or sets the id of the source data set.
         /// </summary>
         [JsonProperty(PropertyName = "properties.dataSetId")]
         public string DataSetId { get; set; }
 
         /// <summary>
-        /// Gets the status of the dataset mapping. Possible values include:
+        /// Gets the status of the data set mapping. Possible values include:
         /// 'Ok', 'Broken'
         /// </summary>
         [JsonProperty(PropertyName = "properties.dataSetMappingStatus")]
@@ -113,6 +113,10 @@ namespace Microsoft.Azure.Management.DataShare.Models
             if (ContainerName == null)
             {
                 throw new ValidationException(ValidationRules.CannotBeNull, "ContainerName");
+            }
+            if (DataSetId == null)
+            {
+                throw new ValidationException(ValidationRules.CannotBeNull, "DataSetId");
             }
             if (ResourceGroup == null)
             {
