@@ -36,16 +36,18 @@ namespace Microsoft.Azure.Management.Cdn.Models
         /// Initializes a new instance of the EndpointUpdateParameters class.
         /// </summary>
         /// <param name="tags">Endpoint tags.</param>
-        /// <param name="originHostHeader">The host header value sent to the
-        /// origin with each request. If you leave this blank, the request
-        /// hostname determines this value. Azure CDN origins, such as Web
-        /// Apps, Blob Storage, and Cloud Services require this host header
-        /// value to match the origin hostname by default.</param>
         /// <param name="originPath">A directory path on the origin that CDN
         /// can use to retrieve content from, e.g.
         /// contoso.cloudapp.net/originpath.</param>
         /// <param name="contentTypesToCompress">List of content types on which
         /// compression applies. The value should be a valid MIME type.</param>
+        /// <param name="originHostHeader">The host header value sent to the
+        /// origin with each request. This property at Endpoint is only allowed
+        /// when endpoint uses single origin and can be overridden by the same
+        /// property specified at origin.If you leave this blank, the request
+        /// hostname determines this value. Azure CDN origins, such as Web
+        /// Apps, Blob Storage, and Cloud Services require this host header
+        /// value to match the origin hostname by default.</param>
         /// <param name="isCompressionEnabled">Indicates whether content
         /// compression is enabled on CDN. Default value is false. If
         /// compression is enabled, content will be served as compressed if
@@ -73,19 +75,22 @@ namespace Microsoft.Azure.Management.Cdn.Models
         /// <param name="probePath">Path to a file hosted on the origin which
         /// helps accelerate delivery of the dynamic content and calculate the
         /// most optimal routes for the CDN. This is relative to the origin
-        /// path.</param>
+        /// path. This property is only relevant when using a single
+        /// origin.</param>
         /// <param name="geoFilters">List of rules defining the user's geo
         /// access within a CDN endpoint. Each geo filter defines an access
         /// rule to a specified path or content, e.g. block APAC for path
         /// /pictures/</param>
+        /// <param name="defaultOriginGroup">A reference to the origin
+        /// group.</param>
         /// <param name="deliveryPolicy">A policy that specifies the delivery
         /// rules to be used for an endpoint.</param>
-        public EndpointUpdateParameters(IDictionary<string, string> tags = default(IDictionary<string, string>), string originHostHeader = default(string), string originPath = default(string), IList<string> contentTypesToCompress = default(IList<string>), bool? isCompressionEnabled = default(bool?), bool? isHttpAllowed = default(bool?), bool? isHttpsAllowed = default(bool?), QueryStringCachingBehavior? queryStringCachingBehavior = default(QueryStringCachingBehavior?), string optimizationType = default(string), string probePath = default(string), IList<GeoFilter> geoFilters = default(IList<GeoFilter>), EndpointPropertiesUpdateParametersDeliveryPolicy deliveryPolicy = default(EndpointPropertiesUpdateParametersDeliveryPolicy))
+        public EndpointUpdateParameters(IDictionary<string, string> tags = default(IDictionary<string, string>), string originPath = default(string), IList<string> contentTypesToCompress = default(IList<string>), string originHostHeader = default(string), bool? isCompressionEnabled = default(bool?), bool? isHttpAllowed = default(bool?), bool? isHttpsAllowed = default(bool?), QueryStringCachingBehavior? queryStringCachingBehavior = default(QueryStringCachingBehavior?), string optimizationType = default(string), string probePath = default(string), IList<GeoFilter> geoFilters = default(IList<GeoFilter>), ResourceReference defaultOriginGroup = default(ResourceReference), EndpointPropertiesUpdateParametersDeliveryPolicy deliveryPolicy = default(EndpointPropertiesUpdateParametersDeliveryPolicy))
         {
             Tags = tags;
-            OriginHostHeader = originHostHeader;
             OriginPath = originPath;
             ContentTypesToCompress = contentTypesToCompress;
+            OriginHostHeader = originHostHeader;
             IsCompressionEnabled = isCompressionEnabled;
             IsHttpAllowed = isHttpAllowed;
             IsHttpsAllowed = isHttpsAllowed;
@@ -93,6 +98,7 @@ namespace Microsoft.Azure.Management.Cdn.Models
             OptimizationType = optimizationType;
             ProbePath = probePath;
             GeoFilters = geoFilters;
+            DefaultOriginGroup = defaultOriginGroup;
             DeliveryPolicy = deliveryPolicy;
             CustomInit();
         }
@@ -109,16 +115,6 @@ namespace Microsoft.Azure.Management.Cdn.Models
         public IDictionary<string, string> Tags { get; set; }
 
         /// <summary>
-        /// Gets or sets the host header value sent to the origin with each
-        /// request. If you leave this blank, the request hostname determines
-        /// this value. Azure CDN origins, such as Web Apps, Blob Storage, and
-        /// Cloud Services require this host header value to match the origin
-        /// hostname by default.
-        /// </summary>
-        [JsonProperty(PropertyName = "properties.originHostHeader")]
-        public string OriginHostHeader { get; set; }
-
-        /// <summary>
         /// Gets or sets a directory path on the origin that CDN can use to
         /// retrieve content from, e.g. contoso.cloudapp.net/originpath.
         /// </summary>
@@ -131,6 +127,18 @@ namespace Microsoft.Azure.Management.Cdn.Models
         /// </summary>
         [JsonProperty(PropertyName = "properties.contentTypesToCompress")]
         public IList<string> ContentTypesToCompress { get; set; }
+
+        /// <summary>
+        /// Gets or sets the host header value sent to the origin with each
+        /// request. This property at Endpoint is only allowed when endpoint
+        /// uses single origin and can be overridden by the same property
+        /// specified at origin.If you leave this blank, the request hostname
+        /// determines this value. Azure CDN origins, such as Web Apps, Blob
+        /// Storage, and Cloud Services require this host header value to match
+        /// the origin hostname by default.
+        /// </summary>
+        [JsonProperty(PropertyName = "properties.originHostHeader")]
+        public string OriginHostHeader { get; set; }
 
         /// <summary>
         /// Gets or sets indicates whether content compression is enabled on
@@ -184,6 +192,7 @@ namespace Microsoft.Azure.Management.Cdn.Models
         /// Gets or sets path to a file hosted on the origin which helps
         /// accelerate delivery of the dynamic content and calculate the most
         /// optimal routes for the CDN. This is relative to the origin path.
+        /// This property is only relevant when using a single origin.
         /// </summary>
         [JsonProperty(PropertyName = "properties.probePath")]
         public string ProbePath { get; set; }
@@ -195,6 +204,12 @@ namespace Microsoft.Azure.Management.Cdn.Models
         /// </summary>
         [JsonProperty(PropertyName = "properties.geoFilters")]
         public IList<GeoFilter> GeoFilters { get; set; }
+
+        /// <summary>
+        /// Gets or sets a reference to the origin group.
+        /// </summary>
+        [JsonProperty(PropertyName = "properties.defaultOriginGroup")]
+        public ResourceReference DefaultOriginGroup { get; set; }
 
         /// <summary>
         /// Gets or sets a policy that specifies the delivery rules to be used
