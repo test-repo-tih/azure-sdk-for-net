@@ -51,19 +51,19 @@ namespace Microsoft.Azure.Management.EventGrid
         public EventGridManagementClient Client { get; private set; }
 
         /// <summary>
-        /// Get a domain topic.
+        /// Get a domain topic
         /// </summary>
         /// <remarks>
-        /// Get properties of a domain topic.
+        /// Get properties of a domain topic
         /// </remarks>
         /// <param name='resourceGroupName'>
         /// The name of the resource group within the user's subscription.
         /// </param>
         /// <param name='domainName'>
-        /// Name of the domain.
+        /// Name of the domain
         /// </param>
         /// <param name='domainTopicName'>
-        /// Name of the topic.
+        /// Name of the topic
         /// </param>
         /// <param name='customHeaders'>
         /// Headers that will be added to request.
@@ -259,7 +259,7 @@ namespace Microsoft.Azure.Management.EventGrid
         }
 
         /// <summary>
-        /// Create or update a domain topic.
+        /// Create or update a domain topic
         /// </summary>
         /// <remarks>
         /// Asynchronously creates or updates a new domain topic with the specified
@@ -269,10 +269,10 @@ namespace Microsoft.Azure.Management.EventGrid
         /// The name of the resource group within the user's subscription.
         /// </param>
         /// <param name='domainName'>
-        /// Name of the domain.
+        /// Name of the domain
         /// </param>
         /// <param name='domainTopicName'>
-        /// Name of the domain topic.
+        /// Name of the domain topic
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -288,19 +288,19 @@ namespace Microsoft.Azure.Management.EventGrid
         }
 
         /// <summary>
-        /// Delete a domain topic.
+        /// Delete a domain topic
         /// </summary>
         /// <remarks>
-        /// Delete existing domain topic.
+        /// Delete existing domain topic
         /// </remarks>
         /// <param name='resourceGroupName'>
         /// The name of the resource group within the user's subscription.
         /// </param>
         /// <param name='domainName'>
-        /// Name of the domain.
+        /// Name of the domain
         /// </param>
         /// <param name='domainTopicName'>
-        /// Name of the domain topic.
+        /// Name of the domain topic
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -539,7 +539,7 @@ namespace Microsoft.Azure.Management.EventGrid
         }
 
         /// <summary>
-        /// Create or update a domain topic.
+        /// Create or update a domain topic
         /// </summary>
         /// <remarks>
         /// Asynchronously creates or updates a new domain topic with the specified
@@ -549,10 +549,10 @@ namespace Microsoft.Azure.Management.EventGrid
         /// The name of the resource group within the user's subscription.
         /// </param>
         /// <param name='domainName'>
-        /// Name of the domain.
+        /// Name of the domain
         /// </param>
         /// <param name='domainTopicName'>
-        /// Name of the domain topic.
+        /// Name of the domain topic
         /// </param>
         /// <param name='customHeaders'>
         /// Headers that will be added to request.
@@ -748,19 +748,19 @@ namespace Microsoft.Azure.Management.EventGrid
         }
 
         /// <summary>
-        /// Delete a domain topic.
+        /// Delete a domain topic
         /// </summary>
         /// <remarks>
-        /// Delete existing domain topic.
+        /// Delete existing domain topic
         /// </remarks>
         /// <param name='resourceGroupName'>
         /// The name of the resource group within the user's subscription.
         /// </param>
         /// <param name='domainName'>
-        /// Name of the domain.
+        /// Name of the domain
         /// </param>
         /// <param name='domainTopicName'>
-        /// Name of the domain topic.
+        /// Name of the domain topic
         /// </param>
         /// <param name='customHeaders'>
         /// Headers that will be added to request.
