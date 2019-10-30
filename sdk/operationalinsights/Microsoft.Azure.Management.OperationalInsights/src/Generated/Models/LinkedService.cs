@@ -33,7 +33,7 @@ namespace Microsoft.Azure.Management.OperationalInsights.Models
         /// <summary>
         /// Initializes a new instance of the LinkedService class.
         /// </summary>
-        /// <param name="resourceId">The resource id of the resource that will
+        /// <param name="resourceId">The resource ID of the resource that will
         /// be linked to the workspace.</param>
         public LinkedService(string resourceId)
         {
@@ -47,7 +47,7 @@ namespace Microsoft.Azure.Management.OperationalInsights.Models
         partial void CustomInit();
 
         /// <summary>
-        /// Gets or sets the resource id of the resource that will be linked to
+        /// Gets or sets the resource ID of the resource that will be linked to
         /// the workspace.
         /// </summary>
         [JsonProperty(PropertyName = "properties.resourceId")]

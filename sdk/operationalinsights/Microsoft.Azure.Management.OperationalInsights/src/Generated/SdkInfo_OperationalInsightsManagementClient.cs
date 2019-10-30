@@ -21,7 +21,9 @@ namespace Microsoft.Azure.Management.OperationalInsights
               {
                 new Tuple<string, string, string>("OperationalInsights", "DataSources", "2015-11-01-preview"),
                 new Tuple<string, string, string>("OperationalInsights", "LinkedServices", "2015-11-01-preview"),
+                new Tuple<string, string, string>("OperationalInsights", "ListTables", "2015-11-01-preview"),
                 new Tuple<string, string, string>("OperationalInsights", "Operations", "2015-11-01-preview"),
+                new Tuple<string, string, string>("OperationalInsights", "Tables", "2015-11-01-preview"),
                 new Tuple<string, string, string>("OperationalInsights", "Workspaces", "2015-11-01-preview"),
               }.AsEnumerable();
           }

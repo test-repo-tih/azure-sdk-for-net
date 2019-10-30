@@ -29,12 +29,16 @@ namespace Microsoft.Azure.Management.OperationalInsights
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
+            /// <param name='subscriptionId'>
+            /// Gets subscription credentials which uniquely identify Microsoft Azure
+            /// subscription. The subscription ID forms part of the URI for every service
+            /// call.
+            /// </param>
             /// <param name='resourceGroupName'>
             /// The name of the resource group to get. The name is case insensitive.
             /// </param>
             /// <param name='workspaceName'>
-            /// Name of the Log Analytics Workspace that will contain the linkedServices
-            /// resource
+            /// The name of the workspace.
             /// </param>
             /// <param name='linkedServiceName'>
             /// Name of the linkedServices resource
@@ -42,9 +46,9 @@ namespace Microsoft.Azure.Management.OperationalInsights
             /// <param name='parameters'>
             /// The parameters required to create or update a linked service.
             /// </param>
-            public static LinkedService CreateOrUpdate(this ILinkedServicesOperations operations, string resourceGroupName, string workspaceName, string linkedServiceName, LinkedService parameters)
+            public static LinkedService CreateOrUpdate(this ILinkedServicesOperations operations, string subscriptionId, string resourceGroupName, string workspaceName, string linkedServiceName, LinkedService parameters)
             {
-                return operations.CreateOrUpdateAsync(resourceGroupName, workspaceName, linkedServiceName, parameters).GetAwaiter().GetResult();
+                return operations.CreateOrUpdateAsync(subscriptionId, resourceGroupName, workspaceName, linkedServiceName, parameters).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -53,12 +57,16 @@ namespace Microsoft.Azure.Management.OperationalInsights
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
+            /// <param name='subscriptionId'>
+            /// Gets subscription credentials which uniquely identify Microsoft Azure
+            /// subscription. The subscription ID forms part of the URI for every service
+            /// call.
+            /// </param>
             /// <param name='resourceGroupName'>
             /// The name of the resource group to get. The name is case insensitive.
             /// </param>
             /// <param name='workspaceName'>
-            /// Name of the Log Analytics Workspace that will contain the linkedServices
-            /// resource
+            /// The name of the workspace.
             /// </param>
             /// <param name='linkedServiceName'>
             /// Name of the linkedServices resource
@@ -69,9 +77,9 @@ namespace Microsoft.Azure.Management.OperationalInsights
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<LinkedService> CreateOrUpdateAsync(this ILinkedServicesOperations operations, string resourceGroupName, string workspaceName, string linkedServiceName, LinkedService parameters, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<LinkedService> CreateOrUpdateAsync(this ILinkedServicesOperations operations, string subscriptionId, string resourceGroupName, string workspaceName, string linkedServiceName, LinkedService parameters, CancellationToken cancellationToken = default(CancellationToken))
             {
-                using (var _result = await operations.CreateOrUpdateWithHttpMessagesAsync(resourceGroupName, workspaceName, linkedServiceName, parameters, null, cancellationToken).ConfigureAwait(false))
+                using (var _result = await operations.CreateOrUpdateWithHttpMessagesAsync(subscriptionId, resourceGroupName, workspaceName, linkedServiceName, parameters, null, cancellationToken).ConfigureAwait(false))
                 {
                     return _result.Body;
                 }
@@ -83,19 +91,23 @@ namespace Microsoft.Azure.Management.OperationalInsights
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
+            /// <param name='subscriptionId'>
+            /// Gets subscription credentials which uniquely identify Microsoft Azure
+            /// subscription. The subscription ID forms part of the URI for every service
+            /// call.
+            /// </param>
             /// <param name='resourceGroupName'>
             /// The name of the resource group to get. The name is case insensitive.
             /// </param>
             /// <param name='workspaceName'>
-            /// Name of the Log Analytics Workspace that contains the linkedServices
-            /// resource
+            /// The name of the workspace.
             /// </param>
             /// <param name='linkedServiceName'>
             /// Name of the linked service.
             /// </param>
-            public static void Delete(this ILinkedServicesOperations operations, string resourceGroupName, string workspaceName, string linkedServiceName)
+            public static void Delete(this ILinkedServicesOperations operations, string subscriptionId, string resourceGroupName, string workspaceName, string linkedServiceName)
             {
-                operations.DeleteAsync(resourceGroupName, workspaceName, linkedServiceName).GetAwaiter().GetResult();
+                operations.DeleteAsync(subscriptionId, resourceGroupName, workspaceName, linkedServiceName).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -104,12 +116,16 @@ namespace Microsoft.Azure.Management.OperationalInsights
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
+            /// <param name='subscriptionId'>
+            /// Gets subscription credentials which uniquely identify Microsoft Azure
+            /// subscription. The subscription ID forms part of the URI for every service
+            /// call.
+            /// </param>
             /// <param name='resourceGroupName'>
             /// The name of the resource group to get. The name is case insensitive.
             /// </param>
             /// <param name='workspaceName'>
-            /// Name of the Log Analytics Workspace that contains the linkedServices
-            /// resource
+            /// The name of the workspace.
             /// </param>
             /// <param name='linkedServiceName'>
             /// Name of the linked service.
@@ -117,9 +133,9 @@ namespace Microsoft.Azure.Management.OperationalInsights
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task DeleteAsync(this ILinkedServicesOperations operations, string resourceGroupName, string workspaceName, string linkedServiceName, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task DeleteAsync(this ILinkedServicesOperations operations, string subscriptionId, string resourceGroupName, string workspaceName, string linkedServiceName, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.DeleteWithHttpMessagesAsync(resourceGroupName, workspaceName, linkedServiceName, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                (await operations.DeleteWithHttpMessagesAsync(subscriptionId, resourceGroupName, workspaceName, linkedServiceName, null, cancellationToken).ConfigureAwait(false)).Dispose();
             }
 
             /// <summary>
@@ -128,19 +144,23 @@ namespace Microsoft.Azure.Management.OperationalInsights
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
+            /// <param name='subscriptionId'>
+            /// Gets subscription credentials which uniquely identify Microsoft Azure
+            /// subscription. The subscription ID forms part of the URI for every service
+            /// call.
+            /// </param>
             /// <param name='resourceGroupName'>
             /// The name of the resource group to get. The name is case insensitive.
             /// </param>
             /// <param name='workspaceName'>
-            /// Name of the Log Analytics Workspace that contains the linkedServices
-            /// resource
+            /// The name of the workspace.
             /// </param>
             /// <param name='linkedServiceName'>
             /// Name of the linked service.
             /// </param>
-            public static LinkedService Get(this ILinkedServicesOperations operations, string resourceGroupName, string workspaceName, string linkedServiceName)
+            public static LinkedService Get(this ILinkedServicesOperations operations, string subscriptionId, string resourceGroupName, string workspaceName, string linkedServiceName)
             {
-                return operations.GetAsync(resourceGroupName, workspaceName, linkedServiceName).GetAwaiter().GetResult();
+                return operations.GetAsync(subscriptionId, resourceGroupName, workspaceName, linkedServiceName).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -149,12 +169,16 @@ namespace Microsoft.Azure.Management.OperationalInsights
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
+            /// <param name='subscriptionId'>
+            /// Gets subscription credentials which uniquely identify Microsoft Azure
+            /// subscription. The subscription ID forms part of the URI for every service
+            /// call.
+            /// </param>
             /// <param name='resourceGroupName'>
             /// The name of the resource group to get. The name is case insensitive.
             /// </param>
             /// <param name='workspaceName'>
-            /// Name of the Log Analytics Workspace that contains the linkedServices
-            /// resource
+            /// The name of the workspace.
             /// </param>
             /// <param name='linkedServiceName'>
             /// Name of the linked service.
@@ -162,9 +186,9 @@ namespace Microsoft.Azure.Management.OperationalInsights
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<LinkedService> GetAsync(this ILinkedServicesOperations operations, string resourceGroupName, string workspaceName, string linkedServiceName, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<LinkedService> GetAsync(this ILinkedServicesOperations operations, string subscriptionId, string resourceGroupName, string workspaceName, string linkedServiceName, CancellationToken cancellationToken = default(CancellationToken))
             {
-                using (var _result = await operations.GetWithHttpMessagesAsync(resourceGroupName, workspaceName, linkedServiceName, null, cancellationToken).ConfigureAwait(false))
+                using (var _result = await operations.GetWithHttpMessagesAsync(subscriptionId, resourceGroupName, workspaceName, linkedServiceName, null, cancellationToken).ConfigureAwait(false))
                 {
                     return _result.Body;
                 }
@@ -176,15 +200,20 @@ namespace Microsoft.Azure.Management.OperationalInsights
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
+            /// <param name='subscriptionId'>
+            /// Gets subscription credentials which uniquely identify Microsoft Azure
+            /// subscription. The subscription ID forms part of the URI for every service
+            /// call.
+            /// </param>
             /// <param name='resourceGroupName'>
             /// The name of the resource group to get. The name is case insensitive.
             /// </param>
             /// <param name='workspaceName'>
-            /// Name of the Log Analytics Workspace that contains the linked services.
+            /// The name of the workspace.
             /// </param>
-            public static IEnumerable<LinkedService> ListByWorkspace(this ILinkedServicesOperations operations, string resourceGroupName, string workspaceName)
+            public static IEnumerable<LinkedService> ListByWorkspace(this ILinkedServicesOperations operations, string subscriptionId, string resourceGroupName, string workspaceName)
             {
-                return operations.ListByWorkspaceAsync(resourceGroupName, workspaceName).GetAwaiter().GetResult();
+                return operations.ListByWorkspaceAsync(subscriptionId, resourceGroupName, workspaceName).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -193,18 +222,23 @@ namespace Microsoft.Azure.Management.OperationalInsights
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
+            /// <param name='subscriptionId'>
+            /// Gets subscription credentials which uniquely identify Microsoft Azure
+            /// subscription. The subscription ID forms part of the URI for every service
+            /// call.
+            /// </param>
             /// <param name='resourceGroupName'>
             /// The name of the resource group to get. The name is case insensitive.
             /// </param>
             /// <param name='workspaceName'>
-            /// Name of the Log Analytics Workspace that contains the linked services.
+            /// The name of the workspace.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<IEnumerable<LinkedService>> ListByWorkspaceAsync(this ILinkedServicesOperations operations, string resourceGroupName, string workspaceName, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<IEnumerable<LinkedService>> ListByWorkspaceAsync(this ILinkedServicesOperations operations, string subscriptionId, string resourceGroupName, string workspaceName, CancellationToken cancellationToken = default(CancellationToken))
             {
-                using (var _result = await operations.ListByWorkspaceWithHttpMessagesAsync(resourceGroupName, workspaceName, null, cancellationToken).ConfigureAwait(false))
+                using (var _result = await operations.ListByWorkspaceWithHttpMessagesAsync(subscriptionId, resourceGroupName, workspaceName, null, cancellationToken).ConfigureAwait(false))
                 {
                     return _result.Body;
                 }

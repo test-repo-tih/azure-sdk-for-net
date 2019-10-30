@@ -14,6 +14,10 @@ namespace Microsoft.Azure.Management.OperationalInsights
     using Microsoft.Rest.Azure;
     using Models;
     using Newtonsoft.Json;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Threading;
+    using System.Threading.Tasks;
 
     /// <summary>
     /// Operational Insights Client
@@ -39,13 +43,6 @@ namespace Microsoft.Azure.Management.OperationalInsights
         /// Credentials needed for the client to connect to Azure.
         /// </summary>
         ServiceClientCredentials Credentials { get; }
-
-        /// <summary>
-        /// Gets subscription credentials which uniquely identify Microsoft
-        /// Azure subscription. The subscription ID forms part of the URI for
-        /// every service call.
-        /// </summary>
-        string SubscriptionId { get; set; }
 
         /// <summary>
         /// Client Api Version.
@@ -87,9 +84,37 @@ namespace Microsoft.Azure.Management.OperationalInsights
         IWorkspacesOperations Workspaces { get; }
 
         /// <summary>
+        /// Gets the ITablesOperations.
+        /// </summary>
+        ITablesOperations Tables { get; }
+
+        /// <summary>
         /// Gets the IOperations.
         /// </summary>
         IOperations Operations { get; }
+
+        /// <summary>
+        /// Gets all the tables for the specified Log Analytics workspace.
+        /// </summary>
+        /// <param name='subscriptionId'>
+        /// Gets subscription credentials which uniquely identify Microsoft
+        /// Azure subscription. The subscription ID forms part of the URI for
+        /// every service call.
+        /// </param>
+        /// <param name='resourceGroupName'>
+        /// The name of the resource group to get. The name is case
+        /// insensitive.
+        /// </param>
+        /// <param name='workspaceName'>
+        /// The name of the workspace.
+        /// </param>
+        /// <param name='customHeaders'>
+        /// The headers that will be added to request.
+        /// </param>
+        /// <param name='cancellationToken'>
+        /// The cancellation token.
+        /// </param>
+        Task<AzureOperationResponse<IEnumerable<Table>>> ListTablesWithHttpMessagesAsync(string subscriptionId, string resourceGroupName, string workspaceName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
 
     }
 }

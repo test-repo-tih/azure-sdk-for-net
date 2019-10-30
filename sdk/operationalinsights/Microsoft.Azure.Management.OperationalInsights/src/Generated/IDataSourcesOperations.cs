@@ -27,13 +27,17 @@ namespace Microsoft.Azure.Management.OperationalInsights
         /// <summary>
         /// Create or update a data source.
         /// </summary>
+        /// <param name='subscriptionId'>
+        /// Gets subscription credentials which uniquely identify Microsoft
+        /// Azure subscription. The subscription ID forms part of the URI for
+        /// every service call.
+        /// </param>
         /// <param name='resourceGroupName'>
         /// The name of the resource group to get. The name is case
         /// insensitive.
         /// </param>
         /// <param name='workspaceName'>
-        /// Name of the Log Analytics Workspace that will contain the
-        /// datasource
+        /// The name of the workspace.
         /// </param>
         /// <param name='dataSourceName'>
         /// The name of the datasource resource.
@@ -56,16 +60,21 @@ namespace Microsoft.Azure.Management.OperationalInsights
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<AzureOperationResponse<DataSource>> CreateOrUpdateWithHttpMessagesAsync(string resourceGroupName, string workspaceName, string dataSourceName, DataSource parameters, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<AzureOperationResponse<DataSource>> CreateOrUpdateWithHttpMessagesAsync(string subscriptionId, string resourceGroupName, string workspaceName, string dataSourceName, DataSource parameters, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
         /// Deletes a data source instance.
         /// </summary>
+        /// <param name='subscriptionId'>
+        /// Gets subscription credentials which uniquely identify Microsoft
+        /// Azure subscription. The subscription ID forms part of the URI for
+        /// every service call.
+        /// </param>
         /// <param name='resourceGroupName'>
         /// The name of the resource group to get. The name is case
         /// insensitive.
         /// </param>
         /// <param name='workspaceName'>
-        /// Name of the Log Analytics Workspace that contains the datasource.
+        /// The name of the workspace.
         /// </param>
         /// <param name='dataSourceName'>
         /// Name of the datasource.
@@ -82,16 +91,21 @@ namespace Microsoft.Azure.Management.OperationalInsights
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<AzureOperationResponse> DeleteWithHttpMessagesAsync(string resourceGroupName, string workspaceName, string dataSourceName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<AzureOperationResponse> DeleteWithHttpMessagesAsync(string subscriptionId, string resourceGroupName, string workspaceName, string dataSourceName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
         /// Gets a datasource instance.
         /// </summary>
+        /// <param name='subscriptionId'>
+        /// Gets subscription credentials which uniquely identify Microsoft
+        /// Azure subscription. The subscription ID forms part of the URI for
+        /// every service call.
+        /// </param>
         /// <param name='resourceGroupName'>
         /// The name of the resource group to get. The name is case
         /// insensitive.
         /// </param>
         /// <param name='workspaceName'>
-        /// Name of the Log Analytics Workspace that contains the datasource.
+        /// The name of the workspace.
         /// </param>
         /// <param name='dataSourceName'>
         /// Name of the datasource
@@ -111,7 +125,7 @@ namespace Microsoft.Azure.Management.OperationalInsights
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<AzureOperationResponse<DataSource>> GetWithHttpMessagesAsync(string resourceGroupName, string workspaceName, string dataSourceName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<AzureOperationResponse<DataSource>> GetWithHttpMessagesAsync(string subscriptionId, string resourceGroupName, string workspaceName, string dataSourceName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
         /// Gets the first page of data source instances in a workspace with
         /// the link to the next page.
@@ -119,12 +133,17 @@ namespace Microsoft.Azure.Management.OperationalInsights
         /// <param name='odataQuery'>
         /// OData parameters to apply to the operation.
         /// </param>
+        /// <param name='subscriptionId'>
+        /// Gets subscription credentials which uniquely identify Microsoft
+        /// Azure subscription. The subscription ID forms part of the URI for
+        /// every service call.
+        /// </param>
         /// <param name='resourceGroupName'>
         /// The name of the resource group to get. The name is case
         /// insensitive.
         /// </param>
         /// <param name='workspaceName'>
-        /// The workspace that contains the data sources.
+        /// The name of the workspace.
         /// </param>
         /// <param name='skiptoken'>
         /// Starting point of the collection of data source instances.
@@ -144,7 +163,7 @@ namespace Microsoft.Azure.Management.OperationalInsights
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<AzureOperationResponse<IPage<DataSource>>> ListByWorkspaceWithHttpMessagesAsync(ODataQuery<DataSourceFilter> odataQuery, string resourceGroupName, string workspaceName, string skiptoken = default(string), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<AzureOperationResponse<IPage<DataSource>>> ListByWorkspaceWithHttpMessagesAsync(ODataQuery<DataSourceFilter> odataQuery, string subscriptionId, string resourceGroupName, string workspaceName, string skiptoken = default(string), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
         /// Gets the first page of data source instances in a workspace with
         /// the link to the next page.

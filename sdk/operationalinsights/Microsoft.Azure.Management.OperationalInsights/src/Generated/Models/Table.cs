@@ -12,39 +12,39 @@ namespace Microsoft.Azure.Management.OperationalInsights.Models
 {
     using Microsoft.Rest;
     using Microsoft.Rest.Azure;
+    using Microsoft.Rest.Serialization;
     using Newtonsoft.Json;
-    using System.Collections;
-    using System.Collections.Generic;
     using System.Linq;
 
     /// <summary>
-    /// The resource definition.
+    /// Workspace data table definition.
     /// </summary>
-    public partial class Resource : IResource
+    [Rest.Serialization.JsonTransformation]
+    public partial class Table : IResource
     {
         /// <summary>
-        /// Initializes a new instance of the Resource class.
+        /// Initializes a new instance of the Table class.
         /// </summary>
-        public Resource()
+        public Table()
         {
             CustomInit();
         }
 
         /// <summary>
-        /// Initializes a new instance of the Resource class.
+        /// Initializes a new instance of the Table class.
         /// </summary>
         /// <param name="id">Resource ID</param>
         /// <param name="name">Resource name</param>
         /// <param name="type">Resource type</param>
-        /// <param name="location">Resource location</param>
-        /// <param name="tags">Resource tags</param>
-        public Resource(string id = default(string), string name = default(string), string type = default(string), string location = default(string), IDictionary<string, string> tags = default(IDictionary<string, string>))
+        /// <param name="retentionInDays">The data table data retention in
+        /// days, between 30 and 730. Setting this property to null will
+        /// default to the workspace retention.</param>
+        public Table(string id = default(string), string name = default(string), string type = default(string), int? retentionInDays = default(int?))
         {
             Id = id;
             Name = name;
             Type = type;
-            Location = location;
-            Tags = tags;
+            RetentionInDays = retentionInDays;
             CustomInit();
         }
 
@@ -72,16 +72,29 @@ namespace Microsoft.Azure.Management.OperationalInsights.Models
         public string Type { get; private set; }
 
         /// <summary>
-        /// Gets or sets resource location
+        /// Gets or sets the data table data retention in days, between 30 and
+        /// 730. Setting this property to null will default to the workspace
+        /// retention.
         /// </summary>
-        [JsonProperty(PropertyName = "location")]
-        public string Location { get; set; }
+        [JsonProperty(PropertyName = "properties.retentionInDays")]
+        public int? RetentionInDays { get; set; }
 
         /// <summary>
-        /// Gets or sets resource tags
+        /// Validate the object.
         /// </summary>
-        [JsonProperty(PropertyName = "tags")]
-        public IDictionary<string, string> Tags { get; set; }
-
+        /// <exception cref="ValidationException">
+        /// Thrown if validation fails
+        /// </exception>
+        public virtual void Validate()
+        {
+            if (RetentionInDays > 730)
+            {
+                throw new ValidationException(ValidationRules.InclusiveMaximum, "RetentionInDays", 730);
+            }
+            if (RetentionInDays < 30)
+            {
+                throw new ValidationException(ValidationRules.InclusiveMinimum, "RetentionInDays", 30);
+            }
+        }
     }
 }

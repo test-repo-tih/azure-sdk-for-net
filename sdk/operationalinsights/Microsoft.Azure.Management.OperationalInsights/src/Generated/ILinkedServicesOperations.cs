@@ -26,13 +26,17 @@ namespace Microsoft.Azure.Management.OperationalInsights
         /// <summary>
         /// Create or update a linked service.
         /// </summary>
+        /// <param name='subscriptionId'>
+        /// Gets subscription credentials which uniquely identify Microsoft
+        /// Azure subscription. The subscription ID forms part of the URI for
+        /// every service call.
+        /// </param>
         /// <param name='resourceGroupName'>
         /// The name of the resource group to get. The name is case
         /// insensitive.
         /// </param>
         /// <param name='workspaceName'>
-        /// Name of the Log Analytics Workspace that will contain the
-        /// linkedServices resource
+        /// The name of the workspace.
         /// </param>
         /// <param name='linkedServiceName'>
         /// Name of the linkedServices resource
@@ -55,17 +59,21 @@ namespace Microsoft.Azure.Management.OperationalInsights
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<AzureOperationResponse<LinkedService>> CreateOrUpdateWithHttpMessagesAsync(string resourceGroupName, string workspaceName, string linkedServiceName, LinkedService parameters, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<AzureOperationResponse<LinkedService>> CreateOrUpdateWithHttpMessagesAsync(string subscriptionId, string resourceGroupName, string workspaceName, string linkedServiceName, LinkedService parameters, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
         /// Deletes a linked service instance.
         /// </summary>
+        /// <param name='subscriptionId'>
+        /// Gets subscription credentials which uniquely identify Microsoft
+        /// Azure subscription. The subscription ID forms part of the URI for
+        /// every service call.
+        /// </param>
         /// <param name='resourceGroupName'>
         /// The name of the resource group to get. The name is case
         /// insensitive.
         /// </param>
         /// <param name='workspaceName'>
-        /// Name of the Log Analytics Workspace that contains the
-        /// linkedServices resource
+        /// The name of the workspace.
         /// </param>
         /// <param name='linkedServiceName'>
         /// Name of the linked service.
@@ -82,17 +90,21 @@ namespace Microsoft.Azure.Management.OperationalInsights
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<AzureOperationResponse> DeleteWithHttpMessagesAsync(string resourceGroupName, string workspaceName, string linkedServiceName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<AzureOperationResponse> DeleteWithHttpMessagesAsync(string subscriptionId, string resourceGroupName, string workspaceName, string linkedServiceName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
         /// Gets a linked service instance.
         /// </summary>
+        /// <param name='subscriptionId'>
+        /// Gets subscription credentials which uniquely identify Microsoft
+        /// Azure subscription. The subscription ID forms part of the URI for
+        /// every service call.
+        /// </param>
         /// <param name='resourceGroupName'>
         /// The name of the resource group to get. The name is case
         /// insensitive.
         /// </param>
         /// <param name='workspaceName'>
-        /// Name of the Log Analytics Workspace that contains the
-        /// linkedServices resource
+        /// The name of the workspace.
         /// </param>
         /// <param name='linkedServiceName'>
         /// Name of the linked service.
@@ -112,17 +124,21 @@ namespace Microsoft.Azure.Management.OperationalInsights
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<AzureOperationResponse<LinkedService>> GetWithHttpMessagesAsync(string resourceGroupName, string workspaceName, string linkedServiceName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<AzureOperationResponse<LinkedService>> GetWithHttpMessagesAsync(string subscriptionId, string resourceGroupName, string workspaceName, string linkedServiceName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
         /// <summary>
         /// Gets the linked services instances in a workspace.
         /// </summary>
+        /// <param name='subscriptionId'>
+        /// Gets subscription credentials which uniquely identify Microsoft
+        /// Azure subscription. The subscription ID forms part of the URI for
+        /// every service call.
+        /// </param>
         /// <param name='resourceGroupName'>
         /// The name of the resource group to get. The name is case
         /// insensitive.
         /// </param>
         /// <param name='workspaceName'>
-        /// Name of the Log Analytics Workspace that contains the linked
-        /// services.
+        /// The name of the workspace.
         /// </param>
         /// <param name='customHeaders'>
         /// The headers that will be added to request.
@@ -139,6 +155,6 @@ namespace Microsoft.Azure.Management.OperationalInsights
         /// <exception cref="Microsoft.Rest.ValidationException">
         /// Thrown when a required parameter is null
         /// </exception>
-        Task<AzureOperationResponse<IEnumerable<LinkedService>>> ListByWorkspaceWithHttpMessagesAsync(string resourceGroupName, string workspaceName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<AzureOperationResponse<IEnumerable<LinkedService>>> ListByWorkspaceWithHttpMessagesAsync(string subscriptionId, string resourceGroupName, string workspaceName, Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
     }
 }

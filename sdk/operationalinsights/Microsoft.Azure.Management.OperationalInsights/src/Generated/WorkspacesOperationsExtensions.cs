@@ -29,18 +29,23 @@ namespace Microsoft.Azure.Management.OperationalInsights
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
+            /// <param name='subscriptionId'>
+            /// Gets subscription credentials which uniquely identify Microsoft Azure
+            /// subscription. The subscription ID forms part of the URI for every service
+            /// call.
+            /// </param>
             /// <param name='resourceGroupName'>
             /// The name of the resource group to get. The name is case insensitive.
             /// </param>
             /// <param name='workspaceName'>
-            /// Name of the Log Analytics Workspace.
+            /// The name of the workspace.
             /// </param>
             /// <param name='intelligencePackName'>
             /// The name of the intelligence pack to be disabled.
             /// </param>
-            public static void DisableIntelligencePack(this IWorkspacesOperations operations, string resourceGroupName, string workspaceName, string intelligencePackName)
+            public static void DisableIntelligencePack(this IWorkspacesOperations operations, string subscriptionId, string resourceGroupName, string workspaceName, string intelligencePackName)
             {
-                operations.DisableIntelligencePackAsync(resourceGroupName, workspaceName, intelligencePackName).GetAwaiter().GetResult();
+                operations.DisableIntelligencePackAsync(subscriptionId, resourceGroupName, workspaceName, intelligencePackName).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -49,11 +54,16 @@ namespace Microsoft.Azure.Management.OperationalInsights
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
+            /// <param name='subscriptionId'>
+            /// Gets subscription credentials which uniquely identify Microsoft Azure
+            /// subscription. The subscription ID forms part of the URI for every service
+            /// call.
+            /// </param>
             /// <param name='resourceGroupName'>
             /// The name of the resource group to get. The name is case insensitive.
             /// </param>
             /// <param name='workspaceName'>
-            /// Name of the Log Analytics Workspace.
+            /// The name of the workspace.
             /// </param>
             /// <param name='intelligencePackName'>
             /// The name of the intelligence pack to be disabled.
@@ -61,9 +71,9 @@ namespace Microsoft.Azure.Management.OperationalInsights
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task DisableIntelligencePackAsync(this IWorkspacesOperations operations, string resourceGroupName, string workspaceName, string intelligencePackName, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task DisableIntelligencePackAsync(this IWorkspacesOperations operations, string subscriptionId, string resourceGroupName, string workspaceName, string intelligencePackName, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.DisableIntelligencePackWithHttpMessagesAsync(resourceGroupName, workspaceName, intelligencePackName, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                (await operations.DisableIntelligencePackWithHttpMessagesAsync(subscriptionId, resourceGroupName, workspaceName, intelligencePackName, null, cancellationToken).ConfigureAwait(false)).Dispose();
             }
 
             /// <summary>
@@ -72,18 +82,23 @@ namespace Microsoft.Azure.Management.OperationalInsights
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
+            /// <param name='subscriptionId'>
+            /// Gets subscription credentials which uniquely identify Microsoft Azure
+            /// subscription. The subscription ID forms part of the URI for every service
+            /// call.
+            /// </param>
             /// <param name='resourceGroupName'>
             /// The name of the resource group to get. The name is case insensitive.
             /// </param>
             /// <param name='workspaceName'>
-            /// Name of the Log Analytics Workspace.
+            /// The name of the workspace.
             /// </param>
             /// <param name='intelligencePackName'>
             /// The name of the intelligence pack to be enabled.
             /// </param>
-            public static void EnableIntelligencePack(this IWorkspacesOperations operations, string resourceGroupName, string workspaceName, string intelligencePackName)
+            public static void EnableIntelligencePack(this IWorkspacesOperations operations, string subscriptionId, string resourceGroupName, string workspaceName, string intelligencePackName)
             {
-                operations.EnableIntelligencePackAsync(resourceGroupName, workspaceName, intelligencePackName).GetAwaiter().GetResult();
+                operations.EnableIntelligencePackAsync(subscriptionId, resourceGroupName, workspaceName, intelligencePackName).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -92,11 +107,16 @@ namespace Microsoft.Azure.Management.OperationalInsights
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
+            /// <param name='subscriptionId'>
+            /// Gets subscription credentials which uniquely identify Microsoft Azure
+            /// subscription. The subscription ID forms part of the URI for every service
+            /// call.
+            /// </param>
             /// <param name='resourceGroupName'>
             /// The name of the resource group to get. The name is case insensitive.
             /// </param>
             /// <param name='workspaceName'>
-            /// Name of the Log Analytics Workspace.
+            /// The name of the workspace.
             /// </param>
             /// <param name='intelligencePackName'>
             /// The name of the intelligence pack to be enabled.
@@ -104,9 +124,9 @@ namespace Microsoft.Azure.Management.OperationalInsights
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task EnableIntelligencePackAsync(this IWorkspacesOperations operations, string resourceGroupName, string workspaceName, string intelligencePackName, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task EnableIntelligencePackAsync(this IWorkspacesOperations operations, string subscriptionId, string resourceGroupName, string workspaceName, string intelligencePackName, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.EnableIntelligencePackWithHttpMessagesAsync(resourceGroupName, workspaceName, intelligencePackName, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                (await operations.EnableIntelligencePackWithHttpMessagesAsync(subscriptionId, resourceGroupName, workspaceName, intelligencePackName, null, cancellationToken).ConfigureAwait(false)).Dispose();
             }
 
             /// <summary>
@@ -116,15 +136,20 @@ namespace Microsoft.Azure.Management.OperationalInsights
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
+            /// <param name='subscriptionId'>
+            /// Gets subscription credentials which uniquely identify Microsoft Azure
+            /// subscription. The subscription ID forms part of the URI for every service
+            /// call.
+            /// </param>
             /// <param name='resourceGroupName'>
             /// The name of the resource group to get. The name is case insensitive.
             /// </param>
             /// <param name='workspaceName'>
-            /// Name of the Log Analytics Workspace.
+            /// The name of the workspace.
             /// </param>
-            public static IList<IntelligencePack> ListIntelligencePacks(this IWorkspacesOperations operations, string resourceGroupName, string workspaceName)
+            public static IList<IntelligencePack> ListIntelligencePacks(this IWorkspacesOperations operations, string subscriptionId, string resourceGroupName, string workspaceName)
             {
-                return operations.ListIntelligencePacksAsync(resourceGroupName, workspaceName).GetAwaiter().GetResult();
+                return operations.ListIntelligencePacksAsync(subscriptionId, resourceGroupName, workspaceName).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -134,18 +159,23 @@ namespace Microsoft.Azure.Management.OperationalInsights
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
+            /// <param name='subscriptionId'>
+            /// Gets subscription credentials which uniquely identify Microsoft Azure
+            /// subscription. The subscription ID forms part of the URI for every service
+            /// call.
+            /// </param>
             /// <param name='resourceGroupName'>
             /// The name of the resource group to get. The name is case insensitive.
             /// </param>
             /// <param name='workspaceName'>
-            /// Name of the Log Analytics Workspace.
+            /// The name of the workspace.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<IList<IntelligencePack>> ListIntelligencePacksAsync(this IWorkspacesOperations operations, string resourceGroupName, string workspaceName, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<IList<IntelligencePack>> ListIntelligencePacksAsync(this IWorkspacesOperations operations, string subscriptionId, string resourceGroupName, string workspaceName, CancellationToken cancellationToken = default(CancellationToken))
             {
-                using (var _result = await operations.ListIntelligencePacksWithHttpMessagesAsync(resourceGroupName, workspaceName, null, cancellationToken).ConfigureAwait(false))
+                using (var _result = await operations.ListIntelligencePacksWithHttpMessagesAsync(subscriptionId, resourceGroupName, workspaceName, null, cancellationToken).ConfigureAwait(false))
                 {
                     return _result.Body;
                 }
@@ -157,15 +187,20 @@ namespace Microsoft.Azure.Management.OperationalInsights
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
+            /// <param name='subscriptionId'>
+            /// Gets subscription credentials which uniquely identify Microsoft Azure
+            /// subscription. The subscription ID forms part of the URI for every service
+            /// call.
+            /// </param>
             /// <param name='resourceGroupName'>
             /// The name of the resource group to get. The name is case insensitive.
             /// </param>
             /// <param name='workspaceName'>
-            /// Name of the Log Analytics Workspace.
+            /// The name of the workspace.
             /// </param>
-            public static SharedKeys GetSharedKeys(this IWorkspacesOperations operations, string resourceGroupName, string workspaceName)
+            public static SharedKeys GetSharedKeys(this IWorkspacesOperations operations, string subscriptionId, string resourceGroupName, string workspaceName)
             {
-                return operations.GetSharedKeysAsync(resourceGroupName, workspaceName).GetAwaiter().GetResult();
+                return operations.GetSharedKeysAsync(subscriptionId, resourceGroupName, workspaceName).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -174,18 +209,23 @@ namespace Microsoft.Azure.Management.OperationalInsights
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
+            /// <param name='subscriptionId'>
+            /// Gets subscription credentials which uniquely identify Microsoft Azure
+            /// subscription. The subscription ID forms part of the URI for every service
+            /// call.
+            /// </param>
             /// <param name='resourceGroupName'>
             /// The name of the resource group to get. The name is case insensitive.
             /// </param>
             /// <param name='workspaceName'>
-            /// Name of the Log Analytics Workspace.
+            /// The name of the workspace.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<SharedKeys> GetSharedKeysAsync(this IWorkspacesOperations operations, string resourceGroupName, string workspaceName, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<SharedKeys> GetSharedKeysAsync(this IWorkspacesOperations operations, string subscriptionId, string resourceGroupName, string workspaceName, CancellationToken cancellationToken = default(CancellationToken))
             {
-                using (var _result = await operations.GetSharedKeysWithHttpMessagesAsync(resourceGroupName, workspaceName, null, cancellationToken).ConfigureAwait(false))
+                using (var _result = await operations.GetSharedKeysWithHttpMessagesAsync(subscriptionId, resourceGroupName, workspaceName, null, cancellationToken).ConfigureAwait(false))
                 {
                     return _result.Body;
                 }
@@ -197,15 +237,20 @@ namespace Microsoft.Azure.Management.OperationalInsights
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
+            /// <param name='subscriptionId'>
+            /// Gets subscription credentials which uniquely identify Microsoft Azure
+            /// subscription. The subscription ID forms part of the URI for every service
+            /// call.
+            /// </param>
             /// <param name='resourceGroupName'>
             /// The name of the resource group to get. The name is case insensitive.
             /// </param>
             /// <param name='workspaceName'>
             /// The name of the workspace.
             /// </param>
-            public static IEnumerable<UsageMetric> ListUsages(this IWorkspacesOperations operations, string resourceGroupName, string workspaceName)
+            public static IEnumerable<UsageMetric> ListUsages(this IWorkspacesOperations operations, string subscriptionId, string resourceGroupName, string workspaceName)
             {
-                return operations.ListUsagesAsync(resourceGroupName, workspaceName).GetAwaiter().GetResult();
+                return operations.ListUsagesAsync(subscriptionId, resourceGroupName, workspaceName).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -213,6 +258,11 @@ namespace Microsoft.Azure.Management.OperationalInsights
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
+            /// </param>
+            /// <param name='subscriptionId'>
+            /// Gets subscription credentials which uniquely identify Microsoft Azure
+            /// subscription. The subscription ID forms part of the URI for every service
+            /// call.
             /// </param>
             /// <param name='resourceGroupName'>
             /// The name of the resource group to get. The name is case insensitive.
@@ -223,9 +273,9 @@ namespace Microsoft.Azure.Management.OperationalInsights
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<IEnumerable<UsageMetric>> ListUsagesAsync(this IWorkspacesOperations operations, string resourceGroupName, string workspaceName, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<IEnumerable<UsageMetric>> ListUsagesAsync(this IWorkspacesOperations operations, string subscriptionId, string resourceGroupName, string workspaceName, CancellationToken cancellationToken = default(CancellationToken))
             {
-                using (var _result = await operations.ListUsagesWithHttpMessagesAsync(resourceGroupName, workspaceName, null, cancellationToken).ConfigureAwait(false))
+                using (var _result = await operations.ListUsagesWithHttpMessagesAsync(subscriptionId, resourceGroupName, workspaceName, null, cancellationToken).ConfigureAwait(false))
                 {
                     return _result.Body;
                 }
@@ -237,15 +287,20 @@ namespace Microsoft.Azure.Management.OperationalInsights
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
+            /// <param name='subscriptionId'>
+            /// Gets subscription credentials which uniquely identify Microsoft Azure
+            /// subscription. The subscription ID forms part of the URI for every service
+            /// call.
+            /// </param>
             /// <param name='resourceGroupName'>
             /// The name of the resource group to get. The name is case insensitive.
             /// </param>
             /// <param name='workspaceName'>
             /// The name of the workspace.
             /// </param>
-            public static IEnumerable<ManagementGroup> ListManagementGroups(this IWorkspacesOperations operations, string resourceGroupName, string workspaceName)
+            public static IEnumerable<ManagementGroup> ListManagementGroups(this IWorkspacesOperations operations, string subscriptionId, string resourceGroupName, string workspaceName)
             {
-                return operations.ListManagementGroupsAsync(resourceGroupName, workspaceName).GetAwaiter().GetResult();
+                return operations.ListManagementGroupsAsync(subscriptionId, resourceGroupName, workspaceName).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -253,6 +308,11 @@ namespace Microsoft.Azure.Management.OperationalInsights
             /// </summary>
             /// <param name='operations'>
             /// The operations group for this extension method.
+            /// </param>
+            /// <param name='subscriptionId'>
+            /// Gets subscription credentials which uniquely identify Microsoft Azure
+            /// subscription. The subscription ID forms part of the URI for every service
+            /// call.
             /// </param>
             /// <param name='resourceGroupName'>
             /// The name of the resource group to get. The name is case insensitive.
@@ -263,9 +323,9 @@ namespace Microsoft.Azure.Management.OperationalInsights
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<IEnumerable<ManagementGroup>> ListManagementGroupsAsync(this IWorkspacesOperations operations, string resourceGroupName, string workspaceName, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<IEnumerable<ManagementGroup>> ListManagementGroupsAsync(this IWorkspacesOperations operations, string subscriptionId, string resourceGroupName, string workspaceName, CancellationToken cancellationToken = default(CancellationToken))
             {
-                using (var _result = await operations.ListManagementGroupsWithHttpMessagesAsync(resourceGroupName, workspaceName, null, cancellationToken).ConfigureAwait(false))
+                using (var _result = await operations.ListManagementGroupsWithHttpMessagesAsync(subscriptionId, resourceGroupName, workspaceName, null, cancellationToken).ConfigureAwait(false))
                 {
                     return _result.Body;
                 }
@@ -280,9 +340,14 @@ namespace Microsoft.Azure.Management.OperationalInsights
             /// <param name='resourceGroupName'>
             /// The name of the resource group to get. The name is case insensitive.
             /// </param>
-            public static IEnumerable<Workspace> ListByResourceGroup(this IWorkspacesOperations operations, string resourceGroupName)
+            /// <param name='subscriptionId'>
+            /// Gets subscription credentials which uniquely identify Microsoft Azure
+            /// subscription. The subscription ID forms part of the URI for every service
+            /// call.
+            /// </param>
+            public static IEnumerable<Workspace> ListByResourceGroup(this IWorkspacesOperations operations, string resourceGroupName, string subscriptionId)
             {
-                return operations.ListByResourceGroupAsync(resourceGroupName).GetAwaiter().GetResult();
+                return operations.ListByResourceGroupAsync(resourceGroupName, subscriptionId).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -294,12 +359,17 @@ namespace Microsoft.Azure.Management.OperationalInsights
             /// <param name='resourceGroupName'>
             /// The name of the resource group to get. The name is case insensitive.
             /// </param>
+            /// <param name='subscriptionId'>
+            /// Gets subscription credentials which uniquely identify Microsoft Azure
+            /// subscription. The subscription ID forms part of the URI for every service
+            /// call.
+            /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<IEnumerable<Workspace>> ListByResourceGroupAsync(this IWorkspacesOperations operations, string resourceGroupName, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<IEnumerable<Workspace>> ListByResourceGroupAsync(this IWorkspacesOperations operations, string resourceGroupName, string subscriptionId, CancellationToken cancellationToken = default(CancellationToken))
             {
-                using (var _result = await operations.ListByResourceGroupWithHttpMessagesAsync(resourceGroupName, null, cancellationToken).ConfigureAwait(false))
+                using (var _result = await operations.ListByResourceGroupWithHttpMessagesAsync(resourceGroupName, subscriptionId, null, cancellationToken).ConfigureAwait(false))
                 {
                     return _result.Body;
                 }
@@ -311,9 +381,14 @@ namespace Microsoft.Azure.Management.OperationalInsights
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
-            public static IEnumerable<Workspace> List(this IWorkspacesOperations operations)
+            /// <param name='subscriptionId'>
+            /// Gets subscription credentials which uniquely identify Microsoft Azure
+            /// subscription. The subscription ID forms part of the URI for every service
+            /// call.
+            /// </param>
+            public static IEnumerable<Workspace> List(this IWorkspacesOperations operations, string subscriptionId)
             {
-                return operations.ListAsync().GetAwaiter().GetResult();
+                return operations.ListAsync(subscriptionId).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -322,12 +397,17 @@ namespace Microsoft.Azure.Management.OperationalInsights
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
+            /// <param name='subscriptionId'>
+            /// Gets subscription credentials which uniquely identify Microsoft Azure
+            /// subscription. The subscription ID forms part of the URI for every service
+            /// call.
+            /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<IEnumerable<Workspace>> ListAsync(this IWorkspacesOperations operations, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<IEnumerable<Workspace>> ListAsync(this IWorkspacesOperations operations, string subscriptionId, CancellationToken cancellationToken = default(CancellationToken))
             {
-                using (var _result = await operations.ListWithHttpMessagesAsync(null, cancellationToken).ConfigureAwait(false))
+                using (var _result = await operations.ListWithHttpMessagesAsync(subscriptionId, null, cancellationToken).ConfigureAwait(false))
                 {
                     return _result.Body;
                 }
@@ -339,8 +419,13 @@ namespace Microsoft.Azure.Management.OperationalInsights
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
+            /// <param name='subscriptionId'>
+            /// Gets subscription credentials which uniquely identify Microsoft Azure
+            /// subscription. The subscription ID forms part of the URI for every service
+            /// call.
+            /// </param>
             /// <param name='resourceGroupName'>
-            /// The resource group name of the workspace.
+            /// The name of the resource group to get. The name is case insensitive.
             /// </param>
             /// <param name='workspaceName'>
             /// The name of the workspace.
@@ -348,9 +433,9 @@ namespace Microsoft.Azure.Management.OperationalInsights
             /// <param name='parameters'>
             /// The parameters required to create or update a workspace.
             /// </param>
-            public static Workspace CreateOrUpdate(this IWorkspacesOperations operations, string resourceGroupName, string workspaceName, Workspace parameters)
+            public static Workspace CreateOrUpdate(this IWorkspacesOperations operations, string subscriptionId, string resourceGroupName, string workspaceName, Workspace parameters)
             {
-                return operations.CreateOrUpdateAsync(resourceGroupName, workspaceName, parameters).GetAwaiter().GetResult();
+                return operations.CreateOrUpdateAsync(subscriptionId, resourceGroupName, workspaceName, parameters).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -359,8 +444,13 @@ namespace Microsoft.Azure.Management.OperationalInsights
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
+            /// <param name='subscriptionId'>
+            /// Gets subscription credentials which uniquely identify Microsoft Azure
+            /// subscription. The subscription ID forms part of the URI for every service
+            /// call.
+            /// </param>
             /// <param name='resourceGroupName'>
-            /// The resource group name of the workspace.
+            /// The name of the resource group to get. The name is case insensitive.
             /// </param>
             /// <param name='workspaceName'>
             /// The name of the workspace.
@@ -371,9 +461,9 @@ namespace Microsoft.Azure.Management.OperationalInsights
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<Workspace> CreateOrUpdateAsync(this IWorkspacesOperations operations, string resourceGroupName, string workspaceName, Workspace parameters, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<Workspace> CreateOrUpdateAsync(this IWorkspacesOperations operations, string subscriptionId, string resourceGroupName, string workspaceName, Workspace parameters, CancellationToken cancellationToken = default(CancellationToken))
             {
-                using (var _result = await operations.CreateOrUpdateWithHttpMessagesAsync(resourceGroupName, workspaceName, parameters, null, cancellationToken).ConfigureAwait(false))
+                using (var _result = await operations.CreateOrUpdateWithHttpMessagesAsync(subscriptionId, resourceGroupName, workspaceName, parameters, null, cancellationToken).ConfigureAwait(false))
                 {
                     return _result.Body;
                 }
@@ -385,15 +475,20 @@ namespace Microsoft.Azure.Management.OperationalInsights
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
+            /// <param name='subscriptionId'>
+            /// Gets subscription credentials which uniquely identify Microsoft Azure
+            /// subscription. The subscription ID forms part of the URI for every service
+            /// call.
+            /// </param>
             /// <param name='resourceGroupName'>
-            /// The resource group name of the workspace.
+            /// The name of the resource group to get. The name is case insensitive.
             /// </param>
             /// <param name='workspaceName'>
-            /// Name of the Log Analytics Workspace.
+            /// The name of the workspace.
             /// </param>
-            public static void Delete(this IWorkspacesOperations operations, string resourceGroupName, string workspaceName)
+            public static void Delete(this IWorkspacesOperations operations, string subscriptionId, string resourceGroupName, string workspaceName)
             {
-                operations.DeleteAsync(resourceGroupName, workspaceName).GetAwaiter().GetResult();
+                operations.DeleteAsync(subscriptionId, resourceGroupName, workspaceName).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -402,18 +497,23 @@ namespace Microsoft.Azure.Management.OperationalInsights
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
+            /// <param name='subscriptionId'>
+            /// Gets subscription credentials which uniquely identify Microsoft Azure
+            /// subscription. The subscription ID forms part of the URI for every service
+            /// call.
+            /// </param>
             /// <param name='resourceGroupName'>
-            /// The resource group name of the workspace.
+            /// The name of the resource group to get. The name is case insensitive.
             /// </param>
             /// <param name='workspaceName'>
-            /// Name of the Log Analytics Workspace.
+            /// The name of the workspace.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task DeleteAsync(this IWorkspacesOperations operations, string resourceGroupName, string workspaceName, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task DeleteAsync(this IWorkspacesOperations operations, string subscriptionId, string resourceGroupName, string workspaceName, CancellationToken cancellationToken = default(CancellationToken))
             {
-                (await operations.DeleteWithHttpMessagesAsync(resourceGroupName, workspaceName, null, cancellationToken).ConfigureAwait(false)).Dispose();
+                (await operations.DeleteWithHttpMessagesAsync(subscriptionId, resourceGroupName, workspaceName, null, cancellationToken).ConfigureAwait(false)).Dispose();
             }
 
             /// <summary>
@@ -422,15 +522,20 @@ namespace Microsoft.Azure.Management.OperationalInsights
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
+            /// <param name='subscriptionId'>
+            /// Gets subscription credentials which uniquely identify Microsoft Azure
+            /// subscription. The subscription ID forms part of the URI for every service
+            /// call.
+            /// </param>
             /// <param name='resourceGroupName'>
-            /// The resource group name of the workspace.
+            /// The name of the resource group to get. The name is case insensitive.
             /// </param>
             /// <param name='workspaceName'>
-            /// Name of the Log Analytics Workspace.
+            /// The name of the workspace.
             /// </param>
-            public static Workspace Get(this IWorkspacesOperations operations, string resourceGroupName, string workspaceName)
+            public static Workspace Get(this IWorkspacesOperations operations, string subscriptionId, string resourceGroupName, string workspaceName)
             {
-                return operations.GetAsync(resourceGroupName, workspaceName).GetAwaiter().GetResult();
+                return operations.GetAsync(subscriptionId, resourceGroupName, workspaceName).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -439,18 +544,23 @@ namespace Microsoft.Azure.Management.OperationalInsights
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
+            /// <param name='subscriptionId'>
+            /// Gets subscription credentials which uniquely identify Microsoft Azure
+            /// subscription. The subscription ID forms part of the URI for every service
+            /// call.
+            /// </param>
             /// <param name='resourceGroupName'>
-            /// The resource group name of the workspace.
+            /// The name of the resource group to get. The name is case insensitive.
             /// </param>
             /// <param name='workspaceName'>
-            /// Name of the Log Analytics Workspace.
+            /// The name of the workspace.
             /// </param>
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<Workspace> GetAsync(this IWorkspacesOperations operations, string resourceGroupName, string workspaceName, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<Workspace> GetAsync(this IWorkspacesOperations operations, string subscriptionId, string resourceGroupName, string workspaceName, CancellationToken cancellationToken = default(CancellationToken))
             {
-                using (var _result = await operations.GetWithHttpMessagesAsync(resourceGroupName, workspaceName, null, cancellationToken).ConfigureAwait(false))
+                using (var _result = await operations.GetWithHttpMessagesAsync(subscriptionId, resourceGroupName, workspaceName, null, cancellationToken).ConfigureAwait(false))
                 {
                     return _result.Body;
                 }
@@ -462,8 +572,13 @@ namespace Microsoft.Azure.Management.OperationalInsights
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
+            /// <param name='subscriptionId'>
+            /// Gets subscription credentials which uniquely identify Microsoft Azure
+            /// subscription. The subscription ID forms part of the URI for every service
+            /// call.
+            /// </param>
             /// <param name='resourceGroupName'>
-            /// The resource group name of the workspace.
+            /// The name of the resource group to get. The name is case insensitive.
             /// </param>
             /// <param name='workspaceName'>
             /// The name of the workspace.
@@ -471,9 +586,9 @@ namespace Microsoft.Azure.Management.OperationalInsights
             /// <param name='parameters'>
             /// The parameters required to patch a workspace.
             /// </param>
-            public static Workspace Update(this IWorkspacesOperations operations, string resourceGroupName, string workspaceName, Workspace parameters)
+            public static Workspace Update(this IWorkspacesOperations operations, string subscriptionId, string resourceGroupName, string workspaceName, Workspace parameters)
             {
-                return operations.UpdateAsync(resourceGroupName, workspaceName, parameters).GetAwaiter().GetResult();
+                return operations.UpdateAsync(subscriptionId, resourceGroupName, workspaceName, parameters).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -482,8 +597,13 @@ namespace Microsoft.Azure.Management.OperationalInsights
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
+            /// <param name='subscriptionId'>
+            /// Gets subscription credentials which uniquely identify Microsoft Azure
+            /// subscription. The subscription ID forms part of the URI for every service
+            /// call.
+            /// </param>
             /// <param name='resourceGroupName'>
-            /// The resource group name of the workspace.
+            /// The name of the resource group to get. The name is case insensitive.
             /// </param>
             /// <param name='workspaceName'>
             /// The name of the workspace.
@@ -494,9 +614,9 @@ namespace Microsoft.Azure.Management.OperationalInsights
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<Workspace> UpdateAsync(this IWorkspacesOperations operations, string resourceGroupName, string workspaceName, Workspace parameters, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<Workspace> UpdateAsync(this IWorkspacesOperations operations, string subscriptionId, string resourceGroupName, string workspaceName, Workspace parameters, CancellationToken cancellationToken = default(CancellationToken))
             {
-                using (var _result = await operations.UpdateWithHttpMessagesAsync(resourceGroupName, workspaceName, parameters, null, cancellationToken).ConfigureAwait(false))
+                using (var _result = await operations.UpdateWithHttpMessagesAsync(subscriptionId, resourceGroupName, workspaceName, parameters, null, cancellationToken).ConfigureAwait(false))
                 {
                     return _result.Body;
                 }
@@ -508,8 +628,13 @@ namespace Microsoft.Azure.Management.OperationalInsights
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
+            /// <param name='subscriptionId'>
+            /// Gets subscription credentials which uniquely identify Microsoft Azure
+            /// subscription. The subscription ID forms part of the URI for every service
+            /// call.
+            /// </param>
             /// <param name='resourceGroupName'>
-            /// The resource group name of the workspace.
+            /// The name of the resource group to get. The name is case insensitive.
             /// </param>
             /// <param name='workspaceName'>
             /// The name of the workspace.
@@ -517,9 +642,9 @@ namespace Microsoft.Azure.Management.OperationalInsights
             /// <param name='parameters'>
             /// The parameters required to create or update a workspace.
             /// </param>
-            public static Workspace BeginCreateOrUpdate(this IWorkspacesOperations operations, string resourceGroupName, string workspaceName, Workspace parameters)
+            public static Workspace BeginCreateOrUpdate(this IWorkspacesOperations operations, string subscriptionId, string resourceGroupName, string workspaceName, Workspace parameters)
             {
-                return operations.BeginCreateOrUpdateAsync(resourceGroupName, workspaceName, parameters).GetAwaiter().GetResult();
+                return operations.BeginCreateOrUpdateAsync(subscriptionId, resourceGroupName, workspaceName, parameters).GetAwaiter().GetResult();
             }
 
             /// <summary>
@@ -528,8 +653,13 @@ namespace Microsoft.Azure.Management.OperationalInsights
             /// <param name='operations'>
             /// The operations group for this extension method.
             /// </param>
+            /// <param name='subscriptionId'>
+            /// Gets subscription credentials which uniquely identify Microsoft Azure
+            /// subscription. The subscription ID forms part of the URI for every service
+            /// call.
+            /// </param>
             /// <param name='resourceGroupName'>
-            /// The resource group name of the workspace.
+            /// The name of the resource group to get. The name is case insensitive.
             /// </param>
             /// <param name='workspaceName'>
             /// The name of the workspace.
@@ -540,9 +670,9 @@ namespace Microsoft.Azure.Management.OperationalInsights
             /// <param name='cancellationToken'>
             /// The cancellation token.
             /// </param>
-            public static async Task<Workspace> BeginCreateOrUpdateAsync(this IWorkspacesOperations operations, string resourceGroupName, string workspaceName, Workspace parameters, CancellationToken cancellationToken = default(CancellationToken))
+            public static async Task<Workspace> BeginCreateOrUpdateAsync(this IWorkspacesOperations operations, string subscriptionId, string resourceGroupName, string workspaceName, Workspace parameters, CancellationToken cancellationToken = default(CancellationToken))
             {
-                using (var _result = await operations.BeginCreateOrUpdateWithHttpMessagesAsync(resourceGroupName, workspaceName, parameters, null, cancellationToken).ConfigureAwait(false))
+                using (var _result = await operations.BeginCreateOrUpdateWithHttpMessagesAsync(subscriptionId, resourceGroupName, workspaceName, parameters, null, cancellationToken).ConfigureAwait(false))
                 {
                     return _result.Body;
                 }
