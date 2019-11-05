@@ -82,5 +82,10 @@ namespace Microsoft.Azure.Management.KeyVault
         /// </summary>
         IOperations Operations { get; }
 
+        /// <summary>
+        /// Gets the ISecretsOperations.
+        /// </summary>
+        ISecretsOperations Secrets { get; }
+
     }
 }

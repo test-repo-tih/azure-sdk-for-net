@@ -88,6 +88,11 @@ namespace Microsoft.Azure.Management.KeyVault
         public virtual IOperations Operations { get; private set; }
 
         /// <summary>
+        /// Gets the ISecretsOperations.
+        /// </summary>
+        public virtual ISecretsOperations Secrets { get; private set; }
+
+        /// <summary>
         /// Initializes a new instance of the KeyVaultManagementClient class.
         /// </summary>
         /// <param name='httpClient'>
@@ -330,8 +335,9 @@ namespace Microsoft.Azure.Management.KeyVault
         {
             Vaults = new VaultsOperations(this);
             Operations = new Operations(this);
+            Secrets = new SecretsOperations(this);
             BaseUri = new System.Uri("https://management.azure.com");
-            ApiVersion = "2018-02-14";
+            ApiVersion = "2019-09-01";
             AcceptLanguage = "en-US";
             LongRunningOperationRetryTimeout = 30;
             GenerateClientRequestId = true;
